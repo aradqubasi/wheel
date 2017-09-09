@@ -20,9 +20,9 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.radialMenu = RadialView(point: CGPoint(x: 0, y: 0))
+        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2))
         self.view.addSubview(radialMenu)
-        // Do any additional setup after loading the view, typically from a nib.
+        self.view.addSubview(SpokeView(point: .zero, radius: 10, side: 50, background: UIColor.yellow, angle: 0))
     }
 
     override func didReceiveMemoryWarning() {
@@ -33,9 +33,18 @@ class ViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction func onButtonClick(_ sender: Any) {
-        //radialMenu.onSomething()
-        radialMenu.onAnimatedSomething()
+        radialMenu.addSpoke()
     }
+    
+    @IBAction func onLeftButtonClick(_ sender: Any) {
+        radialMenu.left()
+    }
+    
+    @IBAction func onRightButtonClick(_ sender: Any) {
+        radialMenu.right()
+    }
+    
+    
     
 }
 

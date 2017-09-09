@@ -14,117 +14,31 @@ class RadialView: UIView {
     
     var delegate: RadialViewDelegate?
     
-    // MARK: - Basic Geometric Properties
-    
-    var wheelSateliteRadius: CGFloat
-    {
-        get {
-            return 15
-        }
-    }
-    
-    var wheelRadius: CGFloat
-    {
-        get {
-            return 150
-        }
-    }
-    
-    var spacing: CGFloat {
-        get {
-            return 15
-        }
-    }
-    
-    // MARK: - Calculatable Geometric Properties
-    
-    var sateliteCentersAngularDistance: CGFloat {
-        get {
-            return (2 * self.wheelSateliteRadius + self.spacing) / self.wheelRadius
-        }
-    }
-    
-    var sateliteAngularSpacing: CGFloat {
-        get {
-            return self.spacing / self.wheelRadius
-        }
-    }
-    
-    var sateliteAngularSize: CGFloat {
-        get {
-            return 2 * self.wheelSateliteRadius / self.wheelRadius
-        }
-    }
-    
-    var startAngle: CGFloat {
-        get {
-            return bottomAngle + sateliteAngularSpacing + sateliteAngularSize * 0.5
-        }
-    }
-    
-    var bottomAngle: CGFloat {
-        return -CGFloat.pi * 0.5
-    }
-    
-    var topAngle: CGFloat {
-        return CGFloat.pi * 0.5
-    }
-    
     // MARK: - Private Properties
     
-    private var spokes: [UIView] = []
+    private var _spokes: [SpokeView] = []
     
-    private var currentAngle: CGFloat = 0
+    private var _current: CGFloat = 0
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    private var _offset: CGFloat = 0
+    
+    private var _top: CGFloat = CGFloat.pi / 2
+    
+    private var _bottom: CGFloat = CGFloat.pi / 2
+    
+    private var _radius: CGFloat = 100
+    
+    private let _distance: CGFloat = CGFloat.pi / 6
     
     // MARK: - Initialization
     
-    init(point: CGPoint) {
+    init(center: CGPoint) {
         super.init(frame: .zero)
-        //prepare frame
-        let color = UIColor.blue
-        //tweak
-        let r: CGFloat = self.wheelRadius
-        let sqrt2 = CGFloat(sqrt(2))
-        let spokeOrigin = CGPoint(x: r * (sqrt2 - 1.0), y: r * (sqrt2 - 1.0))
-        let deltaAngle = (2 * self.wheelSateliteRadius + self.spacing) / self.wheelRadius
-        print(deltaAngle)
-        let spokeCount =  Int(2 * CGFloat.pi / deltaAngle)
-        print(spokeCount)
-        self.frame.origin = point
-        self.frame.size = CGSize(width: r * sqrt2 * 2, height: r * sqrt2 * 2)
+        self.frame.origin = CGPoint(x: center.x - _radius * CGFloat(2).squareRoot(), y: center.y - _radius * CGFloat(2).squareRoot())
+        self.frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
+        self.frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
         
-        //self.bounds.origin = CGPoint(x: r * sqrt2, y: r * sqrt2)
-        //self.bounds.size = CGSize(width: r * 2, height: r * 2)
-        
-        self.backgroundColor = color
-        //self.layer.cornerRadius = self.frame.width * 0.5
-        //
-        
-        /*
-        let spokeView = getSquareView(point: spokeOrigin, side: r * 2, background: UIColor.clear)
-        self.addSubview(spokeView)
-        spokeView.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 0.25)
-        let r2 = self.wheelSateliteRadius
-        let spokeItem = getCircleView(point: CGPoint(x: 0, y: r - r2), radius: r2, background: UIColor.yellow)
-        spokeView.addSubview(spokeItem)
-        */
-        var angle: CGFloat = 0//self.startAngle
-        for _ in 0..<spokeCount {
-            let spokeView = getSpokeView(point: spokeOrigin, radius: self.wheelSateliteRadius, side: self.wheelRadius * 2, background: UIColor.red, angle: angle)
-            //spokeView.transform = CGAffineTransform(rotationAngle: angle)
-            self.addSubview(spokeView)
-            spokes.append(spokeView)
-            angle += deltaAngle
-        }
-        //spokeView.transform = CGAffineTransform.identity.rotated(by: CGFloat(M_PI) * 0.5)
+        self.backgroundColor = UIColor.red
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,76 +48,55 @@ class RadialView: UIView {
     // MARK: - Public Methods
     
     func onSomething() {
-        /*
-        for spoke in spokes {
-            spoke.transform = CGAffineTransform(rotationAngle: CGFloat.pi / 6)
-        }
- */
-        displayAsHalfWheel()
+
     }
     
-    func onAnimatedSomething() {
-        /*
-        UIView.animate(withDuration: 0.225, animations: {
-            () in
-            self.displayAsHalfWheel()
-        })
-        */
-        self.currentAngle -= self.sateliteCentersAngularDistance
-        UIView.animate(withDuration: 0.225, animations: {
-            () in
-            var angle: CGFloat = self.startAngle + self.currentAngle
-            for spoke in self.spokes {
-                spoke.transform = CGAffineTransform(rotationAngle: angle)
-                print(angle)
-                if angle > self.bottomAngle && angle < self.topAngle {
-                    spoke.subviews[0].backgroundColor = UIColor.red
-                }
-                else {
-                    spoke.subviews[0].backgroundColor = UIColor.orange
-                }
-                angle += self.sateliteCentersAngularDistance
-            }
-        })
+    func addSpoke() {
+        let offset = CGFloat(_spokes.count) * _distance
+        
+        let origin = CGPoint(x: frame.width / 2 - _radius, y: frame.width / 2 - _radius)
+        
+        let spoke = SpokeView(point: origin, radius: _radius / 6, side: _radius * 2, background: UIColor.black, angle: offset)
+        
+        _spokes.append(spoke)
+        
+        self.addSubview(spoke)
+        
+        show()
+    }
+    
+    func left() {
+        _current -= CGFloat.pi / 12
+        
+        show()
+    }
+    
+    func right() {
+        _current += CGFloat.pi / 12
+        
+        show()
     }
     
     // MARK: - Private Methods
     
-    private func displayAsHalfWheel() {
-        var angle: CGFloat = self.startAngle + self.currentAngle
-        for spoke in self.spokes {
-            spoke.transform = CGAffineTransform(rotationAngle: angle)
-            if angle > self.bottomAngle && angle < self.topAngle {
-                spoke.subviews[0].backgroundColor = UIColor.red
+    func show() {
+        let angle = _current + _offset
+        for spoke in _spokes {
+            let spokeAngle = spoke.offset + angle
+            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+            if spokeAngle > _top + _offset {
+                spoke.visibility = false
+            }
+            else if spokeAngle < -_bottom + _offset {
+                spoke.visibility = false
             }
             else {
-                spoke.subviews[0].backgroundColor = UIColor.orange
+                spoke.visibility = true
             }
-            angle += self.sateliteCentersAngularDistance
         }
     }
     
     // MARK: - Placeholders
     
-    func getCircleView(point: CGPoint, radius: CGFloat, background: UIColor) -> UIView {
-        let circle = UIView(frame: CGRect(origin: point, size: CGSize(width: radius * 2, height: radius * 2)))
-        circle.layer.cornerRadius = radius
-        circle.backgroundColor = background
-        return circle
-    }
-    
-    func getSquareView(point: CGPoint, side: CGFloat, background: UIColor) -> UIView {
-        let square = UIView(frame: CGRect(origin: point, size: CGSize(width: side, height: side)))
-        square.backgroundColor = background
-        return square
-    }
-    
-    func getSpokeView(point: CGPoint, radius: CGFloat, side: CGFloat, background: UIColor, angle: CGFloat) -> UIView {
-        let spokeView = getSquareView(point: point, side: side, background: UIColor.clear)
-        let spokeItem = getCircleView(point: CGPoint(x: 0, y: side * 0.5 - radius), radius: radius, background: background)
-        spokeView.addSubview(spokeItem)
-        spokeView.transform = CGAffineTransform(rotationAngle: angle)
-        return spokeView
-    }
     
 }

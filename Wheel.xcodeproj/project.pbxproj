@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* ViewController.swift */; };
 		15F0BB391F404FCC006F646E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB371F404FCC006F646E /* Main.storyboard */; };
@@ -14,6 +15,8 @@
 		15F0BB3E1F404FCC006F646E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */; };
 		15F0BB491F404FCC006F646E /* WheelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB481F404FCC006F646E /* WheelTests.swift */; };
 		15F0BB541F404FCC006F646E /* WheelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB531F404FCC006F646E /* WheelUITests.swift */; };
+		15F0BB621F404FE3006F646E /* RadialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB611F404FE3006F646E /* RadialView.swift */; };
+		15F0BB641F40522C006F646E /* RadialViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB631F40522C006F646E /* RadialViewDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F0BB351F404FCC006F646E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -47,6 +51,8 @@
 		15F0BB4F1F404FCC006F646E /* WheelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB531F404FCC006F646E /* WheelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelUITests.swift; sourceTree = "<group>"; };
 		15F0BB551F404FCC006F646E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15F0BB611F404FE3006F646E /* RadialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialView.swift; sourceTree = "<group>"; };
+		15F0BB631F40522C006F646E /* RadialViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialViewDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +109,9 @@
 				15F0BB3A1F404FCC006F646E /* Assets.xcassets */,
 				15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */,
 				15F0BB3F1F404FCC006F646E /* Info.plist */,
+				15F0BB611F404FE3006F646E /* RadialView.swift */,
+				15F0BB631F40522C006F646E /* RadialViewDelegate.swift */,
+				159F18821F63D4920079C545 /* SpokeView.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -263,7 +272,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
+				15F0BB641F40522C006F646E /* RadialViewDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
+				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
+				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -514,6 +526,7 @@
 				15F0BB5A1F404FCC006F646E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15F0BB5B1F404FCC006F646E /* Build configuration list for PBXNativeTarget "WheelTests" */ = {
 			isa = XCConfigurationList;
@@ -522,6 +535,7 @@
 				15F0BB5D1F404FCC006F646E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15F0BB5E1F404FCC006F646E /* Build configuration list for PBXNativeTarget "WheelUITests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +544,7 @@
 				15F0BB601F404FCC006F646E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

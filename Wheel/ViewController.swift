@@ -9,9 +9,19 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    // MARK: - Outlets
+    
+    
+    
+    // MARK: - SubViews
+    
+    var radialMenu: RadialView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.radialMenu = RadialView(point: CGPoint(x: 0, y: 0))
+        self.view.addSubview(radialMenu)
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -20,6 +30,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    // MARK: - Actions
+    
+    @IBAction func onButtonClick(_ sender: Any) {
+        //radialMenu.onSomething()
+        radialMenu.onAnimatedSomething()
+    }
+    
 }
 

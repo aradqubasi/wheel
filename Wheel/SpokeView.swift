@@ -35,6 +35,10 @@ class SpokeView: UIView {
     
     private var _visibility: Bool = true
     
+    private var _velocity: CGFloat = 0
+    
+    private var _energy: CGFloat = 0
+    
     // MARK: - Initialization
     
     init(point: CGPoint, radius: CGFloat, side: CGFloat, background: UIColor, angle: CGFloat) {
@@ -56,4 +60,27 @@ class SpokeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Private Methods
+    
+    func move() {
+        UIView.animate(withDuration: 0.2, animations: {
+            print("move: \(self._velocity) \(self._energy)")
+            let angle = self._velocity * 0.2 / (CGFloat.pi * 2 * self.frame.size.width) + self.offset
+            self.transform = CGAffineTransform(rotationAngle: angle)
+        }, completion: { (success: Bool) in
+            print("completion: \(self._velocity) \(self._energy)")
+            self._energy = max(0, self._energy - self._velocity * 0.2)
+            if self._energy != 0 {
+                self.move()
+            }
+        })
+    }
+    
+    // MARK: - Public Methods
+    
+    func push(_ velocity: CGFloat) {
+        _velocity = velocity
+        _energy = velocity * 3
+        move()
+    }
 }

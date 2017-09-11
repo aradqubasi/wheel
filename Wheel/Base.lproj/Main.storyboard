@@ -47,9 +47,18 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Uqm-fh-oPN" appends="YES" id="eWd-9C-0G0"/>
+                        </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="Uqm-fh-oPN">
+                    <connections>
+                        <action selector="onScroll:" destination="BYZ-38-t0r" id="8Fs-xH-kJJ"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="140" y="138.98050974512745"/>
         </scene>

@@ -14,6 +14,16 @@ class RadialView: UIView {
     
     var delegate: RadialViewDelegate?
     
+    var current: CGFloat {
+        get {
+            var angle = _current
+            while angle > CGFloat.pi * 2  {
+                angle -= CGFloat.pi * 2
+            }
+            return angle
+        }
+    }
+    
     // MARK: - Private Properties
     
     private var _spokes: [SpokeView] = []
@@ -29,6 +39,12 @@ class RadialView: UIView {
     private var _radius: CGFloat = 100
     
     private let _distance: CGFloat = CGFloat.pi / 6
+    
+    private let _decelerate: CGFloat = 1000
+    
+    private var _velocity: CGFloat = 0
+    
+    private var _moving: Bool = false
     
     // MARK: - Initialization
     
@@ -65,6 +81,12 @@ class RadialView: UIView {
         show()
     }
     
+    func rotate(by angle: CGFloat) {
+        _current += angle
+        
+        show()
+    }
+    
     func left() {
         _current -= CGFloat.pi / 12
         
@@ -75,6 +97,10 @@ class RadialView: UIView {
         _current += CGFloat.pi / 12
         
         show()
+    }
+    
+    func push(_ force: CGFloat) {
+        _velocity += force
     }
     
     // MARK: - Private Methods
@@ -93,6 +119,12 @@ class RadialView: UIView {
             else {
                 spoke.visibility = true
             }
+        }
+    }
+    
+    func move() {
+        for spoke in _spokes {
+            spoke.push(1000)
         }
     }
     

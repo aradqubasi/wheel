@@ -40,11 +40,21 @@ class RadialView: UIView {
     
     private let _distance: CGFloat = CGFloat.pi / 6
     
-    private let _decelerate: CGFloat = 1000
-    
     private var _velocity: CGFloat = 0
     
+    private var _maxvelocity: CGFloat = CGFloat.pi
+    
+    private var _topvelocity: CGFloat = CGFloat.pi * 2
+    
+    private var _decelerate: CGFloat = CGFloat.pi
+    
     private var _moving: Bool = false
+    
+    private var _following: Bool = false
+    
+    private var _lastFollowTime: Date?
+    
+    private var _lastFollowAngle: CGFloat?
     
     // MARK: - Initialization
     
@@ -99,10 +109,6 @@ class RadialView: UIView {
         show()
     }
     
-    func push(_ force: CGFloat) {
-        _velocity += force
-    }
-    
     // MARK: - Private Methods
     
     func show() {
@@ -122,10 +128,75 @@ class RadialView: UIView {
         }
     }
     
-    func move() {
-        for spoke in _spokes {
-            spoke.push(1000)
+    func move(override: Bool) {
+        if override || !self._moving {
+            self._moving = true
+            UIView.animate(withDuration: 0.05, animations: {
+                let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
+                let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
+                //self._current += velocity * 0.05 / (CGFloat.pi * 2 * self._radius)
+                self._current += velocity * 0.05
+                if !self._following {
+                    let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.05)
+                    self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
+                }
+                for spoke in self._spokes {
+                    let angle = self._current + self._offset + spoke.offset
+                    spoke.transform = CGAffineTransform(rotationAngle: angle)
+                }
+                //print(self._velocity)
+            }, completion: { (success: Bool) in
+                if self._velocity != 0 {
+                    self.move(override: true)
+                }
+                else {
+                    self._moving = false
+                }
+                //print(self._velocity)
+            })
         }
+    }
+    
+    func push(_ speed: CGFloat) {
+        _velocity += max(_velocity, speed)
+        move(override: false)
+    }
+    
+    func beginFollow(at angle: CGFloat) {
+        _following = true
+        _lastFollowTime = Date()
+        _lastFollowAngle = angle
+    }
+    
+    func continueFollow(at angle: CGFloat) {
+        guard let lastTime = _lastFollowTime, let lastAngle = _lastFollowAngle else {
+            fatalError("following did not start")
+        }
+        
+        let deltaTime = -CGFloat(lastTime.timeIntervalSince(Date()))
+        let deltaAngle = angle - lastAngle
+        //print("deltatime = \(deltaTime)")
+        //print(deltaAngle)
+        let newVelocity = deltaAngle / deltaTime
+        _velocity = CGFloat(sign: newVelocity.sign, exponent: min(abs(newVelocity), _topvelocity).exponent, significand: min(abs(newVelocity), _topvelocity).significand)
+        
+        //print(_velocity)
+        //rotate(by: deltaAngle)
+        move(override: false)
+        _lastFollowTime = Date()
+        _lastFollowAngle = angle
+    }
+    
+    func endFollow() {
+        _following = false
+        _lastFollowTime = nil
+        _lastFollowAngle = nil
+        move(override: false)
+    }
+    
+    func stopMoving() {
+        _velocity = 0
+        move(override: false)
     }
     
     // MARK: - Placeholders

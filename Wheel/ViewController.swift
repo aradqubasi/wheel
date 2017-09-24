@@ -22,15 +22,12 @@ class ViewController: UIViewController {
     
     var radialMenu: RadialView!
     
-    var scrollGestureRecognizer: ScrollGestureRecognizer!
-    
-    var tapGestureRecognizer: UITapGestureRecognizer!
-    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2))
+        //self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2))
+        self.radialMenu = RadialView(center: CGPoint(x: 0, y: self.view.frame.height / 2))
         self.view.addSubview(radialMenu)
         //self.view.addSubview(SpokeView(point: .zero, radius: 10, side: 50, background: UIColor.yellow, angle: 0))
         //self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))
@@ -62,6 +59,15 @@ class ViewController: UIViewController {
         print("its a tap")
     }
     
+    @IBAction func onClick(_ sender: ClickGestureRecognizer) {
+//        switch sender.state {
+//            
+//        }
+        print("onclick \(sender.state.rawValue)")
+    }
+    
+    
+    
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         //print(sender.state)
         switch sender.state {
@@ -88,7 +94,7 @@ class ViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
+    private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
         //let point = sender.location(in: self.view)
         //let center = self.radialMenu.center
         

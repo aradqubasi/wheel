@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
-		159F18851F640F5B0079C545 /* ScrollGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18841F640F5B0079C545 /* ScrollGestureRecognizer.swift */; };
+		159F18851F640F5B0079C545 /* ClickGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* ViewController.swift */; };
 		15F0BB391F404FCC006F646E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB371F404FCC006F646E /* Main.storyboard */; };
@@ -39,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
-		159F18841F640F5B0079C545 /* ScrollGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrollGestureRecognizer.swift; sourceTree = "<group>"; };
+		159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickGestureRecognizer.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F0BB351F404FCC006F646E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				15F0BB611F404FE3006F646E /* RadialView.swift */,
 				15F0BB631F40522C006F646E /* RadialViewDelegate.swift */,
 				159F18821F63D4920079C545 /* SpokeView.swift */,
-				159F18841F640F5B0079C545 /* ScrollGestureRecognizer.swift */,
+				159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -274,7 +274,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				159F18851F640F5B0079C545 /* ScrollGestureRecognizer.swift in Sources */,
+				159F18851F640F5B0079C545 /* ClickGestureRecognizer.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RadialViewDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,

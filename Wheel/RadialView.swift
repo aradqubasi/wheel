@@ -56,6 +56,8 @@ class RadialView: UIView {
     
     private var _lastFollowAngle: CGFloat?
     
+    private var _translationAngle: CGFloat?
+    
     // MARK: - Initialization
     
     init(center: CGPoint) {
@@ -127,10 +129,42 @@ class RadialView: UIView {
             }
         }
     }
-    
+
     func move(override: Bool) {
         if override || !self._moving {
             self._moving = true
+            
+            let spin = {
+                let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
+                let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
+                self._current += velocity * 0.03
+                if !self._following {
+                    let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.03)
+                    self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
+                }
+                for spoke in self._spokes {
+                    let angle = self._current + self._offset + spoke.offset
+                    spoke.transform = CGAffineTransform(rotationAngle: angle)
+                }
+            }
+            
+            let endspin = { (success: Bool) in
+                if self._velocity != 0 {
+                    self.move(override: true)
+                }
+                else {
+                    self._moving = false
+                }
+            }
+            
+            UIView.animate(withDuration: 0.03, animations: spin, completion: endspin)
+        }
+    }
+    /*
+    func move(override: Bool) {
+        if override || !self._moving {
+            self._moving = true
+            
             UIView.animate(withDuration: 0.05, animations: {
                 let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
                 let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
@@ -156,7 +190,7 @@ class RadialView: UIView {
             })
         }
     }
-    
+    */
     func push(_ speed: CGFloat) {
         _velocity += max(_velocity, speed)
         move(override: false)

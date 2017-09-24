@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		151AFE3D1F77A9FF00CC5357 /* RVSpinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */; };
+		151AFE3F1F77B92E00CC5357 /* RVSpokeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
 		159F18851F640F5B0079C545 /* ClickGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSpinState.swift; sourceTree = "<group>"; };
+		151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSpokeState.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
 		159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClickGestureRecognizer.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +119,8 @@
 				15F0BB631F40522C006F646E /* RadialViewDelegate.swift */,
 				159F18821F63D4920079C545 /* SpokeView.swift */,
 				159F18841F640F5B0079C545 /* ClickGestureRecognizer.swift */,
+				151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */,
+				151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -274,10 +280,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				151AFE3F1F77B92E00CC5357 /* RVSpokeState.swift in Sources */,
 				159F18851F640F5B0079C545 /* ClickGestureRecognizer.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RadialViewDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
+				151AFE3D1F77A9FF00CC5357 /* RVSpinState.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
 				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 			);

@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2))
-        self.radialMenu = RadialView(center: CGPoint(x: 0, y: self.view.frame.height / 2))
+        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2))
         self.view.addSubview(radialMenu)
         //self.view.addSubview(SpokeView(point: .zero, radius: 10, side: 50, background: UIColor.yellow, angle: 0))
         //self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))

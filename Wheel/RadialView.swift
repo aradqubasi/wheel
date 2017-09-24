@@ -42,15 +42,21 @@ class RadialView: UIView {
     
     private var _velocity: CGFloat = 0
     
+    private var _minvelocity: CGFloat = CGFloat.pi / 6
+    
     private var _maxvelocity: CGFloat = CGFloat.pi
     
     private var _topvelocity: CGFloat = CGFloat.pi * 2
     
     private var _decelerate: CGFloat = CGFloat.pi
     
-    private var _moving: Bool = false
+//    private var _moving: Bool = false
+//    
+//    private var _following: Bool = false
     
-    private var _following: Bool = false
+    private var _spinState: RVSpinState = .calm
+    
+    private var _animating: Bool = false
     
     private var _lastFollowTime: Date?
     
@@ -114,90 +120,159 @@ class RadialView: UIView {
     // MARK: - Private Methods
     
     func show() {
-        let angle = _current + _offset
-        for spoke in _spokes {
-            let spokeAngle = spoke.offset + angle
+//        for spoke in _spokes {
+//            let spokeAngle = spoke.offset + _current
+//            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+//            if spokeAngle > _offset + _top {
+//                spoke.visibility = false
+//            }
+//            else if spokeAngle < _offset - _bottom {
+//                spoke.visibility = false
+//            }
+//            else {
+//                spoke.visibility = true
+//            }
+//        }
+        for n in 0..<_spokes.count {
+            let spokeAngle = _distance * CGFloat(n) + _current
+            let spoke = _spokes[n]
             spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
-            if spokeAngle > _top + _offset {
-                spoke.visibility = false
+            if spokeAngle > _offset + _top {
+                spoke.state = .invisible
             }
-            else if spokeAngle < -_bottom + _offset {
-                spoke.visibility = false
+            else if spokeAngle < _offset - _bottom {
+                spoke.state = .invisible
+            }
+            else if spokeAngle > _offset + _distance / 2 {
+                spoke.state = .visible
+            }
+            else if spokeAngle < _offset - _distance / 2 {
+                spoke.state = .visible
             }
             else {
-                spoke.visibility = true
+                spoke.state = .focused
             }
         }
     }
 
     func move(override: Bool) {
-        if override || !self._moving {
-            self._moving = true
-            
+        if override || !_animating {
+            _animating = true
             let spin = {
-                let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
-                let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
-                self._current += velocity * 0.03
-                if !self._following {
+                switch self._spinState {
+                case .calm:
+                    print("calming")
+                case .following:
+                    print("following")
+                    self._current += self._velocity * 0.03
+                case .decelerate:
+                    print("decelerating")
+                    let constrainedVelocity = max(min(abs(self._velocity), self._maxvelocity), self._minvelocity)
+                    let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
+                    self._current += velocity * 0.03
                     let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.03)
                     self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
+                case .normalize:
+                    print("normalizing")
+                    let currentSpokeNumber = (self._offset - self._current) / self._distance
+                    let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
+                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._distance
+                    let delta = self._current - targetCurrentAngle
+                    if abs(delta) < 0.03 * self._minvelocity {
+                        self._current = targetCurrentAngle
+                    }
+                    else {
+                        let velocity = CGFloat(sign: ((-delta).sign), exponent: self._minvelocity.exponent, significand: self._minvelocity.significand)
+                        self._current += velocity * 0.03
+                    }
                 }
-                for spoke in self._spokes {
-                    let angle = self._current + self._offset + spoke.offset
-                    spoke.transform = CGAffineTransform(rotationAngle: angle)
-                }
+                
+                self.show()
             }
             
             let endspin = { (success: Bool) in
-                if self._velocity != 0 {
+                switch self._spinState {
+                case .calm:
+                    print("end of calming")
+                case .following:
+                    print("end of following")
+                    //self._spinState = .decelerate
                     self.move(override: true)
-                }
-                else {
-                    self._moving = false
+                case .decelerate:
+                    print("end of decelerating")
+                    if self._current < self._offset - self._distance * CGFloat((self._spokes.count - 1)) {
+                        self._velocity = 0
+                        self._spinState = .normalize
+                        self.move(override: true)
+                    }
+                    else if self._current > self._offset {
+                        self._velocity = 0
+                        self._spinState = .normalize
+                        self.move(override: true)
+                    }
+                    else if self._velocity != 0 {
+                        self.move(override: true)
+                    }
+                    else {
+                        self._spinState = .normalize
+                        self.move(override: true)
+                    }
+                case .normalize:
+                    print("end of normalizing")
+                    let currentSpokeNumber = (self._offset - self._current) / self._distance
+                    let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
+                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._distance
+                    let delta = self._current - targetCurrentAngle
+                    if delta != 0 {
+                        self.move(override: true)
+                    }
+                    else {
+                        self._spinState = .calm
+                        self._animating = false
+                    }
                 }
             }
             
             UIView.animate(withDuration: 0.03, animations: spin, completion: endspin)
         }
+
     }
-    /*
-    func move(override: Bool) {
-        if override || !self._moving {
-            self._moving = true
-            
-            UIView.animate(withDuration: 0.05, animations: {
-                let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
-                let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
-                //self._current += velocity * 0.05 / (CGFloat.pi * 2 * self._radius)
-                self._current += velocity * 0.05
-                if !self._following {
-                    let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.05)
-                    self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
-                }
-                for spoke in self._spokes {
-                    let angle = self._current + self._offset + spoke.offset
-                    spoke.transform = CGAffineTransform(rotationAngle: angle)
-                }
-                //print(self._velocity)
-            }, completion: { (success: Bool) in
-                if self._velocity != 0 {
-                    self.move(override: true)
-                }
-                else {
-                    self._moving = false
-                }
-                //print(self._velocity)
-            })
-        }
-    }
-    */
+    
+//    func move(override: Bool) {
+//        if override || !self._moving {
+//            self._moving = true
+//            
+//            let spin = {
+//                let constrainedVelocity = min(abs(self._velocity), self._maxvelocity)
+//                let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
+//                self._current += velocity * 0.03
+//                if !self._following {
+//                    let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.03)
+//                    self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
+//                }
+//                self.show()
+//            }
+//            
+//            let endspin = { (success: Bool) in
+//                if self._velocity != 0 {
+//                    self.move(override: true)
+//                }
+//                else {
+//                    self._moving = false
+//                }
+//            }
+//            
+//            UIView.animate(withDuration: 0.03, animations: spin, completion: endspin)
+//        }
+//    }
+    
     func push(_ speed: CGFloat) {
         _velocity += max(_velocity, speed)
         move(override: false)
     }
     
     func beginFollow(at angle: CGFloat) {
-        _following = true
+        _spinState = .following
         _lastFollowTime = Date()
         _lastFollowAngle = angle
     }
@@ -222,7 +297,7 @@ class RadialView: UIView {
     }
     
     func endFollow() {
-        _following = false
+        _spinState = .decelerate
         _lastFollowTime = nil
         _lastFollowAngle = nil
         move(override: false)

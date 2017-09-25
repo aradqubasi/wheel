@@ -164,7 +164,15 @@ class RadialView: UIView {
                     print("calming")
                 case .following:
                     print("following")
-                    self._current += self._velocity * 0.03
+                    if self._current < self._offset - self._distance * CGFloat((self._spokes.count - 1)) {
+                        //do nothing
+                    }
+                    else if self._current > self._offset {
+                        //do nothing
+                    }
+                    else {
+                        self._current += self._velocity * 0.03
+                    }
                 case .decelerate:
                     print("decelerating")
                     let constrainedVelocity = max(min(abs(self._velocity), self._maxvelocity), self._minvelocity)
@@ -178,11 +186,11 @@ class RadialView: UIView {
                     let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
                     let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._distance
                     let delta = self._current - targetCurrentAngle
-                    if abs(delta) < 0.03 * self._minvelocity {
+                    if abs(delta) < 0.03 * self._maxvelocity {
                         self._current = targetCurrentAngle
                     }
                     else {
-                        let velocity = CGFloat(sign: ((-delta).sign), exponent: self._minvelocity.exponent, significand: self._minvelocity.significand)
+                        let velocity = CGFloat(sign: ((-delta).sign), exponent: self._maxvelocity.exponent, significand: self._maxvelocity.significand)
                         self._current += velocity * 0.03
                     }
                 }

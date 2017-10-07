@@ -22,17 +22,42 @@ class ViewController: UIViewController {
     
     var radialMenu: RadialView!
     
+    var basesMenu: RadialView!
+    
+    var fatsMenu: RadialView!
+    
+    var veggiesMenu: RadialView!
+    
+    var proteinsMenu: RadialView!
+    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2))
-        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2))
-        self.view.addSubview(radialMenu)
-        //self.view.addSubview(SpokeView(point: .zero, radius: 10, side: 50, background: UIColor.yellow, angle: 0))
-        //self.tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.onTap(_:)))
-        //self.scrollGestureRecognizer = ScrollGestureRecognizer(target: self, action: #selector(self.onScroll(_:)))
+//        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2))
         
+        let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
+        
+        basesMenu = RadialView(center: leftMiddle, radius: 100, orientation: .left)
+        
+        fatsMenu = RadialView(center: leftMiddle, radius: 150, orientation: .left)
+        
+        veggiesMenu = RadialView(center: leftMiddle, radius: 200, orientation: .left)
+        
+        proteinsMenu = RadialView(center: leftMiddle, radius: 250, orientation: .left)
+        
+        radialMenu = basesMenu
+        
+        self.view.addSubview(proteinsMenu)
+        self.view.addSubview(veggiesMenu)
+        self.view.addSubview(fatsMenu)
+        self.view.addSubview(basesMenu)
+        
+        for menu: RadialView in [basesMenu, fatsMenu, veggiesMenu, proteinsMenu] {
+            for _ in 0..<5 {
+                menu.addSpoke()
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,29 +72,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onLeftButtonClick(_ sender: Any) {
-        radialMenu.left()
+        radialMenu.shrink()
     }
     
     @IBAction func onRightButtonClick(_ sender: Any) {
-        //radialMenu.right()
-        radialMenu.push(1000)
+        radialMenu.enlarge()
     }
     
-    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
-        print("its a tap")
+    @IBAction func onNextMenu(_ sender: Any) {
+        if radialMenu === basesMenu {
+            radialMenu = proteinsMenu
+        }
+        else if radialMenu === fatsMenu {
+            radialMenu = basesMenu
+        }
+        else if radialMenu === veggiesMenu {
+            radialMenu = fatsMenu
+        }
+        else if radialMenu === proteinsMenu {
+            radialMenu = veggiesMenu
+        }
     }
-    
-    @IBAction func onClick(_ sender: ClickGestureRecognizer) {
-//        switch sender.state {
-//            
-//        }
-        print("onclick \(sender.state.rawValue)")
-    }
-    
     
     
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
-        //print(sender.state)
         switch sender.state {
         case .began:
             print("began")
@@ -79,39 +105,26 @@ class ViewController: UIViewController {
         case .changed:
             print("changed")
             radialMenu.continueFollow(at: getAngle(point: sender.location(in: self.view), center: radialMenu.center))
-            //print(sender.velocity(in: self.view))
         case .ended:
-            print("ended")
             radialMenu.endFollow()
-            //_prev = nil
-            //print(sender.velocity(in: self.view))
-        case .failed:
-            print("failed")
-        case .possible:
-            print("possible")
+        default:
+            print("\(sender.state)")
         }
     }
     
     // MARK: - Private Methods
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
-        //let point = sender.location(in: self.view)
-        //let center = self.radialMenu.center
         
         let dx = point.x - center.x
         let dy = point.y - center.y
         var angle = atan(abs(dy) / abs(dx))
-        
-        //print(point)
-        //print(CGPoint(x: origin.x + self.radialMenu.frame.width / 2.0, y: origin.y + self.radialMenu.frame.height / 2.0))
-        //print(CGPoint(x: dx, y: dy))
         
         if dx > 0 &&  dy > 0 {
             //do nothing
         }
         else if dx < 0 &&  dy > 0 {
             angle = CGFloat.pi - angle
-            //angle = CGFloat.pi * 2 - angle
         }
         else if dx < 0 &&  dy < 0 {
             angle = CGFloat.pi + angle
@@ -119,14 +132,7 @@ class ViewController: UIViewController {
         else if dx > 0 &&  dy < 0 {
             angle = CGFloat.pi * 2 - angle
         }
-        
-        //print(angle)
-        
         return angle
-        //if let prev = _prev {
-        //    self.radialMenu.rotate(by: angle - prev)
-        //}
-        //_prev = angle
     }
     
 }

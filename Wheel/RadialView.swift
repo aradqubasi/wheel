@@ -24,18 +24,18 @@ class RadialView: UIView {
         }
     }
     
-    var RVRadius: CGFloat {
-        get {
-            return _radius
-        }
-        set (new) {
-            _radius = new
-//            frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
-//            frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
-//            frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
-            show()
-        }
-    }
+//    var RVRadius: CGFloat {
+//        get {
+//            return _radius
+//        }
+//        set (new) {
+//            _radius = new
+////            frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
+////            frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
+////            frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
+//            show()
+//        }
+//    }
     
     var RVCenter: CGPoint {
         get {
@@ -48,12 +48,33 @@ class RadialView: UIView {
         }
     }
     
+//    var RVDistance: CGFloat {
+//        get {
+//            return _distance
+//        }
+//        set (new) {
+//            _distance = new
+//            show()
+//        }
+//    }
+    
+    var RVSettings: RVStateSettings {
+        get {
+            return _settings
+        }
+        set (new) {
+            _settings = new
+            show()
+        }
+    }
     
     // MARK: - Private Properties
     
     private var _center: CGPoint = .zero
     
     private var _spokes: [SpokeView] = []
+    
+    private var _focus: Int = -1
     
     private var _current: CGFloat = 0
     
@@ -63,9 +84,11 @@ class RadialView: UIView {
     
     private var _bottom: CGFloat = CGFloat.pi / 2
     
-    private var _radius: CGFloat = 0
+//    private var _radius: CGFloat = 0
     
-    private let _distance: CGFloat = CGFloat.pi / 6
+    private var _tipRadius: CGFloat = 20
+    
+//    private var _distance: CGFloat = CGFloat.pi / 6
     
     private var _velocity: CGFloat = 0
     
@@ -85,12 +108,17 @@ class RadialView: UIView {
     
     private var _lastFollowAngle: CGFloat?
     
+    private var _settings: RVStateSettings = RVStateSettings(wheelRadius: 100, pinDistance: CGFloat.pi / 6)
+    
     // MARK: - Initialization
     
-    init(center: CGPoint, radius: CGFloat, orientation: RVOrientation) {
+//    init(center: CGPoint, radius: CGFloat, orientation: RVOrientation, distance: CGFloat) {
+    init(center: CGPoint, orientation: RVOrientation, settings: RVStateSettings) {
         super.init(frame: .zero)
         _center = center
-        _radius = radius
+        _settings = settings
+//        _radius = radius
+//        _distance = distance
         switch orientation {
         case .bottom:
             _offset = CGFloat.pi
@@ -119,16 +147,16 @@ class RadialView: UIView {
     
     func addSpoke() {
 //        let origin = CGPoint(x: frame.width / 2 - _radius, y: frame.width / 2 - _radius)
-        let origin = CGPoint(x: RVRadius * (CGFloat(2).squareRoot() - 1), y: RVRadius * (CGFloat(2).squareRoot() - 1))
-        let sateliteRadius = RVRadius / 6
-        let spokeDiameter = RVRadius * 2
+        let origin = CGPoint(x: _settings.wheelRadius * (CGFloat(2).squareRoot() - 1), y: _settings.wheelRadius * (CGFloat(2).squareRoot() - 1))
+        let sateliteRadius = _tipRadius
+        let spokeDiameter = _settings.wheelRadius * 2
         let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
         
         _spokes.append(spoke)
         
         self.addSubview(spoke)
         
-        _current = (CGFloat(_spokes.count) / 2).rounded(.down) * _distance - _offset
+        _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _settings.pinDistance
         
         show()
     }
@@ -137,12 +165,14 @@ class RadialView: UIView {
     // MARK: - Private Methods
     
     private func show() {
-        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
-        frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
-        frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
-        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
+        frame.origin = CGPoint(x: _center.x - _settings.wheelRadius * CGFloat(2).squareRoot(), y: _center.y - _settings.wheelRadius * CGFloat(2).squareRoot())
+        frame.size.width = _settings.wheelRadius * 2 * CGFloat(2).squareRoot()
+        frame.size.height = _settings.wheelRadius * 2 * CGFloat(2).squareRoot()
+        frame.origin = CGPoint(x: _center.x - _settings.wheelRadius * CGFloat(2).squareRoot(), y: _center.y - _settings.wheelRadius * CGFloat(2).squareRoot())
+        
+        
         for n in 0..<_spokes.count {
-            let spokeAngle = _distance * CGFloat(n) + _current
+            let spokeAngle = _settings.pinDistance * CGFloat(n) + _current
             let spoke = _spokes[n]
             spoke.transform = CGAffineTransform(rotationAngle: 0)
             if spokeAngle > _offset + _top {
@@ -151,10 +181,10 @@ class RadialView: UIView {
             else if spokeAngle < _offset - _bottom {
                 spoke.state = .invisible
             }
-            else if spokeAngle > _offset + _distance / 2 {
+            else if spokeAngle > _offset + _settings.pinDistance / 2 {
                 spoke.state = .visible
             }
-            else if spokeAngle < _offset - _distance / 2 {
+            else if spokeAngle < _offset - _settings.pinDistance / 2 {
                 spoke.state = .visible
             }
             else {
@@ -178,7 +208,7 @@ class RadialView: UIView {
                     print("calming")
                 case .following:
                     print("following")
-                    if self._current < self._offset - self._distance * CGFloat((self._spokes.count - 1)) {
+                    if self._current < self._offset - self._settings.pinDistance * CGFloat((self._spokes.count - 1)) {
                         //do nothing
                     }
                     else if self._current > self._offset {
@@ -196,9 +226,9 @@ class RadialView: UIView {
                     self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
                 case .normalize:
                     print("normalizing")
-                    let currentSpokeNumber = (self._offset - self._current) / self._distance
+                    let currentSpokeNumber = (self._offset - self._current) / self._settings.pinDistance
                     let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
-                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._distance
+                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._settings.pinDistance
                     let delta = self._current - targetCurrentAngle
                     if abs(delta) < 0.03 * self._maxvelocity {
                         self._current = targetCurrentAngle
@@ -222,7 +252,7 @@ class RadialView: UIView {
                     self.move(override: true)
                 case .decelerate:
                     print("end of decelerating")
-                    if self._current < self._offset - self._distance * CGFloat((self._spokes.count - 1)) {
+                    if self._current < self._offset - self._settings.pinDistance * CGFloat((self._spokes.count - 1)) {
                         self._velocity = 0
                         self._spinState = .normalize
                         self.move(override: true)
@@ -241,9 +271,9 @@ class RadialView: UIView {
                     }
                 case .normalize:
                     print("end of normalizing")
-                    let currentSpokeNumber = (self._offset - self._current) / self._distance
+                    let currentSpokeNumber = (self._offset - self._current) / self._settings.pinDistance
                     let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
-                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._distance
+                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._settings.pinDistance
                     let delta = self._current - targetCurrentAngle
                     if delta != 0 {
                         self.move(override: true)
@@ -295,30 +325,24 @@ class RadialView: UIView {
     // MARK: - Placeholders
     
     func enlarge() {
-        RVRadius = min(150, RVRadius + 50)
-        for spoke in _spokes {
-            spoke.transform = CGAffineTransform(rotationAngle: 0)
-//            spoke.show(side: spoke.SVSide, radius: spoke.SVRadius * 1.1)
-            
-//            spoke.SVRadius = 
-            spoke.SVSide = RVRadius * 2
-            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
-            
-        }
-        show()
+//        RVRadius = min(150, RVRadius + 50)
+//        for spoke in _spokes {
+//            spoke.transform = CGAffineTransform(rotationAngle: 0)
+//            spoke.SVSide = RVRadius * 2
+//            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
+//            
+//        }
+//        show()
     }
     
     func shrink() {
-        RVRadius = max(50, RVRadius - 50)
-        for spoke in _spokes {
-            spoke.transform = CGAffineTransform(rotationAngle: 0)
-//            spoke.show(side: spoke.SVSide, radius: spoke.SVRadius * 0.91)
-            
-//            spoke.SVRadius *= 0.91
-            spoke.SVSide = RVRadius * 2
-            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
-        }
-        show()
+//        RVRadius = max(50, RVRadius - 50)
+//        for spoke in _spokes {
+//            spoke.transform = CGAffineTransform(rotationAngle: 0)
+//            spoke.SVSide = RVRadius * 2
+//            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
+//        }
+//        show()
     }
     
 }

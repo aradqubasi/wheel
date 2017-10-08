@@ -30,6 +30,8 @@ class ViewController: UIViewController {
     
     var proteinsMenu: RadialView!
     
+    var rollButton: UIButton!
+    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
@@ -38,13 +40,25 @@ class ViewController: UIViewController {
         
         let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
         
-        basesMenu = RadialView(center: leftMiddle, radius: 100, orientation: .left)
+        let baseDistance = CGFloat.pi / 6
         
-        fatsMenu = RadialView(center: leftMiddle, radius: 150, orientation: .left)
+        let baseRadius: CGFloat = 125
         
-        veggiesMenu = RadialView(center: leftMiddle, radius: 200, orientation: .left)
+        basesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance))
         
-        proteinsMenu = RadialView(center: leftMiddle, radius: 250, orientation: .left)
+        fatsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5))
+        
+        veggiesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2))
+        
+        proteinsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5))
+        
+//        basesMenu = RadialView(center: leftMiddle, radius: baseRadius, orientation: .left, distance: baseDistance)
+//        
+//        fatsMenu = RadialView(center: leftMiddle, radius: baseRadius * 1.5, orientation: .left, distance: baseDistance / 1.5)
+//        
+//        veggiesMenu = RadialView(center: leftMiddle, radius: baseRadius * 2, orientation: .left, distance: baseDistance / 2)
+//        
+//        proteinsMenu = RadialView(center: leftMiddle, radius: baseRadius * 2.5, orientation: .left, distance: baseDistance / 2.5)
         
         radialMenu = basesMenu
         
@@ -58,6 +72,12 @@ class ViewController: UIViewController {
                 menu.addSpoke()
             }
         }
+        
+        rollButton = UIButton(frame: CGRect(x: leftMiddle.x - 40, y: leftMiddle.y - 15, width: 40, height: 30))
+        rollButton.setTitle("Roll", for: .normal)
+        rollButton.setTitleColor(UIColor.black, for: .normal)
+        rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
+        self.view.addSubview(rollButton)
     }
 
     override func didReceiveMemoryWarning() {

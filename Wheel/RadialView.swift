@@ -199,6 +199,28 @@ class RadialView: UIView {
 //        }
     }
 
+    func move(by delta: CGFloat) {
+        //n spoke in focus
+        let minCurrent = _offset - CGFloat(_spokes.count) * _settings.pinDistance
+        
+        //first spoke in focus
+        let maxCurrent = _offset
+        
+        _current = min(max(_current + delta, minCurrent), maxCurrent)
+        
+        show()
+        
+    }
+    
+    func move(to spoke: Int) {
+        
+        let constrained = min(max(spoke, 0), _spokes.count)
+        
+        _current = _offset - CGFloat(constrained) * _settings.pinDistance
+        
+        show()
+    }
+    
     func move(override: Bool) {
         if override || !_animating {
             _animating = true

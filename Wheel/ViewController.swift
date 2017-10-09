@@ -210,40 +210,71 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-        if radialMenu === basesMenu {
-            radialMenu = proteinsMenu
-            setRadialsState(as: proteinsActive)
+        
+        let animation = { () -> Void in
+            //self.radialMenu.move(by: CGFloat.pi / 6)
+            self.radialMenu.move(to: 0)
         }
-        else if radialMenu === fatsMenu {
-            radialMenu = basesMenu
-            setRadialsState(as: basesActive)
-        }
-        else if radialMenu === veggiesMenu {
-            radialMenu = fatsMenu
-            setRadialsState(as: fatsActive)
-        }
-        else if radialMenu === proteinsMenu {
-            radialMenu = veggiesMenu
-            setRadialsState(as: veggiesActive)
-        }
+        
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: animation, completion: nil)
+        
+        
+//        if radialMenu === basesMenu {
+//            radialMenu = proteinsMenu
+//            setRadialsState(as: proteinsActive)
+//        }
+//        else if radialMenu === fatsMenu {
+//            radialMenu = basesMenu
+//            setRadialsState(as: basesActive)
+//        }
+//        else if radialMenu === veggiesMenu {
+//            radialMenu = fatsMenu
+//            setRadialsState(as: fatsActive)
+//        }
+//        else if radialMenu === proteinsMenu {
+//            radialMenu = veggiesMenu
+//            setRadialsState(as: veggiesActive)
+//        }
     }
     
+    private var scrollLastAngle: CGFloat!
+    
+    private var scrollLastTime: Date!
     
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            print("began")
-            radialMenu.beginFollow(at: getAngle(point: sender.location(in: self.view), center: radialMenu.center))
-        case .cancelled:
-            print("cancelled")
-        case .changed:
-            print("changed")
-            radialMenu.continueFollow(at: getAngle(point: sender.location(in: self.view), center: radialMenu.center))
-        case .ended:
-            radialMenu.endFollow()
+            scrollLastAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
+            scrollLastTime = Date()
+        case .changed://, .ended:
+            let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
+            let newTime = Date()
+            
+            let deltaAngle = newAngle - scrollLastAngle
+            let deltaTime = newTime.timeIntervalSince(scrollLastTime)
+            
+            let animation = { () -> Void in
+                self.radialMenu.move(by: deltaAngle)
+            }
+            
+            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: animation, completion: nil)
         default:
             print("\(sender.state)")
         }
+//        switch sender.state {
+//        case .began:
+//            print("began")
+//            radialMenu.beginFollow(at: getAngle(point: sender.location(in: self.view), center: radialMenu.center))
+//        case .cancelled:
+//            print("cancelled")
+//        case .changed:
+//            print("changed")
+//            radialMenu.continueFollow(at: getAngle(point: sender.location(in: self.view), center: radialMenu.center))
+//        case .ended:
+//            radialMenu.endFollow()
+//        default:
+//            print("\(sender.state)")
+//        }
     }
     
     // MARK: - Private Methods

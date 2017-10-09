@@ -30,6 +30,113 @@ class ViewController: UIViewController {
     
     var proteinsMenu: RadialView!
     
+    var basesActive: WStateSettings {
+        get {
+            
+            var baseDistance = CGFloat.pi / 6
+            
+            var baseRadius: CGFloat = 120
+            
+            let increase: CGFloat = 10
+            
+            let settings = WStateSettings()
+            
+            baseDistance *= baseRadius / (baseRadius + increase)
+            
+            baseRadius += increase
+            
+            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance)
+            
+            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5)
+            
+            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2)
+            
+            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5)
+            
+            return settings
+        }
+    }
+    
+    var fatsActive: WStateSettings {
+        get {
+            
+            var baseDistance = CGFloat.pi / 6
+            
+            var baseRadius: CGFloat = 120
+            
+            let increase: CGFloat = 10
+            
+            let settings = WStateSettings()
+            
+            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance)
+            
+            baseDistance *= baseRadius / (baseRadius + increase)
+            
+            baseRadius += increase
+            
+            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5)
+            
+            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2)
+            
+            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5)
+            
+            return settings
+        }
+    }
+    
+    var veggiesActive: WStateSettings {
+        get {
+            
+            var baseDistance = CGFloat.pi / 6
+            
+            var baseRadius: CGFloat = 120
+            
+            let increase: CGFloat = 10
+            
+            let settings = WStateSettings()
+            
+            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance)
+            
+            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5)
+            
+            baseDistance *= baseRadius / (baseRadius + increase)
+            
+            baseRadius += increase
+            
+            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2)
+            
+            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5)
+            
+            return settings
+        }
+    }
+    
+    var proteinsActive: WStateSettings {
+        get {
+            var baseDistance = CGFloat.pi / 6
+            
+            var baseRadius: CGFloat = 120
+            
+            let increase: CGFloat = 10
+            
+            let settings = WStateSettings()
+            
+            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance)
+            
+            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5)
+            
+            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2)
+            
+            baseDistance *= baseRadius / (baseRadius + increase)
+            
+            baseRadius += increase
+            
+            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5)
+            
+            return settings
+        }
+    }
+    
     var rollButton: UIButton!
     
     // MARK: - Initialioze
@@ -40,25 +147,28 @@ class ViewController: UIViewController {
         
         let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
         
-        let baseDistance = CGFloat.pi / 6
-        
-        let baseRadius: CGFloat = 125
-        
-        basesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance))
-        
-        fatsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5))
-        
-        veggiesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2))
-        
-        proteinsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5))
-        
-//        basesMenu = RadialView(center: leftMiddle, radius: baseRadius, orientation: .left, distance: baseDistance)
+//        let baseDistance = CGFloat.pi / 6
 //        
-//        fatsMenu = RadialView(center: leftMiddle, radius: baseRadius * 1.5, orientation: .left, distance: baseDistance / 1.5)
+//        let baseRadius: CGFloat = 125
+        
+        
+//        basesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance))
 //        
-//        veggiesMenu = RadialView(center: leftMiddle, radius: baseRadius * 2, orientation: .left, distance: baseDistance / 2)
+//        fatsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5))
 //        
-//        proteinsMenu = RadialView(center: leftMiddle, radius: baseRadius * 2.5, orientation: .left, distance: baseDistance / 2.5)
+//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2))
+//        
+//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5))
+        
+        basesMenu = RadialView(center: leftMiddle,orientation: .left)
+        
+        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
+        
+        veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
+        
+        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
+        
+        setRadialsState(as: basesActive)
         
         radialMenu = basesMenu
         
@@ -102,15 +212,19 @@ class ViewController: UIViewController {
     @IBAction func onNextMenu(_ sender: Any) {
         if radialMenu === basesMenu {
             radialMenu = proteinsMenu
+            setRadialsState(as: proteinsActive)
         }
         else if radialMenu === fatsMenu {
             radialMenu = basesMenu
+            setRadialsState(as: basesActive)
         }
         else if radialMenu === veggiesMenu {
             radialMenu = fatsMenu
+            setRadialsState(as: fatsActive)
         }
         else if radialMenu === proteinsMenu {
             radialMenu = veggiesMenu
+            setRadialsState(as: veggiesActive)
         }
     }
     
@@ -133,6 +247,13 @@ class ViewController: UIViewController {
     }
     
     // MARK: - Private Methods
+    
+    private func setRadialsState(as settings: WStateSettings) {
+        basesMenu.RVSettings = settings.bases
+        fatsMenu.RVSettings = settings.fats
+        proteinsMenu.RVSettings = settings.proteins
+        veggiesMenu.RVSettings = settings.veggies
+    }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
         

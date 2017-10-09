@@ -113,10 +113,10 @@ class RadialView: UIView {
     // MARK: - Initialization
     
 //    init(center: CGPoint, radius: CGFloat, orientation: RVOrientation, distance: CGFloat) {
-    init(center: CGPoint, orientation: RVOrientation, settings: RVStateSettings) {
+    init(center: CGPoint, orientation: RVOrientation) {
         super.init(frame: .zero)
         _center = center
-        _settings = settings
+//        _settings = settings
 //        _radius = radius
 //        _distance = distance
         switch orientation {
@@ -325,6 +325,7 @@ class RadialView: UIView {
     // MARK: - Placeholders
     
     func enlarge() {
+        
 //        RVRadius = min(150, RVRadius + 50)
 //        for spoke in _spokes {
 //            spoke.transform = CGAffineTransform(rotationAngle: 0)

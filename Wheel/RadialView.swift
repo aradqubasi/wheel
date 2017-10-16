@@ -58,13 +58,24 @@ class RadialView: UIView {
 //        }
 //    }
     
-    var RVSettings: RVStateSettings {
+//    var RVSettings: RVStateSettings {
+//        get {
+//            return _settings
+//        }
+//        set (new) {
+//            _settings = new
+//            show()
+//        }
+//    }
+    
+    var RVFocused: Int {
         get {
-            return _settings
-        }
-        set (new) {
-            _settings = new
-            show()
+            if _focused == nil {
+                return 0
+            }
+            else {
+                return _focused!
+            }
         }
     }
     
@@ -72,9 +83,9 @@ class RadialView: UIView {
     
     private var _center: CGPoint = .zero
     
-    private var _spokes: [SpokeView] = []
+    private var _focused: Int?
     
-    private var _focus: Int = -1
+    private var _spokes: [SpokeView] = []
     
     private var _current: CGFloat = 0
     
@@ -84,11 +95,11 @@ class RadialView: UIView {
     
     private var _bottom: CGFloat = CGFloat.pi / 2
     
-//    private var _radius: CGFloat = 0
+    private var _radius: CGFloat = 100
     
     private var _tipRadius: CGFloat = 20
     
-//    private var _distance: CGFloat = CGFloat.pi / 6
+    private var _distance: CGFloat = CGFloat.pi / 6
     
     private var _velocity: CGFloat = 0
     
@@ -108,7 +119,7 @@ class RadialView: UIView {
     
     private var _lastFollowAngle: CGFloat?
     
-    private var _settings: RVStateSettings = RVStateSettings(wheelRadius: 100, pinDistance: CGFloat.pi / 6)
+    //private var _settings: RVStateSettings = RVStateSettings(wheelRadius: 100, pinDistance: CGFloat.pi / 6)
     
     // MARK: - Initialization
     
@@ -147,16 +158,16 @@ class RadialView: UIView {
     
     func addSpoke() {
 //        let origin = CGPoint(x: frame.width / 2 - _radius, y: frame.width / 2 - _radius)
-        let origin = CGPoint(x: _settings.wheelRadius * (CGFloat(2).squareRoot() - 1), y: _settings.wheelRadius * (CGFloat(2).squareRoot() - 1))
+        let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
         let sateliteRadius = _tipRadius
-        let spokeDiameter = _settings.wheelRadius * 2
+        let spokeDiameter = _radius * 2
         let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
         
         _spokes.append(spoke)
         
         self.addSubview(spoke)
         
-        _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _settings.pinDistance
+        _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _distance
         
         show()
     }
@@ -165,14 +176,15 @@ class RadialView: UIView {
     // MARK: - Private Methods
     
     private func show() {
-        frame.origin = CGPoint(x: _center.x - _settings.wheelRadius * CGFloat(2).squareRoot(), y: _center.y - _settings.wheelRadius * CGFloat(2).squareRoot())
-        frame.size.width = _settings.wheelRadius * 2 * CGFloat(2).squareRoot()
-        frame.size.height = _settings.wheelRadius * 2 * CGFloat(2).squareRoot()
-        frame.origin = CGPoint(x: _center.x - _settings.wheelRadius * CGFloat(2).squareRoot(), y: _center.y - _settings.wheelRadius * CGFloat(2).squareRoot())
+        var maxrotation: CGFloat = 0
         
+        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
+        frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
+        frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
+        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
         
         for n in 0..<_spokes.count {
-            let spokeAngle = _settings.pinDistance * CGFloat(n) + _current
+            let spokeAngle = _radius * CGFloat(n) + _current
             let spoke = _spokes[n]
             spoke.transform = CGAffineTransform(rotationAngle: 0)
             if spokeAngle > _offset + _top {
@@ -181,17 +193,21 @@ class RadialView: UIView {
             else if spokeAngle < _offset - _bottom {
                 spoke.state = .invisible
             }
-            else if spokeAngle > _offset + _settings.pinDistance / 2 {
+            else if spokeAngle > _offset + _distance / 2 {
                 spoke.state = .visible
             }
-            else if spokeAngle < _offset - _settings.pinDistance / 2 {
+            else if spokeAngle < _offset - _distance / 2 {
                 spoke.state = .visible
             }
             else {
                 spoke.state = .focused
+                _focused = n
             }
-            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+//            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+            spoke.transform = spoke.transform.rotated(by: spokeAngle)
+            maxrotation = max(maxrotation, spokeAngle)
         }
+        print(maxrotation)
 //        for n in 0..<_spokes.count {
 //            let spokeAngle = _distance * CGFloat(n) + _current
 //            let spoke = _spokes[n]
@@ -199,9 +215,19 @@ class RadialView: UIView {
 //        }
     }
 
+    
+    func resize(_ radius: CGFloat?, _ distance: CGFloat?, _ tip: CGFloat?) {
+        
+        _radius = radius ?? _radius
+        _distance = distance ?? _distance
+        _tipRadius = tip ?? _tipRadius
+        
+        show()
+    }
+    
     func move(by delta: CGFloat) {
         //n spoke in focus
-        let minCurrent = _offset - CGFloat(_spokes.count) * _settings.pinDistance
+        let minCurrent = _offset - CGFloat(_spokes.count - 1) * _distance
         
         //first spoke in focus
         let maxCurrent = _offset
@@ -216,156 +242,13 @@ class RadialView: UIView {
         
         let constrained = min(max(spoke, 0), _spokes.count)
         
-        _current = _offset - CGFloat(constrained) * _settings.pinDistance
+        _current = _offset - CGFloat(constrained) * _distance
         
         show()
     }
     
-    func move(override: Bool) {
-        if override || !_animating {
-            _animating = true
-            let spin = {
-                switch self._spinState {
-                case .calm:
-                    print("calming")
-                case .following:
-                    print("following")
-                    if self._current < self._offset - self._settings.pinDistance * CGFloat((self._spokes.count - 1)) {
-                        //do nothing
-                    }
-                    else if self._current > self._offset {
-                        //do nothing
-                    }
-                    else {
-                        self._current += self._velocity * 0.03
-                    }
-                case .decelerate:
-                    print("decelerating")
-                    let constrainedVelocity = max(min(abs(self._velocity), self._maxvelocity), self._minvelocity)
-                    let velocity = CGFloat(sign: self._velocity.sign, exponent: constrainedVelocity.exponent, significand: constrainedVelocity.significand)
-                    self._current += velocity * 0.03
-                    let newVelocity = max(0, abs(self._velocity) - self._decelerate * 0.03)
-                    self._velocity = CGFloat(sign: self._velocity.sign, exponent: newVelocity.exponent, significand: newVelocity.significand)
-                case .normalize:
-                    print("normalizing")
-                    let currentSpokeNumber = (self._offset - self._current) / self._settings.pinDistance
-                    let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
-                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._settings.pinDistance
-                    let delta = self._current - targetCurrentAngle
-                    if abs(delta) < 0.03 * self._maxvelocity {
-                        self._current = targetCurrentAngle
-                    }
-                    else {
-                        let velocity = CGFloat(sign: ((-delta).sign), exponent: self._maxvelocity.exponent, significand: self._maxvelocity.significand)
-                        self._current += velocity * 0.03
-                    }
-                }
-                
-                self.show()
-            }
-            
-            let endspin = { (success: Bool) in
-                switch self._spinState {
-                case .calm:
-                    print("end of calming")
-                case .following:
-                    print("end of following")
-                    //self._spinState = .decelerate
-                    self.move(override: true)
-                case .decelerate:
-                    print("end of decelerating")
-                    if self._current < self._offset - self._settings.pinDistance * CGFloat((self._spokes.count - 1)) {
-                        self._velocity = 0
-                        self._spinState = .normalize
-                        self.move(override: true)
-                    }
-                    else if self._current > self._offset {
-                        self._velocity = 0
-                        self._spinState = .normalize
-                        self.move(override: true)
-                    }
-                    else if self._velocity != 0 {
-                        self.move(override: true)
-                    }
-                    else {
-                        self._spinState = .normalize
-                        self.move(override: true)
-                    }
-                case .normalize:
-                    print("end of normalizing")
-                    let currentSpokeNumber = (self._offset - self._current) / self._settings.pinDistance
-                    let targetSpokeNumber = min(self._spokes.count - 1, max(0, Int(round(currentSpokeNumber))))
-                    let targetCurrentAngle = self._offset - (CGFloat(targetSpokeNumber)) * self._settings.pinDistance
-                    let delta = self._current - targetCurrentAngle
-                    if delta != 0 {
-                        self.move(override: true)
-                    }
-                    else {
-                        self._spinState = .calm
-                        self._animating = false
-                    }
-                }
-            }
-            
-            UIView.animate(withDuration: 0.03, animations: spin, completion: endspin)
-        }
 
-    }
-    
-    func beginFollow(at angle: CGFloat) {
-        _spinState = .following
-        _lastFollowTime = Date()
-        _lastFollowAngle = angle
-    }
-    
-    func continueFollow(at angle: CGFloat) {
-        guard let lastTime = _lastFollowTime, let lastAngle = _lastFollowAngle else {
-            fatalError("following did not start")
-        }
-        
-        let deltaTime = -CGFloat(lastTime.timeIntervalSince(Date()))
-        let deltaAngle = angle - lastAngle
-        //print("deltatime = \(deltaTime)")
-        //print(deltaAngle)
-        let newVelocity = deltaAngle / deltaTime
-        _velocity = CGFloat(sign: newVelocity.sign, exponent: min(abs(newVelocity), _topvelocity).exponent, significand: min(abs(newVelocity), _topvelocity).significand)
-        
-        //print(_velocity)
-        //rotate(by: deltaAngle)
-        move(override: false)
-        _lastFollowTime = Date()
-        _lastFollowAngle = angle
-    }
-    
-    func endFollow() {
-        _spinState = .decelerate
-        _lastFollowTime = nil
-        _lastFollowAngle = nil
-        move(override: false)
-    }
-    
     // MARK: - Placeholders
-    
-    func enlarge() {
-        
-//        RVRadius = min(150, RVRadius + 50)
-//        for spoke in _spokes {
-//            spoke.transform = CGAffineTransform(rotationAngle: 0)
-//            spoke.SVSide = RVRadius * 2
-//            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
-//            
-//        }
-//        show()
-    }
-    
-    func shrink() {
-//        RVRadius = max(50, RVRadius - 50)
-//        for spoke in _spokes {
-//            spoke.transform = CGAffineTransform(rotationAngle: 0)
-//            spoke.SVSide = RVRadius * 2
-//            spoke.SVPoint = CGPoint(x: (CGFloat(2).squareRoot() - 1) * RVRadius, y: (CGFloat(2).squareRoot() - 1) * RVRadius)
-//        }
-//        show()
-    }
+
     
 }

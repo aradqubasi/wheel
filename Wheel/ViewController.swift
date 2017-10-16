@@ -202,19 +202,42 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onLeftButtonClick(_ sender: Any) {
-        radialMenu.shrink()
+//        radialMenu.shrink()
     }
     
     @IBAction func onRightButtonClick(_ sender: Any) {
-        radialMenu.enlarge()
+//        radialMenu.enlarge()
     }
+    
+    var some: Bool?
+    
     
     @IBAction func onNextMenu(_ sender: Any) {
         
-        let animation = { () -> Void in
-            //self.radialMenu.move(by: CGFloat.pi / 6)
-            self.radialMenu.move(to: 0)
+        var animation: () -> Void
+        
+        if some == nil {
+            animation = { () -> Void in
+                //self.radialMenu.move(by: CGFloat.pi / 6)
+                self.radialMenu.move(by: CGFloat.pi * CGFloat(3))
+            }
+            some = false
         }
+        else if some! {
+            animation = { () -> Void in
+                //self.radialMenu.move(by: CGFloat.pi / 6)
+                self.radialMenu.move(by: CGFloat.pi * CGFloat(6))
+            }
+            some = false
+        }
+        else {
+            animation = { () -> Void in
+                //self.radialMenu.move(by: CGFloat.pi / 6)
+                self.radialMenu.move(by: CGFloat.pi * -CGFloat(6))
+            }
+            some = true
+        }
+        
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: animation, completion: nil)
         
@@ -249,15 +272,24 @@ class ViewController: UIViewController {
         case .changed://, .ended:
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
-            
+//            print("\(newAngle / CGFloat.pi)")
             let deltaAngle = newAngle - scrollLastAngle
             let deltaTime = newTime.timeIntervalSince(scrollLastTime)
             
-            let animation = { () -> Void in
+            let follow = { () -> Void in
                 self.radialMenu.move(by: deltaAngle)
             }
+
             
-            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: animation, completion: nil)
+            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
+        case .ended:
+            let normalization = { () -> Void in
+                self.radialMenu.move(to: self.radialMenu.RVFocused)
+            }
+            
+            UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseInOut], animations: normalization, completion: nil)
+            
+            print("end")
         default:
             print("\(sender.state)")
         }
@@ -280,10 +312,33 @@ class ViewController: UIViewController {
     // MARK: - Private Methods
     
     private func setRadialsState(as settings: WStateSettings) {
-        basesMenu.RVSettings = settings.bases
-        fatsMenu.RVSettings = settings.fats
-        proteinsMenu.RVSettings = settings.proteins
-        veggiesMenu.RVSettings = settings.veggies
+//        basesMenu.RVSettings = settings.bases
+//        fatsMenu.RVSettings = settings.fats
+//        proteinsMenu.RVSettings = settings.proteins
+//        veggiesMenu.RVSettings = settings.veggies
+        var radius: CGFloat
+        var distance: CGFloat
+//        var tip: CGFloat
+        
+        radius = settings.bases.wheelRadius
+        distance = settings.bases.pinDistance
+//        tip = 20
+        basesMenu.resize(radius, distance, nil)
+        
+        radius = settings.fats.wheelRadius
+        distance = settings.fats.pinDistance
+//        tip = 20
+        fatsMenu.resize(radius, distance, nil)
+        
+        radius = settings.proteins.wheelRadius
+        distance = settings.proteins.pinDistance
+//        tip = 20
+        proteinsMenu.resize(radius, distance, nil)
+        
+        radius = settings.veggies.wheelRadius
+        distance = settings.veggies.pinDistance
+//        tip = 20
+        veggiesMenu.resize(radius, distance, nil)
     }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
@@ -292,16 +347,16 @@ class ViewController: UIViewController {
         let dy = point.y - center.y
         var angle = atan(abs(dy) / abs(dx))
         
-        if dx > 0 &&  dy > 0 {
+        if dx >= 0 &&  dy >= 0 {
             //do nothing
         }
-        else if dx < 0 &&  dy > 0 {
+        else if dx < 0 &&  dy >= 0 {
             angle = CGFloat.pi - angle
         }
         else if dx < 0 &&  dy < 0 {
             angle = CGFloat.pi + angle
         }
-        else if dx > 0 &&  dy < 0 {
+        else if dx >= 0 &&  dy < 0 {
             angle = CGFloat.pi * 2 - angle
         }
         return angle

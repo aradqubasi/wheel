@@ -15,9 +15,12 @@ struct RVStateSettings {
     var wheelRadius: CGFloat
     
     var pinDistance: CGFloat
+    
+    var pinRadius: CGFloat
 
-    init(wheelRadius: CGFloat, pinDistance: CGFloat) {
+    init(wheelRadius: CGFloat, pinDistance: CGFloat, pinRadius: CGFloat) {
         self.wheelRadius = wheelRadius
         self.pinDistance = pinDistance
+        self.pinRadius = pinRadius
     }
 }

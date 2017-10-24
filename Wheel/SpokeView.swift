@@ -182,7 +182,7 @@ class SpokeView: UIView {
 //        _energy = velocity * 3
 //        move()
 //    }
-    func show(side: CGFloat, radius: CGFloat) {
+    func resize(side: CGFloat, radius: CGFloat) {
         _side = side
         _radius = radius
         show()

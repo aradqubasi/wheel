@@ -124,12 +124,13 @@ class RadialView: UIView {
     // MARK: - Initialization
     
 //    init(center: CGPoint, radius: CGFloat, orientation: RVOrientation, distance: CGFloat) {
+//    init(center: CGPoint, orientation: RVOrientation, radius: CGFloat, distance: CGFloat, tip: CGFloat) {
     init(center: CGPoint, orientation: RVOrientation) {
         super.init(frame: .zero)
         _center = center
-//        _settings = settings
 //        _radius = radius
 //        _distance = distance
+//        _tipRadius = tip
         switch orientation {
         case .bottom:
             _offset = CGFloat.pi
@@ -184,9 +185,12 @@ class RadialView: UIView {
         frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
         
         for n in 0..<_spokes.count {
-            let spokeAngle = _radius * CGFloat(n) + _current
+            let spokeAngle = _distance * CGFloat(n) + _current
             let spoke = _spokes[n]
             spoke.transform = CGAffineTransform(rotationAngle: 0)
+            let sateliteRadius = _tipRadius
+            let spokeDiameter = _radius * 2
+            spoke.resize(side: spokeDiameter, radius: sateliteRadius)
             if spokeAngle > _offset + _top {
                 spoke.state = .invisible
             }
@@ -203,11 +207,11 @@ class RadialView: UIView {
                 spoke.state = .focused
                 _focused = n
             }
-//            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
-            spoke.transform = spoke.transform.rotated(by: spokeAngle)
+            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+//            spoke.transform = spoke.transform.rotated(by: spokeAngle)
             maxrotation = max(maxrotation, spokeAngle)
         }
-        print(maxrotation)
+//        print(maxrotation)
 //        for n in 0..<_spokes.count {
 //            let spokeAngle = _distance * CGFloat(n) + _current
 //            let spoke = _spokes[n]

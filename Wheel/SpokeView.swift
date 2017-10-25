@@ -91,10 +91,10 @@ class SpokeView: UIView {
 //        }
 //    }
     
-    
+    var delegate: SVDelegate?
     
     // MARK: - Private properties
-    private var _circle: UIView!
+    private var _circle: UIImageView!
     
     private var _state: RVSpokeState = .invisible
     
@@ -130,7 +130,7 @@ class SpokeView: UIView {
 ////        circle.backgroundColor = background
 //        
 //        self.addSubview(circle)
-        _circle = UIView(frame: CGRect(origin: .zero, size: .zero))
+        _circle = UIImageView(frame: CGRect(origin: .zero, size: .zero))
         self.addSubview(_circle)
         
         frame.origin.x = _point.x
@@ -149,14 +149,15 @@ class SpokeView: UIView {
         frame.origin.x = _point.x
         frame.origin.y = _point.y
 //        print(frame.origin)
-        switch _state {
-        case .invisible:
-            _circle.backgroundColor = UIColor.white
-        case .visible:
-            _circle.backgroundColor = UIColor.black
-        case .focused:
-            _circle.backgroundColor = UIColor.yellow
-        }
+//        switch _state {
+//        case .invisible:
+//            _circle.backgroundColor = UIColor.white
+//        case .visible:
+//            _circle.backgroundColor = UIColor.black
+//        case .focused:
+//            _circle.backgroundColor = UIColor.yellow
+//        }
+        
         frame.origin.x = _point.x
         frame.origin.y = _point.y
         frame.size.width = _side
@@ -171,7 +172,8 @@ class SpokeView: UIView {
         _circle.frame.size.width = _radius * 2
         _circle.frame.size.height = _radius * 2
         _circle.layer.cornerRadius = _radius
-        
+        _circle.image = delegate?.GetPicture(for: _state)
+        _circle.clipsToBounds = true
 //        print(_circle.frame.origin)
     }
     

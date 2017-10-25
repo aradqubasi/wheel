@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RadialView: UIView {
+class RadialView: UIView, SVDelegate {
     
     // MARK: - Public Properties
     
@@ -163,7 +163,7 @@ class RadialView: UIView {
         let sateliteRadius = _tipRadius
         let spokeDiameter = _radius * 2
         let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
-        
+        spoke.delegate = self
         _spokes.append(spoke)
         
         self.addSubview(spoke)

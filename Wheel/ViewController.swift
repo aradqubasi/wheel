@@ -260,23 +260,26 @@ class ViewController: UIViewController {
 //        
 //        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: animation, completion: nil)
         
+        let  resize = { () -> Void in
+            if self.radialMenu === self.basesMenu {
+                self.radialMenu = self.proteinsMenu
+                self.setRadialsState(as: self.proteinsActive)
+            }
+            else if self.radialMenu === self.fatsMenu {
+                self.radialMenu = self.basesMenu
+                self.setRadialsState(as: self.basesActive)
+            }
+            else if self.radialMenu === self.veggiesMenu {
+                self.radialMenu = self.fatsMenu
+                self.setRadialsState(as: self.fatsActive)
+            }
+            else if self.radialMenu === self.proteinsMenu {
+                self.radialMenu = self.veggiesMenu
+                self.setRadialsState(as: self.veggiesActive)
+            }
+        }
         
-        if radialMenu === basesMenu {
-            radialMenu = proteinsMenu
-            setRadialsState(as: proteinsActive)
-        }
-        else if radialMenu === fatsMenu {
-            radialMenu = basesMenu
-            setRadialsState(as: basesActive)
-        }
-        else if radialMenu === veggiesMenu {
-            radialMenu = fatsMenu
-            setRadialsState(as: fatsActive)
-        }
-        else if radialMenu === proteinsMenu {
-            radialMenu = veggiesMenu
-            setRadialsState(as: veggiesActive)
-        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: resize, completion: nil)
     }
     
     private var scrollLastAngle: CGFloat!

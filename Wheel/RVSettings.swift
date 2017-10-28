@@ -10,17 +10,18 @@ enum RVState {
     case active
     case inactive
 }
-struct RVStateSettings {
+struct RVSettings {
     
     var wheelRadius: CGFloat
     
     var pinDistance: CGFloat
     
-    var pinRadius: CGFloat
+//    var pinRadius: CGFloat
 
-    init(wheelRadius: CGFloat, pinDistance: CGFloat, pinRadius: CGFloat) {
+//    init(wheelRadius: CGFloat, pinDistance: CGFloat, pinRadius: CGFloat) {
+    init(wheelRadius: CGFloat, pinDistance: CGFloat) {
         self.wheelRadius = wheelRadius
         self.pinDistance = pinDistance
-        self.pinRadius = pinRadius
+//        self.pinRadius = pinRadius
     }
 }

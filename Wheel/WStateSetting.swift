@@ -9,12 +9,12 @@
 import Foundation
 class WStateSettings {
     
-    var bases: RVStateSettings!
+    var bases: RVSettings!
     
-    var fats: RVStateSettings!
+    var fats: RVSettings!
     
-    var veggies: RVStateSettings!
+    var veggies: RVSettings!
     
-    var proteins: RVStateSettings!
+    var proteins: RVSettings!
 
 }

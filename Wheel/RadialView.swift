@@ -12,7 +12,7 @@ class RadialView: UIView, SVDelegate {
     
     // MARK: - Public Properties
     
-    var delegate: RadialViewDelegate?
+    var delegate: RVDelegate?
     
     var current: CGFloat {
         get {
@@ -68,16 +68,16 @@ class RadialView: UIView, SVDelegate {
 //        }
 //    }
     
-    var RVFocused: Int {
-        get {
-            if _focused == nil {
-                return 0
-            }
-            else {
-                return _focused!
-            }
-        }
-    }
+//    var RVFocused: Int {
+//        get {
+//            if _focused == nil {
+//                return 0
+//            }
+//            else {
+//                return _focused!
+//            }
+//        }
+//    }
     
     // MARK: - Private Properties
     

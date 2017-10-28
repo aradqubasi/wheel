@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, RVDelegate {
     
     // MARK: - Outlets
     
@@ -30,119 +30,60 @@ class ViewController: UIViewController {
     
     var proteinsMenu: RadialView!
     
-    var basesActive: WStateSettings {
-        get {
-            
-            var baseDistance = CGFloat.pi / 5
-            
-            var baseRadius: CGFloat = 120
-            
-            let basePinRadius: CGFloat = 20
-            
-            let increase: CGFloat = 10
-            
-            let settings = WStateSettings()
-            
-            baseDistance *= baseRadius / (baseRadius + increase)
-            
-            baseRadius += increase
-            
-            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance, pinRadius: basePinRadius * 1.25)
-            
-            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5, pinRadius: basePinRadius)
-            
-            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2, pinRadius: basePinRadius)
-            
-            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5, pinRadius: basePinRadius)
-            
-            return settings
-        }
+    // MARK: - RVDelegate Methods
+    
+    func numberOfSpokes(in wheel: RadialView) -> Int {
+        return 5
     }
     
-    var fatsActive: WStateSettings {
-        get {
-            
-            var baseDistance = CGFloat.pi / 5
-            
-            var baseRadius: CGFloat = 120
-            
-            let basePinRadius: CGFloat = 20
-            
-            let increase: CGFloat = 10
-            
-            let settings = WStateSettings()
-            
-            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance, pinRadius: basePinRadius)
-            
-            baseDistance *= baseRadius / (baseRadius + increase)
-            
-            baseRadius += increase
-            
-            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5, pinRadius: basePinRadius * 1.25)
-            
-            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2, pinRadius: basePinRadius)
-            
-            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5, pinRadius: basePinRadius)
-            
-            return settings
+    func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings {
+        var radius: CGFloat
+        var distance: CGFloat
+        if wheel === basesMenu {
+            radius = 120
+            distance = CGFloat.pi / 5
         }
+        else if wheel === fatsMenu {
+            radius = 120 * 1.5
+            distance = CGFloat.pi / 5 / 1.5
+        }
+        else if wheel === veggiesMenu {
+            radius = 120 * 2.25
+            distance = CGFloat.pi / 5 / 2.25
+        }
+        else if wheel === proteinsMenu {
+            radius = 120 * 3.375
+            distance = CGFloat.pi / 5 / 3.375
+        }
+        return RVSettings(wheelRadius: radius, pinDistance: distance)
     }
     
-    var veggiesActive: WStateSettings {
-        get {
-            
-            var baseDistance = CGFloat.pi / 5
-            
-            var baseRadius: CGFloat = 120
-            
-            let basePinRadius: CGFloat = 20
-            
-            let increase: CGFloat = 10
-            
-            let settings = WStateSettings()
-            
-            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance, pinRadius: basePinRadius)
-            
-            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5, pinRadius: basePinRadius)
-            
-            baseDistance *= baseRadius / (baseRadius + increase)
-            
-            baseRadius += increase
-            
-            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2, pinRadius: basePinRadius * 1.25)
-            
-            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5, pinRadius: basePinRadius)
-            
-            return settings
+    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
+        
+        var pin: CGFloat
+        if wheelAt == .active {
+            pin = 30
         }
-    }
-    
-    var proteinsActive: WStateSettings {
-        get {
-            var baseDistance = CGFloat.pi / 5
-            
-            var baseRadius: CGFloat = 120
-            
-            let basePinRadius: CGFloat = 20
-            
-            let increase: CGFloat = 10
-            
-            let settings = WStateSettings()
-            
-            settings.bases = RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance, pinRadius: basePinRadius)
-            
-            settings.fats = RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5, pinRadius: basePinRadius)
-            
-            settings.veggies = RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2, pinRadius: basePinRadius)
-            
-            baseDistance *= baseRadius / (baseRadius + increase)
-            
-            baseRadius += increase
-            
-            settings.proteins = RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5, pinRadius: basePinRadius * 1.25)
-            
-            return settings
+        else if wheelAt == .inactive {
+            pin = 20
         }
+        
+        var stateColor: UIColor
+        if spokeAt == .focused {
+            stateColor = UIColor.yellow
+        }
+        else if spokeAt == .visible {
+            stateColor = UIColor.black
+        }
+        else if spokeAt == .invisible {
+            stateColor = UIColor.white
+        }
+        
+        guard let image = UIImage(color: stateColor, size: CGSize(width: pin, height: pin)) else {
+            fatalError("could not generate image for color \(stateColor) with side \(pin)")
+        }
+        
+        return SVSettings(image, pin)
     }
     
     var rollButton: UIButton!
@@ -182,7 +123,7 @@ class ViewController: UIViewController {
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
         
         proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-        setRadialsState(as: basesActive)
+        setRadialsState(as: basesMenu)
         
         radialMenu = basesMenu
         
@@ -262,7 +203,9 @@ class ViewController: UIViewController {
         
         let  resize = { () -> Void in
             if self.radialMenu === self.basesMenu {
+                self.radialMenu.st
                 self.radialMenu = self.proteinsMenu
+                self.
                 self.setRadialsState(as: self.proteinsActive)
             }
             else if self.radialMenu === self.fatsMenu {
@@ -344,22 +287,22 @@ class ViewController: UIViewController {
         
         radius = settings.bases.wheelRadius
         distance = settings.bases.pinDistance
-        tip = settings.bases.pinRadius
+//        tip = settings.bases.pinRadius
         basesMenu.resize(radius, distance, tip)
         
         radius = settings.fats.wheelRadius
         distance = settings.fats.pinDistance
-        tip = settings.fats.pinRadius
+//        tip = settings.fats.pinRadius
         fatsMenu.resize(radius, distance, tip)
         
         radius = settings.proteins.wheelRadius
         distance = settings.proteins.pinDistance
-        tip = settings.proteins.pinRadius
+//        tip = settings.proteins.pinRadius
         proteinsMenu.resize(radius, distance, tip)
         
         radius = settings.veggies.wheelRadius
         distance = settings.veggies.pinDistance
-        tip = settings.veggies.pinRadius
+//        tip = settings.veggies.pinRadius
         veggiesMenu.resize(radius, distance, tip)
     }
     

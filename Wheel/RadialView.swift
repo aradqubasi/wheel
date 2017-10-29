@@ -68,16 +68,26 @@ class RadialView: UIView, SVDelegate {
 //        }
 //    }
     
-//    var RVFocused: Int {
-//        get {
-//            if _focused == nil {
-//                return 0
-//            }
-//            else {
-//                return _focused!
-//            }
-//        }
-//    }
+    var RVFocused: Int {
+        get {
+            if _focused == nil {
+                return 0
+            }
+            else {
+                return _focused!
+            }
+        }
+    }
+    
+    var RVState: RVState {
+        get {
+            return _state
+        }
+        set(new) {
+            _state = new
+            show()
+        }
+    }
     
     // MARK: - Private Properties
     
@@ -119,7 +129,18 @@ class RadialView: UIView, SVDelegate {
     
     private var _lastFollowAngle: CGFloat?
     
+    private var _state: RVState = .inactive
+    
     //private var _settings: RVStateSettings = RVStateSettings(wheelRadius: 100, pinDistance: CGFloat.pi / 6)
+    
+    // MARK: - SVDelegate Methods
+    
+    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
+        guard let spokeStateSettings = delegate?.radialView(self, _state, spoke, state, -1) else {
+            fatalError("no result for radialView")
+        }
+        return spokeStateSettings
+    }
     
     // MARK: - Initialization
     
@@ -178,6 +199,26 @@ class RadialView: UIView, SVDelegate {
     
     private func show() {
         var maxrotation: CGFloat = 0
+        
+        if let stateSettings = delegate?.radialView(self, _state) {
+            _distance = stateSettings.pinDistance
+            _radius = stateSettings.wheelRadius
+        }
+        
+        let numberOfSpokes = delegate?.numberOfSpokes(in: self)
+        if numberOfSpokes != nil && _spokes.count == 0 {
+            for _ in 0..<numberOfSpokes! {
+                let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
+                let sateliteRadius = _tipRadius
+                let spokeDiameter = _radius * 2
+                let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
+                spoke.delegate = self
+                _spokes.append(spoke)
+                
+                self.addSubview(spoke)
+            }
+            _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _distance
+        }
         
         frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
         frame.size.width = _radius * 2 * CGFloat(2).squareRoot()

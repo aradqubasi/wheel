@@ -37,38 +37,44 @@ class ViewController: UIViewController, RVDelegate {
     }
     
     func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings {
-        var radius: CGFloat
-        var distance: CGFloat
+        var radius: CGFloat = 120
+        var distance: CGFloat = CGFloat.pi / 5
         if wheel === basesMenu {
             radius = 120
             distance = CGFloat.pi / 5
         }
         else if wheel === fatsMenu {
-            radius = 120 * 1.5
-            distance = CGFloat.pi / 5 / 1.5
+//            radius = 120 * 1.5
+            radius = 180
+//            distance = CGFloat.pi / 5 / 1.5
+            distance = CGFloat.pi / 5 * 0.67
         }
         else if wheel === veggiesMenu {
-            radius = 120 * 2.25
-            distance = CGFloat.pi / 5 / 2.25
+//            radius = 120 * 2.25
+            radius = 240
+//            distance = CGFloat.pi / 5 / 2.25
+            distance = CGFloat.pi / 5 * 0.5
         }
         else if wheel === proteinsMenu {
-            radius = 120 * 3.375
-            distance = CGFloat.pi / 5 / 3.375
+//            radius = 120 * 3.375
+            radius = 300
+//            distance = CGFloat.pi / 5 / 3.375
+            distance = CGFloat.pi / 5 * 0.4
         }
         return RVSettings(wheelRadius: radius, pinDistance: distance)
     }
     
     func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
         
-        var pin: CGFloat
+        var pin: CGFloat = 10
         if wheelAt == .active {
-            pin = 30
+            pin = 25
         }
         else if wheelAt == .inactive {
             pin = 20
         }
         
-        var stateColor: UIColor
+        var stateColor: UIColor = .blue
         if spokeAt == .focused {
             stateColor = UIColor.yellow
         }
@@ -92,38 +98,22 @@ class ViewController: UIViewController, RVDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.radialMenu = RadialView(center: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height / 2))
         
         let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
         
-//        let baseDistance = CGFloat.pi / 6
-//        
-//        let baseRadius: CGFloat = 125
-        
-        
-//        basesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius, pinDistance: baseDistance))
-//        
-//        fatsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 1.5, pinDistance: baseDistance / 1.5))
-//        
-//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2, pinDistance: baseDistance / 2))
-//        
-//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left, settings: RVStateSettings(wheelRadius: baseRadius * 2.5, pinDistance: baseDistance / 2.5))
-        
-//        basesMenu = RadialView(center: leftMiddle,orientation: .left, radius: basesActive.bases.wheelRadius, distance: basesActive.bases.pinDistance, tip: 20)
-//        
-//        fatsMenu = RadialView(center: leftMiddle,orientation: .left, radius: basesActive.fats.wheelRadius, distance: basesActive.fats.pinDistance, tip: 20)
-//        
-//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left, radius: basesActive.veggies.wheelRadius, distance: basesActive.veggies.pinDistance, tip: 20)
-//        
-//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left, radius: basesActive.proteins.wheelRadius, distance: basesActive.proteins.pinDistance, tip: 20)
         basesMenu = RadialView(center: leftMiddle,orientation: .left)
+        basesMenu.delegate = self
         
         fatsMenu = RadialView(center: leftMiddle,orientation: .left)
+        fatsMenu.delegate = self
         
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
+        veggiesMenu.delegate = self
         
         proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-        setRadialsState(as: basesMenu)
+        proteinsMenu.delegate = self
+        
+        setActiveState(to: basesMenu)
         
         radialMenu = basesMenu
         
@@ -132,11 +122,11 @@ class ViewController: UIViewController, RVDelegate {
         self.view.addSubview(fatsMenu)
         self.view.addSubview(basesMenu)
 //       setRadialsState(as: basesActive)
-        for menu: RadialView in [basesMenu, fatsMenu, veggiesMenu, proteinsMenu] {
-            for _ in 0..<5 {
-                menu.addSpoke()
-            }
-        }
+//        for menu: RadialView in [basesMenu, fatsMenu, veggiesMenu, proteinsMenu] {
+//            for _ in 0..<5 {
+//                menu.addSpoke()
+//            }
+//        }
         
 //        setRadialsState(as: basesActive)
         
@@ -203,22 +193,16 @@ class ViewController: UIViewController, RVDelegate {
         
         let  resize = { () -> Void in
             if self.radialMenu === self.basesMenu {
-                self.radialMenu.st
-                self.radialMenu = self.proteinsMenu
-                self.
-                self.setRadialsState(as: self.proteinsActive)
+                self.setActiveState(to: self.fatsMenu)
             }
             else if self.radialMenu === self.fatsMenu {
-                self.radialMenu = self.basesMenu
-                self.setRadialsState(as: self.basesActive)
+                self.setActiveState(to: self.veggiesMenu)
             }
             else if self.radialMenu === self.veggiesMenu {
-                self.radialMenu = self.fatsMenu
-                self.setRadialsState(as: self.fatsActive)
+                self.setActiveState(to: self.proteinsMenu)
             }
             else if self.radialMenu === self.proteinsMenu {
-                self.radialMenu = self.veggiesMenu
-                self.setRadialsState(as: self.veggiesActive)
+                self.setActiveState(to: self.basesMenu)
             }
         }
         
@@ -276,34 +260,35 @@ class ViewController: UIViewController, RVDelegate {
     
     // MARK: - Private Methods
     
-    private func setRadialsState(as settings: WStateSettings) {
-//        basesMenu.RVSettings = settings.bases
-//        fatsMenu.RVSettings = settings.fats
-//        proteinsMenu.RVSettings = settings.proteins
-//        veggiesMenu.RVSettings = settings.veggies
-        var radius: CGFloat
-        var distance: CGFloat
-        var tip: CGFloat
-        
-        radius = settings.bases.wheelRadius
-        distance = settings.bases.pinDistance
-//        tip = settings.bases.pinRadius
-        basesMenu.resize(radius, distance, tip)
-        
-        radius = settings.fats.wheelRadius
-        distance = settings.fats.pinDistance
-//        tip = settings.fats.pinRadius
-        fatsMenu.resize(radius, distance, tip)
-        
-        radius = settings.proteins.wheelRadius
-        distance = settings.proteins.pinDistance
-//        tip = settings.proteins.pinRadius
-        proteinsMenu.resize(radius, distance, tip)
-        
-        radius = settings.veggies.wheelRadius
-        distance = settings.veggies.pinDistance
-//        tip = settings.veggies.pinRadius
-        veggiesMenu.resize(radius, distance, tip)
+    private func setActiveState(to menu: RadialView) {
+        if basesMenu === menu {
+            radialMenu = menu
+            basesMenu.RVState = .active
+            fatsMenu.RVState = .inactive
+            veggiesMenu.RVState = .inactive
+            proteinsMenu.RVState = .inactive
+        }
+        else if fatsMenu === menu {
+            radialMenu = menu
+            basesMenu.RVState = .inactive
+            fatsMenu.RVState = .active
+            veggiesMenu.RVState = .inactive
+            proteinsMenu.RVState = .inactive
+        }
+        else if veggiesMenu === menu {
+            radialMenu = menu
+            basesMenu.RVState = .inactive
+            fatsMenu.RVState = .inactive
+            veggiesMenu.RVState = .active
+            proteinsMenu.RVState = .inactive
+        }
+        else if proteinsMenu === menu {
+            radialMenu = menu
+            basesMenu.RVState = .inactive
+            fatsMenu.RVState = .inactive
+            veggiesMenu.RVState = .inactive
+            proteinsMenu.RVState = .active
+        }
     }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {

@@ -10,18 +10,18 @@ import Foundation
 import UIKit
 
 protocol SVDelegate {
-    func GetPicture(for: RVSpokeState) -> UIImage
+    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings
 }
 
 extension SVDelegate {
-    func GetPicture(for state: RVSpokeState) -> UIImage {
+    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
         switch state {
         case .focused:
-            return UIImage(color: .yellow, size: CGSize(width: 40, height: 40))!
+            return SVSettings(UIImage(color: .yellow, size: CGSize(width: 40, height: 40))!, 20)
         case .visible:
-            return UIImage(color: .black, size: CGSize(width: 40, height: 40))!
+            return SVSettings(UIImage(color: .black, size: CGSize(width: 40, height: 40))!, 20)
         case .invisible:
-            return UIImage(color: .white, size: CGSize(width: 40, height: 40))!
+            return SVSettings(UIImage(color: .white, size: CGSize(width: 40, height: 40))!, 20)
         }
     }
 }

@@ -167,12 +167,16 @@ class SpokeView: UIView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         
+//        _circle.image = delegate?.GetPicture(self, _state)
+        if let settings = delegate?.GetPicture(self, _state) {
+            _circle.image = settings.image
+            _radius = settings.pinRadius
+        }
         _circle.frame.origin.x = _side / 2 - _radius
         _circle.frame.origin.y = 0
         _circle.frame.size.width = _radius * 2
         _circle.frame.size.height = _radius * 2
         _circle.layer.cornerRadius = _radius
-        _circle.image = delegate?.GetPicture(for: _state)
         _circle.clipsToBounds = true
 //        print(_circle.frame.origin)
     }

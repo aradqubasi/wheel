@@ -24,49 +24,15 @@ class RadialView: UIView, SVDelegate {
         }
     }
     
-//    var RVRadius: CGFloat {
-//        get {
-//            return _radius
-//        }
-//        set (new) {
-//            _radius = new
-////            frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
-////            frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
-////            frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
-//            show()
-//        }
-//    }
-    
     var RVCenter: CGPoint {
         get {
             return _center
         }
         set (new) {
             _center = new
-//            frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
             show()
         }
     }
-    
-//    var RVDistance: CGFloat {
-//        get {
-//            return _distance
-//        }
-//        set (new) {
-//            _distance = new
-//            show()
-//        }
-//    }
-    
-//    var RVSettings: RVStateSettings {
-//        get {
-//            return _settings
-//        }
-//        set (new) {
-//            _settings = new
-//            show()
-//        }
-//    }
     
     var RVFocused: Int {
         get {
@@ -131,8 +97,6 @@ class RadialView: UIView, SVDelegate {
     
     private var _state: RVState = .inactive
     
-    //private var _settings: RVStateSettings = RVStateSettings(wheelRadius: 100, pinDistance: CGFloat.pi / 6)
-    
     // MARK: - SVDelegate Methods
     
     func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
@@ -144,14 +108,9 @@ class RadialView: UIView, SVDelegate {
     
     // MARK: - Initialization
     
-//    init(center: CGPoint, radius: CGFloat, orientation: RVOrientation, distance: CGFloat) {
-//    init(center: CGPoint, orientation: RVOrientation, radius: CGFloat, distance: CGFloat, tip: CGFloat) {
     init(center: CGPoint, orientation: RVOrientation) {
         super.init(frame: .zero)
         _center = center
-//        _radius = radius
-//        _distance = distance
-//        _tipRadius = tip
         switch orientation {
         case .bottom:
             _offset = CGFloat.pi
@@ -163,11 +122,6 @@ class RadialView: UIView, SVDelegate {
             _offset = 0
         }
         
-//        _center = center
-//        self.frame.origin = CGPoint(x: center.x - _radius * CGFloat(2).squareRoot(), y: center.y - _radius * CGFloat(2).squareRoot())
-//        self.frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
-//        self.frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
-//        drawWheel()
         self.backgroundColor = UIColor.clear
         show()
     }
@@ -179,7 +133,6 @@ class RadialView: UIView, SVDelegate {
     // MARK: - Public Methods
     
     func addSpoke() {
-//        let origin = CGPoint(x: frame.width / 2 - _radius, y: frame.width / 2 - _radius)
         let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
         let sateliteRadius = _tipRadius
         let spokeDiameter = _radius * 2
@@ -249,15 +202,8 @@ class RadialView: UIView, SVDelegate {
                 _focused = n
             }
             spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
-//            spoke.transform = spoke.transform.rotated(by: spokeAngle)
             maxrotation = max(maxrotation, spokeAngle)
         }
-//        print(maxrotation)
-//        for n in 0..<_spokes.count {
-//            let spokeAngle = _distance * CGFloat(n) + _current
-//            let spoke = _spokes[n]
-//            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
-//        }
     }
 
     

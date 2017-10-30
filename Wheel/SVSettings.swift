@@ -11,10 +11,8 @@ import UIKit
 struct SVSettings {
     var image: UIImage
     var pinRadius: CGFloat
-//    var spokeRadius: CGFloat
     init(_ image: UIImage, _ pinRadius: CGFloat) {
         self.image = image
         self.pinRadius = pinRadius
-//        self.spokeRadius = spokeRadius
     }
 }

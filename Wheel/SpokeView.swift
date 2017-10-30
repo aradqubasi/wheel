@@ -19,14 +19,6 @@ class SpokeView: UIView {
         set (new) {
             _state = new
             show()
-//            switch _state {
-//            case .invisible:
-//                _circle.backgroundColor = UIColor.white
-//            case .visible:
-//                _circle.backgroundColor = UIColor.black
-//            case .focused:
-//                _circle.backgroundColor = UIColor.yellow
-//            }
         }
     }
     
@@ -37,13 +29,6 @@ class SpokeView: UIView {
         set (new) {
             _side = new
             show()
-//            if _side != new {
-//                _side = new
-////                show()
-//                frame.size.width = _side
-//                frame.size.height = _side
-//                _circle.frame.origin.x = _side / 2 - _radius
-//            }
         }
     }
     
@@ -55,9 +40,6 @@ class SpokeView: UIView {
             if _side != new {
                 _radius = new
                 show()
-//                _circle.frame.size.width = _radius * 2
-//                _circle.frame.size.height = _radius * 2
-//                _circle.layer.cornerRadius = _radius
             }
         }
     }
@@ -68,28 +50,10 @@ class SpokeView: UIView {
         }
         set (new) {
             _point = new
-//            frame.origin.x = _point.x
-//            frame.origin.y = _point.y
             show()
             
         }
     }
-//    var offset: CGFloat!
-//
-//    var visibility: Bool {
-//        get {
-//            return _visibility
-//        }
-//        set (new) {
-//            if (new) {
-//                circle.backgroundColor = UIColor.black
-//            }
-//            else {
-//                circle.backgroundColor = UIColor.white
-//            }
-//            _visibility = new
-//        }
-//    }
     
     var delegate: SVDelegate?
     
@@ -103,11 +67,6 @@ class SpokeView: UIView {
     private var _radius: CGFloat!
     
     private var _point: CGPoint!
-//    private var _visibility: Bool = true
-//    
-//    private var _velocity: CGFloat = 0
-//    
-//    private var _energy: CGFloat = 0
     
     // MARK: - Initialization
     
@@ -116,20 +75,8 @@ class SpokeView: UIView {
         self._point = point
         self._radius = radius
         self._side = side
-//        super.init(frame: CGRect(origin: point, size: CGSize(width: side, height: side)))
         super.init(frame: CGRect(origin: .zero, size: .zero))
         
-//        super.init(frame: CGRect(origin: point, size: CGSize(width: side, height: side)))
-//        
-//        self.backgroundColor = UIColor.clear
-//        
-////        self.offset = angle
-//        
-//        self.circle = UIView(frame: CGRect(origin: CGPoint(x: side / 2 - radius, y: 0), size: CGSize(width: radius * 2, height: radius * 2)))
-//        circle.layer.cornerRadius = radius
-////        circle.backgroundColor = background
-//        
-//        self.addSubview(circle)
         _circle = UIImageView(frame: CGRect(origin: .zero, size: .zero))
         self.addSubview(_circle)
         
@@ -148,26 +95,15 @@ class SpokeView: UIView {
         
         frame.origin.x = _point.x
         frame.origin.y = _point.y
-//        print(frame.origin)
-//        switch _state {
-//        case .invisible:
-//            _circle.backgroundColor = UIColor.white
-//        case .visible:
-//            _circle.backgroundColor = UIColor.black
-//        case .focused:
-//            _circle.backgroundColor = UIColor.yellow
-//        }
         
         frame.origin.x = _point.x
         frame.origin.y = _point.y
         frame.size.width = _side
         frame.size.height = _side
-//        frame.size = CGSize(width: _side, height: _side)
         backgroundColor = UIColor.clear
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 1
         
-//        _circle.image = delegate?.GetPicture(self, _state)
         if let settings = delegate?.GetPicture(self, _state) {
             _circle.image = settings.image
             _radius = settings.pinRadius
@@ -178,16 +114,10 @@ class SpokeView: UIView {
         _circle.frame.size.height = _radius * 2
         _circle.layer.cornerRadius = _radius
         _circle.clipsToBounds = true
-//        print(_circle.frame.origin)
     }
     
     // MARK: - Public Methods
     
-//    func push(_ velocity: CGFloat) {
-//        _velocity = velocity
-//        _energy = velocity * 3
-//        move()
-//    }
     func resize(side: CGFloat, radius: CGFloat) {
         _side = side
         _radius = radius

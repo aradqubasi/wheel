@@ -13,5 +13,6 @@ protocol RVDelegate {
     func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings
     
     func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings
-    
+
+    func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> Void
 }

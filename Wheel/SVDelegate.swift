@@ -11,6 +11,8 @@ import UIKit
 
 protocol SVDelegate {
     func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings
+    
+    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void
 }
 
 extension SVDelegate {
@@ -23,5 +25,9 @@ extension SVDelegate {
         case .invisible:
             return SVSettings(UIImage(color: .white, size: CGSize(width: 40, height: 40))!, 20)
         }
+    }
+    
+    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void {
+        print("click at state \(state)")
     }
 }

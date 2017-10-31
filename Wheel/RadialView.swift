@@ -106,6 +106,20 @@ class RadialView: UIView, SVDelegate {
         return spokeStateSettings
     }
     
+    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
+        guard let spokeIndex = _spokes.index(where: { (current) -> Bool in
+            if spoke === current {
+                return true
+            }
+            else {
+                return false
+            }
+        }) else {
+            fatalError("clicked spoke is not found")
+        }
+        delegate?.onPinClick(self, _state, spoke, state, spokeIndex)
+    }
+    
     // MARK: - Initialization
     
     init(center: CGPoint, orientation: RVOrientation) {
@@ -128,6 +142,19 @@ class RadialView: UIView, SVDelegate {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Overrided Methods
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        
+        let hitView = super.hitTest(point, with: event)
+        
+        if hitView == self {
+            return nil
+        } else {
+            return hitView
+        }
     }
     
     // MARK: - Public Methods

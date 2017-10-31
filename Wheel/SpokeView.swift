@@ -58,7 +58,7 @@ class SpokeView: UIView {
     var delegate: SVDelegate?
     
     // MARK: - Private properties
-    private var _circle: UIImageView!
+    private var _circle: UIButton!
     
     private var _state: RVSpokeState = .invisible
     
@@ -77,7 +77,8 @@ class SpokeView: UIView {
         self._side = side
         super.init(frame: CGRect(origin: .zero, size: .zero))
         
-        _circle = UIImageView(frame: CGRect(origin: .zero, size: .zero))
+        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
+        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
         self.addSubview(_circle)
         
         frame.origin.x = _point.x
@@ -87,6 +88,19 @@ class SpokeView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Overrided Methods
+    
+    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        
+        let hitView = super.hitTest(point, with: event)
+        
+        if hitView == self {
+            return nil
+        } else {
+            return hitView
+        }
     }
     
     // MARK: - Private Methods
@@ -102,10 +116,11 @@ class SpokeView: UIView {
         frame.size.height = _side
         backgroundColor = UIColor.clear
         layer.borderColor = UIColor.black.cgColor
-        layer.borderWidth = 1
+        layer.borderWidth = 0
         
         if let settings = delegate?.GetPicture(self, _state) {
-            _circle.image = settings.image
+            _circle.setImage(settings.image, for: .normal)
+//            _circle.image = settings.image
             _radius = settings.pinRadius
         }
         _circle.frame.origin.x = _side / 2 - _radius
@@ -114,6 +129,11 @@ class SpokeView: UIView {
         _circle.frame.size.height = _radius * 2
         _circle.layer.cornerRadius = _radius
         _circle.clipsToBounds = true
+    }
+    
+    @objc private func OnPinClick() {
+        print("!")
+        delegate?.OnPinClick(self, _state)
     }
     
     // MARK: - Public Methods

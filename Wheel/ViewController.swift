@@ -86,6 +86,14 @@ class ViewController: UIViewController, RVDelegate {
         return SVSettings(image, pin)
     }
     
+    func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) {
+        let switchWheelGotoPin = { () -> Void in
+            self.setActiveState(to: wheel)
+            wheel.move(to: indexIs)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
+    }
+    
     var rollButton: UIButton!
     
     // MARK: - Initialioze
@@ -175,13 +183,15 @@ class ViewController: UIViewController, RVDelegate {
 //            print("\(newAngle / CGFloat.pi)")
             let deltaAngle = newAngle - scrollLastAngle
             let deltaTime = newTime.timeIntervalSince(scrollLastTime)
-            
+            print(deltaAngle)
             let follow = { () -> Void in
                 self.radialMenu.move(by: deltaAngle)
             }
 
             
             UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
+            scrollLastAngle = newAngle
+            scrollLastTime = newTime
         case .ended:
             let normalization = { () -> Void in
                 self.radialMenu.move(to: self.radialMenu.RVFocused)

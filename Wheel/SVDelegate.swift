@@ -10,13 +10,13 @@ import Foundation
 import UIKit
 
 protocol SVDelegate {
-    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings
+    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings
     
-    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void
+    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void
 }
 
 extension SVDelegate {
-    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
+    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
         switch state {
         case .focused:
             return SVSettings(UIImage(color: .yellow, size: CGSize(width: 40, height: 40))!, 20)
@@ -27,7 +27,7 @@ extension SVDelegate {
         }
     }
     
-    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void {
+    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void {
         print("click at state \(state)")
     }
 }

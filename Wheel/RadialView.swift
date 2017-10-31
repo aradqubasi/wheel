@@ -99,14 +99,14 @@ class RadialView: UIView, SVDelegate {
     
     // MARK: - SVDelegate Methods
     
-    func GetPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
+    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
         guard let spokeStateSettings = delegate?.radialView(self, _state, spoke, state, -1) else {
             fatalError("no result for radialView")
         }
         return spokeStateSettings
     }
     
-    func OnPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
+    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
         guard let spokeIndex = _spokes.index(where: { (current) -> Bool in
             if spoke === current {
                 return true

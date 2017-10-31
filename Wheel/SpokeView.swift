@@ -118,7 +118,7 @@ class SpokeView: UIView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 0
         
-        if let settings = delegate?.GetPicture(self, _state) {
+        if let settings = delegate?.getPicture(self, _state) {
             _circle.setImage(settings.image, for: .normal)
 //            _circle.image = settings.image
             _radius = settings.pinRadius
@@ -132,8 +132,7 @@ class SpokeView: UIView {
     }
     
     @objc private func OnPinClick() {
-        print("!")
-        delegate?.OnPinClick(self, _state)
+        delegate?.onPinClick(self, _state)
     }
     
     // MARK: - Public Methods

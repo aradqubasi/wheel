@@ -58,7 +58,8 @@ class SpokeView: UIView {
     var delegate: SVDelegate?
     
     // MARK: - Private properties
-    private var _circle: UIButton!
+//    private var _circle: UIButton!
+    private var _circle: UIView!
     
     private var _state: RVSpokeState = .invisible
     
@@ -77,9 +78,9 @@ class SpokeView: UIView {
         self._side = side
         super.init(frame: CGRect(origin: .zero, size: .zero))
         
-        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
-        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
-        self.addSubview(_circle)
+//        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
+//        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
+//        self.addSubview(_circle)
         
         frame.origin.x = _point.x
         frame.origin.y = _point.y
@@ -118,17 +119,25 @@ class SpokeView: UIView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 0
         
-        if let settings = delegate?.getPicture(self, _state) {
-            _circle.setImage(settings.image, for: .normal)
-//            _circle.image = settings.image
-            _radius = settings.pinRadius
+//        if let settings = delegate?.getPicture(self, _state) {
+//            _circle.setImage(settings.image, for: .normal)
+//            _radius = settings.pinRadius
+//        }
+//        _circle.frame.origin.x = _side / 2 - _radius
+//        _circle.frame.origin.y = 0
+//        _circle.frame.size.width = _radius * 2
+//        _circle.frame.size.height = _radius * 2
+//        _circle.layer.cornerRadius = _radius
+//        _circle.clipsToBounds = true
+        
+        if let pin = delegate?.pin(for: self, as: _circle, in: _state) {
+            pin.frame.origin = CGPoint(x: _side / 2 - pin.frame.width / 2, y: 0)
+            if _circle !== pin {
+                _circle?.removeFromSuperview()
+                _circle = pin
+                addSubview(pin)
+            }
         }
-        _circle.frame.origin.x = _side / 2 - _radius
-        _circle.frame.origin.y = 0
-        _circle.frame.size.width = _radius * 2
-        _circle.frame.size.height = _radius * 2
-        _circle.layer.cornerRadius = _radius
-        _circle.clipsToBounds = true
     }
     
     @objc private func OnPinClick() {

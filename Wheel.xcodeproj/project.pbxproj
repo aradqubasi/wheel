@@ -25,6 +25,8 @@
 		15F0BB541F404FCC006F646E /* WheelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB531F404FCC006F646E /* WheelUITests.swift */; };
 		15F0BB621F404FE3006F646E /* RadialView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB611F404FE3006F646E /* RadialView.swift */; };
 		15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB631F40522C006F646E /* RVDelegate.swift */; };
+		15F43C411FA99CA700732CED /* PinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C401FA99CA700732CED /* PinView.swift */; };
+		15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C421FA99D4E00732CED /* PVDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +71,8 @@
 		15F0BB551F404FCC006F646E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		15F0BB611F404FE3006F646E /* RadialView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RadialView.swift; sourceTree = "<group>"; };
 		15F0BB631F40522C006F646E /* RVDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVDelegate.swift; sourceTree = "<group>"; };
+		15F43C401FA99CA700732CED /* PinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PinView.swift; sourceTree = "<group>"; };
+		15F43C421FA99D4E00732CED /* PVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +140,8 @@
 				151AFE441F8A858200CC5357 /* WStateSetting.swift */,
 				151AFE481FA119FD00CC5357 /* UIImage.swift */,
 				151AFE4A1FA5015500CC5357 /* SVSettings.swift */,
+				15F43C401FA99CA700732CED /* PinView.swift */,
+				15F43C421FA99D4E00732CED /* PVDelegate.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -297,11 +303,13 @@
 			files = (
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
 				151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */,
+				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* RVSpokeState.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
 				151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */,
+				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				151AFE3D1F77A9FF00CC5357 /* RVSpinState.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WStateSetting.swift in Sources */,

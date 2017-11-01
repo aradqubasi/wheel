@@ -99,26 +99,89 @@ class RadialView: UIView, SVDelegate {
     
     // MARK: - SVDelegate Methods
     
-    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
-        guard let spokeStateSettings = delegate?.radialView(self, _state, spoke, state, -1) else {
-            fatalError("no result for radialView")
+//    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
+//        guard let spokeStateSettings = delegate?.radialView(self, _state, spoke, state, -1) else {
+//            fatalError("no result for radialView")
+//        }
+//        return spokeStateSettings
+//    }
+    func pin(for spoke: SpokeView, as current: UIView?, in state: RVSpokeState) -> UIView {
+        
+//        let radius: CGFloat
+//        switch _state {
+//        case .active:
+//            radius = 25
+//        case .inactive:
+//            radius = 20
+//        }
+//
+//        let color: UIColor
+//        switch state {
+//        case .focused:
+//            color = .yellow
+//        case .visible:
+//            color = .black
+//        case .invisible:
+//            color = .white
+//        }
+//
+//        let image = UIImage(color: color, size: CGSize(width: radius, height: radius))
+//
+//        var pin: UIButton
+//        if current == nil {
+//            pin = UIButton(frame: CGRect(origin: .zero, size: .zero))
+//        }
+//        else {
+//            guard let button = current as? UIButton else {
+//                fatalError("pin is not a UIButton")
+//            }
+//            pin = button
+//        }
+////        pin.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
+////        self.addSubview(_circle)
+//        pin.setImage(image, for: .normal)
+//        //            _circle.image = settings.image
+////        pin = radius
+//
+//        pin.frame.origin = .zero
+//        pin.frame.size.width = radius * 2
+//        pin.frame.size.height = radius * 2
+//        pin.layer.cornerRadius = radius
+//        pin.clipsToBounds = true
+//
+//        return pin
+        if delegate != nil {
+            let isCurrent = { (current: SpokeView) -> Bool in
+                if spoke === current {
+                    return true
+                }
+                else {
+                    return false
+                }
+            }
+            guard let spokeIndex = _spokes.index(where: isCurrent) else {
+                fatalError("clicked spoke is not found")
+            }
+            return delegate!.radialView(self, _state, spoke, current, state, spokeIndex)
         }
-        return spokeStateSettings
+        else {
+            return UIView()
+        }
     }
     
-    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
-        guard let spokeIndex = _spokes.index(where: { (current) -> Bool in
-            if spoke === current {
-                return true
-            }
-            else {
-                return false
-            }
-        }) else {
-            fatalError("clicked spoke is not found")
-        }
-        delegate?.onPinClick(self, _state, spoke, state, spokeIndex)
-    }
+//    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
+//        guard let spokeIndex = _spokes.index(where: { (current) -> Bool in
+//            if spoke === current {
+//                return true
+//            }
+//            else {
+//                return false
+//            }
+//        }) else {
+//            fatalError("clicked spoke is not found")
+//        }
+//        delegate?.onPinClick(self, _state, spoke, state, spokeIndex)
+//    }
     
     // MARK: - Initialization
     

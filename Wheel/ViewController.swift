@@ -58,32 +58,79 @@ class ViewController: UIViewController, RVDelegate {
         return RVSettings(wheelRadius: radius, pinDistance: distance)
     }
     
-    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
+//    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
+//
+//        var pin: CGFloat = 10
+//        if wheelAt == .active {
+//            pin = 25
+//        }
+//        else if wheelAt == .inactive {
+//            pin = 20
+//        }
+//
+//        var stateColor: UIColor = .blue
+//        if spokeAt == .focused {
+//            stateColor = UIColor.yellow
+//        }
+//        else if spokeAt == .visible {
+//            stateColor = UIColor.black
+//        }
+//        else if spokeAt == .invisible {
+//            stateColor = UIColor.white
+//        }
+//
+//        guard let image = UIImage(color: stateColor, size: CGSize(width: pin, height: pin)) else {
+//            fatalError("could not generate image for color \(stateColor) with side \(pin)")
+//        }
+//
+//        return SVSettings(image, pin)
+//    }
+    
+    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ pin: UIView?, _ spokeAt: RVSpokeState, _ indexIs: Int) -> UIView {
         
-        var pin: CGFloat = 10
-        if wheelAt == .active {
-            pin = 25
-        }
-        else if wheelAt == .inactive {
-            pin = 20
-        }
-        
-        var stateColor: UIColor = .blue
-        if spokeAt == .focused {
-            stateColor = UIColor.yellow
-        }
-        else if spokeAt == .visible {
-            stateColor = UIColor.black
-        }
-        else if spokeAt == .invisible {
-            stateColor = UIColor.white
+        let radius: CGFloat
+        switch wheelAt {
+        case .active:
+            radius = 25
+        case .inactive:
+            radius = 20
         }
         
-        guard let image = UIImage(color: stateColor, size: CGSize(width: pin, height: pin)) else {
-            fatalError("could not generate image for color \(stateColor) with side \(pin)")
+        let color: UIColor
+        switch spokeAt {
+        case .focused:
+            color = .yellow
+        case .visible:
+            color = .black
+        case .invisible:
+            color = .white
         }
         
-        return SVSettings(image, pin)
+        let image = UIImage(color: color, size: CGSize(width: radius, height: radius))
+        
+        var pinButton: UIButton
+        if pin == nil {
+            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
+        }
+        else {
+            guard let button = pin as? UIButton else {
+                fatalError("pin is not a UIButton")
+            }
+            pinButton = button
+        }
+        //        pin.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
+        //        self.addSubview(_circle)
+        pinButton.setImage(image, for: .normal)
+        //            _circle.image = settings.image
+        //        pin = radius
+        
+        pinButton.frame.origin = .zero
+        pinButton.frame.size.width = radius * 2
+        pinButton.frame.size.height = radius * 2
+        pinButton.layer.cornerRadius = radius
+        pinButton.clipsToBounds = true
+        
+        return pinButton
     }
     
     func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) {

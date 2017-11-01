@@ -18,30 +18,24 @@ class PinView: UIButton {
     }
     */
     
+    // MARK: - Publish Properties
+    
+    var delegate: PVDelegate?
+    
+    // MARK: - Overriden Methods
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let currentPoint = touch.location(in: self)
-            print("began \(currentPoint)")
-            // do something with your currentPoint
-        }
+        delegate?.onTouchBegan(self, touches, with: event)
         super.touchesBegan(touches, with: event)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let currentPoint = touch.location(in: self)
-            print("move \(currentPoint)")
-            // do something with your currentPoint
-        }
+        delegate?.onTouchesMoved(self, touches, with: event)
         super.touchesMoved(touches, with: event)
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let touch = touches.first {
-            let currentPoint = touch.location(in: self)
-            print("end \(currentPoint)")
-            // do something with your currentPoint
-        }
+        delegate?.onTouchesEnded(self, touches, with: event)
         super.touchesEnded(touches, with: event)
     }
 }

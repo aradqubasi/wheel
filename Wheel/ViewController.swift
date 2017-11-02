@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RVDelegate {
+class ViewController: UIViewController, RVDelegate, PVDelegate {
     
     // MARK: - Outlets
     
@@ -17,6 +17,14 @@ class ViewController: UIViewController, RVDelegate {
     // MARK: - Private Properties
     
     var _prev: CGFloat?
+    
+    var _bases: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
+    
+    var _fats: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
+    
+    var _veggies: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
+    
+    var _proteins: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
     
     // MARK: - Subs
     
@@ -30,10 +38,67 @@ class ViewController: UIViewController, RVDelegate {
     
     var proteinsMenu: RadialView!
     
+    // MARK: - SVDelegate Methods
+    
+    func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
+        let isInMenu = {
+            (menuPin: PinView) -> Bool in
+            if menuPin === pin {
+                return true
+            }
+            else {
+                return false
+            }
+        }
+        
+        var newActiveMenu: RadialView
+        var index: Int
+        if let pos = _bases.index(where: isInMenu) {
+            newActiveMenu = basesMenu
+            index = pos
+        }
+        else if let pos = _fats.index(where: isInMenu) {
+            newActiveMenu = fatsMenu
+            index = pos
+        }
+        else if let pos = _veggies.index(where: isInMenu) {
+            newActiveMenu = veggiesMenu
+            index = pos
+        }
+        else if let pos = _proteins.index(where: isInMenu) {
+            newActiveMenu = proteinsMenu
+            index = pos
+        }
+        else {
+            fatalError("unrecognized pin @ onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Voi ")
+        }
+        
+        let switchWheelGotoPin = { () -> Void in
+            self.setActiveState(to: newActiveMenu)
+            newActiveMenu.move(to: index)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
+    }
+    
     // MARK: - RVDelegate Methods
     
     func numberOfSpokes(in wheel: RadialView) -> Int {
-        return 5
+//        return 5
+        if wheel === basesMenu {
+            return _bases.count
+        }
+        else if wheel === fatsMenu {
+            return _fats.count
+        }
+        else if wheel === veggiesMenu {
+            return _veggies.count
+        }
+        else if wheel === proteinsMenu {
+            return _proteins.count
+        }
+        else {
+            fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
+        }
     }
     
     func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings {
@@ -109,20 +174,33 @@ class ViewController: UIViewController, RVDelegate {
         let image = UIImage(color: color, size: CGSize(width: radius, height: radius))
         
         var pinButton: UIButton
-        if pin == nil {
-            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
+//        if pin == nil {
+//            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
+//        }
+//        else {
+//            guard let button = pin as? UIButton else {
+//                fatalError("pin is not a UIButton")
+//            }
+//            pinButton = button
+//        }
+        //        return 5
+        if wheel === basesMenu {
+            pinButton = _bases[indexIs]
+        }
+        else if wheel === fatsMenu {
+            pinButton = _fats[indexIs]
+        }
+        else if wheel === veggiesMenu {
+            pinButton = _veggies[indexIs]
+        }
+        else if wheel === proteinsMenu {
+            pinButton = _proteins[indexIs]
         }
         else {
-            guard let button = pin as? UIButton else {
-                fatalError("pin is not a UIButton")
-            }
-            pinButton = button
+            fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
         }
-        //        pin.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
-        //        self.addSubview(_circle)
+
         pinButton.setImage(image, for: .normal)
-        //            _circle.image = settings.image
-        //        pin = radius
         
         pinButton.frame.origin = .zero
         pinButton.frame.size.width = radius * 2
@@ -147,6 +225,17 @@ class ViewController: UIViewController, RVDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+
+        let setPVDelegate = {
+            (pin: PinView) -> Void in
+            pin.delegate = self
+        }
+//        let _: [Any] = ([_bases, _fats, _veggies, _proteins] as [Any]).forEach(setPVDelegates)
+        _bases.forEach(setPVDelegate)
+        _fats.forEach(setPVDelegate)
+        _veggies.forEach(setPVDelegate)
+        _proteins.forEach(setPVDelegate)
         
         let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
         

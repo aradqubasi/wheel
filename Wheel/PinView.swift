@@ -25,7 +25,7 @@ class PinView: UIButton {
     // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        delegate?.onTouchBegan(self, touches, with: event)
+        delegate?.onTouchesBegan(self, touches, with: event)
         super.touchesBegan(touches, with: event)
     }
     

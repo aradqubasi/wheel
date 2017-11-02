@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 protocol PVDelegate {
-    func onTouchBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
-    func onTouchMove(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
-    func onTouchEnd(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
-    func onTouchCancel(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
+    func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
+    func onTouchesMoved(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
+    func onTouchesEnded(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
+    func onTouchCanceled(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
 }
 extension PVDelegate {
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {

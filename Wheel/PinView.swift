@@ -18,6 +18,8 @@ class PinView: UIButton {
     }
     */
     
+    // MARK: - Subviews
+    
     // MARK: - Publish Properties
     
     var delegate: PVDelegate?

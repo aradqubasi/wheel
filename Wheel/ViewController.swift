@@ -41,6 +41,10 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     // MARK: - SVDelegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
+        if let e = event {
+            print(e)
+        }
+        
         let isInMenu = {
             (menuPin: PinView) -> Bool in
             if menuPin === pin {
@@ -75,7 +79,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         
         let switchWheelGotoPin = { () -> Void in
             self.setActiveState(to: newActiveMenu)
-            newActiveMenu.move(to: index)
+            //newActiveMenu.move(to: index)
         }
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
     }
@@ -104,6 +108,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings {
         var radius: CGFloat = 120
         var distance: CGFloat = CGFloat.pi / 5
+        let thickness: CGFloat = 40
         if wheel === basesMenu {
             radius = 120
             distance = CGFloat.pi / 5
@@ -120,7 +125,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             radius = 300
             distance = CGFloat.pi / 5 * 0.4
         }
-        return RVSettings(wheelRadius: radius, pinDistance: distance)
+        return RVSettings(wheelRadius: radius, pinDistance: distance, wheelThickness: thickness )
     }
     
 //    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
@@ -171,9 +176,9 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             color = .white
         }
         
-        let image = UIImage(color: color, size: CGSize(width: radius, height: radius))
+        let image = UIImage(color: color, size: CGSize(width: radius * 2, height: radius * 2))
         
-        var pinButton: UIButton
+        var pinButton: PinView
 //        if pin == nil {
 //            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
 //        }
@@ -203,7 +208,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         pinButton.setImage(image, for: .normal)
         
         pinButton.frame.origin = .zero
-        pinButton.frame.size.width = radius * 2
+        pinButton.frame.size.width = radius * 4
         pinButton.frame.size.height = radius * 2
         pinButton.layer.cornerRadius = radius
         pinButton.clipsToBounds = true
@@ -226,10 +231,10 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
         let setPVDelegate = {
             (pin: PinView) -> Void in
             pin.delegate = self
+            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
         }
 //        let _: [Any] = ([_bases, _fats, _veggies, _proteins] as [Any]).forEach(setPVDelegates)
         _bases.forEach(setPVDelegate)
@@ -274,6 +279,17 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     }
 
     // MARK: - Actions
+    func onPinClick(_ sender: Any) {
+        guard let pin = sender as? PinView, let wheel = getWheel(by: pin), let index = getIndex(of: pin, in: wheel) else {
+            fatalError()
+        }
+        let switchAndGo = { () -> Void in
+            self.setActiveState(to: wheel)
+            wheel.move(to: index)
+        }
+        setActiveState(to: wheel)
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchAndGo, completion: nil)
+    }
     
     @IBAction func onButtonClick(_ sender: Any) {
         radialMenu.addSpoke()
@@ -308,18 +324,21 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     
     private var scrollLastTime: Date!
     
+    private var scrollLastDeltaAngle: CGFloat!
+    
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             scrollLastAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             scrollLastTime = Date()
+            scrollLastDeltaAngle = 0
         case .changed://, .ended:
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
 //            print("\(newAngle / CGFloat.pi)")
             let deltaAngle = newAngle - scrollLastAngle
             let deltaTime = newTime.timeIntervalSince(scrollLastTime)
-            print(deltaAngle)
+//            print(deltaAngle)
             let follow = { () -> Void in
                 self.radialMenu.move(by: deltaAngle)
             }
@@ -328,12 +347,28 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
             scrollLastAngle = newAngle
             scrollLastTime = newTime
+            scrollLastDeltaAngle = deltaAngle
         case .ended:
-            let normalization = { () -> Void in
+            let deceleration = {
+                () -> Void in
+                let angle = self.scrollLastDeltaAngle * 0.112 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
+//                print("deceleration \(angle)")
+                self.radialMenu.move(by: angle)
+            }
+            
+//            let deceleration = {
+//                () -> Void in
+//                let velocity = sender.velocity(in: self.view)
+//                let angle = (velocity.x * velocity.x + velocity.y * velocity.y).squareRoot() / (2 * CGFloat.pi * self.radialMenu.RVRadius) * 0.112
+//                print(angle)
+//                self.radialMenu.move(by: angle)
+//            }
+           
+            let normalization = { (_: Bool) -> Void in
                 self.radialMenu.move(to: self.radialMenu.RVFocused)
             }
             
-            UIView.animate(withDuration: 0.1, delay: 0, options: [.curveEaseInOut], animations: normalization, completion: nil)
+            UIView.animate(withDuration: 0.112, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
             
             print("end")
         default:
@@ -395,5 +430,34 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         return angle
     }
     
+    private func getWheel(by pin: PinView) -> RadialView? {
+        if _bases.contains(pin) {
+            return basesMenu
+        }
+        else if _fats.contains(pin) {
+            return fatsMenu
+        }
+        else if _proteins.contains(pin) {
+            return proteinsMenu
+        }
+        else if _veggies.contains(pin) {
+            return veggiesMenu
+        }
+        else {
+            return nil
+        }
+    }
+    
+    private func getIndex(of pin: PinView, in wheel: RadialView) -> Int? {
+        for pins in [_bases, _fats, _veggies, _proteins] {
+            if let index = pins.index(where: {
+                (next: PinView) -> Bool in
+                return next === pin
+            }) {
+                return index
+            }
+        }
+        return nil
+    }
 }
 

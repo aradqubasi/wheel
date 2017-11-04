@@ -12,12 +12,15 @@ enum RVState {
 }
 struct RVSettings {
     
-    var wheelRadius: CGFloat
+    var wheelRadius: CGFloat!
     
-    var pinDistance: CGFloat
+    var pinDistance: CGFloat!
     
-    init(wheelRadius: CGFloat, pinDistance: CGFloat) {
+    var wheelThickness: CGFloat!
+    
+    init(wheelRadius: CGFloat, pinDistance: CGFloat, wheelThickness: CGFloat) {
         self.wheelRadius = wheelRadius
         self.pinDistance = pinDistance
+        self.wheelThickness = wheelThickness
     }
 }

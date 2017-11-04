@@ -55,6 +55,12 @@ class RadialView: UIView, SVDelegate {
         }
     }
     
+    var RVRadius: CGFloat {
+        get {
+            return _radius
+        }
+    }
+    
     // MARK: - Private Properties
     
     private var _center: CGPoint = .zero
@@ -73,7 +79,7 @@ class RadialView: UIView, SVDelegate {
     
     private var _radius: CGFloat = 100
     
-    private var _tipRadius: CGFloat = 20
+//    private var _tipRadius: CGFloat = 20
     
     private var _distance: CGFloat = CGFloat.pi / 6
     
@@ -97,59 +103,18 @@ class RadialView: UIView, SVDelegate {
     
     private var _state: RVState = .inactive
     
+    private var _thickness: CGFloat = 40
+    
     // MARK: - SVDelegate Methods
     
-//    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings {
-//        guard let spokeStateSettings = delegate?.radialView(self, _state, spoke, state, -1) else {
-//            fatalError("no result for radialView")
-//        }
-//        return spokeStateSettings
-//    }
+    func pin(for spoke: SpokeView, in state: RVSpokeState) -> SVSettings {
+        let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
+        let spokeDiameter = _radius * 2
+//        let spokeAreaThinkness = _thickness
+        return SVSettings(origin, spokeDiameter)
+    }
+    
     func pin(for spoke: SpokeView, as current: UIView?, in state: RVSpokeState) -> UIView {
-        
-//        let radius: CGFloat
-//        switch _state {
-//        case .active:
-//            radius = 25
-//        case .inactive:
-//            radius = 20
-//        }
-//
-//        let color: UIColor
-//        switch state {
-//        case .focused:
-//            color = .yellow
-//        case .visible:
-//            color = .black
-//        case .invisible:
-//            color = .white
-//        }
-//
-//        let image = UIImage(color: color, size: CGSize(width: radius, height: radius))
-//
-//        var pin: UIButton
-//        if current == nil {
-//            pin = UIButton(frame: CGRect(origin: .zero, size: .zero))
-//        }
-//        else {
-//            guard let button = current as? UIButton else {
-//                fatalError("pin is not a UIButton")
-//            }
-//            pin = button
-//        }
-////        pin.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
-////        self.addSubview(_circle)
-//        pin.setImage(image, for: .normal)
-//        //            _circle.image = settings.image
-////        pin = radius
-//
-//        pin.frame.origin = .zero
-//        pin.frame.size.width = radius * 2
-//        pin.frame.size.height = radius * 2
-//        pin.layer.cornerRadius = radius
-//        pin.clipsToBounds = true
-//
-//        return pin
         if delegate != nil {
             let isCurrent = { (current: SpokeView) -> Bool in
                 if spoke === current {
@@ -224,9 +189,9 @@ class RadialView: UIView, SVDelegate {
     
     func addSpoke() {
         let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
-        let sateliteRadius = _tipRadius
+//        let sateliteRadius = _tipRadius
         let spokeDiameter = _radius * 2
-        let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
+        let spoke = SpokeView(point: origin, side: spokeDiameter)
         spoke.delegate = self
         _spokes.append(spoke)
         
@@ -246,15 +211,17 @@ class RadialView: UIView, SVDelegate {
         if let stateSettings = delegate?.radialView(self, _state) {
             _distance = stateSettings.pinDistance
             _radius = stateSettings.wheelRadius
+            _thickness = stateSettings.wheelThickness
         }
         
         let numberOfSpokes = delegate?.numberOfSpokes(in: self)
         if numberOfSpokes != nil && _spokes.count == 0 {
             for _ in 0..<numberOfSpokes! {
                 let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
-                let sateliteRadius = _tipRadius
+//                let sateliteRadius = _tipRadius
                 let spokeDiameter = _radius * 2
-                let spoke = SpokeView(point: origin, radius: sateliteRadius, side: spokeDiameter)
+//                let spokeAreaThinkness = _thickness
+                let spoke = SpokeView(point: origin, side: spokeDiameter)
                 spoke.delegate = self
                 _spokes.append(spoke)
                 
@@ -272,9 +239,9 @@ class RadialView: UIView, SVDelegate {
             let spokeAngle = _distance * CGFloat(n) + _current
             let spoke = _spokes[n]
             spoke.transform = CGAffineTransform(rotationAngle: 0)
-            let sateliteRadius = _tipRadius
-            let spokeDiameter = _radius * 2
-            spoke.resize(side: spokeDiameter, radius: sateliteRadius)
+//            let sateliteRadius = _tipRadius
+//            let spokeDiameter = _radius * 2
+//            spoke.resize(side: spokeDiameter)
             if spokeAngle > _offset + _top {
                 spoke.state = .invisible
             }
@@ -301,7 +268,7 @@ class RadialView: UIView, SVDelegate {
         
         _radius = radius ?? _radius
         _distance = distance ?? _distance
-        _tipRadius = tip ?? _tipRadius
+//        _tipRadius = tip ?? _tipRadius
         
         show()
     }

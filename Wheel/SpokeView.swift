@@ -31,18 +31,6 @@ class SpokeView: UIView {
             show()
         }
     }
-    
-    var SVRadius: CGFloat {
-        get {
-            return _radius
-        }
-        set (new) {
-            if _side != new {
-                _radius = new
-                show()
-            }
-        }
-    }
 
     var SVPoint: CGPoint {
         get {
@@ -54,33 +42,46 @@ class SpokeView: UIView {
             
         }
     }
+//    
+//    var SVThickness: CGFloat {
+//        get {
+//            return _thickness
+//        }
+//        set (new) {
+//            _thickness = new
+//            show()
+//        }
+//    }
     
     var delegate: SVDelegate?
     
+    // MARK: - Subviews
+
+    private var _pin: UIView!
+    
+    private var _hitBox: UIView!
+    
     // MARK: - Private properties
-//    private var _circle: UIButton!
-    private var _circle: UIView!
     
     private var _state: RVSpokeState = .invisible
     
     private var _side: CGFloat!
     
-    private var _radius: CGFloat!
-    
     private var _point: CGPoint!
     
     // MARK: - Initialization
     
-    init(point: CGPoint, radius: CGFloat, side: CGFloat) {
+    init(point: CGPoint, side: CGFloat) {
         
         self._point = point
-        self._radius = radius
+//        self._radius = radius
         self._side = side
         super.init(frame: CGRect(origin: .zero, size: .zero))
         
 //        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
 //        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
 //        self.addSubview(_circle)
+//        _hitBox = UIView(frame: CGRect(origin: .zero, size: .zero))
         
         frame.origin.x = _point.x
         frame.origin.y = _point.y
@@ -108,6 +109,11 @@ class SpokeView: UIView {
     
     private func show() {
         
+        if let settings = delegate?.pin(for: self, in: _state) {
+            _point = settings.boxOrigin
+            _side = settings.boxSide
+        }
+        
         frame.origin.x = _point.x
         frame.origin.y = _point.y
         
@@ -130,11 +136,11 @@ class SpokeView: UIView {
 //        _circle.layer.cornerRadius = _radius
 //        _circle.clipsToBounds = true
         
-        if let pin = delegate?.pin(for: self, as: _circle, in: _state) {
+        if let pin = delegate?.pin(for: self, as: _pin, in: _state) {
             pin.frame.origin = CGPoint(x: _side / 2 - pin.frame.width / 2, y: 0)
-            if _circle !== pin {
-                _circle?.removeFromSuperview()
-                _circle = pin
+            if _pin !== pin {
+                _pin?.removeFromSuperview()
+                _pin = pin
                 addSubview(pin)
             }
         }
@@ -146,9 +152,8 @@ class SpokeView: UIView {
     
     // MARK: - Public Methods
     
-    func resize(side: CGFloat, radius: CGFloat) {
-        _side = side
-        _radius = radius
-        show()
-    }
+//    func resize(side: CGFloat) {
+//        _side = side
+//        show()
+//    }
 }

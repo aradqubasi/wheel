@@ -13,6 +13,8 @@ protocol SVDelegate {
 //    func getPicture(_ spoke: SpokeView, _ state: RVSpokeState) -> SVSettings
     func pin(for spoke: SpokeView, as current: UIView?, in state: RVSpokeState) -> UIView
     
+    func pin(for spoke: SpokeView, in state: RVSpokeState) -> SVSettings
+    
     func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) -> Void
 }
 

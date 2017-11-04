@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 struct SVSettings {
-    var image: UIImage
-    var pinRadius: CGFloat
-    init(_ image: UIImage, _ pinRadius: CGFloat) {
-        self.image = image
-        self.pinRadius = pinRadius
+    var boxSide: CGFloat
+    var boxOrigin: CGPoint
+    init(_ boxOrigin: CGPoint, _ boxSide: CGFloat) {
+        self.boxSide = boxSide
+        self.boxOrigin = boxOrigin
     }
 }

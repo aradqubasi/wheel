@@ -13,111 +13,111 @@ public extension UIImage {
     
     // MARK: - Veggies Images
     
-    var asparagus: UIImage {
+    static var asparagus: UIImage {
         get {
             return UIImage(named: "_asparagus")!
         }
     }
  
-    var Asparagus: UIImage {
+    static var Asparagus: UIImage {
         get {
             return UIImage(named: "asparagus")!
         }
     }
     
-    var aubergine: UIImage {
+    static var aubergine: UIImage {
         get {
             return UIImage(named: "_aubergine")!
         }
     }
 
-    var Aubergine: UIImage {
+    static var Aubergine: UIImage {
         get {
             return UIImage(named: "aubergine")!
         }
     }
     
-    var broccoli: UIImage {
+    static var broccoli: UIImage {
         get {
             return UIImage(named: "_broccoli")!
         }
     }
  
-    var Broccoli: UIImage {
+    static var Broccoli: UIImage {
         get {
             return UIImage(named: "broccoli")!
         }
     }
     
-    var carrot: UIImage {
+    static var carrot: UIImage {
         get {
             return UIImage(named: "_carrot")!
         }
     }
 
-    var Carrot: UIImage {
+    static var Carrot: UIImage {
         get {
             return UIImage(named: "carrot")!
         }
     }
     
-    var cauliflower: UIImage {
+    static var cauliflower: UIImage {
         get {
             return UIImage(named: "_cauliflower")!
         }
     }
   
-    var Cauliflower: UIImage {
+    static var Cauliflower: UIImage {
         get {
             return UIImage(named: "cauliflower")!
         }
     }
     
-    var corn: UIImage {
+     static var corn: UIImage {
         get {
             return UIImage(named: "_corn")!
         }
     }
 
-    var Corn: UIImage {
+    static var Corn: UIImage {
         get {
             return UIImage(named: "corn")!
         }
     }
     
-    var pepper: UIImage {
+    static var pepper: UIImage {
+        get {
+            return UIImage(named: "_pepper")!
+        }
+    }
+
+    static var Pepper: UIImage {
         get {
             return UIImage(named: "pepper")!
         }
     }
-
-    var Pepper: UIImage {
+    
+    static var radish: UIImage {
         get {
-            return UIImage(named: "Pepper")!
+            return UIImage(named: "_radish")!
         }
     }
-    
-    var radish: UIImage {
+
+    static var Radish: UIImage {
         get {
             return UIImage(named: "radish")!
         }
     }
-
-    var Radish: UIImage {
+    
+    static var tomato: UIImage {
         get {
-            return UIImage(named: "Radish")!
+            return UIImage(named: "_tomato")!
         }
     }
     
-    var tomato: UIImage {
+    static var Tomato: UIImage {
         get {
             return UIImage(named: "tomato")!
-        }
-    }
-    
-    var Tomato: UIImage {
-        get {
-            return UIImage(named: "Tomato")!
         }
     }
     

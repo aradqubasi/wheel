@@ -59,7 +59,9 @@ class SpokeView: UIView {
 
     private var _pin: UIView!
     
-    private var _hitBox: UIView!
+//    private var _hitBox: UIView!
+    
+    private var _socket: UIView!
     
     // MARK: - Private properties
     
@@ -77,7 +79,8 @@ class SpokeView: UIView {
 //        self._radius = radius
         self._side = side
         super.init(frame: CGRect(origin: .zero, size: .zero))
-        
+        _socket = SocketView(frame: CGRect(origin: .zero, size: .zero))
+        addSubview(_socket)
 //        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
 //        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
 //        self.addSubview(_circle)
@@ -137,11 +140,18 @@ class SpokeView: UIView {
 //        _circle.clipsToBounds = true
         
         if let pin = delegate?.pin(for: self, as: _pin, in: _state) {
-            pin.frame.origin = CGPoint(x: _side / 2 - pin.frame.width / 2, y: 0)
+            let side = max(pin.frame.width, pin.frame.height)
+            _socket.frame.size = CGSize(side: side * CGFloat(2).squareRoot())
+            _socket.frame.origin = CGPoint(x: _side / 2 - _socket.frame.width / 2, y: -(side * (CGFloat(2).squareRoot() - 1)))
+            _socket.layer.borderColor = UIColor.red.cgColor
+            _socket.layer.borderWidth = 0
+//            socket.frame.size =
+            pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - pin.frame.width) / 2 - pin.frame.width / 2, y: abs(side - pin.frame.height))
             if _pin !== pin {
                 _pin?.removeFromSuperview()
                 _pin = pin
-                addSubview(pin)
+//                addSubview(pin)
+                _socket.addSubview(pin)
             }
         }
     }

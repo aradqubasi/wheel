@@ -166,18 +166,19 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             radius = 20
         }
         
-        let color: UIColor
-        switch spokeAt {
-        case .focused:
-            color = .yellow
-        case .visible:
-            color = .black
-        case .invisible:
-            color = .white
-        }
+//        let color: UIColor
+//        switch spokeAt {
+//        case .focused:
+//            color = .yellow
+//        case .visible:
+//            color = .black
+//        case .invisible:
+//            color = .white
+//        }
         
-        let image = UIImage(color: color, size: CGSize(width: radius * 2, height: radius * 2))
+//        let image = UIImage(color: color, size: CGSize(width: radius * 2, height: radius * 2))
         
+        let image = UIImage(named: "Corn")
         var pinButton: PinView
 //        if pin == nil {
 //            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
@@ -205,6 +206,15 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
         }
 
+        switch spokeAt {
+        case .focused:
+            pinButton.alpha = 1
+        case .visible:
+            pinButton.alpha = 0.4
+        case .invisible:
+            pinButton.alpha = 0
+        }
+        
         pinButton.setImage(image, for: .normal)
         
         pinButton.frame.origin = .zero

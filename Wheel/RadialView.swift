@@ -206,7 +206,7 @@ class RadialView: UIView, SVDelegate {
     // MARK: - Private Methods
     
     private func show() {
-        var maxrotation: CGFloat = 0
+//        var maxrotation: CGFloat = 0
         
         if let stateSettings = delegate?.radialView(self, _state) {
             _distance = stateSettings.pinDistance
@@ -238,7 +238,7 @@ class RadialView: UIView, SVDelegate {
         for n in 0..<_spokes.count {
             let spokeAngle = _distance * CGFloat(n) + _current
             let spoke = _spokes[n]
-            spoke.transform = CGAffineTransform(rotationAngle: 0)
+//            spoke.transform = CGAffineTransform(rotationAngle: 0)
 //            let sateliteRadius = _tipRadius
 //            let spokeDiameter = _radius * 2
 //            spoke.resize(side: spokeDiameter)
@@ -258,8 +258,9 @@ class RadialView: UIView, SVDelegate {
                 spoke.state = .focused
                 _focused = n
             }
-            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
-            maxrotation = max(maxrotation, spokeAngle)
+//            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)
+            spoke.SVAngle = spokeAngle
+//            maxrotation = max(maxrotation, spokeAngle)
         }
     }
 

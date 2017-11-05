@@ -42,6 +42,16 @@ class SpokeView: UIView {
             
         }
     }
+    
+    var SVAngle: CGFloat {
+        get {
+            return _angle
+        }
+        set (new) {
+            _angle = new
+            show()
+        }
+    }
 //    
 //    var SVThickness: CGFloat {
 //        get {
@@ -71,10 +81,12 @@ class SpokeView: UIView {
     
     private var _point: CGPoint!
     
+    private var _angle: CGFloat!
+    
     // MARK: - Initialization
     
     init(point: CGPoint, side: CGFloat) {
-        
+        self._angle = 0
         self._point = point
 //        self._radius = radius
         self._side = side
@@ -111,6 +123,8 @@ class SpokeView: UIView {
     // MARK: - Private Methods
     
     private func show() {
+        
+        transform = CGAffineTransform(rotationAngle: 0)
         
         if let settings = delegate?.pin(for: self, in: _state) {
             _point = settings.boxOrigin
@@ -154,6 +168,8 @@ class SpokeView: UIView {
                 _socket.addSubview(pin)
             }
         }
+        
+        transform = CGAffineTransform(rotationAngle: _angle)
     }
     
     @objc private func OnPinClick() {

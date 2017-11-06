@@ -125,6 +125,7 @@ class SpokeView: UIView {
     private func show() {
         
         transform = CGAffineTransform(rotationAngle: 0)
+        _pin?.transform = CGAffineTransform(rotationAngle: 0)
         
         if let settings = delegate?.pin(for: self, in: _state) {
             _point = settings.boxOrigin
@@ -170,6 +171,7 @@ class SpokeView: UIView {
         }
         
         transform = CGAffineTransform(rotationAngle: _angle)
+        _pin?.transform = CGAffineTransform(rotationAngle: -_angle)
     }
     
     @objc private func OnPinClick() {

@@ -121,6 +121,116 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Protein Images
+    
+    static var beans: UIImage {
+        get {
+            return UIImage(named: "_beans")!
+        }
+    }
+    
+    static var Beans: UIImage {
+        get {
+            return UIImage(named: "beans")!
+        }
+    }
+    
+    static var boiledegg: UIImage {
+        get {
+            return UIImage(named: "_boiledegg")!
+        }
+    }
+    
+    static var Boiledegg: UIImage {
+        get {
+            return UIImage(named: "boiledegg")!
+        }
+    }
+    
+    static var chickpeas: UIImage {
+        get {
+            return UIImage(named: "_chickpeas")!
+        }
+    }
+    
+    static var Chickpeas: UIImage {
+        get {
+            return UIImage(named: "chickpeas")!
+        }
+    }
+    
+    static var fish: UIImage {
+        get {
+            return UIImage(named: "_fish")!
+        }
+    }
+    
+    static var Fish: UIImage {
+        get {
+            return UIImage(named: "fish")!
+        }
+    }
+    
+    static var friedegg: UIImage {
+        get {
+            return UIImage(named: "_friedegg")!
+        }
+    }
+    
+    static var Friedegg: UIImage {
+        get {
+            return UIImage(named: "friedegg")!
+        }
+    }
+ 
+    static var lentils: UIImage {
+        get {
+            return UIImage(named: "_lentils")!
+        }
+    }
+    
+    static var Lentils: UIImage {
+        get {
+            return UIImage(named: "lentils")!
+        }
+    }
+    
+    static var mushrooms: UIImage {
+        get {
+            return UIImage(named: "_mushrooms")!
+        }
+    }
+    
+    static var Mushrooms: UIImage {
+        get {
+            return UIImage(named: "mushrooms")!
+        }
+    }
+    
+    static var peas: UIImage {
+        get {
+            return UIImage(named: "_peas")!
+        }
+    }
+    
+    static var Peas: UIImage {
+        get {
+            return UIImage(named: "peas")!
+        }
+    }
+    
+    static var shrimp: UIImage {
+        get {
+            return UIImage(named: "_shrimp")!
+        }
+    }
+    
+    static var Shrimp: UIImage {
+        get {
+            return UIImage(named: "shrimp")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

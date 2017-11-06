@@ -24,7 +24,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     
     var _veggies: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView()]
     
-    var _proteins: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
+    var _proteins: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView()]
     
     // MARK: - Subs
     
@@ -215,13 +215,18 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             pinButton.alpha = 0
         }
         
-        if wheel != veggiesMenu {
-            pinButton.setImage(wheelAt == .active ? UIImage.Corn : UIImage.corn, for: .normal)
+        if wheel === proteinsMenu {
+            let pictures = [UIImage.peas, UIImage.fish, UIImage.boiledegg, UIImage.beans, UIImage.chickpeas, UIImage.friedegg, UIImage.lentils, UIImage.mushrooms, UIImage.shrimp]
+            let Pictures = [UIImage.Peas, UIImage.Fish, UIImage.Boiledegg, UIImage.Beans, UIImage.Chickpeas, UIImage.Friedegg, UIImage.Lentils, UIImage.Mushrooms, UIImage.Shrimp]
+            pinButton.setImage(wheelAt == .active ? Pictures[indexIs] : pictures[indexIs], for: .normal)
         }
-        else {
+        else if wheel === veggiesMenu {
             let pictures = [UIImage.asparagus, UIImage.aubergine, UIImage.broccoli, UIImage.carrot, UIImage.cauliflower, UIImage.corn, UIImage.pepper, UIImage.radish, UIImage.tomato]
             let Pictures = [UIImage.Asparagus, UIImage.Aubergine, UIImage.Broccoli, UIImage.Carrot, UIImage.Cauliflower, UIImage.Corn, UIImage.Pepper, UIImage.Radish, UIImage.Tomato]
             pinButton.setImage(wheelAt == .active ? Pictures[indexIs] : pictures[indexIs], for: .normal)
+        }
+        else {
+            pinButton.setImage(wheelAt == .active ? UIImage.Corn : UIImage.corn, for: .normal)
         }
         
         pinButton.frame.origin = .zero

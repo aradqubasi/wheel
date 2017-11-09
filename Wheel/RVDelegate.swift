@@ -9,13 +9,13 @@
 import Foundation
 import UIKit
 protocol RVDelegate {
+    
     func numberOfSpokes(in wheel: RadialView) -> Int
-    
-    func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings
-    
-//    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings
-    
-    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ pin: UIView?, _ spokeAt: RVSpokeState, _ indexIs: Int) -> UIView
 
-    func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> Void
+    func radialView(_ wheel: RadialView) -> RVSettings
+    
+    func radialView(pinFor wheel: RadialView, at index: Int) -> UIView
+    
+    func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) -> Void
+    
 }

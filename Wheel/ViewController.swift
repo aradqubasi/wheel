@@ -41,9 +41,9 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     // MARK: - SVDelegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
-        if let e = event {
-            print(e)
-        }
+//        if let e = event {
+//            print(e)
+//        }
         
         let isInMenu = {
             (menuPin: PinView) -> Bool in
@@ -105,7 +105,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         }
     }
     
-    func radialView(_ wheel: RadialView, _ wheelAt: RVState) -> RVSettings {
+    func radialView(_ wheel: RadialView) -> RVSettings {
         var radius: CGFloat = 120
         var distance: CGFloat = CGFloat.pi / 5
         let thickness: CGFloat = 40
@@ -127,58 +127,36 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         }
         return RVSettings(wheelRadius: radius, pinDistance: distance, wheelThickness: thickness )
     }
+
+    func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
+        if wheel === basesMenu {
+            return _bases[index]
+        }
+        else if wheel === fatsMenu {
+            return _fats[index]
+        }
+        else if wheel === veggiesMenu {
+            return _veggies[index]
+        }
+        else if wheel === proteinsMenu {
+            return _proteins[index]
+        }
+        else {
+            fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
+        }
+    }
     
-//    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) -> SVSettings {
-//
-//        var pin: CGFloat = 10
-//        if wheelAt == .active {
-//            pin = 25
-//        }
-//        else if wheelAt == .inactive {
-//            pin = 20
-//        }
-//
-//        var stateColor: UIColor = .blue
-//        if spokeAt == .focused {
-//            stateColor = UIColor.yellow
-//        }
-//        else if spokeAt == .visible {
-//            stateColor = UIColor.black
-//        }
-//        else if spokeAt == .invisible {
-//            stateColor = UIColor.white
-//        }
-//
-//        guard let image = UIImage(color: stateColor, size: CGSize(width: pin, height: pin)) else {
-//            fatalError("could not generate image for color \(stateColor) with side \(pin)")
-//        }
-//
-//        return SVSettings(image, pin)
-//    }
-    
-    func radialView(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ pin: UIView?, _ spokeAt: RVSpokeState, _ indexIs: Int) -> UIView {
+    func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) -> Void {
         
         let radius: CGFloat
-        switch wheelAt {
+        switch wheel.RVState {
         case .active:
             radius = 25
         case .inactive:
             radius = 20
         }
         
-//        let color: UIColor
-//        switch spokeAt {
-//        case .focused:
-//            color = .yellow
-//        case .visible:
-//            color = .black
-//        case .invisible:
-//            color = .white
-//        }
-        
-//        let image = UIImage(color: color, size: CGSize(width: radius * 2, height: radius * 2))
-        
-        let image = UIImage(named: "corn")
+//        let image = UIImage(named: "corn")
         var pinButton: PinView
 //        if pin == nil {
 //            pinButton = UIButton(frame: CGRect(origin: .zero, size: .zero))
@@ -191,22 +169,22 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
 //        }
         //        return 5
         if wheel === basesMenu {
-            pinButton = _bases[indexIs]
+            pinButton = _bases[index]
         }
         else if wheel === fatsMenu {
-            pinButton = _fats[indexIs]
+            pinButton = _fats[index]
         }
         else if wheel === veggiesMenu {
-            pinButton = _veggies[indexIs]
+            pinButton = _veggies[index]
         }
         else if wheel === proteinsMenu {
-            pinButton = _proteins[indexIs]
+            pinButton = _proteins[index]
         }
         else {
             fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
         }
 
-        switch spokeAt {
+        switch state {
         case .focused:
             pinButton.alpha = 1
         case .visible:
@@ -218,15 +196,15 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         if wheel === proteinsMenu {
             let pictures = [UIImage.peas, UIImage.fish, UIImage.boiledegg, UIImage.beans, UIImage.chickpeas, UIImage.friedegg, UIImage.lentils, UIImage.mushrooms, UIImage.shrimp]
             let Pictures = [UIImage.Peas, UIImage.Fish, UIImage.Boiledegg, UIImage.Beans, UIImage.Chickpeas, UIImage.Friedegg, UIImage.Lentils, UIImage.Mushrooms, UIImage.Shrimp]
-            pinButton.setImage(wheelAt == .active ? Pictures[indexIs] : pictures[indexIs], for: .normal)
+            pinButton.setImage(wheel.RVState == .active ? Pictures[index] : pictures[index], for: .normal)
         }
         else if wheel === veggiesMenu {
             let pictures = [UIImage.asparagus, UIImage.aubergine, UIImage.broccoli, UIImage.carrot, UIImage.cauliflower, UIImage.corn, UIImage.pepper, UIImage.radish, UIImage.tomato]
             let Pictures = [UIImage.Asparagus, UIImage.Aubergine, UIImage.Broccoli, UIImage.Carrot, UIImage.Cauliflower, UIImage.Corn, UIImage.Pepper, UIImage.Radish, UIImage.Tomato]
-            pinButton.setImage(wheelAt == .active ? Pictures[indexIs] : pictures[indexIs], for: .normal)
+            pinButton.setImage(wheel.RVState == .active ? Pictures[index] : pictures[index], for: .normal)
         }
         else {
-            pinButton.setImage(wheelAt == .active ? UIImage.Corn : UIImage.corn, for: .normal)
+            pinButton.setImage(wheel.RVState == .active ? UIImage.Corn : UIImage.corn, for: .normal)
         }
         
         pinButton.frame.origin = .zero
@@ -235,16 +213,16 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
         pinButton.layer.cornerRadius = radius
         pinButton.clipsToBounds = true
         
-        return pinButton
+//        return pinButton
     }
     
-    func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) {
-        let switchWheelGotoPin = { () -> Void in
-            self.setActiveState(to: wheel)
-            wheel.move(to: indexIs)
-        }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
-    }
+//    func onPinClick(_ wheel: RadialView, _ wheelAt: RVState, _ spoke: SpokeView, _ spokeAt: RVSpokeState, _ indexIs: Int) {
+//        let switchWheelGotoPin = { () -> Void in
+//            self.setActiveState(to: wheel)
+//            wheel.move(to: indexIs)
+//        }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
+//    }
     
     var rollButton: UIButton!
     
@@ -355,6 +333,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             scrollLastTime = Date()
             scrollLastDeltaAngle = 0
         case .changed://, .ended:
+            print("changed")
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
 //            print("\(newAngle / CGFloat.pi)")
@@ -374,21 +353,19 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             let deceleration = {
                 () -> Void in
                 let angle = self.scrollLastDeltaAngle * 0.112 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
-//                print("deceleration \(angle)")
                 self.radialMenu.move(by: angle)
             }
-            
-//            let deceleration = {
-//                () -> Void in
-//                let velocity = sender.velocity(in: self.view)
-//                let angle = (velocity.x * velocity.x + velocity.y * velocity.y).squareRoot() / (2 * CGFloat.pi * self.radialMenu.RVRadius) * 0.112
-//                print(angle)
-//                self.radialMenu.move(by: angle)
-//            }
-           
+
             let normalization = { (_: Bool) -> Void in
                 self.radialMenu.move(to: self.radialMenu.RVFocused)
             }
+//            let deceleration = { () -> Void in
+//                self.radialMenu.move(to: self.radialMenu.RVFocused)
+//            }
+//
+//            let normalization = { (_: Bool) -> Void in
+//
+//            }
             
             UIView.animate(withDuration: 0.112, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
             

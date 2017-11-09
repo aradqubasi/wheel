@@ -9,7 +9,7 @@
 import UIKit
 
 class RadialView: UIView, SVDelegate {
-    
+
     // MARK: - Public Properties
     
     var delegate: RVDelegate?
@@ -107,32 +107,67 @@ class RadialView: UIView, SVDelegate {
     
     // MARK: - SVDelegate Methods
     
-    func pin(for spoke: SpokeView, in state: RVSpokeState) -> SVSettings {
+    func spokeView(pinFor spoke: SpokeView) -> UIView {
+        return delegate?.radialView(pinFor: self, at: spoke.SVIndex) ?? UIView()
+    }
+    
+    func spokeView(_ spoke: SpokeView) -> SVSettings {
         let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
         let spokeDiameter = _radius * 2
 //        let spokeAreaThinkness = _thickness
         return SVSettings(origin, spokeDiameter)
     }
     
-    func pin(for spoke: SpokeView, as current: UIView?, in state: RVSpokeState) -> UIView {
-        if delegate != nil {
-            let isCurrent = { (current: SpokeView) -> Bool in
-                if spoke === current {
-                    return true
-                }
-                else {
-                    return false
-                }
-            }
-            guard let spokeIndex = _spokes.index(where: isCurrent) else {
-                fatalError("clicked spoke is not found")
-            }
-            return delegate!.radialView(self, _state, spoke, current, state, spokeIndex)
-        }
-        else {
-            return UIView()
-        }
+    func spokeView(for spoke: SpokeView, update pin: UIView) -> Void {
+        delegate?.radialView(for: self, update: pin, in: spoke.SVState, at: spoke.SVIndex)
     }
+    
+//    func spokeView(for spoke: SpokeView, update pin: UIView) {
+//        if delegate != nil {
+//            let isCurrent = { (current: SpokeView) -> Bool in
+//                if spoke === current {
+//                    return true
+//                }
+//                else {
+//                    return false
+//                }
+//            }
+//            guard let spokeIndex = _spokes.index(where: isCurrent) else {
+//                fatalError("clicked spoke is not found")
+//            }
+//            return delegate!.radialView(self, _state, spoke, current, state, spokeIndex)
+//        }
+//        else {
+//            return UIView()
+//        }
+//    }
+//
+//    func pin(for spoke: SpokeView, in state: RVSpokeState) -> SVSettings {
+//        let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
+//        let spokeDiameter = _radius * 2
+//        let spokeAreaThinkness = _thickness
+//        return SVSettings(origin, spokeDiameter)
+//    }
+    
+//    func pin(for spoke: SpokeView, as current: UIView?, in state: RVSpokeState) -> UIView {
+//        if delegate != nil {
+//            let isCurrent = { (current: SpokeView) -> Bool in
+//                if spoke === current {
+//                    return true
+//                }
+//                else {
+//                    return false
+//                }
+//            }
+//            guard let spokeIndex = _spokes.index(where: isCurrent) else {
+//                fatalError("clicked spoke is not found")
+//            }
+//            return delegate!.radialView(self, _state, spoke, current, state, spokeIndex)
+//        }
+//        else {
+//            return UIView()
+//        }
+//    }
     
 //    func onPinClick(_ spoke: SpokeView, _ state: RVSpokeState) {
 //        guard let spokeIndex = _spokes.index(where: { (current) -> Bool in
@@ -191,7 +226,8 @@ class RadialView: UIView, SVDelegate {
         let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
 //        let sateliteRadius = _tipRadius
         let spokeDiameter = _radius * 2
-        let spoke = SpokeView(point: origin, side: spokeDiameter)
+        let pin = delegate?.radialView(pinFor: self, at: _spokes.count) ?? UIView()
+        let spoke = SpokeView(point: origin, side: spokeDiameter, index: _spokes.count, pin: pin)
         spoke.delegate = self
         _spokes.append(spoke)
         
@@ -208,7 +244,7 @@ class RadialView: UIView, SVDelegate {
     private func show() {
 //        var maxrotation: CGFloat = 0
         
-        if let stateSettings = delegate?.radialView(self, _state) {
+        if let stateSettings = delegate?.radialView(self) {
             _distance = stateSettings.pinDistance
             _radius = stateSettings.wheelRadius
             _thickness = stateSettings.wheelThickness
@@ -216,12 +252,12 @@ class RadialView: UIView, SVDelegate {
         
         let numberOfSpokes = delegate?.numberOfSpokes(in: self)
         if numberOfSpokes != nil && _spokes.count == 0 {
-            for _ in 0..<numberOfSpokes! {
+            for i in 0..<numberOfSpokes! {
                 let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
 //                let sateliteRadius = _tipRadius
                 let spokeDiameter = _radius * 2
 //                let spokeAreaThinkness = _thickness
-                let spoke = SpokeView(point: origin, side: spokeDiameter)
+                let spoke = SpokeView(point: origin, side: spokeDiameter, index: i, pin: delegate?.radialView(pinFor: self, at: i) ?? UIView())
                 spoke.delegate = self
                 _spokes.append(spoke)
                 
@@ -243,19 +279,19 @@ class RadialView: UIView, SVDelegate {
 //            let spokeDiameter = _radius * 2
 //            spoke.resize(side: spokeDiameter)
             if spokeAngle > _offset + _top {
-                spoke.state = .invisible
+                spoke.SVState = .invisible
             }
             else if spokeAngle < _offset - _bottom {
-                spoke.state = .invisible
+                spoke.SVState = .invisible
             }
             else if spokeAngle > _offset + _distance / 2 {
-                spoke.state = .visible
+                spoke.SVState = .visible
             }
             else if spokeAngle < _offset - _distance / 2 {
-                spoke.state = .visible
+                spoke.SVState = .visible
             }
             else {
-                spoke.state = .focused
+                spoke.SVState = .focused
                 _focused = n
             }
 //            spoke.transform = CGAffineTransform(rotationAngle: spokeAngle)

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum RVSpokeState {
+enum SVState {
     case invisible
     case visible
     case focused

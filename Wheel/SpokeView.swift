@@ -12,7 +12,7 @@ class SpokeView: UIView {
     
     // MARK: - Public Properties
     
-    var state: RVSpokeState{
+    var SVState: SVState {
         get {
             return _state
         }
@@ -52,16 +52,12 @@ class SpokeView: UIView {
             show()
         }
     }
-//    
-//    var SVThickness: CGFloat {
-//        get {
-//            return _thickness
-//        }
-//        set (new) {
-//            _thickness = new
-//            show()
-//        }
-//    }
+    
+    var SVIndex: Int {
+        get {
+            return _index
+        }
+    }
     
     var delegate: SVDelegate?
     
@@ -75,7 +71,7 @@ class SpokeView: UIView {
     
     // MARK: - Private properties
     
-    private var _state: RVSpokeState = .invisible
+    private var _state: SVState = .invisible
     
     private var _side: CGFloat!
     
@@ -83,21 +79,20 @@ class SpokeView: UIView {
     
     private var _angle: CGFloat!
     
+    private var _index: Int!
+    
     // MARK: - Initialization
     
-    init(point: CGPoint, side: CGFloat) {
+    init(point: CGPoint, side: CGFloat, index: Int, pin: UIView) {
+        self._index = index
         self._angle = 0
         self._point = point
-//        self._radius = radius
         self._side = side
         super.init(frame: CGRect(origin: .zero, size: .zero))
         _socket = SocketView(frame: CGRect(origin: .zero, size: .zero))
         addSubview(_socket)
-//        _circle = UIButton(frame: CGRect(origin: .zero, size: .zero))
-//        _circle.addTarget(self, action: #selector(OnPinClick), for: .touchUpInside)
-//        self.addSubview(_circle)
-//        _hitBox = UIView(frame: CGRect(origin: .zero, size: .zero))
-        
+        _pin = pin
+        _socket.addSubview(_pin)
         frame.origin.x = _point.x
         frame.origin.y = _point.y
         show()
@@ -127,7 +122,7 @@ class SpokeView: UIView {
         transform = CGAffineTransform(rotationAngle: 0)
         _pin?.transform = CGAffineTransform(rotationAngle: 0)
         
-        if let settings = delegate?.pin(for: self, in: _state) {
+        if let settings = delegate?.spokeView(self) {
             _point = settings.boxOrigin
             _side = settings.boxSide
         }
@@ -143,40 +138,32 @@ class SpokeView: UIView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 0
         
-//        if let settings = delegate?.getPicture(self, _state) {
-//            _circle.setImage(settings.image, for: .normal)
-//            _radius = settings.pinRadius
+//        if _pin == nil {
+//            if let pin = delegate?.spokeView(pinFor: self) {
+//                _pin = pin
+//            }
+//            else {
+//                _pin = UIView()
+//            }
+//            _socket.addSubview(_pin)
 //        }
-//        _circle.frame.origin.x = _side / 2 - _radius
-//        _circle.frame.origin.y = 0
-//        _circle.frame.size.width = _radius * 2
-//        _circle.frame.size.height = _radius * 2
-//        _circle.layer.cornerRadius = _radius
-//        _circle.clipsToBounds = true
         
-        if let pin = delegate?.pin(for: self, as: _pin, in: _state) {
-            let side = max(pin.frame.width, pin.frame.height)
-            _socket.frame.size = CGSize(side: side * CGFloat(2).squareRoot())
-            _socket.frame.origin = CGPoint(x: _side / 2 - _socket.frame.width / 2, y: -(side * (CGFloat(2).squareRoot() - 1)))
-            _socket.layer.borderColor = UIColor.red.cgColor
-            _socket.layer.borderWidth = 0
-//            socket.frame.size =
-            pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - pin.frame.width) / 2 - pin.frame.width / 2, y: abs(side - pin.frame.height))
-            if _pin !== pin {
-                _pin?.removeFromSuperview()
-                _pin = pin
-//                addSubview(pin)
-                _socket.addSubview(pin)
-            }
-        }
+        delegate?.spokeView(for: self, update: _pin)
+        
+        let side = max(_pin.frame.width, _pin.frame.height)
+        _socket.frame.size = CGSize(side: side * CGFloat(2).squareRoot())
+        _socket.frame.origin = CGPoint(x: _side / 2 - _socket.frame.width / 2, y: -(side * (CGFloat(2).squareRoot() - 1)))
+        _socket.layer.borderColor = UIColor.red.cgColor
+        _socket.layer.borderWidth = 0
+        _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: abs(side - _pin.frame.height))
         
         transform = CGAffineTransform(rotationAngle: _angle)
-        _pin?.transform = CGAffineTransform(rotationAngle: -_angle)
+        _pin.transform = CGAffineTransform(rotationAngle: -_angle)
     }
     
-    @objc private func OnPinClick() {
-        delegate?.onPinClick(self, _state)
-    }
+//    @objc private func OnPinClick() {
+//        delegate?.onPinClick(self, _state)
+//    }
     
     // MARK: - Public Methods
     

@@ -7,15 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		151AFE3D1F77A9FF00CC5357 /* RVSpinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */; };
-		151AFE3F1F77B92E00CC5357 /* RVSpokeState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */; };
+		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE401F88C7AE00CC5357 /* RVOrientation.swift */; };
 		151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE421F8A031C00CC5357 /* RVSettings.swift */; };
-		151AFE451F8A858200CC5357 /* WStateSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WStateSetting.swift */; };
+		151AFE451F8A858200CC5357 /* WSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WSettings.swift */; };
 		151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE461FA114AA00CC5357 /* SVDelegate.swift */; };
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
 		151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE4A1FA5015500CC5357 /* SVSettings.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
+		15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */; };
+		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
+		15A73CA31FB657D700E3BB01 /* BasesRadialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA21FB657D700E3BB01 /* BasesRadialController.swift */; };
+		15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* ViewController.swift */; };
 		15F0BB391F404FCC006F646E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB371F404FCC006F646E /* Main.storyboard */; };
@@ -49,15 +52,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSpinState.swift; sourceTree = "<group>"; };
-		151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSpokeState.swift; sourceTree = "<group>"; };
+		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE401F88C7AE00CC5357 /* RVOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVOrientation.swift; sourceTree = "<group>"; };
 		151AFE421F8A031C00CC5357 /* RVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSettings.swift; sourceTree = "<group>"; };
-		151AFE441F8A858200CC5357 /* WStateSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WStateSetting.swift; sourceTree = "<group>"; };
+		151AFE441F8A858200CC5357 /* WSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSettings.swift; sourceTree = "<group>"; };
 		151AFE461FA114AA00CC5357 /* SVDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVDelegate.swift; sourceTree = "<group>"; };
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		151AFE4A1FA5015500CC5357 /* SVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVSettings.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
+		15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialController.swift; sourceTree = "<group>"; };
+		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
+		15A73CA21FB657D700E3BB01 /* BasesRadialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasesRadialController.swift; sourceTree = "<group>"; };
+		15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialControllerDelegate.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F0BB351F404FCC006F646E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -129,6 +135,9 @@
 			children = (
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
 				15F0BB351F404FCC006F646E /* ViewController.swift */,
+				15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */,
+				15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */,
+				15A73CA21FB657D700E3BB01 /* BasesRadialController.swift */,
 				15F0BB371F404FCC006F646E /* Main.storyboard */,
 				15F0BB3A1F404FCC006F646E /* Assets.xcassets */,
 				15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */,
@@ -137,17 +146,17 @@
 				15F0BB631F40522C006F646E /* RVDelegate.swift */,
 				159F18821F63D4920079C545 /* SpokeView.swift */,
 				151AFE461FA114AA00CC5357 /* SVDelegate.swift */,
-				151AFE3E1F77B92E00CC5357 /* RVSpokeState.swift */,
-				151AFE3C1F77A9FF00CC5357 /* RVSpinState.swift */,
+				151AFE3E1F77B92E00CC5357 /* SVState.swift */,
 				151AFE401F88C7AE00CC5357 /* RVOrientation.swift */,
 				151AFE421F8A031C00CC5357 /* RVSettings.swift */,
-				151AFE441F8A858200CC5357 /* WStateSetting.swift */,
 				151AFE481FA119FD00CC5357 /* UIImage.swift */,
 				151AFE4A1FA5015500CC5357 /* SVSettings.swift */,
 				15F43C401FA99CA700732CED /* PinView.swift */,
 				15F43C421FA99D4E00732CED /* PVDelegate.swift */,
 				15F43C441FAF655100732CED /* CGSize.swift */,
 				15F43C461FAF6DA600732CED /* SocketView.swift */,
+				15A73CA01FB62B0800E3BB01 /* WState.swift */,
+				151AFE441F8A858200CC5357 /* WSettings.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -310,18 +319,21 @@
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
 				151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
-				151AFE3F1F77B92E00CC5357 /* RVSpokeState.swift in Sources */,
+				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
+				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
 				151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
-				151AFE3D1F77A9FF00CC5357 /* RVSpinState.swift in Sources */,
-				151AFE451F8A858200CC5357 /* WStateSetting.swift in Sources */,
+				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
+				15A73CA31FB657D700E3BB01 /* BasesRadialController.swift in Sources */,
+				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
+				15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */,
 				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,
 			);

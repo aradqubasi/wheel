@@ -24,6 +24,8 @@ class PinView: UIButton {
     
     var delegate: PVDelegate?
     
+    var images: [WState: [SVState: UIImage]]!
+    
     // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

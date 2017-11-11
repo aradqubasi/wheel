@@ -138,16 +138,6 @@ class SpokeView: UIView {
         layer.borderColor = UIColor.black.cgColor
         layer.borderWidth = 0
         
-//        if _pin == nil {
-//            if let pin = delegate?.spokeView(pinFor: self) {
-//                _pin = pin
-//            }
-//            else {
-//                _pin = UIView()
-//            }
-//            _socket.addSubview(_pin)
-//        }
-        
         delegate?.spokeView(for: self, update: _pin)
         
         let side = max(_pin.frame.width, _pin.frame.height)
@@ -161,14 +151,6 @@ class SpokeView: UIView {
         _pin.transform = CGAffineTransform(rotationAngle: -_angle)
     }
     
-//    @objc private func OnPinClick() {
-//        delegate?.onPinClick(self, _state)
-//    }
-    
     // MARK: - Public Methods
     
-//    func resize(side: CGFloat) {
-//        _side = side
-//        show()
-//    }
 }

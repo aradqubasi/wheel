@@ -41,68 +41,25 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     // MARK: - SVDelegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
-//        if let e = event {
-//            print(e)
-//        }
-        
-        let isInMenu = {
-            (menuPin: PinView) -> Bool in
-            if menuPin === pin {
-                return true
-            }
-            else {
-                return false
-            }
-        }
-        
-        var newActiveMenu: RadialView
-        var index: Int
-        if let pos = _bases.index(where: isInMenu) {
-            newActiveMenu = basesMenu
-            index = pos
-        }
-        else if let pos = _fats.index(where: isInMenu) {
-            newActiveMenu = fatsMenu
-            index = pos
-        }
-        else if let pos = _veggies.index(where: isInMenu) {
-            newActiveMenu = veggiesMenu
-            index = pos
-        }
-        else if let pos = _proteins.index(where: isInMenu) {
-            newActiveMenu = proteinsMenu
-            index = pos
-        }
-        else {
+
+        guard let newActiveMenu: RadialView = getWheel(by: pin) else {
             fatalError("unrecognized pin @ onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Voi ")
         }
-        
-        let switchWheelGotoPin = { () -> Void in
+
+        let switchWheel = { () -> Void in
             self.setActiveState(to: newActiveMenu)
-            //newActiveMenu.move(to: index)
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheelGotoPin, completion: nil)
+        
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: switchWheel, completion: nil)
     }
     
     // MARK: - RVDelegate Methods
     
     func numberOfSpokes(in wheel: RadialView) -> Int {
-//        return 5
-        if wheel === basesMenu {
-            return _bases.count
-        }
-        else if wheel === fatsMenu {
-            return _fats.count
-        }
-        else if wheel === veggiesMenu {
-            return _veggies.count
-        }
-        else if wheel === proteinsMenu {
-            return _proteins.count
-        }
-        else {
+        guard let pins = getPins(for: wheel) else {
             fatalError("unrecognized wheel @ numberOfSpokes(in wheel: RadialView) -> Int ")
         }
+        return pins.count
     }
     
     func radialView(_ wheel: RadialView) -> RVSettings {
@@ -457,6 +414,24 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             }
         }
         return nil
+    }
+    
+    private func getPins(for wheel: RadialView) -> [PinView]? {
+        if wheel === basesMenu {
+            return _bases
+        }
+        else if wheel === fatsMenu {
+            return _fats
+        }
+        else if wheel === veggiesMenu {
+            return _veggies
+        }
+        else if wheel === proteinsMenu {
+            return _proteins
+        }
+        else {
+            return nil
+        }
     }
 }
 

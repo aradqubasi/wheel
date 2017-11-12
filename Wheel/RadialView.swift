@@ -101,7 +101,7 @@ class RadialView: UIView, SVDelegate {
     
     private var _state: RVState = .inactive
     
-    private var _thickness: CGFloat = 40
+//    private var _thickness: CGFloat = 40
     
     // MARK: - SVDelegate Methods
     
@@ -181,7 +181,7 @@ class RadialView: UIView, SVDelegate {
         if let stateSettings = delegate?.radialView(self) {
             _distance = stateSettings.pinDistance
             _radius = stateSettings.wheelRadius
-            _thickness = stateSettings.wheelThickness
+//            _thickness = stateSettings.wheelThickness
         }
         
         let numberOfSpokes = delegate?.numberOfSpokes(in: self)
@@ -254,6 +254,7 @@ class RadialView: UIView, SVDelegate {
         _current = _offset - CGFloat(constrained) * _distance
         
         show()
+        
     }
     
 

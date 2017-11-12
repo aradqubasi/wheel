@@ -8,9 +8,15 @@
 
 import Foundation
 import UIKit
-class BasesRadialController : RadialController {
+class BasesController : RadialController {
     
-    //
+    // MARK: - Overrided Properties
+    
+    override var activeState: WState {
+        get {
+            return .bases
+        }
+    }
     
     // MARK: - Initialization
     
@@ -138,19 +144,15 @@ class BasesRadialController : RadialController {
         
         let pins = [romainelettuce, salad, cabbage, lettuce, spinach]
         
-//        state = .bases
-
-        let settings: [WState: WSettings] = [.bases: WSettings(RVSettings(wheelRadius: 0, pinDistance: 0, wheelThickness: 0), 0) ]
-        
-//        settings.
-//        let settings = [
-//            .bases: WSettings([.focused: UIImage], ),
-//            .
-//        ]
+        let settings: [WState: WSettings] = [
+            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 100, height: 50)),
+            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
+            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
+            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40))
+        ]
         
         super.init(pins, settings)
-        
-        
+
     }
     
 }

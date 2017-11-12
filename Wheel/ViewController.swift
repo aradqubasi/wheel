@@ -65,7 +65,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
     func radialView(_ wheel: RadialView) -> RVSettings {
         var radius: CGFloat = 120
         var distance: CGFloat = CGFloat.pi / 5
-        let thickness: CGFloat = 40
+//        let thickness: CGFloat = 40
         if wheel === basesMenu {
             radius = 120
             distance = CGFloat.pi / 5
@@ -82,7 +82,7 @@ class ViewController: UIViewController, RVDelegate, PVDelegate {
             radius = 300
             distance = CGFloat.pi / 5 * 0.4
         }
-        return RVSettings(wheelRadius: radius, pinDistance: distance, wheelThickness: thickness )
+        return RVSettings(radius, distance)
     }
 
     func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {

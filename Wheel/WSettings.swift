@@ -10,12 +10,31 @@ import Foundation
 import UIKit
 struct WSettings {
     
-    var geometry: RVSettings
+    // MARK: - Public Properties
     
+    /**Angular distance between pins*/
+    var distance: CGFloat
+    
+    /**Wheel radius*/
     var radius: CGFloat
     
-    init(_ geometry: RVSettings, _ radius: CGFloat) {
-        self.geometry = geometry
-        self.radius = radius
+    /**PinView size*/
+    var size: CGSize
+    
+    /**Convert to RVSettings*/
+    var asRvSettings: RVSettings {
+        get {
+            return RVSettings(radius, distance)
+        }
     }
+    
+    // MARK: - Initializers
+    
+    init(_ radius: CGFloat, _ distance: CGFloat, _ size: CGSize) {
+        self.radius = radius
+        self.distance = distance
+        self.size = size
+    }
+    
+    
 }

@@ -16,11 +16,11 @@ struct RVSettings {
     
     var pinDistance: CGFloat!
     
-    var wheelThickness: CGFloat!
+//    var wheelThickness: CGFloat!
     
-    init(wheelRadius: CGFloat, pinDistance: CGFloat, wheelThickness: CGFloat) {
+    init(_ wheelRadius: CGFloat, _ pinDistance: CGFloat) {
         self.wheelRadius = wheelRadius
         self.pinDistance = pinDistance
-        self.wheelThickness = wheelThickness
+//        self.wheelThickness = wheelThickness
     }
 }

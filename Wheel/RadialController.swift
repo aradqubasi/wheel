@@ -34,6 +34,12 @@ class RadialController: RVDelegate, PVDelegate {
         }
     }
     
+    var activeState: WState {
+        get {
+            return .bases
+        }
+    }
+    
     // MARK: - Private Properties
     
     private var _pins: [PinView]!
@@ -55,6 +61,7 @@ class RadialController: RVDelegate, PVDelegate {
         }
         
         _pins = pins
+        _pins.forEach(setPVDelegate)
         _stateSettings = settings
         
     }
@@ -69,7 +76,7 @@ class RadialController: RVDelegate, PVDelegate {
         guard let settings = _stateSettings[state] else {
             fatalError("no settings @ state \(state) @ \(self)")
         }
-        return settings.geometry
+        return settings.asRvSettings
     }
     
     func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
@@ -80,29 +87,29 @@ class RadialController: RVDelegate, PVDelegate {
     }
     
     func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) {
-        guard let pin = _pins.count > index ? _pins[index] : nil, let pinView = pin as? PinView else {
+        guard let pin = _pins.count > index ? _pins[index] : nil else {
             fatalError("no pin @ index \(index) @ \(self)")
         }
         guard let settings = _stateSettings[_state] else {
             fatalError("no settings @ state \(_state) @ \(self)")
         }
-        guard let images = pinView.images[_state], let image = images[state]  else {
+        guard let images = pin.images[_state], let image = images[state]  else {
             fatalError("no image @ index \(index) @ wstate \(_state) @ svstate \(state) @ \(self)")
         }
 
-        pinView.setImage(image, for: .normal)
+        pin.setImage(image, for: .normal)
         
-        pinView.frame.origin = .zero
-        pinView.frame.size.width = settings.radius * 4
-        pinView.frame.size.height = settings.radius * 2
-        pinView.layer.cornerRadius = settings.radius
-        pinView.clipsToBounds = true
+        pin.frame.origin = .zero
+        pin.frame.size.width = settings.radius * 4
+        pin.frame.size.height = settings.radius * 2
+        pin.layer.cornerRadius = settings.radius
+        pin.clipsToBounds = true
     }
     
     // MARK: - PinView Delegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
-        
+        delegate?.onStateChange(to: activeState)
     }
     
     func onTouchesMoved(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {

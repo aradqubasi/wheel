@@ -12,7 +12,13 @@ class BasesController : RadialController {
     
     // MARK: - Overrided Properties
     
-    override var activeState: WState {
+    override var active: WState {
+        get {
+            return .bases
+        }
+    }
+    
+    override var initial: WState {
         get {
             return .bases
         }
@@ -146,13 +152,12 @@ class BasesController : RadialController {
         
         let settings: [WState: WSettings] = [
             .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 100, height: 50)),
-            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
-            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
-            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40))
+            .fats: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
+            .veggies: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
+            .proteins: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40))
         ]
         
         super.init(pins, settings)
-
     }
     
 }

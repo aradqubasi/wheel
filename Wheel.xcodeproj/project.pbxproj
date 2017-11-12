@@ -19,6 +19,7 @@
 		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
 		15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA21FB657D700E3BB01 /* BasesController.swift */; };
 		15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */; };
+		15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F010A11FB830C40002A917 /* ProteinsController.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* ViewController.swift */; };
 		15F0BB391F404FCC006F646E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB371F404FCC006F646E /* Main.storyboard */; };
@@ -66,6 +67,7 @@
 		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
 		15A73CA21FB657D700E3BB01 /* BasesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasesController.swift; sourceTree = "<group>"; };
 		15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialControllerDelegate.swift; sourceTree = "<group>"; };
+		15F010A11FB830C40002A917 /* ProteinsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsController.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F0BB351F404FCC006F646E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				15A73CA21FB657D700E3BB01 /* BasesController.swift */,
 				15F787FF1FB827B4001C32B1 /* FatsController.swift */,
 				15F788011FB82A1A001C32B1 /* VeggiesController.swift */,
+				15F010A11FB830C40002A917 /* ProteinsController.swift */,
 				15F0BB371F404FCC006F646E /* Main.storyboard */,
 				15F0BB3A1F404FCC006F646E /* Assets.xcassets */,
 				15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */,
@@ -324,6 +327,7 @@
 			files = (
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
 				151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */,
+				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,

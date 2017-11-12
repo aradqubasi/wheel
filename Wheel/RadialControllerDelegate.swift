@@ -8,5 +8,5 @@
 
 import Foundation
 protocol RadialControllerDelegate {
-    func onStateChange(to state: WState) -> Void
+    func onStateChange(to state: WState, of wheel: RadialView) -> Void
 }

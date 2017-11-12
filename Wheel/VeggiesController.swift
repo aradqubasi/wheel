@@ -12,9 +12,15 @@ class VeggiesController : RadialController {
     
     // MARK: - Overrided Properties
     
-    override var activeState: WState {
+    override var active: WState {
         get {
             return .veggies
+        }
+    }
+    
+    override var initial: WState {
+        get {
+            return .bases
         }
     }
     
@@ -238,13 +244,13 @@ class VeggiesController : RadialController {
             ]
         ]
         
-        let pins: [PinView] = [aubergine, tomato, seeds, radish, ]
+        let pins: [PinView] = [aubergine, tomato, radish, pepper, broccoli, carrot, asparagus, cauliflower, corn]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 100, height: 50)),
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40))
+            .bases: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40)),
+            .fats: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40)),
+            .veggies: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 100, height: 50)),
+            .proteins: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40))
         ]
         
         super.init(pins, settings)

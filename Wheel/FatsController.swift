@@ -12,9 +12,15 @@ class FatsController : RadialController {
     
     // MARK: - Overrided Properties
     
-    override var activeState: WState {
+    override var active: WState {
         get {
             return .fats
+        }
+    }
+    
+    override var initial: WState {
+        get {
+            return .bases
         }
     }
     
@@ -25,14 +31,14 @@ class FatsController : RadialController {
         let coconut = PinView()
         coconut.images = [
             .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn,
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.corn,
+                .visible: UIImage.corn,
+                .invisible: UIImage.corn.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn.alpha(0.5),
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.Corn,
+                .visible: UIImage.Corn.alpha(0.5),
+                .invisible: UIImage.Corn.alpha(0)
             ],
             .veggies : [
                 .focused: UIImage.corn,
@@ -193,10 +199,10 @@ class FatsController : RadialController {
         let pins = [coconut, hazelnut, seeds, brazilnut, cashewnut, avocado, peanut]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 100, height: 50)),
             .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40))
+            .fats: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 100, height: 50)),
+            .veggies: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
+            .proteins: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40))
         ]
         
         super.init(pins, settings)

@@ -22,6 +22,12 @@ class RadialController: RVDelegate, PVDelegate {
             _view?.delegate = nil
             _view = new
             _view.delegate = self
+            if active != state {
+                _view.RVState = .inactive
+            }
+            else {
+                _view.RVState = .active
+            }
         }
     }
     
@@ -31,10 +37,24 @@ class RadialController: RVDelegate, PVDelegate {
         }
         set(new) {
             _state = new
+            if let wheel = _view {
+                if active != state {
+                    wheel.RVState = .inactive
+                }
+                else {
+                    wheel.RVState = .active
+                }
+            }
         }
     }
     
-    var activeState: WState {
+    var active: WState {
+        get {
+            return .bases
+        }
+    }
+    
+    var initial: WState {
         get {
             return .bases
         }
@@ -53,6 +73,9 @@ class RadialController: RVDelegate, PVDelegate {
     // MARK: - Initializer
     
     init(_ pins: [PinView], _ settings: [WState: WSettings]) {
+        print(initial)
+        
+        state = initial
         
         let setPVDelegate = {
             (pin: PinView) -> Void in
@@ -76,6 +99,7 @@ class RadialController: RVDelegate, PVDelegate {
         guard let settings = _stateSettings[state] else {
             fatalError("no settings @ state \(state) @ \(self)")
         }
+//        print(settings.asRvSettings.wheelRadius)
         return settings.asRvSettings
     }
     
@@ -100,16 +124,16 @@ class RadialController: RVDelegate, PVDelegate {
         pin.setImage(image, for: .normal)
         
         pin.frame.origin = .zero
-        pin.frame.size.width = settings.radius * 4
-        pin.frame.size.height = settings.radius * 2
-        pin.layer.cornerRadius = settings.radius
+        pin.frame.size.width = settings.size.width
+        pin.frame.size.height = settings.size.height
+//        pin.layer.cornerRadius = settings.radius
         pin.clipsToBounds = true
     }
     
     // MARK: - PinView Delegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
-        delegate?.onStateChange(to: activeState)
+        delegate?.onStateChange(to: active, of: view)
     }
     
     func onTouchesMoved(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
@@ -122,6 +146,15 @@ class RadialController: RVDelegate, PVDelegate {
     
     func onTouchCanceled(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         
+    }
+    
+    // MARK: - Placeholder
+    
+    func moveToRandomPin() {
+        if let wheel = _view {
+            let index = Int(arc4random_uniform(UInt32(_pins.count)))
+            wheel.move(to: index)
+        }
     }
     
 }

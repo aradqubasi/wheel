@@ -8,10 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,
-    RadialControllerDelegate
-//RVDelegate,
-//PVDelegate
+class ViewController: UIViewController, RadialControllerDelegate
 {
     
     // MARK: - Outlets
@@ -19,16 +16,6 @@ class ViewController: UIViewController,
     // MARK: - Public Properties
     
     // MARK: - Private Properties
-    
-    var _prev: CGFloat?
-    
-//    var _bases: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
-//
-//    var _fats: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView()]
-//
-//    var _veggies: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView()]
-//
-//    var _proteins: [PinView] = [PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView(), PinView()]
     
     var bases: RadialController!
     
@@ -122,13 +109,19 @@ class ViewController: UIViewController,
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-        let shuffle = { () -> Void in
-            self.bases.moveToRandomPin()
-            self.fats.moveToRandomPin()
-            self.veggies.moveToRandomPin()
-            self.proteins.moveToRandomPin()
+//        let shuffle = { () -> Void in
+//            self.bases.moveToRandomPin()
+//            self.fats.moveToRandomPin()
+//            self.veggies.moveToRandomPin()
+//            self.proteins.moveToRandomPin()
+//        }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
+        
+        
+        let follow = { () -> Void in
+            self.radialMenu.move(by: -0.00126573705433985)
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
+        UIView.animate(withDuration: 3.2513769865036, delay: 0, options: [], animations: follow, completion: nil)
     }
     
     private var scrollLastAngle: CGFloat!
@@ -137,6 +130,10 @@ class ViewController: UIViewController,
     
     private var scrollLastDeltaAngle: CGFloat!
     
+    var a: [CGFloat] = []
+    
+    var t: [TimeInterval] = []
+    
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
@@ -144,7 +141,6 @@ class ViewController: UIViewController,
             scrollLastTime = Date()
             scrollLastDeltaAngle = 0
         case .changed://, .ended:
-            print("changed")
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
 //            print("\(newAngle / CGFloat.pi)")
@@ -154,13 +150,25 @@ class ViewController: UIViewController,
             let follow = { () -> Void in
                 self.radialMenu.move(by: deltaAngle)
             }
-
-            
-            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
+            a.append(deltaAngle)
+            t.append(deltaTime)
+//            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
+            UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: nil)
             scrollLastAngle = newAngle
             scrollLastTime = newTime
             scrollLastDeltaAngle = deltaAngle
+            print("changed \(deltaAngle) \(deltaTime)")
+//            changed 2.65796783749384e-05 9.43823701143265
         case .ended:
+            var sa: CGFloat = 0
+            a.forEach({ (current) -> Void in sa+=current })
+            sa = sa / CGFloat((a.count != 0 ? a.count : 1))
+            a = []
+            var st: TimeInterval = 0
+            t.forEach({ (current) -> Void in st+=current })
+            st = st / TimeInterval((t.count != 0 ? t.count : 1))
+            t = []
+            
             let deceleration = {
                 () -> Void in
                 let angle = self.scrollLastDeltaAngle * 0.112 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
@@ -180,44 +188,13 @@ class ViewController: UIViewController,
             
             UIView.animate(withDuration: 0.112, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
             
-            print("end")
+            print("end \(sa) \(st)")
         default:
             print("\(sender.state)")
         }
     }
     
     // MARK: - Private Methods
-    
-    private func setActiveState(to menu: RadialView) {
-        if basesMenu === menu {
-            radialMenu = menu
-            basesMenu.RVState = .active
-            fatsMenu.RVState = .inactive
-            veggiesMenu.RVState = .inactive
-            proteinsMenu.RVState = .inactive
-        }
-        else if fatsMenu === menu {
-            radialMenu = menu
-            basesMenu.RVState = .inactive
-            fatsMenu.RVState = .active
-            veggiesMenu.RVState = .inactive
-            proteinsMenu.RVState = .inactive
-        }
-        else if veggiesMenu === menu {
-            radialMenu = menu
-            basesMenu.RVState = .inactive
-            fatsMenu.RVState = .inactive
-            veggiesMenu.RVState = .active
-            proteinsMenu.RVState = .inactive
-        }
-        else if proteinsMenu === menu {
-            radialMenu = menu
-            basesMenu.RVState = .inactive
-            fatsMenu.RVState = .inactive
-            veggiesMenu.RVState = .inactive
-            proteinsMenu.RVState = .active
-        }
-    }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
         

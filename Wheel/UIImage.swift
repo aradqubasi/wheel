@@ -231,6 +231,92 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Fats
+    
+    static var avocado: UIImage {
+        get {
+            return UIImage(named: "_avocado")!
+        }
+    }
+    
+    static var Avocado: UIImage {
+        get {
+            return UIImage(named: "avocado")!
+        }
+    }
+    
+    static var brazilnut: UIImage {
+        get {
+            return UIImage(named: "_brazilnut")!
+        }
+    }
+    
+    static var Brazilnut: UIImage {
+        get {
+            return UIImage(named: "brazilnut")!
+        }
+    }
+    
+    static var cashewnut: UIImage {
+        get {
+            return UIImage(named: "_cashewnut")!
+        }
+    }
+    
+    static var Cashewnut: UIImage {
+        get {
+            return UIImage(named: "cashewnut")!
+        }
+    }
+    
+    static var coconut: UIImage {
+        get {
+            return UIImage(named: "_coconut")!
+        }
+    }
+    
+    static var Coconut: UIImage {
+        get {
+            return UIImage(named: "coconut")!
+        }
+    }
+    
+    static var hazelnut: UIImage {
+        get {
+            return UIImage(named: "_hazelnut")!
+        }
+    }
+    
+    static var Hazelnut: UIImage {
+        get {
+            return UIImage(named: "hazelnut")!
+        }
+    }
+    
+    static var peanut: UIImage {
+        get {
+            return UIImage(named: "_peanut")!
+        }
+    }
+    
+    static var Peanut: UIImage {
+        get {
+            return UIImage(named: "peanut")!
+        }
+    }
+    
+    static var seeds: UIImage {
+        get {
+            return UIImage(named: "_seeds")!
+        }
+    }
+    
+    static var Seeds: UIImage {
+        get {
+            return UIImage(named: "seeds")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

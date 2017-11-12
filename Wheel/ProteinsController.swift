@@ -166,9 +166,9 @@ class ProteinsController : RadialController {
                 .invisible: UIImage.friedegg.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.friedegg,
-                .visible: UIImage.friedegg.alpha(0.5),
-                .invisible: UIImage.friedegg.alpha(0)
+                .focused: UIImage.Friedegg,
+                .visible: UIImage.Friedegg.alpha(0.5),
+                .invisible: UIImage.Friedegg.alpha(0)
             ]
         ]
         

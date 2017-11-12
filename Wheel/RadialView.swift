@@ -240,7 +240,7 @@ class RadialView: UIView, SVDelegate {
         
         //first spoke in focus
         let maxCurrent = _offset
-        
+        print("now \(_current) next \(min(max(_current + delta, minCurrent), maxCurrent))")
         _current = min(max(_current + delta, minCurrent), maxCurrent)
         
         show()

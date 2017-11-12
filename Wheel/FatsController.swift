@@ -31,168 +31,168 @@ class FatsController : RadialController {
         let coconut = PinView()
         coconut.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.coconut,
+                .visible: UIImage.coconut,
+                .invisible: UIImage.coconut.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Coconut,
+                .visible: UIImage.Coconut.alpha(0.5),
+                .invisible: UIImage.Coconut.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.coconut,
+                .visible: UIImage.coconut,
+                .invisible: UIImage.coconut.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.coconut,
+                .visible: UIImage.coconut,
+                .invisible: UIImage.coconut.alpha(0)
             ]
         ]
         
         let hazelnut = PinView()
         hazelnut.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.hazelnut,
+                .visible: UIImage.hazelnut,
+                .invisible: UIImage.hazelnut.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Hazelnut,
+                .visible: UIImage.Hazelnut.alpha(0.5),
+                .invisible: UIImage.Hazelnut.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.hazelnut,
+                .visible: UIImage.hazelnut,
+                .invisible: UIImage.hazelnut.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.hazelnut,
+                .visible: UIImage.hazelnut,
+                .invisible: UIImage.hazelnut.alpha(0)
             ]
         ]
         
         let seeds = PinView()
         seeds.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.seeds,
+                .visible: UIImage.seeds,
+                .invisible: UIImage.seeds.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Seeds,
+                .visible: UIImage.Seeds.alpha(0.5),
+                .invisible: UIImage.Seeds.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.seeds,
+                .visible: UIImage.seeds,
+                .invisible: UIImage.seeds.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.seeds,
+                .visible: UIImage.seeds,
+                .invisible: UIImage.seeds.alpha(0)
             ]
         ]
         
         let brazilnut = PinView()
         brazilnut.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.brazilnut,
+                .visible: UIImage.brazilnut,
+                .invisible: UIImage.brazilnut.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Brazilnut,
+                .visible: UIImage.Brazilnut.alpha(0.5),
+                .invisible: UIImage.Brazilnut.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.brazilnut,
+                .visible: UIImage.brazilnut,
+                .invisible: UIImage.brazilnut.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.brazilnut,
+                .visible: UIImage.brazilnut,
+                .invisible: UIImage.brazilnut.alpha(0)
             ]
         ]
         
         let cashewnut = PinView()
         cashewnut.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.cashewnut,
+                .visible: UIImage.cashewnut,
+                .invisible: UIImage.cashewnut.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Cashewnut,
+                .visible: UIImage.Cashewnut.alpha(0.5),
+                .invisible: UIImage.Cashewnut.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.cashewnut,
+                .visible: UIImage.cashewnut,
+                .invisible: UIImage.cashewnut.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.cashewnut,
+                .visible: UIImage.cashewnut,
+                .invisible: UIImage.cashewnut.alpha(0)
             ]
         ]
         
         let avocado = PinView()
         avocado.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.avocado,
+                .visible: UIImage.avocado,
+                .invisible: UIImage.avocado.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Avocado,
+                .visible: UIImage.Avocado.alpha(0.5),
+                .invisible: UIImage.Avocado.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.avocado,
+                .visible: UIImage.avocado,
+                .invisible: UIImage.avocado.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.avocado,
+                .visible: UIImage.avocado,
+                .invisible: UIImage.avocado.alpha(0)
             ]
         ]
         
         let peanut = PinView()
         peanut.images = [
             .bases : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.peanut,
+                .visible: UIImage.peanut,
+                .invisible: UIImage.peanut.alpha(0)
             ],
             .fats : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
+                .focused: UIImage.Peanut,
+                .visible: UIImage.Peanut.alpha(0.5),
+                .invisible: UIImage.Peanut.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.peanut,
+                .visible: UIImage.peanut,
+                .invisible: UIImage.peanut.alpha(0)
             ],
             .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.peanut,
+                .visible: UIImage.peanut,
+                .invisible: UIImage.peanut.alpha(0)
             ]
         ]
         

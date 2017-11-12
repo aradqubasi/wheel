@@ -233,9 +233,9 @@ class VeggiesController : RadialController {
                 .invisible: UIImage.corn.alpha(0)
             ],
             .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn.alpha(0.5),
-                .invisible: UIImage.corn.alpha(0)
+                .focused: UIImage.Corn,
+                .visible: UIImage.Corn.alpha(0.5),
+                .invisible: UIImage.Corn.alpha(0)
             ],
             .proteins : [
                 .focused: UIImage.corn,
@@ -247,10 +247,10 @@ class VeggiesController : RadialController {
         let pins: [PinView] = [aubergine, tomato, radish, pepper, broccoli, carrot, asparagus, cauliflower, corn]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40)),
-            .fats: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40)),
-            .veggies: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 100, height: 50)),
-            .proteins: WSettings(240, CGFloat.pi / 5 * 0.5, CGSize(width: 80, height: 40))
+            .bases: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40)),
+            .fats: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40)),
+            .veggies: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 100, height: 50)),
+            .proteins: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40))
         ]
         
         super.init(pins, settings)

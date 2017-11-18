@@ -54,6 +54,33 @@ class ViewController: UIViewController, RadialControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        view.op
+        view.backgroundColor = UIColor.aquaHaze
+        
+        //23 from left
+        let r: CGFloat = 308
+        let basescircle = UIView(frame: CGRect(x: 83, y: 0, width: r * 2, height: r * 2))
+        basescircle.backgroundColor = UIColor.white
+        basescircle.layer.cornerRadius = r
+        basescircle.layer.borderColor = UIColor.mystic.cgColor
+        basescircle.layer.borderWidth = 1
+        
+        basescircle.layer.shadowColor = UIColor.aztec.cgColor
+//        basescircle.layer.shadowColor = UIColor(
+
+        basescircle.layer.shadowOpacity = 1
+        basescircle.layer.shadowOffset = CGSize(width: -4, height: 0)
+        basescircle.layer.shadowRadius = 12
+        basescircle.layer.shadowPath = UIBezierPath(roundedRect: basescircle.bounds, cornerRadius: r).cgPath
+//        basescircle.layer.shadowPath = UIBezierPath(rect: basescircle.bounds).cgPath
+//        basescircle.layer.shouldRasterize = true
+//        basescircle.layer.rasterizationScale = 1
+        
+        self.view.addSubview(basescircle)
+        
+        //------
+    
+        
         let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
         
         bases = BasesController()

@@ -69,6 +69,8 @@ class RadialView: UIView, SVDelegate {
     
     private var _spokes: [SpokeView] = []
     
+    private var _background: UIView?
+    
     private var _current: CGFloat = 0
     
     private var _offset: CGFloat = 0
@@ -184,6 +186,19 @@ class RadialView: UIView, SVDelegate {
 //            _thickness = stateSettings.wheelThickness
         }
         
+        if _background == nil {
+            if let back = delegate?.radialView(backgroundFor: self) {
+                _background = back
+                self.addSubview(back)
+            }
+        }
+        
+        if let back = _background {
+            delegate?.radialView(for: self, update: back)
+            
+            back.frame.origin = CGPoint(x: _radius * CGFloat(2).squareRoot() - back.frame.size.width / 2, y: _radius * CGFloat(2).squareRoot() - back.frame.size.height / 2)
+        }
+        
         let numberOfSpokes = delegate?.numberOfSpokes(in: self)
         if numberOfSpokes != nil && _spokes.count == 0 {
             for i in 0..<numberOfSpokes! {
@@ -224,6 +239,7 @@ class RadialView: UIView, SVDelegate {
             }
             spoke.SVAngle = spokeAngle
         }
+        
     }
 
     

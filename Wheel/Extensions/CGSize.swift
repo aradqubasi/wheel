@@ -9,9 +9,11 @@
 import Foundation
 import UIKit
 public extension CGSize {
+    
     // MARK: - Custom Initializer
     
-    public init(side: CGFloat) {
+    init(side: CGFloat) {
         self.init(width: side, height: side)
     }
+    
 }

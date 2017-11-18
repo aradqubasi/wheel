@@ -18,4 +18,8 @@ protocol RVDelegate {
     
     func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) -> Void
     
+    func radialView(backgroundFor wheel: RadialView) -> UIView?
+    
+    func radialView(for wheel: RadialView, update background: UIView) -> Void
+    
 }

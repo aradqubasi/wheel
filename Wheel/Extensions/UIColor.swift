@@ -29,4 +29,10 @@ public extension UIColor {
             return UIColor(red: 242 / 255, green: 246 / 255, blue: 247 / 255, alpha: 1)
         }
     }
+    
+    static var shamrock: UIColor {
+        get {
+            return UIColor(red: 80 / 255, green: 219 / 255, blue: 154 / 255, alpha: 1)
+        }
+    }
 }

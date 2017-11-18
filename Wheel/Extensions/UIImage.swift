@@ -317,6 +317,14 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Wheel GUI
+    
+    static var dice: UIImage {
+        get {
+            return UIImage(named: "dice")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

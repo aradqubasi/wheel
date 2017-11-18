@@ -57,31 +57,17 @@ class ViewController: UIViewController, RadialControllerDelegate
 //        view.op
         view.backgroundColor = UIColor.aquaHaze
         
-        //23 from left
-        let r: CGFloat = 308
-        let basescircle = UIView(frame: CGRect(x: 83, y: 0, width: r * 2, height: r * 2))
-        basescircle.backgroundColor = UIColor.white
-        basescircle.layer.cornerRadius = r
-        basescircle.layer.borderColor = UIColor.mystic.cgColor
-        basescircle.layer.borderWidth = 1
-        
-        basescircle.layer.shadowColor = UIColor.aztec.cgColor
-//        basescircle.layer.shadowColor = UIColor(
 
-        basescircle.layer.shadowOpacity = 1
-        basescircle.layer.shadowOffset = CGSize(width: -4, height: 0)
-        basescircle.layer.shadowRadius = 12
-        basescircle.layer.shadowPath = UIBezierPath(roundedRect: basescircle.bounds, cornerRadius: r).cgPath
-//        basescircle.layer.shadowPath = UIBezierPath(rect: basescircle.bounds).cgPath
-//        basescircle.layer.shouldRasterize = true
-//        basescircle.layer.rasterizationScale = 1
-        
-        self.view.addSubview(basescircle)
         
         //------
     
         
-        let leftMiddle = CGPoint(x: self.view.frame.width, y: self.view.frame.height / 2)
+        let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
+        
+//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 600)).toLayerView)
+//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 480)).toLayerView)
+//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 360)).toLayerView)
+//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 240)).toLayerView)
         
         bases = BasesController()
         bases.delegate = self
@@ -110,10 +96,15 @@ class ViewController: UIViewController, RadialControllerDelegate
         self.view.addSubview(fatsMenu)
         self.view.addSubview(basesMenu)
         
-        rollButton = UIButton(frame: CGRect(x: leftMiddle.x - 40, y: leftMiddle.y - 15, width: 40, height: 30))
-        rollButton.setTitle("Roll", for: .normal)
-        rollButton.setTitleColor(UIColor.black, for: .normal)
+//        rollButton = UIButton(frame: CGRect(x: leftMiddle.x - 40, y: leftMiddle.y - 15, width: 40, height: 30)).toRollButton
+        rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton
+//        rollButton.setTitle("Roll", for: .normal)
+//        rollButton.setTitleColor(UIColor.white, for: .normal)
+        
         rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
+//        var insets = UIEdgeInsets()
+//        insets.left = -40
+        
         
         self.view.addSubview(rollButton)
     }
@@ -136,19 +127,19 @@ class ViewController: UIViewController, RadialControllerDelegate
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-//        let shuffle = { () -> Void in
-//            self.bases.moveToRandomPin()
-//            self.fats.moveToRandomPin()
-//            self.veggies.moveToRandomPin()
-//            self.proteins.moveToRandomPin()
-//        }
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
-        
-        
-        let follow = { () -> Void in
-            self.radialMenu.move(by: -0.00126573705433985)
+        let shuffle = { () -> Void in
+            self.bases.moveToRandomPin()
+            self.fats.moveToRandomPin()
+            self.veggies.moveToRandomPin()
+            self.proteins.moveToRandomPin()
         }
-        UIView.animate(withDuration: 3.2513769865036, delay: 0, options: [], animations: follow, completion: nil)
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
+        
+        
+//        let follow = { () -> Void in
+//            self.radialMenu.move(by: -0.00126573705433985)
+//        }
+//        UIView.animate(withDuration: 3.2513769865036, delay: 0, options: [], animations: follow, completion: nil)
     }
     
     private var scrollLastAngle: CGFloat!

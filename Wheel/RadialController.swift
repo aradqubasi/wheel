@@ -130,6 +130,18 @@ class RadialController: RVDelegate, PVDelegate {
         pin.clipsToBounds = true
     }
     
+    func radialView(backgroundFor wheel: RadialView) -> UIView? {
+        return UIView()
+    }
+    
+    func radialView(for wheel: RadialView, update background: UIView) {
+        guard let settings = _stateSettings[_state] else {
+            fatalError("no settings @ state \(_state) @ \(self)")
+        }
+        background.frame.size = CGSize(side: settings.radius * 2)
+        _ = background.toLayerView
+    }
+    
     // MARK: - PinView Delegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {

@@ -15,6 +15,8 @@
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
 		151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE4A1FA5015500CC5357 /* SVSettings.swift */; };
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
+		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
+		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
 		15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */; };
@@ -65,6 +67,8 @@
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		151AFE4A1FA5015500CC5357 /* SVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVSettings.swift; sourceTree = "<group>"; };
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
+		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
 		15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialController.swift; sourceTree = "<group>"; };
@@ -120,6 +124,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		15456D5C1FC028AD0018A1CD /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				151AFE481FA119FD00CC5357 /* UIImage.swift */,
+				1547C2A81FB968CD009C8320 /* UIColor.swift */,
+				15456D571FC0116C0018A1CD /* UIView.swift */,
+				15F43C441FAF655100732CED /* CGSize.swift */,
+				15456D591FC0263A0018A1CD /* CGRect.swift */,
+				15456D5D1FC0292F0018A1CD /* UIButton.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		15F0BB271F404FCC006F646E = {
 			isa = PBXGroup;
 			children = (
@@ -143,6 +160,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
 				15F0BB351F404FCC006F646E /* ViewController.swift */,
 				15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */,
@@ -162,13 +180,9 @@
 				151AFE3E1F77B92E00CC5357 /* SVState.swift */,
 				151AFE401F88C7AE00CC5357 /* RVOrientation.swift */,
 				151AFE421F8A031C00CC5357 /* RVSettings.swift */,
-				151AFE481FA119FD00CC5357 /* UIImage.swift */,
-				1547C2A81FB968CD009C8320 /* UIColor.swift */,
-				15456D571FC0116C0018A1CD /* UIView.swift */,
 				151AFE4A1FA5015500CC5357 /* SVSettings.swift */,
 				15F43C401FA99CA700732CED /* PinView.swift */,
 				15F43C421FA99D4E00732CED /* PVDelegate.swift */,
-				15F43C441FAF655100732CED /* CGSize.swift */,
 				15F43C461FAF6DA600732CED /* SocketView.swift */,
 				15A73CA01FB62B0800E3BB01 /* WState.swift */,
 				151AFE441F8A858200CC5357 /* WSettings.swift */,
@@ -344,6 +358,7 @@
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
+				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
@@ -356,6 +371,7 @@
 				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 				15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,
+				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

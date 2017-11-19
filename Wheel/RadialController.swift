@@ -122,6 +122,10 @@ class RadialController: RVDelegate, PVDelegate {
         }
 
         pin.setImage(image, for: .normal)
+        pin.imageEdgeInsets.left = 5
+        pin.imageEdgeInsets.right = 5
+        pin.imageEdgeInsets.top = 5
+        pin.imageEdgeInsets.bottom = 5
         
         pin.frame.origin = .zero
         pin.frame.size.width = settings.size.width
@@ -140,6 +144,10 @@ class RadialController: RVDelegate, PVDelegate {
         }
         background.frame.size = CGSize(side: settings.radius * 2)
         _ = background.toLayerView
+    }
+    
+    func on(hit sender: Any, with event: UIEvent?) {
+        delegate?.onStateChange(to: active, of: view)
     }
     
     // MARK: - PinView Delegate Methods

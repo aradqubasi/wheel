@@ -122,6 +122,11 @@ class RadialView: UIView, SVDelegate {
         delegate?.radialView(for: self, update: pin, in: spoke.SVState, at: spoke.SVIndex)
     }
     
+    func on(hit sender: Any, with event: UIEvent?) -> Void {
+        print("wheel @ \(_radius)")
+        delegate?.on(hit: self, with: event)
+    }
+    
     // MARK: - Initialization
     
     init(center: CGPoint, orientation: RVOrientation) {
@@ -139,6 +144,7 @@ class RadialView: UIView, SVDelegate {
         }
         
         self.backgroundColor = UIColor.clear
+        layer.cornerRadius = frame.width / 2
         show()
     }
     
@@ -152,7 +158,7 @@ class RadialView: UIView, SVDelegate {
         
         let hitView = super.hitTest(point, with: event)
         
-        if hitView == self {
+        if hitView == self || hitView == _background {
             return nil
         } else {
             return hitView
@@ -238,6 +244,7 @@ class RadialView: UIView, SVDelegate {
                 _focused = n
             }
             spoke.SVAngle = spokeAngle
+            spoke.SVDistance = _distance
         }
         
     }

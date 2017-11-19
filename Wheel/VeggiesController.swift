@@ -247,10 +247,10 @@ class VeggiesController : RadialController {
         let pins: [PinView] = [aubergine, tomato, radish, pepper, broccoli, carrot, asparagus, cauliflower, corn]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40)),
-            .fats: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40)),
-            .veggies: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 100, height: 50)),
-            .proteins: WSettings(240, CGFloat.pi / 5 * 0.49, CGSize(width: 80, height: 40))
+            .bases: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52)),
+            .fats: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52)),
+            .veggies: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 66, height: 66)),
+            .proteins: WSettings(279, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52))
         ]
         
         super.init(pins, settings)

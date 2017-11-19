@@ -199,10 +199,10 @@ class FatsController : RadialController {
         let pins = [coconut, hazelnut, seeds, brazilnut, cashewnut, avocado, peanut]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .fats: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 100, height: 50)),
-            .veggies: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40)),
-            .proteins: WSettings(180, CGFloat.pi / 5 * 0.67, CGSize(width: 80, height: 40))
+            .bases: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52)),
+            .fats: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 66, height: 66)),
+            .veggies: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52)),
+            .proteins: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52))
         ]
         
         super.init(pins, settings)

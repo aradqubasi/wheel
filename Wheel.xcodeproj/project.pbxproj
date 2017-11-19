@@ -17,6 +17,8 @@
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
 		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
 		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
+		15456D601FC15AA60018A1CD /* ScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5F1FC15AA60018A1CD /* ScreenView.swift */; };
+		15456D621FC16DF50018A1CD /* HitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D611FC16DF50018A1CD /* HitDelegate.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
 		15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */; };
@@ -69,6 +71,8 @@
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
+		15456D5F1FC15AA60018A1CD /* ScreenView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenView.swift; sourceTree = "<group>"; };
+		15456D611FC16DF50018A1CD /* HitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitDelegate.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
 		15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialController.swift; sourceTree = "<group>"; };
@@ -186,6 +190,8 @@
 				15F43C461FAF6DA600732CED /* SocketView.swift */,
 				15A73CA01FB62B0800E3BB01 /* WState.swift */,
 				151AFE441F8A858200CC5357 /* WSettings.swift */,
+				15456D5F1FC15AA60018A1CD /* ScreenView.swift */,
+				15456D611FC16DF50018A1CD /* HitDelegate.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -351,6 +357,7 @@
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
+				15456D601FC15AA60018A1CD /* ScreenView.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
@@ -368,6 +375,7 @@
 				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */,
+				15456D621FC16DF50018A1CD /* HitDelegate.swift in Sources */,
 				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 				15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,

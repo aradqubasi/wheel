@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpokeView: UIView {
+class SpokeView: UIView, HitDelegate {
     
     // MARK: - Public Properties
     
@@ -59,13 +59,24 @@ class SpokeView: UIView {
         }
     }
     
+    /**expected pin distance*/
+    var SVDistance: CGFloat {
+        get {
+            return _distance
+        }
+        set (new) {
+            _distance = new
+            show()
+        }
+    }
+    
     var delegate: SVDelegate?
     
     // MARK: - Subviews
 
     private var _pin: UIView!
     
-//    private var _hitBox: UIView!
+    private var _screen: ScreenView!
     
     private var _socket: UIView!
     
@@ -81,6 +92,9 @@ class SpokeView: UIView {
     
     private var _index: Int!
     
+    /**expected pin distance*/
+    private var _distance: CGFloat = 0
+    
     // MARK: - Initialization
     
     init(point: CGPoint, side: CGFloat, index: Int, pin: UIView) {
@@ -93,13 +107,26 @@ class SpokeView: UIView {
         addSubview(_socket)
         _pin = pin
         _socket.addSubview(_pin)
+        _screen = ScreenView()
+        _screen.delegate = self
+        addSubview(_screen)
         frame.origin.x = _point.x
         frame.origin.y = _point.y
+        layer.cornerRadius = frame.width / 2
         show()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - HitDelegate
+    
+    func on(hit sender: Any, with event: UIEvent?) -> Void {
+        if let screen = sender as? ScreenView, screen === _screen {
+            print("spokeview: hit spoke @ \(_index)")
+            delegate?.on(hit: self, with: event)
+        }
     }
     
     // MARK: - Overrided Methods
@@ -142,10 +169,16 @@ class SpokeView: UIView {
         
         let side = max(_pin.frame.width, _pin.frame.height)
         _socket.frame.size = CGSize(side: side * CGFloat(2).squareRoot())
-        _socket.frame.origin = CGPoint(x: _side / 2 - _socket.frame.width / 2, y: -(side * (CGFloat(2).squareRoot() - 1)))
+        _socket.frame.origin = CGPoint(x: _side / 2 - _socket.frame.width / 2, y: -(side * (CGFloat(2).squareRoot() - 1)) / 2)
         _socket.layer.borderColor = UIColor.red.cgColor
         _socket.layer.borderWidth = 0
-        _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: abs(side - _pin.frame.height))
+//        _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: abs(side - _pin.frame.height))
+        _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: _socket.frame.height / 2 + abs(side - _pin.frame.height) - _pin.frame.height / 2)
+        
+        _screen.frame = self.bounds
+        _screen._outer = _side / 2
+        _screen._inner = _side / 2 - side
+        _screen._angle = _distance
         
         transform = CGAffineTransform(rotationAngle: _angle)
         _pin.transform = CGAffineTransform(rotationAngle: -_angle)

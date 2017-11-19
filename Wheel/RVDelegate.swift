@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-protocol RVDelegate {
+protocol RVDelegate: HitDelegate {
     
     func numberOfSpokes(in wheel: RadialView) -> Int
 
@@ -21,5 +21,5 @@ protocol RVDelegate {
     func radialView(backgroundFor wheel: RadialView) -> UIView?
     
     func radialView(for wheel: RadialView, update background: UIView) -> Void
-    
+
 }

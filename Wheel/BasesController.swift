@@ -151,10 +151,10 @@ class BasesController : RadialController {
         let pins = [romainelettuce, salad, cabbage, lettuce, spinach]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(120, CGFloat.pi / 5, CGSize(width: 100, height: 50)),
-            .fats: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
-            .veggies: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40)),
-            .proteins: WSettings(120, CGFloat.pi / 5, CGSize(width: 80, height: 40))
+            .bases: WSettings(155, CGFloat.pi / 5, CGSize(width: 66, height: 66)),
+            .fats: WSettings(141, CGFloat.pi / 5, CGSize(width: 52, height: 52)),
+            .veggies: WSettings(141, CGFloat.pi / 5, CGSize(width: 52, height: 52)),
+            .proteins: WSettings(141, CGFloat.pi / 5, CGSize(width: 52, height: 52))
         ]
         
         super.init(pins, settings)

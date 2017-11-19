@@ -42,11 +42,15 @@ class ViewController: UIViewController, RadialControllerDelegate
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
-        radialMenu = wheel
-        bases.state = state
-        fats.state = state
-        veggies.state = state
-        proteins.state = state
+        let follow = { () -> Void in
+            self.radialMenu = wheel
+            self.bases.state = state
+            self.fats.state = state
+            self.veggies.state = state
+            self.proteins.state = state
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: nil)
+
     }
     
     // MARK: - Initialioze
@@ -95,6 +99,7 @@ class ViewController: UIViewController, RadialControllerDelegate
         self.view.addSubview(veggiesMenu)
         self.view.addSubview(fatsMenu)
         self.view.addSubview(basesMenu)
+        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
 //        rollButton = UIButton(frame: CGRect(x: leftMiddle.x - 40, y: leftMiddle.y - 15, width: 40, height: 30)).toRollButton
         rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton

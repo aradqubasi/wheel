@@ -247,10 +247,10 @@ class ProteinsController : RadialController {
         let pins: [PinView] = [chickpeas, fish, boiledegg, beans, peas, friedegg, lentils, mushrooms, shrimp]
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(300, CGFloat.pi / 5 * 0.4, CGSize(width: 80, height: 40)),
-            .fats: WSettings(300, CGFloat.pi / 5 * 0.4, CGSize(width: 80, height: 40)),
-            .veggies: WSettings(300, CGFloat.pi / 5 * 0.4, CGSize(width: 80, height: 40)),
-            .proteins: WSettings(300, CGFloat.pi / 5 * 0.4, CGSize(width: 100, height: 50))
+            .bases: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
+            .fats: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
+            .veggies: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
+            .proteins: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 66, height: 66))
         ]
         
         super.init(pins, settings)

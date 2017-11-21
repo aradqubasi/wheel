@@ -253,7 +253,7 @@ class VeggiesController : RadialController {
             .proteins: WSettings(279, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52))
         ]
         
-        super.init(pins, settings)
+        super.init(pins, settings, "veggies")
         
     }
     

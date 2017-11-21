@@ -22,6 +22,7 @@ class RadialController: RVDelegate, PVDelegate {
             _view?.delegate = nil
             _view = new
             _view.delegate = self
+            _view.name = _name
             if active != state {
                 _view.RVState = .inactive
             }
@@ -62,6 +63,8 @@ class RadialController: RVDelegate, PVDelegate {
     
     // MARK: - Private Properties
     
+    private var _name: String
+    
     private var _pins: [PinView]!
     
     private var _state: WState!
@@ -72,8 +75,10 @@ class RadialController: RVDelegate, PVDelegate {
     
     // MARK: - Initializer
     
-    init(_ pins: [PinView], _ settings: [WState: WSettings]) {
-        print(initial)
+    init(_ pins: [PinView], _ settings: [WState: WSettings], _ name: String) {
+        
+        _name = name
+//        print(initial)
         
         state = initial
         

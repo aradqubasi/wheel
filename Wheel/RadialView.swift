@@ -61,6 +61,8 @@ class RadialView: UIView, SVDelegate {
         }
     }
     
+    var name: String = ""
+    
     // MARK: - Private Properties
     
     private var _center: CGPoint = .zero
@@ -245,6 +247,7 @@ class RadialView: UIView, SVDelegate {
             }
             spoke.SVAngle = spokeAngle
             spoke.SVDistance = _distance
+            spoke.name = name
         }
         
     }

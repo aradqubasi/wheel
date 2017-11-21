@@ -157,7 +157,7 @@ class BasesController : RadialController {
             .proteins: WSettings(141, CGFloat.pi / 5, CGSize(width: 52, height: 52))
         ]
         
-        super.init(pins, settings)
+        super.init(pins, settings, "bases")
     }
     
 }

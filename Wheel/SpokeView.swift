@@ -12,6 +12,8 @@ class SpokeView: UIView, HitDelegate {
     
     // MARK: - Public Properties
     
+    var name: String = ""
+    
     var SVState: SVState {
         get {
             return _state
@@ -76,7 +78,7 @@ class SpokeView: UIView, HitDelegate {
 
     private var _pin: UIView!
     
-    private var _screen: ScreenView!
+//    private var _screen: ScreenView!
     
     private var _socket: UIView!
     
@@ -107,9 +109,9 @@ class SpokeView: UIView, HitDelegate {
         addSubview(_socket)
         _pin = pin
         _socket.addSubview(_pin)
-        _screen = ScreenView()
-        _screen.delegate = self
-        addSubview(_screen)
+//        _screen = ScreenView()
+//        _screen.delegate = self
+//        addSubview(_screen)
         frame.origin.x = _point.x
         frame.origin.y = _point.y
         layer.cornerRadius = frame.width / 2
@@ -123,15 +125,52 @@ class SpokeView: UIView, HitDelegate {
     // MARK: - HitDelegate
     
     func on(hit sender: Any, with event: UIEvent?) -> Void {
-        if let screen = sender as? ScreenView, screen === _screen {
-            print("spokeview: hit spoke @ \(_index)")
-            delegate?.on(hit: self, with: event)
-        }
+//        if let screen = sender as? ScreenView, screen === _screen {
+//            print("spokeview: hit spoke @ \(_index)")
+//            delegate?.on(hit: self, with: event)
+//        }
     }
     
     // MARK: - Overrided Methods
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+        
+//        if name == "proteins" && _index == 0 {
+//            print("!")
+//            print(self.bounds)
+//        }
+        let radius = bounds.width / 2
+        let thickness = max(_pin?.bounds.width ?? 0, _pin?.bounds.height ?? 0)
+        let x2 = (point.x - radius) * (point.x - radius)
+        let y2 = (point.y - radius) * (point.y - radius)
+        let ir2 = (radius - thickness) * (radius - thickness)
+        let or2 = (radius) * (radius)
+        
+        let first = CGPoint(x: radius, y: radius)
+        let north = _distance * radius
+        
+        let left = CGPoint(x: radius - north / 2, y: 0)
+        let mleft = (left.y - first.y) / (left.x - first.x)
+        let expectedLeftY = mleft * (point.x - first.x) + first.y
+        
+        let right = CGPoint(x: radius + north / 2, y: 0)
+        let mright = (right.y - first.y) / (right.x - first.x)
+        let expectedRightY = mright * (point.x - first.x) + first.y
+        
+        if x2 + y2 >= ir2 && x2 + y2 <= or2 {
+            
+            if point.y <= expectedLeftY && point.y <= expectedRightY {
+                return _pin
+//                delegate?.on(hit: self, with: event)
+//                print("wheel \(name) index \(_index) point \(point) event \(event)")
+//                let dot = UIView(frame: CGRect(center: point, side: 5))
+//                dot.backgroundColor = UIColor.red
+//                dot.layer.cornerRadius = 2.5
+//                dot.backgroundColor = UIColor.green
+//                self.addSubview(dot)
+            }
+            
+        }
         
         let hitView = super.hitTest(point, with: event)
         
@@ -175,10 +214,10 @@ class SpokeView: UIView, HitDelegate {
 //        _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: abs(side - _pin.frame.height))
         _pin.frame.origin = CGPoint(x: _socket.frame.width / 2 + abs(side - _pin.frame.width) / 2 - _pin.frame.width / 2, y: _socket.frame.height / 2 + abs(side - _pin.frame.height) - _pin.frame.height / 2)
         
-        _screen.frame = self.bounds
-        _screen._outer = _side / 2
-        _screen._inner = _side / 2 - side
-        _screen._angle = _distance
+//        _screen.frame = self.bounds
+//        _screen._outer = _side / 2
+//        _screen._inner = _side / 2 - side
+//        _screen._angle = _distance
         
         transform = CGAffineTransform(rotationAngle: _angle)
         _pin.transform = CGAffineTransform(rotationAngle: -_angle)

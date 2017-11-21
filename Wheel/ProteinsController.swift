@@ -253,7 +253,7 @@ class ProteinsController : RadialController {
             .proteins: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 66, height: 66))
         ]
         
-        super.init(pins, settings)
+        super.init(pins, settings, "proteins")
         
     }
     

@@ -9,14 +9,6 @@
 import UIKit
 
 class PinView: UIButton {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     // MARK: - Subviews
     
@@ -24,7 +16,7 @@ class PinView: UIButton {
     
     var delegate: PVDelegate?
     
-    var images: [WState: [SVState: UIImage]]!
+    var images: [WState: [SVState: UIImage]] = [:]
     
     // MARK: - Overriden Methods
     
@@ -42,4 +34,20 @@ class PinView: UIButton {
         delegate?.onTouchesEnded(self, touches, with: event)
         super.touchesEnded(touches, with: event)
     }
+    
+    // MARK: - Helpers
+    
+    func icon(default image: UIImage) -> PinView {
+        for wState in WState.all {
+            let svState: [SVState: UIImage] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+            images[wState] = svState
+        }
+        return self
+    }
+    
+    func icon(_ image: UIImage, for state: WState) -> PinView {
+        images[state] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+        return self
+    }
+    
 }

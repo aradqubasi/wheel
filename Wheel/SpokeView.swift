@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SpokeView: UIView, HitDelegate {
+class SpokeView: UIView {
     
     // MARK: - Public Properties
     

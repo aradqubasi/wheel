@@ -85,7 +85,7 @@ class RadialController: RVDelegate, PVDelegate {
         let setPVDelegate = {
             (pin: PinView) -> Void in
             pin.delegate = self
-//            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
+            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
         }
         
         _pins = pins
@@ -151,10 +151,6 @@ class RadialController: RVDelegate, PVDelegate {
         _ = background.toLayerView
     }
     
-    func on(hit sender: Any, with event: UIEvent?) {
-        delegate?.onStateChange(to: active, of: view)
-    }
-    
     // MARK: - PinView Delegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
@@ -171,6 +167,18 @@ class RadialController: RVDelegate, PVDelegate {
     
     func onTouchCanceled(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
         
+    }
+    
+    // MARK: - Actions
+    
+    @objc func onPinClick(_ sender: Any) {
+//        delegate?.onStateChange(to: active, of: view)
+        guard let pin = sender as? PinView, let index = _pins.index(of: pin) else {
+            fatalError("onPinClick invoked not by PinView")
+        }
+        delegate?.onPinClick(in: view, of: pin, at: index)
+//        _view.move(to: index)
+//        print("\(_name) click")
     }
     
     // MARK: - Placeholder

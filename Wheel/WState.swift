@@ -16,4 +16,10 @@ enum WState {
     case veggies
     
     case proteins
+    
+    static var all: [WState] {
+        get {
+            return [.bases, .fats, .veggies, .proteins]
+        }
+    }
 }

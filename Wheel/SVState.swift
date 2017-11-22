@@ -8,7 +8,11 @@
 
 import Foundation
 enum SVState {
+    
     case invisible
+    
     case visible
+    
     case focused
+
 }

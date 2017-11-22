@@ -124,11 +124,11 @@ class RadialView: UIView, SVDelegate {
         delegate?.radialView(for: self, update: pin, in: spoke.SVState, at: spoke.SVIndex)
     }
     
-    func on(hit sender: Any, with event: UIEvent?) -> Void {
-        print("wheel @ \(_radius)")
-        delegate?.on(hit: self, with: event)
-    }
-    
+//    func on(hit sender: Any, with event: UIEvent?) -> Void {
+//        print("wheel @ \(_radius)")
+//        delegate?.on(hit: self, with: event)
+//    }
+   
     // MARK: - Initialization
     
     init(center: CGPoint, orientation: RVOrientation) {
@@ -266,7 +266,7 @@ class RadialView: UIView, SVDelegate {
         
         //first spoke in focus
         let maxCurrent = _offset
-        print("now \(_current) next \(min(max(_current + delta, minCurrent), maxCurrent))")
+//        print("now \(_current) next \(min(max(_current + delta, minCurrent), maxCurrent))")
         _current = min(max(_current + delta, minCurrent), maxCurrent)
         
         show()

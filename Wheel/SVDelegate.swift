@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol SVDelegate : HitDelegate {
+protocol SVDelegate  {
 
     func spokeView(for spoke: SpokeView, update pin: UIView) -> Void
     

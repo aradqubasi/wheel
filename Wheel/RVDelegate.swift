@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-protocol RVDelegate: HitDelegate {
+protocol RVDelegate {
     
     func numberOfSpokes(in wheel: RadialView) -> Int
 

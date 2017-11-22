@@ -53,6 +53,13 @@ class ViewController: UIViewController, RadialControllerDelegate
 
     }
     
+    func onPinClick(in wheel: RadialView, of pin: PinView, at index: Int) -> Void {
+        let moveto = { () -> Void in
+            wheel.move(to: index)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+    }
+    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
@@ -153,9 +160,9 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     private var scrollLastDeltaAngle: CGFloat!
     
-    var a: [CGFloat] = []
-    
-    var t: [TimeInterval] = []
+//    var a: [CGFloat] = []
+//
+//    var t: [TimeInterval] = []
     
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -173,28 +180,29 @@ class ViewController: UIViewController, RadialControllerDelegate
             let follow = { () -> Void in
                 self.radialMenu.move(by: deltaAngle)
             }
-            a.append(deltaAngle)
-            t.append(deltaTime)
+//            a.append(deltaAngle)
+//            t.append(deltaTime)
 //            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
             UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: nil)
             scrollLastAngle = newAngle
             scrollLastTime = newTime
             scrollLastDeltaAngle = deltaAngle
-            print("changed \(deltaAngle) \(deltaTime)")
+//            print("changed \(deltaAngle) \(deltaTime)")
 //            changed 2.65796783749384e-05 9.43823701143265
         case .ended:
-            var sa: CGFloat = 0
-            a.forEach({ (current) -> Void in sa+=current })
-            sa = sa / CGFloat((a.count != 0 ? a.count : 1))
-            a = []
-            var st: TimeInterval = 0
-            t.forEach({ (current) -> Void in st+=current })
-            st = st / TimeInterval((t.count != 0 ? t.count : 1))
-            t = []
+//            var sa: CGFloat = 0
+//            a.forEach({ (current) -> Void in sa+=current })
+//            sa = sa / CGFloat((a.count != 0 ? a.count : 1))
+//            a = []
+//            var st: TimeInterval = 0
+//            t.forEach({ (current) -> Void in st+=current })
+//            st = st / TimeInterval((t.count != 0 ? t.count : 1))
+//            t = []
             
             let deceleration = {
                 () -> Void in
-                let angle = self.scrollLastDeltaAngle * 0.112 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
+                let angle = self.scrollLastDeltaAngle * 0.225 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
+//                print(angle)
                 self.radialMenu.move(by: angle)
             }
 
@@ -209,9 +217,9 @@ class ViewController: UIViewController, RadialControllerDelegate
 //
 //            }
             
-            UIView.animate(withDuration: 0.112, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
+            UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
             
-            print("end \(sa) \(st)")
+//            print("end \(sa) \(st)")
         default:
             print("\(sender.state)")
         }

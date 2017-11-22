@@ -28,53 +28,54 @@ class BasesController : RadialController {
     
     init() {
 
-        let romainelettuce = PinView()
-        romainelettuce.images = [
-            .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
-            ],
-            .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ]
-        ]
+        let romainelettuce = (PinView()).icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+//        let romainelettuce = PinView()
+//        romainelettuce.images = [
+//            .bases : [
+//                .focused: UIImage.Corn,
+//                .visible: UIImage.Corn.alpha(0.5),
+//                .invisible: UIImage.Corn.alpha(0)
+//            ],
+//            .fats : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .veggies : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .proteins : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ]
+//        ]
         
-        let salad = PinView()
-        salad.images = [
-            .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
-            ],
-            .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ]
-        ]
+        let salad = (PinView()).icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+//        salad.images = [
+//            .bases : [
+//                .focused: UIImage.Corn,
+//                .visible: UIImage.Corn.alpha(0.5),
+//                .invisible: UIImage.Corn.alpha(0)
+//            ],
+//            .fats : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .veggies : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .proteins : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ]
+//        ]
  
         let cabbage = PinView()
         cabbage.images = [

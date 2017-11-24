@@ -28,7 +28,6 @@ class BasesController : RadialController {
     
     init() {
 
-        let romainelettuce = (PinView()).icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
 //        let romainelettuce = PinView()
 //        romainelettuce.images = [
 //            .bases : [
@@ -53,7 +52,7 @@ class BasesController : RadialController {
 //            ]
 //        ]
         
-        let salad = (PinView()).icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+//        let salad = PinView()
 //        salad.images = [
 //            .bases : [
 //                .focused: UIImage.Corn,
@@ -77,79 +76,93 @@ class BasesController : RadialController {
 //            ]
 //        ]
  
-        let cabbage = PinView()
-        cabbage.images = [
-            .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
-            ],
-            .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ]
-        ]
- 
-        let lettuce = PinView()
-        lettuce.images = [
-            .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
-            ],
-            .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ]
-        ]
-  
-        let spinach = PinView()
-        spinach.images = [
-            .bases : [
-                .focused: UIImage.Corn,
-                .visible: UIImage.Corn.alpha(0.5),
-                .invisible: UIImage.Corn.alpha(0)
-            ],
-            .fats : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .veggies : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ],
-            .proteins : [
-                .focused: UIImage.corn,
-                .visible: UIImage.corn,
-                .invisible: UIImage.corn.alpha(0)
-            ]
-        ]
+//        let cabbage = PinView()
+//        cabbage.images = [
+//            .bases : [
+//                .focused: UIImage.Corn,
+//                .visible: UIImage.Corn.alpha(0.5),
+//                .invisible: UIImage.Corn.alpha(0)
+//            ],
+//            .fats : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .veggies : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .proteins : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ]
+//        ]
         
-        let pins = [romainelettuce, salad, cabbage, lettuce, spinach]
+//        let lettuce = PinView()
+//        lettuce.images = [
+//            .bases : [
+//                .focused: UIImage.Corn,
+//                .visible: UIImage.Corn.alpha(0.5),
+//                .invisible: UIImage.Corn.alpha(0)
+//            ],
+//            .fats : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .veggies : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .proteins : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ]
+//        ]
+  
+//        let spinach = PinView()
+//        spinach.images = [
+//            .bases : [
+//                .focused: UIImage.Corn,
+//                .visible: UIImage.Corn.alpha(0.5),
+//                .invisible: UIImage.Corn.alpha(0)
+//            ],
+//            .fats : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .veggies : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ],
+//            .proteins : [
+//                .focused: UIImage.corn,
+//                .visible: UIImage.corn,
+//                .invisible: UIImage.corn.alpha(0)
+//            ]
+//        ]
+        
+        let romainelettuce = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let salad = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let cabbage = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let lettuce = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let spinach = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        
+        var pins = [romainelettuce, salad, cabbage, lettuce, spinach]
+        
+        let romainelettuce2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let salad2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let cabbage2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let lettuce2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let spinach2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        
+        pins.append(contentsOf: [romainelettuce2, salad2, cabbage2, lettuce2, spinach2])
         
         let settings: [WState: WSettings] = [
             .bases: WSettings(155, CGFloat.pi / 5, CGSize(width: 66, height: 66)),

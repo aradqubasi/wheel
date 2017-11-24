@@ -39,7 +39,7 @@ class PinView: UIButton {
     
     func icon(default image: UIImage) -> PinView {
         for wState in WState.all {
-            let svState: [SVState: UIImage] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+            let svState: [SVState: UIImage] = [.focused: image, .visible: image, .invisible: image.alpha(0)]
             images[wState] = svState
         }
         return self
@@ -50,4 +50,9 @@ class PinView: UIButton {
         return self
     }
     
+    static var create: PinView {
+        get {
+            return PinView()
+        }
+    }
 }

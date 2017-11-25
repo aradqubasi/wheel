@@ -195,23 +195,23 @@ class FatsController : RadialController {
 //                .invisible: UIImage.peanut.alpha(0)
 //            ]
 //        ]
-        let coconut = PinView.create.icon(default: UIImage.coconut).icon(UIImage.Coconut, for: .fats)
-        let hazelnut = PinView.create.icon(default: UIImage.hazelnut).icon(UIImage.Hazelnut, for: .fats)
-        let seeds = PinView.create.icon(default: UIImage.seeds).icon(UIImage.Seeds, for: .fats)
-        let brazilnut = PinView.create.icon(default: UIImage.brazilnut).icon(UIImage.Brazilnut, for: .fats)
-        let cashewnut = PinView.create.icon(default: UIImage.cashewnut).icon(UIImage.Cashewnut, for: .fats)
-        let avocado = PinView.create.icon(default: UIImage.avocado).icon(UIImage.Avocado, for: .fats)
-        let peanut = PinView.create.icon(default: UIImage.peanut).icon(UIImage.Peanut, for: .fats)
+        let coconut = PinView.create.name("coconut").icon(default: UIImage.coconut).icon(UIImage.Coconut, for: .fats)
+        let hazelnut = PinView.create.name("hazelnut").icon(default: UIImage.hazelnut).icon(UIImage.Hazelnut, for: .fats)
+        let seeds = PinView.create.name("seeds").icon(default: UIImage.seeds).icon(UIImage.Seeds, for: .fats)
+        let brazilnut = PinView.create.name("brazilnut").icon(default: UIImage.brazilnut).icon(UIImage.Brazilnut, for: .fats)
+        let cashewnut = PinView.create.name("cashewnut").icon(default: UIImage.cashewnut).icon(UIImage.Cashewnut, for: .fats)
+        let avocado = PinView.create.name("avocado").icon(default: UIImage.avocado).icon(UIImage.Avocado, for: .fats)
+        let peanut = PinView.create.name("peanut").icon(default: UIImage.peanut).icon(UIImage.Peanut, for: .fats)
         
         var pins = [coconut, hazelnut, seeds, brazilnut, cashewnut, avocado, peanut]
         
-        let coconut2 = PinView.create.icon(default: UIImage.coconut).icon(UIImage.Coconut, for: .fats)
-        let hazelnut2 = PinView.create.icon(default: UIImage.hazelnut).icon(UIImage.Hazelnut, for: .fats)
-        let seeds2 = PinView.create.icon(default: UIImage.seeds).icon(UIImage.Seeds, for: .fats)
-        let brazilnut2 = PinView.create.icon(default: UIImage.brazilnut).icon(UIImage.Brazilnut, for: .fats)
-        let cashewnut2 = PinView.create.icon(default: UIImage.cashewnut).icon(UIImage.Cashewnut, for: .fats)
-        let avocado2 = PinView.create.icon(default: UIImage.avocado).icon(UIImage.Avocado, for: .fats)
-        let peanut2 = PinView.create.icon(default: UIImage.peanut).icon(UIImage.Peanut, for: .fats)
+        let coconut2 = PinView.create.name("coconut2").icon(default: UIImage.coconut).icon(UIImage.Coconut, for: .fats)
+        let hazelnut2 = PinView.create.name("hazelnut2").icon(default: UIImage.hazelnut).icon(UIImage.Hazelnut, for: .fats)
+        let seeds2 = PinView.create.name("seeds2").icon(default: UIImage.seeds).icon(UIImage.Seeds, for: .fats)
+        let brazilnut2 = PinView.create.name("brazilnut2").icon(default: UIImage.brazilnut).icon(UIImage.Brazilnut, for: .fats)
+        let cashewnut2 = PinView.create.name("cashewnut2").icon(default: UIImage.cashewnut).icon(UIImage.Cashewnut, for: .fats)
+        let avocado2 = PinView.create.name("avocado2").icon(default: UIImage.avocado).icon(UIImage.Avocado, for: .fats)
+        let peanut2 = PinView.create.name("peanut2").icon(default: UIImage.peanut).icon(UIImage.Peanut, for: .fats)
         
         pins.append(contentsOf: [coconut2, hazelnut2, seeds2, brazilnut2, cashewnut2, avocado2, peanut2])
         

@@ -18,6 +18,8 @@ class PinView: UIButton {
     
     var images: [WState: [SVState: UIImage]] = [:]
     
+    var name: String = ""
+    
     // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,6 +49,11 @@ class PinView: UIButton {
     
     func icon(_ image: UIImage, for state: WState) -> PinView {
         images[state] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+        return self
+    }
+    
+    func name(_ name: String) -> PinView {
+        self.name = name
         return self
     }
     

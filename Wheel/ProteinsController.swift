@@ -244,27 +244,27 @@ class ProteinsController : RadialController {
 //            ]
 //        ]
         
-        let chickpeas = PinView.create.icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins)
-        let fish = PinView.create.icon(default: UIImage.fish).icon(UIImage.Fish, for: .proteins)
-        let boiledegg = PinView.create.icon(default: UIImage.boiledegg).icon(UIImage.Boiledegg, for: .proteins)
-        let beans = PinView.create.icon(default: UIImage.beans).icon(UIImage.Beans, for: .proteins)
-        let peas = PinView.create.icon(default: UIImage.peas).icon(UIImage.Peas, for: .proteins)
-        let friedegg = PinView.create.icon(default: UIImage.friedegg).icon(UIImage.Friedegg, for: .proteins)
-        let lentils = PinView.create.icon(default: UIImage.lentils).icon(UIImage.Lentils, for: .proteins)
-        let mushrooms = PinView.create.icon(default: UIImage.mushrooms).icon(UIImage.Mushrooms, for: .proteins)
-        let shrimp = PinView.create.icon(default: UIImage.shrimp).icon(UIImage.Shrimp, for: .proteins)
+        let chickpeas = PinView.create.name("chickpeas").icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins)
+        let fish = PinView.create.name("fish").icon(default: UIImage.fish).icon(UIImage.Fish, for: .proteins)
+        let boiledegg = PinView.create.name("boiledegg").icon(default: UIImage.boiledegg).icon(UIImage.Boiledegg, for: .proteins)
+        let beans = PinView.create.name("beans").icon(default: UIImage.beans).icon(UIImage.Beans, for: .proteins)
+        let peas = PinView.create.name("peas").icon(default: UIImage.peas).icon(UIImage.Peas, for: .proteins)
+        let friedegg = PinView.create.name("friedegg").icon(default: UIImage.friedegg).icon(UIImage.Friedegg, for: .proteins)
+        let lentils = PinView.create.name("lentils").icon(default: UIImage.lentils).icon(UIImage.Lentils, for: .proteins)
+        let mushrooms = PinView.create.name("mushrooms").icon(default: UIImage.mushrooms).icon(UIImage.Mushrooms, for: .proteins)
+        let shrimp = PinView.create.name("shrimp").icon(default: UIImage.shrimp).icon(UIImage.Shrimp, for: .proteins)
         
         var pins: [PinView] = [chickpeas, fish, boiledegg, beans, peas, friedegg, lentils, mushrooms, shrimp]
   
-        let chickpeas2 = PinView.create.icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins)
-        let fish2 = PinView.create.icon(default: UIImage.fish).icon(UIImage.Fish, for: .proteins)
-        let boiledegg2 = PinView.create.icon(default: UIImage.boiledegg).icon(UIImage.Boiledegg, for: .proteins)
-        let beans2 = PinView.create.icon(default: UIImage.beans).icon(UIImage.Beans, for: .proteins)
-        let peas2 = PinView.create.icon(default: UIImage.peas).icon(UIImage.Peas, for: .proteins)
-        let friedegg2 = PinView.create.icon(default: UIImage.friedegg).icon(UIImage.Friedegg, for: .proteins)
-        let lentils2 = PinView.create.icon(default: UIImage.lentils).icon(UIImage.Lentils, for: .proteins)
-        let mushrooms2 = PinView.create.icon(default: UIImage.mushrooms).icon(UIImage.Mushrooms, for: .proteins)
-        let shrimp2 = PinView.create.icon(default: UIImage.shrimp).icon(UIImage.Shrimp, for: .proteins)
+        let chickpeas2 = PinView.create.name("chickpeas2").icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins)
+        let fish2 = PinView.create.name("fish2").icon(default: UIImage.fish).icon(UIImage.Fish, for: .proteins)
+        let boiledegg2 = PinView.create.name("boiledegg2").icon(default: UIImage.boiledegg).icon(UIImage.Boiledegg, for: .proteins)
+        let beans2 = PinView.create.name("beans2").icon(default: UIImage.beans).icon(UIImage.Beans, for: .proteins)
+        let peas2 = PinView.create.name("peas2").icon(default: UIImage.peas).icon(UIImage.Peas, for: .proteins)
+        let friedegg2 = PinView.create.name("friedegg2").icon(default: UIImage.friedegg).icon(UIImage.Friedegg, for: .proteins)
+        let lentils2 = PinView.create.name("lentils2").icon(default: UIImage.lentils).icon(UIImage.Lentils, for: .proteins)
+        let mushrooms2 = PinView.create.name("mushrooms2").icon(default: UIImage.mushrooms).icon(UIImage.Mushrooms, for: .proteins)
+        let shrimp2 = PinView.create.name("shrimp2").icon(default: UIImage.shrimp).icon(UIImage.Shrimp, for: .proteins)
         
         pins.append(contentsOf: [chickpeas2, fish2, boiledegg2, beans2, peas2, friedegg2, lentils2, mushrooms2, shrimp2])
         

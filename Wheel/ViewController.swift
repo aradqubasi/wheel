@@ -25,6 +25,8 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var proteins: RadialController!
     
+    var pointer: PointerController!
+    
     // MARK: - Subs
     
     var radialMenu: RadialView!
@@ -37,6 +39,14 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var proteinsMenu: RadialView!
     
+    var basesMark: UILabel!
+    
+    var fatsMark: UILabel!
+    
+    var veggiesMark: UILabel!
+    
+    var proteinsMark: UILabel!
+    
     var rollButton: UIButton!
     
     // MARK: - RadialControllerDelegate
@@ -48,6 +58,7 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.fats.state = state
             self.veggies.state = state
             self.proteins.state = state
+            self.pointer.state = state
         }
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: nil)
 
@@ -80,45 +91,88 @@ class ViewController: UIViewController, RadialControllerDelegate
 //        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 360)).toLayerView)
 //        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 240)).toLayerView)
         
-        bases = BasesController()
-        bases.delegate = self
-        basesMenu = RadialView(center: leftMiddle,orientation: .left)
-        bases.view = basesMenu
-        
-        fats = FatsController()
-        fats.delegate = self
-        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
-        fats.view = fatsMenu
+        proteins = ProteinsController()
+        proteins.delegate = self
+        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
+        self.view.addSubview(proteinsMenu)
+//        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
+//        self.view.addSubview(proteinsMark)
+//        proteinsMark.text = "proteins"
+        proteins.view = proteinsMenu
+//        proteins.label = proteinsMark
         
         veggies = VeggiesController()
         veggies.delegate = self
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
+        self.view.addSubview(veggiesMenu)
+//        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
+//        self.view.addSubview(veggiesMark)
+//        veggiesMark.text = "veggies"
         veggies.view = veggiesMenu
+//        veggies.label = veggiesMark
         
-        proteins = ProteinsController()
-        proteins.delegate = self
-        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-        proteins.view = proteinsMenu
+        fats = FatsController()
+        fats.delegate = self
+        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
+        self.view.addSubview(fatsMenu)
+//        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
+//        self.view.addSubview(fatsMark)
+//        fatsMark.text = "fats"
+        fats.view = fatsMenu
+//        fats.label = fatsMark
+        
+        bases = BasesController()
+        bases.delegate = self
+        basesMenu = RadialView(center: leftMiddle,orientation: .left)
+        self.view.addSubview(basesMenu)
+//        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
+//        self.view.addSubview(basesMark)
+//        basesMark.text = "bases"
+        bases.view = basesMenu
+//        bases.label = basesMark
         
         radialMenu = basesMenu
         
-        self.view.addSubview(proteinsMenu)
-        self.view.addSubview(veggiesMenu)
-        self.view.addSubview(fatsMenu)
-        self.view.addSubview(basesMenu)
+        
+//        self.view.addSubview(veggiesMenu)
+//        self.view.addSubview(fatsMenu)
+//        self.view.addSubview(basesMenu)
         self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
-//        rollButton = UIButton(frame: CGRect(x: leftMiddle.x - 40, y: leftMiddle.y - 15, width: 40, height: 30)).toRollButton
         rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton
-//        rollButton.setTitle("Roll", for: .normal)
-//        rollButton.setTitleColor(UIColor.white, for: .normal)
-        
         rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
-//        var insets = UIEdgeInsets()
-//        insets.left = -40
-        
-        
         self.view.addSubview(rollButton)
+        
+//        pointer = UIImageView(frame: CGRect(center: leftMiddle, size: CGSize(width: 19, height: 12.38)))
+//        pointer.image = UIImage.hand
+        
+        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        proteinsMark.textAlignment = .center
+        self.view.addSubview(proteinsMark)
+        proteinsMark.text = "proteins".uppercased()
+        proteins.label = proteinsMark
+        
+        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        veggiesMark.textAlignment = .center
+        self.view.addSubview(veggiesMark)
+        veggiesMark.text = "veggies".uppercased()
+        veggies.label = veggiesMark
+        
+        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        fatsMark.textAlignment = .center
+        self.view.addSubview(fatsMark)
+        fatsMark.text = "fats".uppercased()
+        fats.label = fatsMark
+        
+        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        basesMark.textAlignment = .center
+        self.view.addSubview(basesMark)
+        basesMark.text = "bases".uppercased()
+        bases.label = basesMark
+        
+        let hand = UIImageView(image: UIImage.hand)
+        self.view.addSubview(hand)
+        pointer = PointerController(view: hand, in: .bases)
     }
 
     override func didReceiveMemoryWarning() {

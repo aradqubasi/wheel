@@ -148,19 +148,19 @@ class BasesController : RadialController {
 //            ]
 //        ]
         
-        let romainelettuce = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let salad = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let cabbage = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let lettuce = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let spinach = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
         
         var pins = [romainelettuce, salad, cabbage, lettuce, spinach]
         
-        let romainelettuce2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let salad2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let cabbage2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let lettuce2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
-        let spinach2 = PinView.create.icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let romainelettuce2 = PinView.create.name("romainelettuce2").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let salad2 = PinView.create.name("salad2").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let cabbage2 = PinView.create.name("cabbage2").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let lettuce2 = PinView.create.name("lettuce2").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
+        let spinach2 = PinView.create.name("spinach2").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases)
         
         pins.append(contentsOf: [romainelettuce2, salad2, cabbage2, lettuce2, spinach2])
         

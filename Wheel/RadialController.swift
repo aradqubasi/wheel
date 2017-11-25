@@ -23,12 +23,20 @@ class RadialController: RVDelegate, PVDelegate {
             _view = new
             _view.delegate = self
             _view.name = _name
-            if active != state {
-                _view.RVState = .inactive
+            apply(_state)
+        }
+    }
+    
+    var label: UILabel {
+        get {
+            guard let label = _label else {
+                fatalError("mark is not assigned to controller")
             }
-            else {
-                _view.RVState = .active
-            }
+            return label
+        }
+        set(new) {
+            _label = new
+            apply(_state)
         }
     }
     
@@ -38,14 +46,7 @@ class RadialController: RVDelegate, PVDelegate {
         }
         set(new) {
             _state = new
-            if let wheel = _view {
-                if active != state {
-                    wheel.RVState = .inactive
-                }
-                else {
-                    wheel.RVState = .active
-                }
-            }
+            apply(new)
         }
     }
     
@@ -73,6 +74,8 @@ class RadialController: RVDelegate, PVDelegate {
     
     private var _stateSettings: [WState: WSettings]!
     
+    private var _label: UILabel?
+    
     // MARK: - Initializer
     
     init(_ pins: [PinView], _ settings: [WState: WSettings], _ name: String) {
@@ -80,7 +83,7 @@ class RadialController: RVDelegate, PVDelegate {
         _name = name
 //        print(initial)
         
-        state = initial
+        
         
         let setPVDelegate = {
             (pin: PinView) -> Void in
@@ -91,7 +94,7 @@ class RadialController: RVDelegate, PVDelegate {
         _pins = pins
         _pins.forEach(setPVDelegate)
         _stateSettings = settings
-        
+        state = initial
     }
     
     // MARK: - RVDelegate Methods
@@ -137,6 +140,10 @@ class RadialController: RVDelegate, PVDelegate {
         pin.frame.size.height = settings.size.height
 //        pin.layer.cornerRadius = settings.radius
         pin.clipsToBounds = true
+        
+        if state == .focused {
+            _label?.text = pin.name.uppercased()
+        }
     }
     
     func radialView(backgroundFor wheel: RadialView) -> UIView? {
@@ -190,5 +197,40 @@ class RadialController: RVDelegate, PVDelegate {
         }
     }
     
+    // MARK: - Private Methods
+    
+    private func apply(_ state: WState) {
+        
+        if let wheel = _view {
+            if active != state {
+                wheel.RVState = .inactive
+            }
+            else {
+                wheel.RVState = .active
+            }
+        }
+        
+        guard let settings = _stateSettings[_state] else {
+            fatalError("no settings @ state \(_state) @ \(self)")
+        }
+        
+        if let label = _label {
+            label.transform = CGAffineTransform(rotationAngle: 0)
+            guard let parent = label.superview else {
+                fatalError("view is not attached to superview")
+            }
+        
+            var x = parent.bounds.width
+            x -= settings.radius
+            x -= label.frame.width / 2
+            x += settings.size.width
+            x += 20
+
+            let y = parent.bounds.height / 2 - label.frame.height / 2
+            label.frame.origin = CGPoint(x: x, y: y)
+            label.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
+            label.font = UIFont.markunselected
+        }
+    }
 }
 

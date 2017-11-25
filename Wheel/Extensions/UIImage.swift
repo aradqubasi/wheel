@@ -325,6 +325,12 @@ public extension UIImage {
         }
     }
     
+    static var hand: UIImage {
+        get {
+            return UIImage(named: "hand")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

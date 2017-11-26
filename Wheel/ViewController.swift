@@ -27,6 +27,8 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var pointer: PointerController!
     
+    var selectedController: SelectedController!
+    
     // MARK: - Subs
     
     var radialMenu: RadialView!
@@ -49,6 +51,8 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var rollButton: UIButton!
     
+    var selectedView: UIView!
+    
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
@@ -60,6 +64,7 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.proteins.state = state
             self.pointer.state = state
         }
+
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: nil)
 
     }
@@ -173,6 +178,10 @@ class ViewController: UIViewController, RadialControllerDelegate
         let hand = UIImageView(image: UIImage.hand)
         self.view.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
+        
+        selectedController = SelectedController()
+        selectedView = self.view.attach(UIView()).toSelectedIngridientsView
+        selectedController.view = selectedView
     }
 
     override func didReceiveMemoryWarning() {
@@ -199,7 +208,10 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.veggies.moveToRandomPin()
             self.proteins.moveToRandomPin()
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
+        let select = { (succeed: Bool) -> Void in
+            self.selectedController.add([self.bases.focused.asIngridient, self.fats.focused.asIngridient, self.veggies.focused.asIngridient, self.proteins.focused.asIngridient])
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
         
         
 //        let follow = { () -> Void in

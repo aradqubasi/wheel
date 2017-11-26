@@ -35,4 +35,16 @@ public extension UIColor {
             return UIColor(red: 80 / 255, green: 219 / 255, blue: 154 / 255, alpha: 1)
         }
     }
+    
+    static var porcelain: UIColor {
+        get {
+            return UIColor(red: 198 / 255, green: 210 / 255, blue: 213 / 255, alpha: 0.33)
+        }
+    }
+    
+    static var gallery: UIColor {
+        get {
+            return UIColor(red: 0, green: 0, blue: 0, alpha: 0.08)
+        }
+    }
 }

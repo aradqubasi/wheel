@@ -331,6 +331,18 @@ public extension UIImage {
         }
     }
     
+    static var next: UIImage {
+        get {
+            return UIImage(named: "next")!
+        }
+    }
+    
+    static var nextpressed: UIImage {
+        get {
+            return UIImage(named: "nextpressed")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

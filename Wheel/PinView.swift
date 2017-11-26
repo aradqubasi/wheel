@@ -20,6 +20,16 @@ class PinView: UIButton {
     
     var name: String = ""
     
+    var asSelected: UIImage!
+    
+    var kind: IngridientKinds!
+    
+    var asIngridient: Ingridient {
+        get {
+            return Ingridient(name, of: kind, as: asSelected)
+        }
+    }
+    
     // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -52,8 +62,18 @@ class PinView: UIButton {
         return self
     }
     
+    func icon(selected image: UIImage) -> PinView {
+        asSelected = image
+        return self
+    }
+    
     func name(_ name: String) -> PinView {
         self.name = name
+        return self
+    }
+    
+    func kind(of ingridient: IngridientKinds) -> PinView {
+        self.kind = ingridient
         return self
     }
     

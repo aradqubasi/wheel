@@ -62,6 +62,12 @@ class RadialController: RVDelegate, PVDelegate {
         }
     }
     
+    var focused: PinView {
+        get {
+            return _pins[_view.RVFocused]
+        }
+    }
+    
     // MARK: - Private Properties
     
     private var _name: String

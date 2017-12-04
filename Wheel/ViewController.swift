@@ -27,7 +27,7 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var pointer: PointerController!
     
-    var selectedController: SelectedController!
+    var selectionController: SelectionController!
     
     // MARK: - Subs
     
@@ -51,7 +51,7 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var rollButton: UIButton!
     
-    var selectedView: UIView!
+    var selection: UIView!
     
     // MARK: - RadialControllerDelegate
     
@@ -179,9 +179,11 @@ class ViewController: UIViewController, RadialControllerDelegate
         self.view.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
         
-        selectedController = SelectedController()
-        selectedView = self.view.attach(UIView()).toSelectedIngridientsView
-        selectedController.view = selectedView
+        selectionController = SelectionController()
+        selection = TransparentView(frame: self.view.bounds)
+//        selection.isUserInteractionEnabled = false
+        self.view.addSubview(selection)
+        selectionController.view = selection
     }
 
     override func didReceiveMemoryWarning() {
@@ -208,11 +210,12 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.veggies.moveToRandomPin()
             self.proteins.moveToRandomPin()
         }
-        let select = { (succeed: Bool) -> Void in
-            self.selectedController.add([self.bases.focused.asIngridient, self.fats.focused.asIngridient, self.veggies.focused.asIngridient, self.proteins.focused.asIngridient])
+        let select = { () -> Void in
+//            (succeed: Bool) -> Void in
+            self.selectionController.add([self.bases.focused.asIngridient, self.fats.focused.asIngridient, self.veggies.focused.asIngridient, self.proteins.focused.asIngridient])
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
-        
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
+        UIView.animate(withDuration: 0.225, delay: 0.225, options: [.curveEaseOut], animations: select, completion: nil)
         
 //        let follow = { () -> Void in
 //            self.radialMenu.move(by: -0.00126573705433985)

@@ -20,13 +20,15 @@ class PinView: UIButton {
     
     var name: String = ""
     
-    var asSelected: UIImage!
+    var original: UIImage!
+    
+    var isBlank: Bool = false
     
     var kind: IngridientKinds!
     
     var asIngridient: Ingridient {
         get {
-            return Ingridient(name, of: kind, as: asSelected)
+            return Ingridient(name, of: kind, as: original)
         }
     }
     
@@ -63,7 +65,7 @@ class PinView: UIButton {
     }
     
     func icon(selected image: UIImage) -> PinView {
-        asSelected = image
+        original = image
         return self
     }
     

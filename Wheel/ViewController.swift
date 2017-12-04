@@ -229,6 +229,9 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     private var scrollLastDeltaAngle: CGFloat!
     
+    private var scrollAngleCollector: CGFloat!
+    
+    private var scrollTimeCollector: TimeInterval!
 //    var a: [CGFloat] = []
 //
 //    var t: [TimeInterval] = []
@@ -239,56 +242,42 @@ class ViewController: UIViewController, RadialControllerDelegate
             scrollLastAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             scrollLastTime = Date()
             scrollLastDeltaAngle = 0
-        case .changed://, .ended:
+            //--
+            scrollAngleCollector = 0
+            scrollTimeCollector = 0
+        case .changed:
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
-//            print("\(newAngle / CGFloat.pi)")
-            let deltaAngle = newAngle - scrollLastAngle
-            let deltaTime = newTime.timeIntervalSince(scrollLastTime)
-//            print(deltaAngle)
-            let follow = { () -> Void in
-                self.radialMenu.move(by: deltaAngle)
+            var deltaAngle = newAngle - scrollLastAngle
+            var deltaTime = newTime.timeIntervalSince(scrollLastTime)
+            scrollAngleCollector = scrollAngleCollector + deltaAngle
+            scrollTimeCollector = scrollTimeCollector + deltaTime
+            if scrollTimeCollector >= 0.1 || scrollAngleCollector >= 0.1 {
+                deltaTime = scrollTimeCollector
+                scrollTimeCollector = 0
+                deltaAngle = scrollAngleCollector
+                scrollAngleCollector = 0
+                
+                let follow = { () -> Void in
+                    self.radialMenu.move(by: deltaAngle)
+                }
+                UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: nil)
             }
-//            a.append(deltaAngle)
-//            t.append(deltaTime)
-//            UIView.animate(withDuration: deltaTime, delay: 0, options: [.curveEaseInOut], animations: follow, completion: nil)
-            UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: nil)
             scrollLastAngle = newAngle
             scrollLastTime = newTime
             scrollLastDeltaAngle = deltaAngle
-//            print("changed \(deltaAngle) \(deltaTime)")
-//            changed 2.65796783749384e-05 9.43823701143265
         case .ended:
-//            var sa: CGFloat = 0
-//            a.forEach({ (current) -> Void in sa+=current })
-//            sa = sa / CGFloat((a.count != 0 ? a.count : 1))
-//            a = []
-//            var st: TimeInterval = 0
-//            t.forEach({ (current) -> Void in st+=current })
-//            st = st / TimeInterval((t.count != 0 ? t.count : 1))
-//            t = []
-            
             let deceleration = {
                 () -> Void in
                 let angle = self.scrollLastDeltaAngle * 0.225 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
-//                print(angle)
                 self.radialMenu.move(by: angle)
             }
 
             let normalization = { (_: Bool) -> Void in
                 self.radialMenu.move(to: self.radialMenu.RVFocused)
             }
-//            let deceleration = { () -> Void in
-//                self.radialMenu.move(to: self.radialMenu.RVFocused)
-//            }
-//
-//            let normalization = { (_: Bool) -> Void in
-//
-//            }
             
             UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
-            
-//            print("end \(sa) \(st)")
         default:
             print("\(sender.state)")
         }

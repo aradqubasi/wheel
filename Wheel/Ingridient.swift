@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-struct Ingridient {
+struct Ingridient: Hashable {
     
     // MARK: - Public Properties
     
@@ -22,5 +22,17 @@ struct Ingridient {
         self.name = name
         self.kind = kind
         self.image = image
+    }
+    
+    // MARK: - Hashable implementation
+    
+    var hashValue: Int {
+        get {
+            return name.hashValue ^ kind.hashValue// ^ image.hashValue
+        }
+    }
+    
+    static func ==(lhs: Ingridient, rhs: Ingridient) -> Bool {
+        return lhs.name == rhs.name && lhs.kind == rhs.kind //&& lhs.image == rhs.image
     }
 }

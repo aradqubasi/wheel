@@ -79,4 +79,15 @@ class SelectedView: UIView {
         self.frame.origin = _initial
     }
     
+    func prepare(as food: Ingridient?, at point: CGPoint?, shrouded: Bool) {
+        if let food = food {
+            _food = food
+            item.setImage(food.image, for: .normal)
+        }
+        if let point = point {
+            self.frame.origin = point
+        }
+        shroud.alpha = shrouded ? 1 : 0
+    }
+    
 }

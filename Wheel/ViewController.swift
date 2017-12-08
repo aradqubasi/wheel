@@ -210,17 +210,42 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.veggies.moveToRandomPin()
             self.proteins.moveToRandomPin()
         }
-        let select = { () -> Void in
-//            (succeed: Bool) -> Void in
-            self.selectionController.add([self.bases.focused.asIngridient, self.fats.focused.asIngridient, self.veggies.focused.asIngridient, self.proteins.focused.asIngridient])
+        let select = {(_:Bool) in
+            self.selectionController.copy([
+                self.proteins.focused,
+                self.veggies.focused,
+                self.fats.focused,
+                self.bases.focused
+                ])
+            
+            let open = { () -> Void in
+                self.selectionController.open(4)
+                self.selectionController.move()
+            }
+            let finish = { (_:Bool) in
+                self.selectionController.merge()
+            }
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: finish)
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: nil)
-        UIView.animate(withDuration: 0.225, delay: 0.225, options: [.curveEaseOut], animations: select, completion: nil)
-        
-//        let follow = { () -> Void in
-//            self.radialMenu.move(by: -0.00126573705433985)
+//        let copy = { (_:Bool) in
+//            self.selectionController.copy([
+//                self.proteins.focused,
+//                self.veggies.focused,
+//                self.fats.focused,
+//                self.bases.focused
+//                ])
 //        }
-//        UIView.animate(withDuration: 3.2513769865036, delay: 0, options: [], animations: follow, completion: nil)
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
+        
+//        let open = { () -> Void in
+//            self.selectionController.open(4)
+//            self.selectionController.move()
+//        }
+//        let finish = { (_:Bool) in
+//            self.selectionController.merge()
+//        }
+//        UIView.animate(withDuration: 1, delay: 1, options: [.curveEaseInOut], animations: open, completion: finish)
+//        UIView.animate(withDuration: 1, delay: 1.225, options: [.curveEaseInOut], animations: move, completion: nil)
     }
     
     private var scrollLastAngle: CGFloat!

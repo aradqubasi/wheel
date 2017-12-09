@@ -69,11 +69,14 @@ class ViewController: UIViewController, RadialControllerDelegate
 
     }
     
-    func onPinClick(in wheel: RadialView, of pin: PinView, at index: Int) -> Void {
-        let moveto = { () -> Void in
-            wheel.move(to: index)
+    func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void {
+        if controller.focused == pin {
+            self.select([pin])
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+        else {
+            let moveto = { () -> Void in controller.view.move(to: index) }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+        }
     }
     
     // MARK: - Initialioze
@@ -81,75 +84,41 @@ class ViewController: UIViewController, RadialControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        view.op
         view.backgroundColor = UIColor.aquaHaze
         
-
-        
-        //------
-    
-        
         let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
-        
-//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 600)).toLayerView)
-//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 480)).toLayerView)
-//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 360)).toLayerView)
-//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 240)).toLayerView)
         
         proteins = ProteinsController()
         proteins.delegate = self
         proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
         self.view.addSubview(proteinsMenu)
-//        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
-//        self.view.addSubview(proteinsMark)
-//        proteinsMark.text = "proteins"
         proteins.view = proteinsMenu
-//        proteins.label = proteinsMark
         
         veggies = VeggiesController()
         veggies.delegate = self
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
         self.view.addSubview(veggiesMenu)
-//        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
-//        self.view.addSubview(veggiesMark)
-//        veggiesMark.text = "veggies"
         veggies.view = veggiesMenu
-//        veggies.label = veggiesMark
         
         fats = FatsController()
         fats.delegate = self
         fatsMenu = RadialView(center: leftMiddle,orientation: .left)
         self.view.addSubview(fatsMenu)
-//        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
-//        self.view.addSubview(fatsMark)
-//        fatsMark.text = "fats"
         fats.view = fatsMenu
-//        fats.label = fatsMark
         
         bases = BasesController()
         bases.delegate = self
         basesMenu = RadialView(center: leftMiddle,orientation: .left)
         self.view.addSubview(basesMenu)
-//        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 50, height: 14))
-//        self.view.addSubview(basesMark)
-//        basesMark.text = "bases"
         bases.view = basesMenu
-//        bases.label = basesMark
         
         radialMenu = basesMenu
         
-        
-//        self.view.addSubview(veggiesMenu)
-//        self.view.addSubview(fatsMenu)
-//        self.view.addSubview(basesMenu)
         self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
         rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton
         rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
         self.view.addSubview(rollButton)
-        
-//        pointer = UIImageView(frame: CGRect(center: leftMiddle, size: CGSize(width: 19, height: 12.38)))
-//        pointer.image = UIImage.hand
         
         proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         proteinsMark.textAlignment = .center
@@ -181,20 +150,17 @@ class ViewController: UIViewController, RadialControllerDelegate
         
         selectionController = SelectionController()
         selection = TransparentView(frame: self.view.bounds)
-//        selection.isUserInteractionEnabled = false
         self.view.addSubview(selection)
         selectionController.view = selection
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Actions
     
     @IBAction func onButtonClick(_ sender: Any) {
-//        radialMenu.addSpoke()
     }
     
     @IBAction func onLeftButtonClick(_ sender: Any) {
@@ -209,43 +175,17 @@ class ViewController: UIViewController, RadialControllerDelegate
             self.fats.moveToRandomPin()
             self.veggies.moveToRandomPin()
             self.proteins.moveToRandomPin()
-        }
-        let select = {(_:Bool) in
-            self.selectionController.copy([
-                self.proteins.focused,
-                self.veggies.focused,
-                self.fats.focused,
-                self.bases.focused
-                ])
             
-            let open = { () -> Void in
-                self.selectionController.open(4)
-                self.selectionController.move()
-            }
-            let finish = { (_:Bool) in
-                self.selectionController.merge()
-            }
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: finish)
+            self.selectionController.erase()
         }
-//        let copy = { (_:Bool) in
-//            self.selectionController.copy([
-//                self.proteins.focused,
-//                self.veggies.focused,
-//                self.fats.focused,
-//                self.bases.focused
-//                ])
-//        }
+        
+        let select = { (_: Bool) -> Void in
+            let focus = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
+            self.select(focus)
+        }
+        
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
         
-//        let open = { () -> Void in
-//            self.selectionController.open(4)
-//            self.selectionController.move()
-//        }
-//        let finish = { (_:Bool) in
-//            self.selectionController.merge()
-//        }
-//        UIView.animate(withDuration: 1, delay: 1, options: [.curveEaseInOut], animations: open, completion: finish)
-//        UIView.animate(withDuration: 1, delay: 1.225, options: [.curveEaseInOut], animations: move, completion: nil)
     }
     
     private var scrollLastAngle: CGFloat!
@@ -257,9 +197,6 @@ class ViewController: UIViewController, RadialControllerDelegate
     private var scrollAngleCollector: CGFloat!
     
     private var scrollTimeCollector: TimeInterval!
-//    var a: [CGFloat] = []
-//
-//    var t: [TimeInterval] = []
     
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -329,6 +266,36 @@ class ViewController: UIViewController, RadialControllerDelegate
             angle = CGFloat.pi * 2 - angle
         }
         return angle
+    }
+    
+    private func select(_ pins: [PinView]) {
+        if pins.count > 0 {
+            //                self.selectionController.copy([
+            //                    self.proteins.focused,
+            //                    self.veggies.focused,
+            //                    self.fats.focused,
+            //                    self.bases.focused
+            //                    ])
+            self.selectionController.copy(pins)
+            
+            let open = { () -> Void in
+                self.selectionController.open(pins.count)
+            }
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: nil)
+            
+            let finish = { (_:Bool) in
+                self.selectionController.merge()
+            }
+            
+            var delay: TimeInterval = 0
+            let movings = self.selectionController.movings().reversed()
+            for moving in movings.prefix(movings.count - 1) {
+                UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: moving, completion: nil)
+                delay += 0.1
+            }
+            
+            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
+        }
     }
     
 }

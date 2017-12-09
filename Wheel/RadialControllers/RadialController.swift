@@ -189,7 +189,7 @@ class RadialController: RVDelegate, PVDelegate {
         guard let pin = sender as? PinView, let index = _pins.index(of: pin) else {
             fatalError("onPinClick invoked not by PinView")
         }
-        delegate?.onPinClick(in: view, of: pin, at: index)
+        delegate?.onPinClick(in: self, of: pin, at: index)
 //        _view.move(to: index)
 //        print("\(_name) click")
     }

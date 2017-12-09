@@ -98,10 +98,21 @@ class SelectionController {
     
     // MARK: - Public Methods
 
+    /**animatable - erase selection*/
+    func erase() {
+        for spot in statics {
+            spot.close()
+        }
+        
+        for spot in floatings {
+            spot.discharge()
+        }
+    }
+    
     /**instant - make a copies of selected pins*/
     func copy(_ pins: [PinView]) {
-        let copies = floatings.filter({(next) in return next.state == .free}).suffix(pins.count)
-        for i in 0..<copies.count {
+        let copies = floatings.filter({(next) in return next.state == .free})
+        for i in 0..<min(copies.count, pins.count) {
             copies[i].take(for: pins[i])
         }
     }
@@ -129,14 +140,42 @@ class SelectionController {
     /**animatable - move floatings to open spots*/
     func move() {
         
-        var offset = CGPoint(x: 8, y: 16)
+//        var offset = CGPoint(x: 8, y: 16)
+//
+//        for floating in floatings.filter({(next) in return next.state == .taken}) {
+//            let destanation = holder.convert(offset, to: scene)
+//            floating.deliver(to: destanation)
+//            offset.x += 64
+//        }
+//
+        let taken = floatings.filter({(next) in return next.state == .taken})
         
-        for floating in floatings.filter({(next) in return next.state == .taken}) {
-            let destanation = holder.convert(offset, to: scene)
-            floating.deliver(to: destanation)
-            offset.x += 64
+        for i in 0..<taken.count {
+            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: scene)
+            taken[i].deliver(to: destanation)
         }
         
+    }
+    
+    /**animatable - move floatings to open spots*/
+    func movings() -> [() -> Void] {
+        
+        var movings: [() -> Void] = []
+        
+        let taken = floatings.filter({(next) in return next.state == .taken})
+        
+        for i in 0..<taken.count {
+            
+            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: scene)
+            
+            let moving = { () -> Void in
+                taken[i].deliver(to: destanation)
+            }
+            
+            movings.append(moving)
+        }
+        
+        return movings
     }
     
     /**instant - finish movement*/

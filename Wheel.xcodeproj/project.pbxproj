@@ -158,6 +158,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1525FE631FDBC139001CABF6 /* RadialControllers */ = {
+			isa = PBXGroup;
+			children = (
+				15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */,
+				15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */,
+				15A73CA21FB657D700E3BB01 /* BasesController.swift */,
+				15F787FF1FB827B4001C32B1 /* FatsController.swift */,
+				15F788011FB82A1A001C32B1 /* VeggiesController.swift */,
+				15F010A11FB830C40002A917 /* ProteinsController.swift */,
+			);
+			path = RadialControllers;
+			sourceTree = "<group>";
+		};
 		15456D5C1FC028AD0018A1CD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -212,16 +225,11 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				1525FE631FDBC139001CABF6 /* RadialControllers */,
 				15456D6F1FD27A5B0018A1CD /* Selection */,
 				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
 				15F0BB351F404FCC006F646E /* ViewController.swift */,
-				15A73C9E1FB5BEED00E3BB01 /* RadialController.swift */,
-				15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */,
-				15A73CA21FB657D700E3BB01 /* BasesController.swift */,
-				15F787FF1FB827B4001C32B1 /* FatsController.swift */,
-				15F788011FB82A1A001C32B1 /* VeggiesController.swift */,
-				15F010A11FB830C40002A917 /* ProteinsController.swift */,
 				15456D631FC94B320018A1CD /* PointerController.swift */,
 				15456D671FCAB68E0018A1CD /* SelectedController0.swift */,
 				15F0BB371F404FCC006F646E /* Main.storyboard */,

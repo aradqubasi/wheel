@@ -11,6 +11,6 @@ protocol RadialControllerDelegate {
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void
     
-    func onPinClick(in wheel: RadialView, of pin: PinView, at index: Int) -> Void
+    func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void
     
 }

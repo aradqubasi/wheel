@@ -15,6 +15,7 @@
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
 		151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE4A1FA5015500CC5357 /* SVSettings.swift */; };
 		1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */; };
+		1525FE661FDC6600001CABF6 /* OverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE651FDC6600001CABF6 /* OverlayController.swift */; };
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
 		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
 		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
@@ -40,6 +41,7 @@
 		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
 		15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA21FB657D700E3BB01 /* BasesController.swift */; };
 		15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */; };
+		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F010A11FB830C40002A917 /* ProteinsController.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* ViewController.swift */; };
@@ -84,6 +86,7 @@
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		151AFE4A1FA5015500CC5357 /* SVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVSettings.swift; sourceTree = "<group>"; };
 		1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedView.swift; sourceTree = "<group>"; };
+		1525FE651FDC6600001CABF6 /* OverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayController.swift; sourceTree = "<group>"; };
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -109,6 +112,7 @@
 		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
 		15A73CA21FB657D700E3BB01 /* BasesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasesController.swift; sourceTree = "<group>"; };
 		15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialControllerDelegate.swift; sourceTree = "<group>"; };
+		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15F010A11FB830C40002A917 /* ProteinsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinsController.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +175,15 @@
 			path = RadialControllers;
 			sourceTree = "<group>";
 		};
+		1525FE641FDC6477001CABF6 /* Overlay */ = {
+			isa = PBXGroup;
+			children = (
+				1525FE651FDC6600001CABF6 /* OverlayController.swift */,
+				15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */,
+			);
+			path = Overlay;
+			sourceTree = "<group>";
+		};
 		15456D5C1FC028AD0018A1CD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,6 +238,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				1525FE641FDC6477001CABF6 /* Overlay */,
 				1525FE631FDBC139001CABF6 /* RadialControllers */,
 				15456D6F1FD27A5B0018A1CD /* Selection */,
 				15456D5C1FC028AD0018A1CD /* Extensions */,
@@ -412,6 +426,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1525FE661FDC6600001CABF6 /* OverlayController.swift in Sources */,
 				15456D6C1FCB0DA10018A1CD /* Ingridient.swift in Sources */,
 				15456D681FCAB68E0018A1CD /* SelectedController0.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
@@ -448,6 +463,7 @@
 				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* IngridientKinds.swift in Sources */,
+				15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
 				15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */,
 				15456D621FC16DF50018A1CD /* HitDelegate.swift in Sources */,

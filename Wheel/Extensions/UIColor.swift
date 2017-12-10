@@ -47,4 +47,10 @@ public extension UIColor {
             return UIColor(red: 0, green: 0, blue: 0, alpha: 0.08)
         }
     }
+    
+    static var limedSpruce: UIColor {
+        get {
+            return UIColor(red: 60 / 255, green: 73 / 255, blue: 83 / 255, alpha: 1)
+        }
+    }
 }

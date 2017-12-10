@@ -317,6 +317,44 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Unexpected
+    
+    class var cookedgrains: UIImage {
+        get {
+            return UIImage(named: "cookedgrains")!
+        }
+    }
+    
+    class var cottagecheese: UIImage {
+        get {
+            return UIImage(named: "cottagecheese")!
+        }
+    }
+    
+    class var hotpepper: UIImage {
+        get {
+            return UIImage(named: "hotpepper")!
+        }
+    }
+    
+    class var olives: UIImage {
+        get {
+            return UIImage(named: "olives")!
+        }
+    }
+    
+    class var onion: UIImage {
+        get {
+            return UIImage(named: "onion")!
+        }
+    }
+    
+    class var pickledveggies: UIImage {
+        get {
+            return UIImage(named: "pickledveggies")!
+        }
+    }
+    
     // MARK: - Wheel GUI
     
     static var dice: UIImage {
@@ -340,6 +378,18 @@ public extension UIImage {
     static var nextpressed: UIImage {
         get {
             return UIImage(named: "nextpressed")!
+        }
+    }
+    
+    class var close: UIImage {
+        get {
+            return UIImage(named: "close")!
+        }
+    }
+    
+    class var unexpected: UIImage {
+        get {
+            return UIImage(named: "unexpected")!
         }
     }
     

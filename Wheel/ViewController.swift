@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate
 {
     
     // MARK: - Outlets
@@ -28,6 +28,8 @@ class ViewController: UIViewController, RadialControllerDelegate
     var pointer: PointerController!
     
     var selectionController: SelectionController!
+    
+    var overlayController: OverlayController!
     
     // MARK: - Subs
     
@@ -53,6 +55,10 @@ class ViewController: UIViewController, RadialControllerDelegate
     
     var selection: UIView!
     
+    var overlay: UIView!
+    
+    var unexpected: UIButton!
+    
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
@@ -76,6 +82,16 @@ class ViewController: UIViewController, RadialControllerDelegate
         else {
             let moveto = { () -> Void in controller.view.move(to: index) }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+        }
+    }
+    
+    // MARK: - OverlayContollerDelegate
+    
+    func onClose(of contoller: OverlayController) -> Void {
+        if contoller === overlayController {
+            let close = { () in contoller.close() }
+            let discharge = { (_:Bool) in contoller.discharge()}
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
         }
     }
     
@@ -148,10 +164,20 @@ class ViewController: UIViewController, RadialControllerDelegate
         self.view.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
         
+        unexpected = UIButton(frame: CGRect(origin: CGPoint(x: 16, y: view.frame.height / 3), size: .zero))
+        unexpected.toUnexpected.addTarget(self, action: #selector(onUnexpectedClick(_:)), for: .touchUpInside)
+        self.view.addSubview(unexpected)
+        
         selectionController = SelectionController()
         selection = TransparentView(frame: self.view.bounds)
         self.view.addSubview(selection)
         selectionController.view = selection
+        
+        overlayController = OverlayController()
+        overlayController.delegate = self
+        overlay = TransparentView(frame: self.view.bounds)
+        self.view.addSubview(overlay)
+        overlayController.view = overlay
     }
 
     override func didReceiveMemoryWarning() {
@@ -159,6 +185,13 @@ class ViewController: UIViewController, RadialControllerDelegate
     }
 
     // MARK: - Actions
+    
+    func onUnexpectedClick(_ sender: Any) {
+//        print("unexpected!")
+        overlayController.set()
+        let open = {() in self.overlayController.open() }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+    }
     
     @IBAction func onButtonClick(_ sender: Any) {
     }

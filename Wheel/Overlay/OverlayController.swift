@@ -12,6 +12,12 @@ class OverlayController: RVDelegate {
     
     // MARK: - Public Properties
     
+    var focused: PinView {
+        get {
+            return _focused
+        }
+    }
+    
     var delegate: OverlayControllerDelegate?
     
     var view: UIView? {
@@ -26,10 +32,6 @@ class OverlayController: RVDelegate {
                 _background.frame = scene.bounds
                 scene.addSubview(_background)
                 
-//                _wheel.frame.origin = CGPoint(x: 0, y:  scene.bounds.height / 2 - scene.bounds.width / 2)
-//                _wheel.frame.size = CGSize(side: scene.bounds.width)
-//                _wheel.layer.cornerRadius = scene.bounds.width / 2
-//                scene.addSubview(_wheel)
                 _wheel = RadialView(center: CGPoint(x: scene.bounds.width / 2, y:  scene.bounds.height / 2), orientation: .left)
                 _wheel.delegate = self
                 _wheel.move(by: 0)
@@ -54,6 +56,8 @@ class OverlayController: RVDelegate {
     private var _scene: UIView?
     
     private var _pins: [PinView]!
+    
+    private var _focused: PinView!
 
     // MARK: - Subviews
     
@@ -108,21 +112,18 @@ class OverlayController: RVDelegate {
     
     // MARK: - Initializer
     
-    init() {
+    /**non-empty set of pins is required*/
+    init(_ pins: [PinView]) {
         
         _background = UIView()
         _background.backgroundColor = UIColor.limedSpruce
-
-        let cookedgrains = PinView.create.name("cookedgrains").icon(selected: UIImage.cookedgrains).kind(of: .unexpected)
-        let cottagecheese = PinView.create.name("cottagecheese").icon(selected: UIImage.cottagecheese).kind(of: .unexpected)
-        let hotpepper = PinView.create.name("hotpepper").icon(selected: UIImage.hotpepper).kind(of: .unexpected)
-        let olives = PinView.create.name("olives").icon(selected: UIImage.olives).kind(of: .unexpected)
-        let onion = PinView.create.name("onion").icon(selected: UIImage.onion).kind(of: .unexpected)
-        let pickledveggies = PinView.create.name("pickledveggies").icon(selected: UIImage.pickledveggies).kind(of: .unexpected)
-        _pins = [cookedgrains, cottagecheese, hotpepper, olives, onion, pickledveggies]
-        
-//        _wheel = UIView()
-//        _wheel.backgroundColor = UIColor.white
+     
+        if pins.count == 0 {
+            fatalError("set of pins for overlay controller is empty")
+        }
+        _pins = pins
+        _pins.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)})
+        _focused = _pins.first!
         
         _close = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 64)))
         _close.setImage(UIImage.close, for: .normal)
@@ -136,6 +137,12 @@ class OverlayController: RVDelegate {
     @objc private func onCloseClick(_ sender: UIButton) {
 //        print("OverlayController.onCloseClick")
         delegate?.onClose(of: self)
+    }
+    
+    @objc private func onIngridientClick(_ sender: PinView) {
+//        print("\(sender.name) is selected")
+        _focused = sender
+        delegate?.onSelect(in: self)
     }
 
     // MARK: - Public Methods

@@ -21,7 +21,7 @@ extension UIButton {
         }
     }
     
-    var toUnexpected: UIButton {
+    var asToUnexpected: UIButton {
         get {
 //            self.backgroundColor = UIColor.gray
             self.setImage(UIImage.unexpected, for: .normal)

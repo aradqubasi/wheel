@@ -12,7 +12,7 @@ class OverlayController: RVDelegate {
     
     // MARK: - Public Properties
     
-    var focused: PinView {
+    var focused: NamedPinView {
         get {
             return _focused
         }
@@ -55,9 +55,9 @@ class OverlayController: RVDelegate {
     
     private var _scene: UIView?
     
-    private var _pins: [PinView]!
+    private var _pins: [NamedPinView]!
     
-    private var _focused: PinView!
+    private var _focused: NamedPinView!
 
     // MARK: - Subviews
     
@@ -82,18 +82,18 @@ class OverlayController: RVDelegate {
     
     func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
         let pin = _pins[index]
-        pin.setImage(pin.original, for: .normal)
-        pin.imageEdgeInsets.left = 5
-        pin.imageEdgeInsets.right = 5
-        pin.imageEdgeInsets.top = 5
-        pin.imageEdgeInsets.bottom = 5
+//        pin.setImage(pin.original, for: .normal)
+//        pin.imageEdgeInsets.left = 5
+//        pin.imageEdgeInsets.right = 5
+//        pin.imageEdgeInsets.top = 5
+//        pin.imageEdgeInsets.bottom = 5
         
-        pin.frame.origin = .zero
-        pin.frame.size.width = 66
-        pin.frame.size.height = 66
-        pin.clipsToBounds = true
-        pin.backgroundColor = UIColor.white
-        pin.layer.cornerRadius = 33
+//        pin.frame.origin = .zero
+//        pin.frame.size.width = 66
+//        pin.frame.size.height = 66
+//        pin.clipsToBounds = true
+//        pin.backgroundColor = UIColor.white
+//        pin.layer.cornerRadius = 33
         
         return pin
     }
@@ -113,7 +113,7 @@ class OverlayController: RVDelegate {
     // MARK: - Initializer
     
     /**non-empty set of pins is required*/
-    init(_ pins: [PinView]) {
+    init(_ pins: [NamedPinView]) {
         
         _background = UIView()
         _background.backgroundColor = UIColor.limedSpruce
@@ -139,7 +139,7 @@ class OverlayController: RVDelegate {
         delegate?.onClose(of: self)
     }
     
-    @objc private func onIngridientClick(_ sender: PinView) {
+    @objc private func onIngridientClick(_ sender: NamedPinView) {
 //        print("\(sender.name) is selected")
         _focused = sender
         delegate?.onSelect(in: self)

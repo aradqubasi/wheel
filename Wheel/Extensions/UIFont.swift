@@ -10,9 +10,15 @@ import Foundation
 import UIKit
 extension UIFont {
     
-    static var markunselected: UIFont {
+    class var markunselected: UIFont {
         get {
             return UIFont(name: "Avenir-Medium", size: 10)!
+        }
+    }
+
+    class var namedpin: UIFont {
+        get {
+            return UIFont(name: "Avenir-Medium", size: 12)!
         }
     }
     

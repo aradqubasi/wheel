@@ -73,7 +73,7 @@ class FloatingSelectedView: UIView {
     }
     
     /**instant - copy pin*/
-    func take(for pin: PinView) {
+    func take(for pin: Floatable) {
         _state = .taken
         _food = pin.asIngridient
         

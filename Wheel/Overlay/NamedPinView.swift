@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NamedPinView: UIView {
+class NamedPinView: UIView, Floatable {
     
     // MARK: - Public Properties
     
@@ -29,6 +29,13 @@ class NamedPinView: UIView {
             _button.setImage(new, for: .normal)
         }
     }
+    
+    // MARK: - Private Properties
+    
+    var _target: Any?
+    
+    var _selector: Selector?
+
     
     // MARK: - Subviews
     
@@ -65,7 +72,44 @@ class NamedPinView: UIView {
     // MARK: - Public Methods
     
     func addTarget(_ target: Any?, action selector: Selector, for event: UIControlEvents) {
-        _button.addTarget(target, action: selector, for: event)
+//        _button.addTarget(target, action: selector, for: event)
+        
+//        _button.addTarget(self, action: #selector(onClick), for: .touchUpInside)
+        
+        _target = target
+        
+        _selector = selector
+    }
+    
+    // MARK: - Overriden Methods
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        print("hit")
+//        return super.hitTest(point, with: event)
+//    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("touchesBegan")
+//    }
+//
+//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        print("touchesMoved")
+//    }
+//
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let target = _target as? NSObjectProtocol, let selector = _selector {
+            if target.responds(to: selector) {
+                target.perform(selector, with: self)//.takeRetainedValue()
+            }
+        }
+    }
+    
+    // MARK: - Floatable Protocol
+    
+    var asIngridient: Ingridient {
+        get {
+            return Ingridient(name, of: .unexpected, as: _button.image(for: .normal)!)
+        }
     }
     
 }

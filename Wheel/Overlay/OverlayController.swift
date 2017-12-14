@@ -32,10 +32,15 @@ class OverlayController: RVDelegate {
                 _background.frame = scene.bounds
                 scene.addSubview(_background)
                 
-                _wheel = RadialView(center: CGPoint(x: scene.bounds.width / 2, y:  scene.bounds.height / 2), orientation: .left)
+                _socket = UIView(frame: CGRect(center: scene.center, side: (scene.bounds.width - 80) * CGFloat(2).squareRoot()))
+                scene.addSubview(_socket)
+                
+//                _wheel = RadialView(center: CGPoint(x: scene.bounds.width / 2, y:  scene.bounds.height / 2), orientation: .left)
+                _wheel = RadialView(center: CGPoint(x: _socket.bounds.width / 2, y:  _socket.bounds.height / 2), orientation: .left)
                 _wheel.delegate = self
                 _wheel.move(by: 0)
-                scene.addSubview(_wheel)
+//                scene.addSubview(_wheel)
+                _socket.addSubview(_wheel)
                 
                 _close.frame.origin = CGPoint(x: 0, y: scene.bounds.height / 2 - scene.bounds.width / 2)
                 scene.addSubview(_close)
@@ -63,6 +68,8 @@ class OverlayController: RVDelegate {
     
     private var _background: UIView!
     
+    private var _socket: UIView!
+    
     private var _wheel: RadialView!
     
     private var _close: UIButton!
@@ -74,7 +81,8 @@ class OverlayController: RVDelegate {
     }
     
     func radialView(_ wheel: RadialView) -> RVSettings {
-        let radius = ((_scene?.bounds.width) ?? 0) / (2 * CGFloat(2).squareRoot())
+//        let radius = ((_scene?.bounds.width) ?? 0) / (2 * CGFloat(2).squareRoot())
+        let radius = ((_scene?.bounds.width) ?? 0) * 0.5 - 40
         let distance = CGFloat.pi / 3
         let settings = RVSettings(radius, distance)
         return settings
@@ -147,16 +155,18 @@ class OverlayController: RVDelegate {
 
     // MARK: - Public Methods
     
-    /**instant - move subs into position*/
-    func set() {
+    /**instant - move subs into position, alignment based on open overlay button */
+    func set(for button: UIButton) {
         if let scene = _scene {
             _background.frame.origin.x += scene.bounds.width
             _background.alpha = 0
             
-            _wheel.frame.origin.x += scene.bounds.width
-            _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
+            _close.frame = button.convert(button.bounds, to: scene)
             
-            _close.frame.origin.x += scene.bounds.width
+            _socket.frame.origin.x += _socket.frame.width
+            _socket.frame.origin.x = _close.frame.origin.x + _close.bounds.width * 0.5 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            _socket.frame.origin.y = _close.frame.origin.y + _close.bounds.height * 0.5 - 72 - (scene.bounds.height - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
         }
     }
     
@@ -183,7 +193,8 @@ class OverlayController: RVDelegate {
         
         if let scene = _scene {
             _background.frame.origin.x -= scene.bounds.width
-            _wheel.frame.origin.x -= scene.bounds.width
+            _socket.frame.origin.x -= _socket.frame.width
+//            _wheel.frame.origin.x -= scene.bounds.width
             _close.frame.origin.x -= scene.bounds.width
         }
         

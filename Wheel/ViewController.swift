@@ -77,7 +77,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void {
         if controller.focused == pin {
-            self.select([pin])
+            self.selectPins([pin])
         }
         else {
             let moveto = { () -> Void in controller.view.move(to: index) }
@@ -99,7 +99,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         if controller is UnexpectedController {
             let close = { () in controller.close() }
             let discharge = { (_:Bool) in controller.discharge()}
-            select([controller.focused])
+            selectPins([controller.focused])
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
         }
     }
@@ -195,9 +195,9 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 
     // MARK: - Actions
     
-    func onToUnexpectedClick(_ sender: Any) {
+    func onToUnexpectedClick(_ sender: UIButton) {
 //        print("unexpected!")
-        unexpected.set()
+        unexpected.set(for: sender)
         let open = {() in self.unexpected.open() }
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
     }
@@ -223,7 +223,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         let select = { (_: Bool) -> Void in
             let focus = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-            self.select(focus)
+            self.selectPins(focus)
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
@@ -310,7 +310,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         return angle
     }
     
-    private func select(_ pins: [PinView]) {
+    private func selectPins(_ pins: [Floatable]) {
         if pins.count > 0 {
             //                self.selectionController.copy([
             //                    self.proteins.focused,

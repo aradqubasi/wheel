@@ -110,7 +110,7 @@ class SelectionController {
     }
     
     /**instant - make a copies of selected pins*/
-    func copy(_ pins: [PinView]) {
+    func copy(_ pins: [Floatable]) {
         let copies = floatings.filter({(next) in return next.state == .free})
         for i in 0..<min(copies.count, pins.count) {
             copies[i].take(for: pins[i])

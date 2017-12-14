@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PinView: UIButton {
+class PinView: UIButton, Floatable {
     
     // MARK: - Subviews
     
@@ -25,6 +25,8 @@ class PinView: UIButton {
     var isBlank: Bool = false
     
     var kind: IngridientKinds!
+    
+    // MARK: - Floatable Protocol
     
     var asIngridient: Ingridient {
         get {

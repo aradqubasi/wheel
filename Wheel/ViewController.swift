@@ -31,6 +31,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var unexpected: OverlayController!
     
+    var dressing: OverlayController!
+    
+    var fruits: OverlayController!
+    
     // MARK: - Subs
     
     var radialMenu: RadialView!
@@ -58,6 +62,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     var overlay: UIView!
     
     var toUnexpected: UIButton!
+    
+    var toDressing: UIButton!
+    
+    var toFruits: UIButton!
     
     // MARK: - RadialControllerDelegate
     
@@ -88,20 +96,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - OverlayContollerDelegate
     
     func onClose(of controller: OverlayController) -> Void {
-        if controller is UnexpectedController {
-            let close = { () in controller.close() }
-            let discharge = { (_:Bool) in controller.discharge()}
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
-        }
+        let close = { () in controller.close() }
+        let discharge = { (_:Bool) in controller.discharge()}
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
     func onSelect(in controller: OverlayController) -> Void {
-        if controller is UnexpectedController {
-            let close = { () in controller.close() }
-            let discharge = { (_:Bool) in controller.discharge()}
-            selectPins([controller.focused])
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
-        }
+        let close = { () in controller.close() }
+        let discharge = { (_:Bool) in controller.discharge()}
+        selectPins([controller.focused])
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
     // MARK: - Initialioze
@@ -173,20 +177,42 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         self.view.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
         
-        toUnexpected = UIButton(frame: CGRect(origin: CGPoint(x: 16, y: view.frame.height / 3), size: .zero))
-        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
-        self.view.addSubview(toUnexpected)
-        
         selectionController = SelectionController()
         selection = TransparentView(frame: self.view.bounds)
         self.view.addSubview(selection)
         selectionController.view = selection
         
-        unexpected = UnexpectedController()
-        unexpected.delegate = self
+        //left side menu initialization
+        var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
+        let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
+        toUnexpected = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
+        self.view.addSubview(toUnexpected)
+        nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
+        
+        toDressing = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
+        self.view.addSubview(toDressing)
+        nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
+        
+        toFruits = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
+        self.view.addSubview(toFruits)
+        
         overlay = TransparentView(frame: self.view.bounds)
         self.view.addSubview(overlay)
+        
+        unexpected = UnexpectedController()
+        unexpected.delegate = self
         unexpected.view = overlay
+        
+        dressing = DressingController()
+        dressing.delegate = self
+        dressing.view = overlay
+        
+        fruits = DressingController()
+        fruits.delegate = self
+        fruits.view = overlay
     }
 
     override func didReceiveMemoryWarning() {
@@ -196,9 +222,20 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Actions
     
     func onToUnexpectedClick(_ sender: UIButton) {
-//        print("unexpected!")
         unexpected.set(for: sender)
-        let open = {() in self.unexpected.open() }
+        let open = { () in self.unexpected.open() }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+    }
+    
+    func onToDressingClick(_ sender: UIButton) {
+        dressing.set(for: sender)
+        let open = { () in self.dressing.open() }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+    }
+    
+    func onToFruitsClick(_ sender: UIButton) {
+        fruits.set(for: sender)
+        let open = { () in self.fruits.open() }
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
     }
     

@@ -49,8 +49,9 @@ class OverlayController: RVDelegate {
             }
             else {
                 _scene = nil
+                _socket.removeFromSuperview()
                 _background.removeFromSuperview()
-                _wheel.removeFromSuperview()
+//                _wheel.removeFromSuperview()
                 _close.removeFromSuperview()
             }
         }
@@ -165,7 +166,9 @@ class OverlayController: RVDelegate {
             
             _socket.frame.origin.x += _socket.frame.width
             _socket.frame.origin.x = _close.frame.origin.x + _close.bounds.width * 0.5 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
-            _socket.frame.origin.y = _close.frame.origin.y + _close.bounds.height * 0.5 - 72 - (scene.bounds.height - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            
+            _socket.frame.origin.y = _close.frame.origin.y
+            _socket.frame.origin.y += _close.bounds.height * 0.5 - 72 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
             _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
         }
     }

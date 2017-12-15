@@ -30,4 +30,22 @@ extension UIButton {
             return self
         }
     }
+    
+    var asToDressing: UIButton {
+        get {
+            self.setImage(UIImage.dressing, for: .normal)
+            self.layer.cornerRadius = 28
+            self.frame.size = CGSize(side: 56)
+            return self
+        }
+    }
+    
+    var asToFruits: UIButton {
+        get {
+            self.setImage(UIImage.fruits, for: .normal)
+            self.layer.cornerRadius = 28
+            self.frame.size = CGSize(side: 56)
+            return self
+        }
+    }
 }

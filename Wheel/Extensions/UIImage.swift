@@ -393,6 +393,18 @@ public extension UIImage {
         }
     }
     
+    class var dressing: UIImage {
+        get {
+            return UIImage(named: "dressing")!
+        }
+    }
+    
+    class var fruits: UIImage {
+        get {
+            return UIImage(named: "fruits")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

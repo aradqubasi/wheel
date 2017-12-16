@@ -30,11 +30,31 @@ class NamedPinView: UIView, Floatable {
         }
     }
     
+    var state: NamedPinState {
+        get {
+            return _state
+        }
+        set (new) {
+            _state = new
+            switch _state {
+            case .regular:
+                _button.layer.borderWidth = 0
+            case .highlight:
+                _button.layer.borderWidth = 2
+            default:
+                fatalError("\(new) state in NamedPinState is unhandled")
+            }
+            
+        }
+    }
+    
     // MARK: - Private Properties
     
     var _target: Any?
     
     var _selector: Selector?
+    
+    var _state: NamedPinState!
 
     
     // MARK: - Subviews
@@ -56,6 +76,7 @@ class NamedPinView: UIView, Floatable {
         _button.imageEdgeInsets.bottom = 5
         _button.layer.cornerRadius = 36
         _button.backgroundColor = UIColor.white
+        _button.layer.borderColor = UIColor.shamrock.cgColor
         addSubview(_button)
         
         _label.frame = CGRect(x: 36 - 100, y: self.bounds.height + 8, width: 200, height: 16)
@@ -63,6 +84,9 @@ class NamedPinView: UIView, Floatable {
         _label.font = UIFont.namedpin
         _label.textColor = UIColor.white
         addSubview(_label)
+        
+        state = .regular
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -72,10 +96,6 @@ class NamedPinView: UIView, Floatable {
     // MARK: - Public Methods
     
     func addTarget(_ target: Any?, action selector: Selector, for event: UIControlEvents) {
-//        _button.addTarget(target, action: selector, for: event)
-        
-//        _button.addTarget(self, action: #selector(onClick), for: .touchUpInside)
-        
         _target = target
         
         _selector = selector
@@ -83,19 +103,6 @@ class NamedPinView: UIView, Floatable {
     
     // MARK: - Overriden Methods
     
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        print("hit")
-//        return super.hitTest(point, with: event)
-//    }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("touchesBegan")
-//    }
-//
-//    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        print("touchesMoved")
-//    }
-//
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let target = _target as? NSObjectProtocol, let selector = _selector {
             if target.responds(to: selector) {

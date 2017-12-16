@@ -151,6 +151,8 @@ class OverlayController: RVDelegate {
     @objc private func onIngridientClick(_ sender: NamedPinView) {
 //        print("\(sender.name) is selected")
         _focused = sender
+        _pins.forEach({ (pin) in pin.state = pin === sender ? .highlight : .regular })
+        sender.state = .highlight
         delegate?.onSelect(in: self)
     }
 
@@ -164,11 +166,19 @@ class OverlayController: RVDelegate {
             
             _close.frame = button.convert(button.bounds, to: scene)
             
-            _socket.frame.origin.x += _socket.frame.width
-            _socket.frame.origin.x = _close.frame.origin.x + _close.bounds.width * 0.5 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            var anchor: CGPoint = .zero
+            anchor.x = _close.frame.origin.x + _close.bounds.width * 0.5 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            if _close.frame.origin.y <= scene.bounds.height * 0.5 {
+                anchor.y = _close.frame.origin.y
+                anchor.y += _close.bounds.height * 0.5 - 72 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            }
+            else {
+                anchor.y = _close.frame.origin.y
+                anchor.y += _close.bounds.height * 0.5 - _socket.frame.size.height + 72 + (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            }
+            _socket.frame.origin = anchor
+
             
-            _socket.frame.origin.y = _close.frame.origin.y
-            _socket.frame.origin.y += _close.bounds.height * 0.5 - 72 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
             _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
         }
     }

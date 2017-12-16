@@ -51,7 +51,7 @@ class NamedPinView: UIView, Floatable {
     // MARK: - Private Properties
     
     var _target: Any?
-    
+
     var _selector: Selector?
     
     var _state: NamedPinState!
@@ -86,7 +86,6 @@ class NamedPinView: UIView, Floatable {
         addSubview(_label)
         
         state = .regular
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -97,18 +96,8 @@ class NamedPinView: UIView, Floatable {
     
     func addTarget(_ target: Any?, action selector: Selector, for event: UIControlEvents) {
         _target = target
-        
         _selector = selector
-    }
-    
-    // MARK: - Overriden Methods
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let target = _target as? NSObjectProtocol, let selector = _selector {
-            if target.responds(to: selector) {
-                target.perform(selector, with: self)//.takeRetainedValue()
-            }
-        }
+        _button.addTarget(self, action: #selector(onClick), for: event)
     }
     
     // MARK: - Floatable Protocol
@@ -119,4 +108,13 @@ class NamedPinView: UIView, Floatable {
         }
     }
     
+    // MARK: - Private Methods
+    
+    @objc private func onClick() {
+        if let target = _target as? NSObjectProtocol, let selector = _selector {
+            if target.responds(to: selector) {
+                target.perform(selector, with: self)
+            }
+        }
+    }
 }

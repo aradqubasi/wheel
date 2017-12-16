@@ -122,23 +122,10 @@ class SpokeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - HitDelegate
-    
-    func on(hit sender: Any, with event: UIEvent?) -> Void {
-//        if let screen = sender as? ScreenView, screen === _screen {
-//            print("spokeview: hit spoke @ \(_index)")
-//            delegate?.on(hit: self, with: event)
-//        }
-    }
-    
     // MARK: - Overrided Methods
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         
-//        if name == "proteins" && _index == 0 {
-//            print("!")
-//            print(self.bounds)
-//        }
         let radius = bounds.width / 2
         let thickness = max(_pin?.bounds.width ?? 0, _pin?.bounds.height ?? 0)
         let x2 = (point.x - radius) * (point.x - radius)
@@ -160,14 +147,8 @@ class SpokeView: UIView {
         if x2 + y2 >= ir2 && x2 + y2 <= or2 {
             
             if point.y <= expectedLeftY && point.y <= expectedRightY {
-                return _pin
-//                delegate?.on(hit: self, with: event)
-//                print("wheel \(name) index \(_index) point \(point) event \(event)")
-//                let dot = UIView(frame: CGRect(center: point, side: 5))
-//                dot.backgroundColor = UIColor.red
-//                dot.layer.cornerRadius = 2.5
-//                dot.backgroundColor = UIColor.green
-//                self.addSubview(dot)
+                let hitView = _pin.hitTest(.zero, with: event)
+                return hitView
             }
             
         }

@@ -67,6 +67,14 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var toFruits: UIButton!
     
+    var bottomleftDecoration: UIView!
+    
+    var bottomrightDecoration: UIView!
+    
+    var topleftDecoration: UIView!
+    
+    var leftDecoration: UIView!
+    
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
@@ -114,6 +122,42 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         super.viewDidLoad()
         
         view.backgroundColor = UIColor.aquaHaze
+        
+        bottomleftDecoration = UIView(frame: CGRect(x: -137, y: view.bounds.height - 95, width: 243, height: 243))
+        bottomleftDecoration.backgroundColor = UIColor.swansdown
+        bottomleftDecoration.layer.cornerRadius = 121.5
+        view.addSubview(bottomleftDecoration)
+        
+        bottomrightDecoration = UIView(frame: CGRect(x: view.bounds.width - 253, y: view.bounds.height - 126.5, width: 253, height: 253))
+        let border = CAShapeLayer()
+        border.strokeColor = UIColor.tiara.cgColor
+        border.fillColor = nil
+        border.lineDashPattern = [3, 3]
+        border.path = UIBezierPath(ovalIn: bottomrightDecoration.bounds).cgPath
+        bottomrightDecoration.layer.addSublayer(border)
+        view.addSubview(bottomrightDecoration)
+        
+        topleftDecoration = UIView(frame: CGRect(x: -129, y: -87, width: 253, height: 253))
+        topleftDecoration.layer.borderColor = UIColor.jaggedice.cgColor
+        topleftDecoration.layer.cornerRadius = topleftDecoration.bounds.width * 0.5
+        topleftDecoration.layer.borderWidth = 38
+        view.addSubview(topleftDecoration)
+        
+        leftDecoration = UIView(frame: CGRect(x: 0, y: view.bounds.height - 125 - (12 * 3 + 11 * 2), width: 12 * 5 + 11.5 + 4, height: 12 * 3 + 11 * 2))
+        var offset: CGPoint = .zero
+        for _ in 0..<3 {
+            offset.x = 0
+            for _ in 0..<5 {
+                let dot = UIView(frame: CGRect(origin: offset, size: CGSize(side: 12)))
+                dot.backgroundColor = UIColor.tiara
+                dot.layer.cornerRadius = 6
+                leftDecoration.addSubview(dot)
+                offset.x += 12 + 11.5
+            }
+            offset.y += 12 + 11
+        }
+        leftDecoration.alpha = 0.08
+        view.addSubview(leftDecoration)
         
         let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
         

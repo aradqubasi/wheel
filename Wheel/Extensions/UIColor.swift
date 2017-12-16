@@ -53,4 +53,22 @@ public extension UIColor {
             return UIColor(red: 60 / 255, green: 73 / 255, blue: 83 / 255, alpha: 1)
         }
     }
+    
+    class var swansdown: UIColor {
+        get {
+            return UIColor(red: 216 / 255, green: 240 / 255, blue: 232 / 255, alpha: 1)
+        }
+    }
+    
+    class var tiara: UIColor {
+        get {
+            return UIColor(red: 198 / 255, green: 210 / 255, blue: 213 / 255, alpha: 1)
+        }
+    }
+    
+    class var jaggedice: UIColor {
+        get {
+            return UIColor(red: 213 / 255, green: 235 / 255, blue: 240 / 255, alpha: 1)
+        }
+    }
 }

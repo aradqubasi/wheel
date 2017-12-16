@@ -25,13 +25,11 @@ extension UIView {
             return self
         }
     }
+
     
     func attach(_ view: UIView) -> UIView {
         self.addSubview(view)
         return view
     }
-    
-//    func attach(to view: UIView) -> UIView {
-//        view.addSubview(self)
-//    }
+
 }

@@ -60,22 +60,8 @@ class RadialView: UIView, SVDelegate {
             return _radius
         }
     }
-    
-    var _name: String = ""
-    var name: String {
-        get {
-            return _name
-        }
-        set (new) {
-            if name == "bases" {
-                _socket.layer.borderColor = UIColor.black.cgColor
-                _socket.layer.borderWidth = 1
-                layer.borderColor = UIColor.shamrock.cgColor
-                layer.borderWidth = 1
-            }
-            _name = new
-        }
-    }
+
+    var name: String  = ""
     
     // MARK: - Private Properties
     
@@ -99,8 +85,6 @@ class RadialView: UIView, SVDelegate {
     
     private var _radius: CGFloat = 100
     
-//    private var _tipRadius: CGFloat = 20
-    
     private var _distance: CGFloat = CGFloat.pi / 6
     
     private var _velocity: CGFloat = 0
@@ -121,8 +105,6 @@ class RadialView: UIView, SVDelegate {
     
     private var _state: RVState = .inactive
     
-//    private var _thickness: CGFloat = 40
-    
     // MARK: - SVDelegate Methods
     
     func spokeView(pinFor spoke: SpokeView) -> UIView {
@@ -138,11 +120,6 @@ class RadialView: UIView, SVDelegate {
     func spokeView(for spoke: SpokeView, update pin: UIView) -> Void {
         delegate?.radialView(for: self, update: pin, in: spoke.SVState, at: spoke.SVIndex)
     }
-    
-//    func on(hit sender: Any, with event: UIEvent?) -> Void {
-//        print("wheel @ \(_radius)")
-//        delegate?.on(hit: self, with: event)
-//    }
    
     // MARK: - Initialization
     
@@ -191,7 +168,6 @@ class RadialView: UIView, SVDelegate {
         if let stateSettings = delegate?.radialView(self) {
             _distance = stateSettings.pinDistance
             _radius = stateSettings.wheelRadius
-//            _thickness = stateSettings.wheelThickness
         }
         
         if _background == nil {
@@ -207,19 +183,6 @@ class RadialView: UIView, SVDelegate {
             back.frame.origin = CGPoint(x: _radius * CGFloat(2).squareRoot() - back.frame.size.width / 2, y: _radius * CGFloat(2).squareRoot() - back.frame.size.height / 2)
         }
         
-//        let numberOfSpokes = delegate?.numberOfSpokes(in: self)
-//        if numberOfSpokes != nil && _spokes.count == 0 {
-//            for i in 0..<numberOfSpokes! {
-//                let origin = CGPoint(x: _radius * (CGFloat(2).squareRoot() - 1), y: _radius * (CGFloat(2).squareRoot() - 1))
-//                let spokeDiameter = _radius * 2
-//                let spoke = SpokeView(point: origin, side: spokeDiameter, index: i, pin: delegate?.radialView(pinFor: self, at: i) ?? UIView())
-//                spoke.delegate = self
-//                _spokes.append(spoke)
-//
-//                self.addSubview(spoke)
-//            }
-//            _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _distance
-//        }
         let numberOfSpokes = delegate?.numberOfSpokes(in: self)
         if numberOfSpokes != nil && _spokes.count == 0 {
             for i in 0..<numberOfSpokes! {
@@ -234,10 +197,6 @@ class RadialView: UIView, SVDelegate {
             _current = _offset - (CGFloat(_spokes.count) / 2).rounded(.down) * _distance
         }
         
-//        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
-//        frame.size.width = _radius * 2 * CGFloat(2).squareRoot()
-//        frame.size.height = _radius * 2 * CGFloat(2).squareRoot()
-//        frame.origin = CGPoint(x: _center.x - _radius * CGFloat(2).squareRoot(), y: _center.y - _radius * CGFloat(2).squareRoot())
         frame.origin = CGPoint(x: _center.x - _radius, y: _center.y - _radius)
         frame.size.width = _radius * 2
         frame.size.height = _radius * 2

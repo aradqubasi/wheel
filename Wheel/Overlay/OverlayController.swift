@@ -83,18 +83,6 @@ class OverlayController: RVDelegate {
     
     func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
         let pin = _pins[index]
-//        pin.setImage(pin.original, for: .normal)
-//        pin.imageEdgeInsets.left = 5
-//        pin.imageEdgeInsets.right = 5
-//        pin.imageEdgeInsets.top = 5
-//        pin.imageEdgeInsets.bottom = 5
-        
-//        pin.frame.origin = .zero
-//        pin.frame.size.width = 66
-//        pin.frame.size.height = 66
-//        pin.clipsToBounds = true
-//        pin.backgroundColor = UIColor.white
-//        pin.layer.cornerRadius = 33
         
         return pin
     }
@@ -198,7 +186,6 @@ class OverlayController: RVDelegate {
         
         if let scene = _scene {
             _background.frame.origin.x -= scene.bounds.width
-//            _socket.frame.origin.x -= _socket.frame.width
             _wheel.frame.origin.x -= scene.frame.width
             _close.frame.origin.x -= scene.bounds.width
         }

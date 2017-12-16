@@ -31,16 +31,11 @@ class OverlayController: RVDelegate {
                 
                 _background.frame = scene.bounds
                 scene.addSubview(_background)
-                
-                _socket = UIView(frame: CGRect(center: scene.center, side: (scene.bounds.width - 80) * CGFloat(2).squareRoot()))
-                scene.addSubview(_socket)
-                
-//                _wheel = RadialView(center: CGPoint(x: scene.bounds.width / 2, y:  scene.bounds.height / 2), orientation: .left)
-                _wheel = RadialView(center: CGPoint(x: _socket.bounds.width / 2, y:  _socket.bounds.height / 2), orientation: .left)
+
+                _wheel = RadialView(center: CGPoint(x: (scene.bounds.width - 80) * 0.5, y:  (scene.bounds.width - 80) * 0.5), orientation: .left)
                 _wheel.delegate = self
                 _wheel.move(by: 0)
-//                scene.addSubview(_wheel)
-                _socket.addSubview(_wheel)
+                scene.addSubview(_wheel)
                 
                 _close.frame.origin = CGPoint(x: 0, y: scene.bounds.height / 2 - scene.bounds.width / 2)
                 scene.addSubview(_close)
@@ -49,9 +44,8 @@ class OverlayController: RVDelegate {
             }
             else {
                 _scene = nil
-                _socket.removeFromSuperview()
                 _background.removeFromSuperview()
-//                _wheel.removeFromSuperview()
+                _wheel.removeFromSuperview()
                 _close.removeFromSuperview()
             }
         }
@@ -68,8 +62,6 @@ class OverlayController: RVDelegate {
     // MARK: - Subviews
     
     private var _background: UIView!
-    
-    private var _socket: UIView!
     
     private var _wheel: RadialView!
     
@@ -167,16 +159,16 @@ class OverlayController: RVDelegate {
             _close.frame = button.convert(button.bounds, to: scene)
             
             var anchor: CGPoint = .zero
-            anchor.x = _close.frame.origin.x + _close.bounds.width * 0.5 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+            anchor.x = _close.frame.origin.x + _close.bounds.width * 0.5
             if _close.frame.origin.y <= scene.bounds.height * 0.5 {
                 anchor.y = _close.frame.origin.y
-                anchor.y += _close.bounds.height * 0.5 - 72 - (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+                anchor.y += _close.bounds.height * 0.5 - 72
             }
             else {
                 anchor.y = _close.frame.origin.y
-                anchor.y += _close.bounds.height * 0.5 - _socket.frame.size.height + 72 + (scene.bounds.width - 40) * (CGFloat(2).squareRoot() - 1) * 0.5
+                anchor.y += _close.bounds.height * 0.5 - _wheel.frame.size.height + 72
             }
-            _socket.frame.origin = anchor
+            _wheel.frame.origin = anchor
 
             
             _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
@@ -206,8 +198,8 @@ class OverlayController: RVDelegate {
         
         if let scene = _scene {
             _background.frame.origin.x -= scene.bounds.width
-            _socket.frame.origin.x -= _socket.frame.width
-//            _wheel.frame.origin.x -= scene.bounds.width
+//            _socket.frame.origin.x -= _socket.frame.width
+            _wheel.frame.origin.x -= scene.frame.width
             _close.frame.origin.x -= scene.bounds.width
         }
         

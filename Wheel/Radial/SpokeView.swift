@@ -200,8 +200,9 @@ class SpokeView: UIView {
 //        _screen._inner = _side / 2 - side
 //        _screen._angle = _distance
         
-        transform = CGAffineTransform(rotationAngle: _angle)
-        _pin.transform = CGAffineTransform(rotationAngle: -_angle)
+        let angle: CGFloat = abs(_angle) == CGFloat.pi * 0.5 ? _angle + 0.01 : _angle
+        transform = CGAffineTransform(rotationAngle: angle)
+        _pin.transform = CGAffineTransform(rotationAngle: -angle)
     }
     
     // MARK: - Public Methods

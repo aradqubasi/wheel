@@ -51,6 +51,12 @@ class SelectionController {
         }
     }
     
+    var selected: [Floatable] {
+        get {
+            return statics.filter({ return $0.state == .full })
+        }
+    }
+    
     // MARK: - Private Properties
     
 

@@ -119,8 +119,15 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - SelectionDelegate
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
-        let close = { () in controller.erase(pin) }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: nil)
+        if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
+            let shrinkdown = { () in self.selectionController.shrinkdown() }
+            let discharge = { (_:Bool) in self.selectionController.discharge() }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
+        }
+        else {
+            let close = { () in controller.erase(pin) }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: nil)
+        }
     }
     
     func onCook(of pins: [Floatable], in controller: SelectionController) {

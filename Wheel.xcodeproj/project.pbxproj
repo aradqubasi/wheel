@@ -21,7 +21,6 @@
 		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
 		15456D641FC94B320018A1CD /* PointerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D631FC94B320018A1CD /* PointerController.swift */; };
 		15456D661FC978C60018A1CD /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D651FC978C60018A1CD /* UIFont.swift */; };
-		15456D681FCAB68E0018A1CD /* SelectedController0.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D671FCAB68E0018A1CD /* SelectedController0.swift */; };
 		15456D6A1FCAB8670018A1CD /* IngridientKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D691FCAB8670018A1CD /* IngridientKinds.swift */; };
 		15456D6C1FCB0DA10018A1CD /* Ingridient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6B1FCB0DA10018A1CD /* Ingridient.swift */; };
 		15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6D1FCBD9910018A1CD /* SelectionController.swift */; };
@@ -98,7 +97,6 @@
 		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		15456D631FC94B320018A1CD /* PointerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointerController.swift; sourceTree = "<group>"; };
 		15456D651FC978C60018A1CD /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
-		15456D671FCAB68E0018A1CD /* SelectedController0.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedController0.swift; sourceTree = "<group>"; };
 		15456D691FCAB8670018A1CD /* IngridientKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientKinds.swift; sourceTree = "<group>"; };
 		15456D6B1FCB0DA10018A1CD /* Ingridient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingridient.swift; sourceTree = "<group>"; };
 		15456D6D1FCBD9910018A1CD /* SelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionController.swift; sourceTree = "<group>"; };
@@ -266,7 +264,6 @@
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
 				15F0BB351F404FCC006F646E /* ViewController.swift */,
 				15456D631FC94B320018A1CD /* PointerController.swift */,
-				15456D671FCAB68E0018A1CD /* SelectedController0.swift */,
 				15F0BB371F404FCC006F646E /* Main.storyboard */,
 				15F0BB3A1F404FCC006F646E /* Assets.xcassets */,
 				15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */,
@@ -454,7 +451,6 @@
 			files = (
 				1525FE661FDC6600001CABF6 /* OverlayController.swift in Sources */,
 				15456D6C1FCB0DA10018A1CD /* Ingridient.swift in Sources */,
-				15456D681FCAB68E0018A1CD /* SelectedController0.swift in Sources */,
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,

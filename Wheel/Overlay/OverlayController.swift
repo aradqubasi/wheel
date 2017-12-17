@@ -141,7 +141,7 @@ class OverlayController: RVDelegate {
     /**instant - move subs into position, alignment based on open overlay button */
     func set(for button: UIButton) {
         if let scene = _scene {
-            _background.frame.origin.x += scene.bounds.width
+            _background.frame.origin = scene.bounds.origin
             _background.alpha = 0
             
             _close.frame = button.convert(button.bounds, to: scene)
@@ -159,7 +159,7 @@ class OverlayController: RVDelegate {
             _wheel.frame.origin = anchor
 
             
-            _wheel.transform = CGAffineTransform(scaleX: 0, y: 0)
+            _wheel.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         }
     }
     
@@ -183,12 +183,10 @@ class OverlayController: RVDelegate {
     
     /**instant - remove subs from screen*/
     func discharge() {
-        
-        if let scene = _scene {
-            _background.frame.origin.x -= scene.bounds.width
-            _wheel.frame.origin.x -= scene.frame.width
-            _close.frame.origin.x -= scene.bounds.width
-        }
+        _wheel.transform = CGAffineTransform(scaleX: 1, y: 1)
+        _background.frame.origin.x = -_background.frame.width
+        _wheel.frame.origin.x = -_wheel.frame.width
+        _close.frame.origin.x = -_close.frame.width
         
     }
 }

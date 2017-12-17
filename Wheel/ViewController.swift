@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate
 {
-    
+
     // MARK: - Outlets
     
     // MARK: - Public Properties
@@ -116,6 +116,21 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
+    // MARK: - SelectionDelegate
+    
+    func onRemove(of pin: Floatable, in controller: SelectionController) {
+        let close = { () in controller.erase(pin) }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: nil)
+    }
+    
+    func onCook(of pins: [Floatable], in controller: SelectionController) {
+        if selectionController.state == .visible {
+            let shrinkdown = { () in self.selectionController.shrinkdown() }
+            let discharge = { (_:Bool) in self.selectionController.discharge() }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
+        }
+    }
+    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
@@ -137,7 +152,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         bottomrightDecoration.layer.addSublayer(border)
         view.addSubview(bottomrightDecoration)
         
-        topleftDecoration = UIView(frame: CGRect(x: -129, y: -87, width: 253, height: 253))
+        topleftDecoration = UIView(frame: CGRect(x: -129, y: -158, width: 253, height: 253))
         topleftDecoration.layer.borderColor = UIColor.jaggedice.cgColor
         topleftDecoration.layer.cornerRadius = topleftDecoration.bounds.width * 0.5
         topleftDecoration.layer.borderWidth = 38
@@ -222,6 +237,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         pointer = PointerController(view: hand, in: .bases)
         
         selectionController = SelectionController()
+        selectionController.delegate = self
         selection = TransparentView(frame: self.view.bounds)
         self.view.addSubview(selection)
         selectionController.view = selection
@@ -281,15 +297,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         fruits.set(for: sender)
         let open = { () in self.fruits.open() }
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
-    }
-    
-    @IBAction func onButtonClick(_ sender: Any) {
-    }
-    
-    @IBAction func onLeftButtonClick(_ sender: Any) {
-    }
-    
-    @IBAction func onRightButtonClick(_ sender: Any) {
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
@@ -392,31 +399,38 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
     
     private func selectPins(_ pins: [Floatable]) {
+        
         if pins.count > 0 {
-            //                self.selectionController.copy([
-            //                    self.proteins.focused,
-            //                    self.veggies.focused,
-            //                    self.fats.focused,
-            //                    self.bases.focused
-            //                    ])
-            self.selectionController.copy(pins)
             
+//            var showtime: TimeInterval = 0
+            if selectionController.state == .hidden {
+                let set = { () in self.selectionController.set() }
+                let overgrow = { () in self.selectionController.overgrow() }
+                let shrink = { () in self.selectionController.shrink() }
+                set()
+                UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: overgrow, completion: nil)
+                UIView.animate(withDuration: 0.15, delay: 0.3, options: [], animations: shrink, completion: nil)
+//                showtime = 0.45
+            }
+            
+            self.selectionController.copy(pins)
+
             let open = { () -> Void in
                 self.selectionController.open(pins.count)
             }
             UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: nil)
-            
+
             let finish = { (_:Bool) in
                 self.selectionController.merge()
             }
-            
+
             var delay: TimeInterval = 0
             let movings = self.selectionController.movings().reversed()
             for moving in movings.prefix(movings.count - 1) {
                 UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: moving, completion: nil)
                 delay += 0.1
             }
-            
+
             UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
         }
     }

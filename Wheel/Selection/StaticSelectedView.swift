@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class StaticSelectedView: UIView {
+class StaticSelectedView: UIView, Floatable {
     
     // MARK: - Properties
     
@@ -25,6 +25,10 @@ class StaticSelectedView: UIView {
     }
     
     // MARK: - Private Properties
+    
+    private var _target: Any?
+    
+    private var _selector: Selector?
     
     private var _food: Ingridient?
     
@@ -56,7 +60,36 @@ class StaticSelectedView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Methods
+    // MARK: - Floatable Implementation
+    
+    var asIngridient: Ingridient {
+        get {
+            guard let ingridient = food else {
+                fatalError("StaticSelectedView does not have attached ingridient")
+            }
+            return ingridient
+        }
+    }
+    
+    // MARK: - Public Methods
+    
+    func addTarget(_ target: Any?, action selector: Selector, for event: UIControlEvents) {
+        _target = target
+        _selector = selector
+        _item.addTarget(self, action: #selector(onClick), for: event)
+    }
+    
+    // MARK: - Private Methods
+    
+    @objc private func onClick() {
+        if let target = _target as? NSObjectProtocol, let selector = _selector {
+            if target.responds(to: selector) {
+                target.perform(selector, with: self)
+            }
+        }
+    }
+    
+    // MARK: - Animation Methods
     
     /**animatable - hide picture and move to head*/
     func close() {
@@ -91,5 +124,24 @@ class StaticSelectedView: UIView {
         
         _shroud.alpha = 0
     }
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//
+//        let hitView = super.hitTest(point, with: event)
+//
+//        if hitView == self {
+//            return nil
+//        }
+//        else if hitView == _item {
+//            return hitView
+//        }
+//        else if hitView == _shroud {
+//            return hitView
+//        }
+//        else {
+//            return hitView
+//        }
+//
+//    }
     
 }

@@ -10,20 +10,19 @@ import UIKit
 
 class SelectedHolderView: UIScrollView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
+    // MARK: - Overridees
     
     override func touchesShouldCancel(in view: UIView) -> Bool {
-        if view is SelectedView {
+        if view is UIButton {
+            print("is UIButton ")
             return true
         }
 
         return super.touchesShouldCancel(in: view)
     }
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        
+//    }
 
 }

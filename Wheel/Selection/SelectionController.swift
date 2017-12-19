@@ -35,8 +35,9 @@ class SelectionController {
 //            new.addSubview(holder)
             holder.toSelectedHolderView()
             
+            cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 32, y: new.frame.height - 80 - 12 + 16)
             new.addSubview(cook)
-            cook.frame.origin = CGPoint(x: new.frame.width - 8 - 64, y: new.frame.height - 80 - 12)
+            
             
             floatings.forEach({(next) in new.addSubview(next)})
             
@@ -103,10 +104,15 @@ class SelectionController {
             next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
         })
         
-        cook = UIButton(frame: CGRect(x: 0, y: 0, width: 64, height: 64))
+        cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         cook.setImage(UIImage.nextpressed, for: .normal)
         cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
-        
+        cook.layer.cornerRadius = 16
+        cook.layer.shadowColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
+        cook.layer.shadowOpacity = 1
+        cook.layer.shadowRadius = 24
+        cook.layer.shadowPath = UIBezierPath(roundedRect: cook.bounds, cornerRadius: 16).cgPath
+      
         floatings = [
             FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon),
@@ -133,9 +139,16 @@ class SelectionController {
     }
     
     // MARK: - Public Methods
+    
+    func contains(_ touch: UITouch) -> Bool {
+        return holder.bounds.contains(touch.location(in: holder))
+    }
+    
+    // MARK: - Animation Methods
 
     /**instant - prepare selection menu for showing up*/
     func set() {
+        _socket.frame.origin.x += _socket.frame.width
         holder.alpha = 1
         holder.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)//.rotated(by: CGFloat.pi / 12)
     }
@@ -162,6 +175,8 @@ class SelectionController {
         for spot in floatings {
             spot.discharge()
         }
+        
+        holder.contentSize = CGSize(width: 16, height: 96)
     }
     
     /**animatable - erase specific selected ingridient*/
@@ -175,6 +190,7 @@ class SelectionController {
                 $0.frame.origin = offset
                 offset.x += 64
             })
+            holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
         }
     }
     
@@ -204,6 +220,7 @@ class SelectionController {
             }
         }
         
+        holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
     }
     
     /**animatable - move floatings to open spots*/
@@ -262,6 +279,8 @@ class SelectionController {
             spot.discharge()
         }
         
+        holder.contentSize = CGSize(width: 16, height: 96)
+        
         cook.alpha = 0
         
         holder.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
@@ -269,6 +288,7 @@ class SelectionController {
     
     /**instant - hide empty selection menu*/
     func discharge() {
+        _socket.frame.origin.x -= _socket.frame.width
         holder.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
         cook.alpha = 0
         holder.alpha = 0

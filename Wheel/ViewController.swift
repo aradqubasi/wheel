@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate
 {
 
     // MARK: - Outlets
@@ -75,6 +75,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var leftDecoration: UIView!
     
+    var wheels: UIView!
+    
+    var spinner: UIPanGestureRecognizer!
+    
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
@@ -138,10 +142,17 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
     }
     
+    // MARK: - UIGestureRegocnizerDelegate Methods
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        return !selectionController.contains(touch)
+    }
+    
     // MARK: - Initialioze
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        view.removeGestureRecognizer(view.gestureRecognizers!.first!)
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -181,72 +192,88 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         leftDecoration.alpha = 0.08
         view.addSubview(leftDecoration)
         
-        let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
+        wheels = UIView(frame: view.bounds)
+        view.addSubview(wheels)
+        
+//        let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
+        let leftMiddle = CGPoint(x: wheels.bounds.width + 20, y: wheels.bounds.height / 2)
         
         proteins = ProteinsController()
         proteins.delegate = self
         proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-        self.view.addSubview(proteinsMenu)
+//        self.view.addSubview(proteinsMenu)
+        wheels.addSubview(proteinsMenu)
         proteins.view = proteinsMenu
         
         veggies = VeggiesController()
         veggies.delegate = self
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
-        self.view.addSubview(veggiesMenu)
+//        self.view.addSubview(veggiesMenu)
+        wheels.addSubview(veggiesMenu)
         veggies.view = veggiesMenu
         
         fats = FatsController()
         fats.delegate = self
         fatsMenu = RadialView(center: leftMiddle,orientation: .left)
-        self.view.addSubview(fatsMenu)
+//        self.view.addSubview(fatsMenu)
+        wheels.addSubview(fatsMenu)
         fats.view = fatsMenu
         
         bases = BasesController()
         bases.delegate = self
         basesMenu = RadialView(center: leftMiddle,orientation: .left)
-        self.view.addSubview(basesMenu)
+//        self.view.addSubview(basesMenu)
+        wheels.addSubview(basesMenu)
         bases.view = basesMenu
         
         radialMenu = basesMenu
         
-        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
+//        self.view.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
+        wheels.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
         rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton
         rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
-        self.view.addSubview(rollButton)
+//        self.view.addSubview(rollButton)
+        wheels.addSubview(rollButton)
         
         proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         proteinsMark.textAlignment = .center
-        self.view.addSubview(proteinsMark)
+//        self.view.addSubview(proteinsMark)
+        wheels.addSubview(proteinsMark)
         proteinsMark.text = "proteins".uppercased()
         proteins.label = proteinsMark
         
         veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         veggiesMark.textAlignment = .center
-        self.view.addSubview(veggiesMark)
+//        self.view.addSubview(veggiesMark)
+        wheels.addSubview(veggiesMark)
         veggiesMark.text = "veggies".uppercased()
         veggies.label = veggiesMark
         
         fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         fatsMark.textAlignment = .center
-        self.view.addSubview(fatsMark)
+//        self.view.addSubview(fatsMark)
+        wheels.addSubview(fatsMark)
         fatsMark.text = "fats".uppercased()
         fats.label = fatsMark
         
         basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         basesMark.textAlignment = .center
-        self.view.addSubview(basesMark)
+//        self.view.addSubview(basesMark)
+        wheels.addSubview(basesMark)
         basesMark.text = "bases".uppercased()
         bases.label = basesMark
         
         let hand = UIImageView(image: UIImage.hand)
-        self.view.addSubview(hand)
+//        self.view.addSubview(hand)
+        wheels.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
         
         selectionController = SelectionController()
         selectionController.delegate = self
         selection = TransparentView(frame: self.view.bounds)
-        self.view.addSubview(selection)
+//        self.view.addSubview(selection)
+        wheels.addSubview(selection)
         selectionController.view = selection
         
         //left side menu initialization
@@ -254,20 +281,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
         toUnexpected = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
-        self.view.addSubview(toUnexpected)
+//        self.view.addSubview(toUnexpected)
+        wheels.addSubview(toUnexpected)
         nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
         
         toDressing = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
-        self.view.addSubview(toDressing)
+//        self.view.addSubview(toDressing)
+        wheels.addSubview(toDressing)
         nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
         
         toFruits = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
-        self.view.addSubview(toFruits)
+//        self.view.addSubview(toFruits)
+        wheels.addSubview(toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
-        self.view.addSubview(overlay)
+//        self.view.addSubview(overlay)
+        wheels.addSubview(overlay)
         
         unexpected = UnexpectedController()
         unexpected.delegate = self
@@ -280,6 +311,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         fruits = DressingController()
         fruits.delegate = self
         fruits.view = overlay
+        
+        spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
+        spinner.delegate = self
+        wheels.addGestureRecognizer(spinner)
     }
 
     override func didReceiveMemoryWarning() {

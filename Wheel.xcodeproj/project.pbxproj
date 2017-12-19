@@ -24,7 +24,6 @@
 		15456D6A1FCAB8670018A1CD /* IngridientKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D691FCAB8670018A1CD /* IngridientKinds.swift */; };
 		15456D6C1FCB0DA10018A1CD /* Ingridient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6B1FCB0DA10018A1CD /* Ingridient.swift */; };
 		15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6D1FCBD9910018A1CD /* SelectionController.swift */; };
-		15456D711FD27AB70018A1CD /* SelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D701FD27AB70018A1CD /* SelectedView.swift */; };
 		15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D721FD2862B0018A1CD /* TransparentView.swift */; };
 		15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D741FD692C10018A1CD /* UIScrollView.swift */; };
 		15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */; };
@@ -100,7 +99,6 @@
 		15456D691FCAB8670018A1CD /* IngridientKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngridientKinds.swift; sourceTree = "<group>"; };
 		15456D6B1FCB0DA10018A1CD /* Ingridient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingridient.swift; sourceTree = "<group>"; };
 		15456D6D1FCBD9910018A1CD /* SelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionController.swift; sourceTree = "<group>"; };
-		15456D701FD27AB70018A1CD /* SelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedView.swift; sourceTree = "<group>"; };
 		15456D721FD2862B0018A1CD /* TransparentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentView.swift; sourceTree = "<group>"; };
 		15456D741FD692C10018A1CD /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHolderView.swift; sourceTree = "<group>"; };
@@ -220,7 +218,6 @@
 			children = (
 				15456D6D1FCBD9910018A1CD /* SelectionController.swift */,
 				15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */,
-				15456D701FD27AB70018A1CD /* SelectedView.swift */,
 				15456D721FD2862B0018A1CD /* TransparentView.swift */,
 				15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */,
 				15456D7A1FD98E2B0018A1CD /* StaticSeletedViewStates.swift */,
@@ -474,7 +471,6 @@
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
-				15456D711FD27AB70018A1CD /* SelectedView.swift in Sources */,
 				15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,

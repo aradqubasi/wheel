@@ -34,8 +34,12 @@ class SelectionController {
             
 //            new.addSubview(holder)
             holder.toSelectedHolderView()
+
+            _shroud.frame.origin = CGPoint(x: new.bounds.width - 95 - 16, y: new.bounds.height - 95 - 16)
+            new.addSubview(_shroud)
             
             cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 32, y: new.frame.height - 80 - 12 + 16)
+//            gradient.colors =
             new.addSubview(cook)
             
             
@@ -80,13 +84,17 @@ class SelectionController {
     
     private var holder: UIScrollView!
     
+    private var _shroud: UIView!
+    
     // MARK: - Initializers
     
     init() {
         _socket = UIView()
         
         holder = SelectedHolderView()
-        holder.contentSize = CGSize(width: 16, height: 96)
+//        holder.contentSize = CGSize(width: 16, height: 96)
+        holder.contentSize = CGSize(width: 16 + 96, height: 96)
+
         
         let icon = CGRect(origin: CGPoint(x: 8, y: 16), size: CGSize(width: 64, height: 64))
         statics = [
@@ -107,13 +115,28 @@ class SelectionController {
         cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         cook.setImage(UIImage.nextpressed, for: .normal)
         cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
-        cook.layer.cornerRadius = 16
-        cook.layer.shadowColor = UIColor(red: 1, green: 1, blue: 1, alpha: 1).cgColor
-        cook.layer.shadowOpacity = 1
-        cook.layer.shadowRadius = 24
-        cook.layer.shadowPath = UIBezierPath(roundedRect: cook.bounds, cornerRadius: 16).cgPath
+//        cook.layer.cornerRadius = 16
+//        cook.layer.shadowColor = UIColor.white.cgColor
+//        cook.layer.shadowOpacity = 0.5
+//        cook.layer.shadowRadius = 24
+//        cook.layer.shadowPath = UIBezierPath(roundedRect: cook.bounds, cornerRadius: 16).cgPath
+        
+        _shroud = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 94)))
+        let gradient = CAGradientLayer()
+//        gradient.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
+        gradient.colors = [UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
+//        gradient.opacity = 0.83
+        gradient.frame = _shroud.bounds
+        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1, y: 0.5)
+        gradient.locations = [0, 0.75]
+        _shroud.backgroundColor = UIColor.clear
+        _shroud.layer.insertSublayer(gradient, at: 0)
       
         floatings = [
+            FloatingSelectedView(frame: icon),
+            FloatingSelectedView(frame: icon),
+            FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon),
@@ -164,6 +187,7 @@ class SelectionController {
         _state = .visible
         
         cook.alpha = 1
+        _shroud.alpha = 1
     }
     
     /**animatable - erase selection*/
@@ -176,7 +200,8 @@ class SelectionController {
             spot.discharge()
         }
         
-        holder.contentSize = CGSize(width: 16, height: 96)
+//        holder.contentSize = CGSize(width: 16, height: 96)
+        holder.contentSize = CGSize(width: 16 + 96, height: 96)
     }
     
     /**animatable - erase specific selected ingridient*/
@@ -190,7 +215,8 @@ class SelectionController {
                 $0.frame.origin = offset
                 offset.x += 64
             })
-            holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
+//            holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
+            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
         }
     }
     
@@ -220,7 +246,8 @@ class SelectionController {
             }
         }
         
-        holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
+//        holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
+        holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
     }
     
     /**animatable - move floatings to open spots*/
@@ -279,7 +306,8 @@ class SelectionController {
             spot.discharge()
         }
         
-        holder.contentSize = CGSize(width: 16, height: 96)
+//        holder.contentSize = CGSize(width: 16, height: 96)
+        holder.contentSize = CGSize(width: 16 + 96, height: 96)
         
         cook.alpha = 0
         
@@ -292,6 +320,7 @@ class SelectionController {
         holder.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
         cook.alpha = 0
         holder.alpha = 0
+        _shroud.alpha = 0
         _state = .hidden
     }
     

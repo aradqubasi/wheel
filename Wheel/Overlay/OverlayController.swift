@@ -12,6 +12,12 @@ class OverlayController: RVDelegate {
     
     // MARK: - Public Properties
     
+    var opened: Bool {
+        get {
+            return _opened
+        }
+    }
+    
     var focused: NamedPinView {
         get {
             return _focused
@@ -58,6 +64,8 @@ class OverlayController: RVDelegate {
     private var _pins: [NamedPinView]!
     
     private var _focused: NamedPinView!
+    
+    private var _opened: Bool!
 
     // MARK: - Subviews
     
@@ -118,10 +126,16 @@ class OverlayController: RVDelegate {
         _close.setImage(UIImage.close, for: .normal)
         _close.addTarget(self, action: #selector(onCloseClick(_:)), for: .touchUpInside)
 
+        _opened = false
     }
 
     
     // MARK: - Private Methods
+    
+    func focusing(_ pin: NamedPinView) {
+        _focused = pin
+        _pins.forEach({ (next) in next.state = next === pin ? .highlight : .regular })
+    }
     
     @objc private func onCloseClick(_ sender: UIButton) {
 //        print("OverlayController.onCloseClick")
@@ -130,13 +144,20 @@ class OverlayController: RVDelegate {
     
     @objc private func onIngridientClick(_ sender: NamedPinView) {
 //        print("\(sender.name) is selected")
-        _focused = sender
-        _pins.forEach({ (pin) in pin.state = pin === sender ? .highlight : .regular })
-        sender.state = .highlight
+        focusing(sender)
         delegate?.onSelect(in: self)
     }
 
     // MARK: - Public Methods
+    
+    func random() {
+        let index = Int(arc4random_uniform(UInt32(_pins.count)))
+        let new = _pins[index]
+        focusing(new)
+//        return new
+    }
+    
+    // MARK: - Animation Methods
     
     /**instant - move subs into position, alignment based on open overlay button */
     func set(for button: UIButton) {
@@ -160,6 +181,8 @@ class OverlayController: RVDelegate {
 
             
             _wheel.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+            
+            _opened = true
         }
     }
     
@@ -187,6 +210,6 @@ class OverlayController: RVDelegate {
         _background.frame.origin.x = -_background.frame.width
         _wheel.frame.origin.x = -_wheel.frame.width
         _close.frame.origin.x = -_close.frame.width
-        
+        _opened = false
     }
 }

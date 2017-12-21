@@ -61,11 +61,11 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var overlay: UIView!
     
-    var toUnexpected: UIButton!
+    var toUnexpected: ToOverlayButton!
     
-    var toDressing: UIButton!
+    var toDressing: ToOverlayButton!
     
-    var toFruits: UIButton!
+    var toFruits: ToOverlayButton!
     
     var bottomleftDecoration: UIView!
     
@@ -145,7 +145,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - UIGestureRegocnizerDelegate Methods
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return !selectionController.contains(touch)
+        return !selectionController.contains(touch) && !unexpected.opened && !dressing.opened && !fruits.opened
     }
     
     // MARK: - Initialioze
@@ -277,24 +277,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         selectionController.view = selection
         
         //left side menu initialization
-        var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
-        let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
-        toUnexpected = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
-//        self.view.addSubview(toUnexpected)
-        wheels.addSubview(toUnexpected)
-        nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
-        
-        toDressing = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
-//        self.view.addSubview(toDressing)
-        wheels.addSubview(toDressing)
-        nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
-        
-        toFruits = UIButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
-//        self.view.addSubview(toFruits)
-        wheels.addSubview(toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
 //        self.view.addSubview(overlay)
@@ -311,6 +293,28 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         fruits = DressingController()
         fruits.delegate = self
         fruits.view = overlay
+        
+        var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
+        let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
+        toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
+        //        self.view.addSubview(toUnexpected)
+        toUnexpected.overlay = unexpected
+        wheels.addSubview(toUnexpected)
+        nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
+        
+        toDressing = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
+        //        self.view.addSubview(toDressing)
+        toDressing.overlay = dressing
+        wheels.addSubview(toDressing)
+        nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
+        
+        toFruits = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+        toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
+        //        self.view.addSubview(toFruits)
+        toFruits.overlay = fruits
+        wheels.addSubview(toFruits)
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -347,13 +351,25 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             self.fats.moveToRandomPin()
             self.veggies.moveToRandomPin()
             self.proteins.moveToRandomPin()
+            self.unexpected.random()
+            self.dressing.random()
+            self.fruits.random()
             
             self.selectionController.erase()
         }
         
         let select = { (_: Bool) -> Void in
-            let focus = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
+            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
             self.selectPins(focus)
+            
+            let placeholder = { () -> Void in self.toUnexpected.frame.origin.x += 0.1 }
+            let offset = self.estimateSelectionTime(of: focus)
+            let extra: [Floatable] = [self.toUnexpected, self.toDressing, self.toFruits]
+            let upselect = {(_:Bool) in
+                self.selectPins(extra)
+                self.toUnexpected.frame.origin.x -= 0.1
+            }
+            UIView.animate(withDuration: 0.1, delay: offset, options: [], animations: placeholder, completion: upselect)
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
@@ -440,6 +456,15 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         return angle
     }
     
+    private func estimateSelectionTime(of pins: [Floatable]) -> TimeInterval {
+        if pins.count > 0 {
+            return 0.5 + TimeInterval(pins.count - 1) * 0.1 + 0.1
+        }
+        else {
+            return 0
+        }
+    }
+    
     private func selectPins(_ pins: [Floatable]) {
         
         if pins.count > 0 {
@@ -474,6 +499,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             }
 
             UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
+            
         }
     }
     

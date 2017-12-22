@@ -277,23 +277,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         selectionController.view = selection
         
         //left side menu initialization
-        
-        overlay = TransparentView(frame: self.view.bounds)
-//        self.view.addSubview(overlay)
-        wheels.addSubview(overlay)
-        
-        unexpected = UnexpectedController()
-        unexpected.delegate = self
-        unexpected.view = overlay
-        
-        dressing = DressingController()
-        dressing.delegate = self
-        dressing.view = overlay
-        
-        fruits = DressingController()
-        fruits.delegate = self
-        fruits.view = overlay
-        
         var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
         let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
         toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
@@ -315,6 +298,22 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         //        self.view.addSubview(toFruits)
         toFruits.overlay = fruits
         wheels.addSubview(toFruits)
+        
+        overlay = TransparentView(frame: self.view.bounds)
+//        self.view.addSubview(overlay)
+        wheels.addSubview(overlay)
+        
+        unexpected = UnexpectedController()
+        unexpected.delegate = self
+        unexpected.view = overlay
+        
+        dressing = DressingController()
+        dressing.delegate = self
+        dressing.view = overlay
+        
+        fruits = DressingController()
+        fruits.delegate = self
+        fruits.view = overlay
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -475,9 +474,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
                 let overgrow = { () in self.selectionController.overgrow() }
                 let shrink = { () in self.selectionController.shrink() }
                 set()
-                UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: overgrow, completion: nil)
-                UIView.animate(withDuration: 0.15, delay: 0.3, options: [], animations: shrink, completion: nil)
-//                showtime = 0.45
+                
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
+//                UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: overgrow, completion: nil)
+//                UIView.animate(withDuration: 0.15, delay: 0.3, options: [], animations: shrink, completion: nil)
             }
             
             self.selectionController.copy(pins)

@@ -282,21 +282,18 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
         //        self.view.addSubview(toUnexpected)
-        toUnexpected.overlay = unexpected
         wheels.addSubview(toUnexpected)
         nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
         
         toDressing = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
         //        self.view.addSubview(toDressing)
-        toDressing.overlay = dressing
         wheels.addSubview(toDressing)
         nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
         
         toFruits = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
         //        self.view.addSubview(toFruits)
-        toFruits.overlay = fruits
         wheels.addSubview(toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
@@ -306,13 +303,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         unexpected = UnexpectedController()
         unexpected.delegate = self
         unexpected.view = overlay
+        toUnexpected.overlay = unexpected
         
         dressing = DressingController()
         dressing.delegate = self
         dressing.view = overlay
+        toDressing.overlay = dressing
         
         fruits = DressingController()
         fruits.delegate = self
+        toFruits.overlay = fruits
         fruits.view = overlay
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
@@ -357,18 +357,23 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             self.selectionController.erase()
         }
         
+//        let select = { (_: Bool) -> Void in
+//            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
+//            self.selectPins(focus)
+//
+//            let placeholder = { () -> Void in self.toUnexpected.frame.origin.x += 0.1 }
+//            let offset = self.estimateSelectionTime(of: focus)
+//            let extra: [Floatable] = [self.toUnexpected, self.toDressing, self.toFruits]
+//            let upselect = {(_:Bool) in
+//                self.selectPins(extra)
+//                self.toUnexpected.frame.origin.x -= 0.1
+//            }
+//            UIView.animate(withDuration: 0.1, delay: offset, options: [], animations: placeholder, completion: upselect)
+//        }
+        
         let select = { (_: Bool) -> Void in
-            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-            self.selectPins(focus)
-            
-            let placeholder = { () -> Void in self.toUnexpected.frame.origin.x += 0.1 }
-            let offset = self.estimateSelectionTime(of: focus)
-            let extra: [Floatable] = [self.toUnexpected, self.toDressing, self.toFruits]
-            let upselect = {(_:Bool) in
-                self.selectPins(extra)
-                self.toUnexpected.frame.origin.x -= 0.1
-            }
-            UIView.animate(withDuration: 0.1, delay: offset, options: [], animations: placeholder, completion: upselect)
+            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toUnexpected, self.toDressing, self.toFruits]
+            self.add(focus)
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
@@ -464,43 +469,91 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
     }
     
-    private func selectPins(_ pins: [Floatable]) {
-        
+    private func add(_ pins: [Floatable]) {
         if pins.count > 0 {
             
-//            var showtime: TimeInterval = 0
             if selectionController.state == .hidden {
-                let set = { () in self.selectionController.set() }
-                let overgrow = { () in self.selectionController.overgrow() }
+                self.selectionController.set()
                 let shrink = { () in self.selectionController.shrink() }
-                set()
-                
                 UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
-//                UIView.animate(withDuration: 0.3, delay: 0, options: [], animations: overgrow, completion: nil)
-//                UIView.animate(withDuration: 0.15, delay: 0.3, options: [], animations: shrink, completion: nil)
             }
             
-            self.selectionController.copy(pins)
-
-            let open = { () -> Void in
-                self.selectionController.open(pins.count)
-            }
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: nil)
-
-            let finish = { (_:Bool) in
-                self.selectionController.merge()
-            }
-
             var delay: TimeInterval = 0
-            let movings = self.selectionController.movings().reversed()
-            for moving in movings.prefix(movings.count - 1) {
-                UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: moving, completion: nil)
-                delay += 0.1
-            }
+            let speed = 0.15
+            let last = pins.last!.asIngridient
+            for pin in pins {
+                selectionController.copy(of: pin)
+                
+//                selectionController.push()
 
-            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
+                let move = { () -> Void in
+                    print("\(Date()) move \(pin.asIngridient.name)")
+                    self.selectionController.moving(of: pin)
+                }
+                let finish = { (finished: Bool) -> Void in
+                    print("\(Date()) finish \(pin.asIngridient.name) \(finished)")
+                    self.selectionController.merging(of: pin)
+                    let merge = { () -> Void in
+//                        self.selectionController.merging(of: pin)
+                        self.selectionController.push(islast: pin.asIngridient == last)
+                    }
+                    let last = {(finished: Bool) -> Void in
+                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
+                    }
+                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseInOut], animations: merge, completion: last)
+                }
+                UIView.animate(withDuration: 5 * speed, delay: delay * speed, options: [.curveEaseInOut], animations: move, completion: finish)
+                delay += 1
+            }
+            
+            
+//            delay = 4
+//            for pin in pins {
+//                let push = { () -> Void in
+//                    print("\(Date()) push \(pin.asIngridient.name)")
+//                    self.selectionController.push()
+//                }
+//                UIView.animate(withDuration: 1, delay: delay, options: [], animations: push, completion: nil)
+//                delay += 1
+//            }
             
         }
+    }
+    
+    private func selectPins(_ pins: [Floatable]) {
+
+//        if pins.count > 0 {
+//
+//            if selectionController.state == .hidden {
+//                let set = { () in self.selectionController.set() }
+//                let overgrow = { () in self.selectionController.overgrow() }
+//                let shrink = { () in self.selectionController.shrink() }
+//                set()
+//
+//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
+//            }
+//
+//            self.selectionController.copy(pins)
+//
+//            let open = { () -> Void in
+//                self.selectionController.open(pins.count)
+//            }
+//            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: nil)
+//
+//            let finish = { (_:Bool) in
+//                self.selectionController.merge()
+//            }
+//
+//            var delay: TimeInterval = 0
+//            let movings = self.selectionController.movings().reversed()
+//            for moving in movings.prefix(movings.count - 1) {
+//                UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: moving, completion: nil)
+//                delay += 0.1
+//            }
+//
+//            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
+//
+//        }
     }
     
 }

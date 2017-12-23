@@ -24,11 +24,17 @@ class FloatingSelectedView: UIView {
         }
     }
     
+    var scene: UIView?
+    
+    var menu: UIView?
+    
     // MARK: - Private Properties
     
     private var _food: Ingridient?
     
     private var _state: FloatingSelectedViewStates!
+    
+    private var _destanation: Floatable?
     
     // MARK: - Subviews
     
@@ -60,6 +66,8 @@ class FloatingSelectedView: UIView {
     
     /**instant - release floating selected*/
     func discharge() {
+        scene?.addSubview(self)
+        
         _state = .free
         _food = nil
     
@@ -74,10 +82,12 @@ class FloatingSelectedView: UIView {
     
     /**instant - copy pin*/
     func take(for pin: Floatable) {
+        scene!.addSubview(self)
+        
         _state = .taken
         _food = pin.asIngridient
         
-        frame.origin = pin.convert(.zero, to: self.superview!)
+        frame.origin = pin.convert(.zero, to: scene!)
         
         _item.setImage(pin.asIngridient.image, for: .normal)
         _item.isUserInteractionEnabled = false
@@ -97,5 +107,43 @@ class FloatingSelectedView: UIView {
         
         _shroud.alpha = 0
     }
+    
+    func tomenu() {
+        _state = .inmenu
+        
+        menu!.addSubview(self)
+        frame.origin = CGPoint(x: 8, y: 16)
+    }
+    
+    /**instant - copy pin*/
+//    func take(for pin: Floatable, to destanation: Floatable) {
+//        _state = .taken
+//        _food = pin.asIngridient
+//
+//        _destanation = destanation
+//
+//        frame.origin = pin.convert(.zero, to: self.superview!)
+//
+//        _item.setImage(pin.asIngridient.image, for: .normal)
+//        _item.isUserInteractionEnabled = false
+//        _item.alpha = 1
+//
+//        _shroud.alpha = 0
+//    }
+    
+    /**animatable - move to destanation*/
+//    func deliver() {
+//        if let destanation = _destanation {
+//            let point = destanation.convert(.zero, to: self.superview!)
+//            _state = .delivered
+//
+//            frame.origin = point
+//
+//            _item.isUserInteractionEnabled = false
+//            _item.alpha = 1
+//
+//            _shroud.alpha = 0
+//        }
+//    }
     
 }

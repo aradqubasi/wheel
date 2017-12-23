@@ -43,7 +43,8 @@ class SelectionController {
             new.addSubview(cook)
             
             
-            floatings.forEach({(next) in new.addSubview(next)})
+//            floatings.forEach({(next) in new.addSubview(next)})
+            floatings.forEach({(next) in next.scene = new})
             
             discharge()
 //            show()
@@ -75,6 +76,8 @@ class SelectionController {
     private var statics: [StaticSelectedView] = []
     
     private var floatings: [FloatingSelectedView] = []
+    
+    private var _selected: [FloatingSelectedView] = []
     
     private var _state: SelectionState!
     
@@ -142,7 +145,9 @@ class SelectionController {
             FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon)
         ]
-        floatings.forEach({(next) -> Void in holder.addSubview(next)})
+//        floatings.forEach({(next) -> Void in holder.addSubview(next)})
+        floatings.forEach({(next) -> Void in next.menu = holder})
+
         
         _state = .hidden
     }
@@ -200,7 +205,6 @@ class SelectionController {
             spot.discharge()
         }
         
-//        holder.contentSize = CGSize(width: 16, height: 96)
         holder.contentSize = CGSize(width: 16 + 96, height: 96)
     }
     
@@ -215,86 +219,84 @@ class SelectionController {
                 $0.frame.origin = offset
                 offset.x += 64
             })
-//            holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
             holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
         }
     }
     
     /**instant - make a copies of selected pins*/
-    func copy(_ pins: [Floatable]) {
-        let copies = floatings.filter({(next) in return next.state == .free})
-        for i in 0..<min(copies.count, pins.count) {
-            copies[i].take(for: pins[i])
-        }
-    }
+//    func copy(_ pins: [Floatable]) {
+//        let copies = floatings.filter({(next) in return next.state == .free})
+//        for i in 0..<min(copies.count, pins.count) {
+//            copies[i].take(for: pins[i])
+//        }
+//    }
     
-    /**animatable - open spots for selection*/
-    func open(_ count: Int) {
-        
-        let openings = statics.filter({(next) in return next.state == .closed}).suffix(count)
-        
-        var offset = CGPoint(x: 8, y: 16)
-        
-        for spot in statics {
-            if openings.contains(spot) {
-                spot.open(to: offset)
-                offset.x += 64
-            }
-            else if spot.state == .full {
-                spot.frame.origin = offset
-                offset.x += 64
-            }
-        }
-        
-//        holder.contentSize = CGSize(width: offset.x - 64 + 8, height: 96)
-        holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
-    }
+    /**old, animatable - open spots for selection*/
+//    func open(_ count: Int) {
+//        let openings = statics.filter({(next) in return next.state == .closed}).suffix(count)
+//
+//        var offset = CGPoint(x: 8, y: 16)
+//
+//        for spot in statics {
+//            if openings.contains(spot) {
+//                spot.open(to: offset)
+//                offset.x += 64
+//            }
+//            else if spot.state == .full {
+//                spot.frame.origin = offset
+//                offset.x += 64
+//            }
+//        }
+//
+//        holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+//    }
     
     /**animatable - move floatings to open spots*/
-    func move() {
-        
-        let taken = floatings.filter({(next) in return next.state == .taken})
-        
-        for i in 0..<taken.count {
-            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
-            taken[i].deliver(to: destanation)
-        }
-        
-    }
+//    func move() {
+//
+//        let taken = floatings.filter({(next) in return next.state == .taken})
+//
+//        for i in 0..<taken.count {
+//            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
+//            taken[i].deliver(to: destanation)
+//        }
+//
+//    }
     
     /**animatable - move floatings to open spots*/
-    func movings() -> [() -> Void] {
-        
-        var movings: [() -> Void] = []
-        
-        let taken = floatings.filter({(next) in return next.state == .taken})
-        
-        for i in 0..<taken.count {
-            
-            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
-            
-            let moving = { () -> Void in
-                taken[i].deliver(to: destanation)
-            }
-            
-            movings.append(moving)
-        }
-        
-        return movings
-    }
+//    func movings() -> [() -> Void] {
+//
+//        var movings: [() -> Void] = []
+//
+//        let taken = floatings.filter({(next) in return next.state == .taken})
+//
+//        for i in 0..<taken.count {
+//
+////            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
+//            let destanation = holder.convert(CGPoint(x: 8 + 0, y: 16), to: _scene)
+//
+//            let moving = { () -> Void in
+//                taken[i].deliver(to: destanation)
+//            }
+//
+//            movings.append(moving)
+//        }
+//
+//        return movings
+//    }
     
     /**instant - finish movement*/
-    func merge() {
-        
-        let opened = statics.filter({(next) in return next.state == .opened})
-        let delivered = floatings.filter({(next) in return next.state == .delivered})
-        
-        for i in 0..<min(opened.count, delivered.count) {
-            opened[i].fill(with: delivered[i].food!)
-            delivered[i].discharge()
-        }
-        
-    }
+//    func merge() {
+//
+//        let opened = statics.filter({(next) in return next.state == .opened})
+//        let delivered = floatings.filter({(next) in return next.state == .delivered})
+//
+//        for i in 0..<min(opened.count, delivered.count) {
+//            opened[i].fill(with: delivered[i].food!)
+//            delivered[i].discharge()
+//        }
+//
+//    }
     
     /**animatable - shrink to nothing*/
     func shrinkdown() {
@@ -306,7 +308,6 @@ class SelectionController {
             spot.discharge()
         }
         
-//        holder.contentSize = CGSize(width: 16, height: 96)
         holder.contentSize = CGSize(width: 16 + 96, height: 96)
         
         cook.alpha = 0
@@ -324,6 +325,48 @@ class SelectionController {
         _state = .hidden
     }
     
-    // MARK: - Private Methods
+    // MARK: - New Animation Methods
     
+    /**instant - make a copies of selected pins*/
+    func copy(of pin: Floatable) {
+        if let free = floatings.first(where: { return $0.state == .free }) {
+            free.take(for: pin)
+        }
+    }
+    
+    /**animatable - move pin */
+    func moving(of pin: Floatable) {
+        if let taken = floatings.first(where: { return $0.food == pin.asIngridient && $0.state == .taken }) {
+            taken.deliver(to: holder.convert(CGPoint(x: 8, y: 16), to: _scene))
+        }
+    }
+    
+    /**animatable - push menu*/
+    func push(islast: Bool) {
+//        print("--------------------------------")
+        if !islast {
+        var offset = CGPoint(x: 8 + 64, y: 16)
+            
+            for spot in floatings {
+                //            print("check \(spot.food?.name) is \(spot.state)")
+                if spot.state == .inmenu {
+                    //                print("push \(spot.food!.name)")
+                    spot.frame.origin.x += 64
+                    offset.x += 64
+                }
+            }
+            
+            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+        }
+    }
+    
+    /**instant - finish movement*/
+    func merging(of pin: Floatable) {
+        if let delivered = floatings.first(where: { return $0.state == .delivered && $0.food == pin.asIngridient }) {
+//            print("deliver \(pin.asIngridient.name)")
+            delivered.tomenu()
+            
+//            push()
+        }
+    }
 }

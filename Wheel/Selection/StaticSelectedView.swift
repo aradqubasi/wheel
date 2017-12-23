@@ -102,28 +102,45 @@ class StaticSelectedView: UIView, Floatable {
     }
 
     /**animatable - open blank spot at the point @ holder coordinate system*/
-    func open(to point: CGPoint) {
+    func open(for food: Ingridient) {
         _state = .opened
-        _food = nil
         
-        frame.origin = point
-        
+        _food = food
         _item.setImage(nil, for: .normal)
         _item.isUserInteractionEnabled = false
         
         _shroud.alpha = 1
     }
+//    func open(to point: CGPoint) {
+//        _state = .opened
+//        _food = nil
+//
+//        frame.origin = point
+//
+//        _item.setImage(nil, for: .normal)
+//        _item.isUserInteractionEnabled = false
+//
+//        _shroud.alpha = 1
+//    }
 
     /**instant - fill spot with image*/
-    func fill(with food: Ingridient) {
+    func fill() {
         _state = .full
-        _food = food
         
-        _item.setImage(food.image, for: .normal)
+        _item.setImage(_food!.image, for: .normal)
         _item.isUserInteractionEnabled = true
         
         _shroud.alpha = 0
     }
+//    func fill(with food: Ingridient) {
+//        _state = .full
+//        _food = food
+//
+//        _item.setImage(food.image, for: .normal)
+//        _item.isUserInteractionEnabled = true
+//
+//        _shroud.alpha = 0
+//    }
     
 //    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
 //

@@ -11,4 +11,5 @@ enum FloatingSelectedViewStates {
     case free
     case taken
     case delivered
+    case inmenu
 }

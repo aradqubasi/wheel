@@ -59,7 +59,7 @@ class SelectionController {
     
     var selected: [Floatable] {
         get {
-            return statics.filter({ return $0.state == .full })
+            return floatings.filter({ return $0.state == .inmenu })
         }
     }
     
@@ -76,8 +76,6 @@ class SelectionController {
     private var statics: [StaticSelectedView] = []
     
     private var floatings: [FloatingSelectedView] = []
-    
-    private var _selected: [FloatingSelectedView] = []
     
     private var _state: SelectionState!
     
@@ -110,10 +108,10 @@ class SelectionController {
             StaticSelectedView(frame: icon),
             StaticSelectedView(frame: icon)
         ]
-        statics.forEach({(next) -> Void in
-            holder.addSubview(next)
-            next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
-        })
+//        statics.forEach({(next) -> Void in
+//            holder.addSubview(next)
+//            next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
+//        })
         
         cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         cook.setImage(UIImage.nextpressed, for: .normal)
@@ -146,8 +144,11 @@ class SelectionController {
             FloatingSelectedView(frame: icon)
         ]
 //        floatings.forEach({(next) -> Void in holder.addSubview(next)})
-        floatings.forEach({(next) -> Void in next.menu = holder})
-
+//        floatings.forEach({(next) -> Void in next.menu = holder})
+        floatings.forEach({(next) -> Void in
+            next.menu = holder
+            next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
+        })
         
         _state = .hidden
     }
@@ -161,8 +162,10 @@ class SelectionController {
         delegate?.onCook(of: ingridients, in: self)
     }
     
-    @objc private func onFoodClick(sender: StaticSelectedView) {
-//        print("onremove of \(sender.asIngridient.name)")
+//    @objc private func onFoodClick(sender: StaticSelectedView) {
+//        delegate?.onRemove(of: sender, in: self)
+//    }
+    @objc private func onFoodClick(sender: FloatingSelectedView) {
         delegate?.onRemove(of: sender, in: self)
     }
     
@@ -210,17 +213,53 @@ class SelectionController {
     
     /**animatable - erase specific selected ingridient*/
     func erase(_ pin: Floatable) {
-        if let spot = statics.first(where: { return $0.food == pin.asIngridient }) {
-            spot.close()
-            var offset = CGPoint(x: 8, y: 16)
-            statics.filter({
-                return $0.state == .full
-            }).forEach({
-                $0.frame.origin = offset
-                offset.x += 64
-            })
-            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+        if let erased = floatings.first(where: {
+            if $0.state != .inmenu {
+                return false
+            }
+            else if $0.asIngridient == pin.asIngridient {
+                return true
+            }
+            else {
+                return false
+            }
+        }) {
+            
+            var offset: CGFloat = 0
+            let position = erased.frame.origin.x
+            for spot in floatings {
+                if spot.state == .inmenu && spot.frame.origin.x > position {
+                    spot.frame.origin.x -= 64
+                }
+                offset = max(offset, spot.frame.origin.x)
+            }
+            erased.discharge()
+            holder.contentSize = CGSize(width: offset + 8 + 96, height: 96)
         }
+//        if let spot = floatings.first(where: { return $0.food == pin.asIngridient }) {
+//            spot.discharge()
+//            var offset = CGPoint(x: 8, y: 16)
+//            floatings.filter({
+//                return $0.state == .inmenu
+//            }).forEach({
+//                $0.frame.origin = offset
+//                offset.x += 64
+//            })
+//            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+//        }
+        
+        
+//        if let spot = statics.first(where: { return $0.food == pin.asIngridient }) {
+//            spot.close()
+//            var offset = CGPoint(x: 8, y: 16)
+//            statics.filter({
+//                return $0.state == .full
+//            }).forEach({
+//                $0.frame.origin = offset
+//                offset.x += 64
+//            })
+//            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+//        }
     }
     
     /**instant - make a copies of selected pins*/
@@ -342,20 +381,20 @@ class SelectionController {
     }
     
     /**animatable - push menu*/
-    func push(islast: Bool) {
-//        print("--------------------------------")
-        if !islast {
-        var offset = CGPoint(x: 8 + 64, y: 16)
+    func push(exception: Floatable?, islast: Bool) {
+        if (!islast && exception == nil) || exception != nil {
+            print("push exception: \(exception?.asIngridient.name) islast: \(islast)")
+            var offset = CGPoint(x: 8 + 64, y: 16)
             
             for spot in floatings {
-                //            print("check \(spot.food?.name) is \(spot.state)")
-                if spot.state == .inmenu {
-                    //                print("push \(spot.food!.name)")
+                print("spot \(spot.food?.name) in \(spot.state)")
+                if spot.state == .inmenu && (exception == nil || exception?.asIngridient != spot.food) {
                     spot.frame.origin.x += 64
                     offset.x += 64
+                    print("push")
                 }
             }
-            
+
             holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
         }
     }

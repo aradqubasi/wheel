@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class FloatingSelectedView: UIView {
+class FloatingSelectedView: UIView, Floatable {
     
     // MARK: - Properties
     
@@ -36,11 +36,23 @@ class FloatingSelectedView: UIView {
     
     private var _destanation: Floatable?
     
+    private var _target: Any?
+    
+    private var _selector: Selector?
+    
     // MARK: - Subviews
     
     private var _item: UIButton!
     
     private var _shroud: UIView!
+    
+    // MARK: - Floatable Protocol Methods
+    
+    var asIngridient: Ingridient {
+        get {
+            return _food!
+        }
+    }
     
     // MARK: - Initializers
     
@@ -60,6 +72,24 @@ class FloatingSelectedView: UIView {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Public Methods
+    
+    func addTarget(_ target: Any?, action selector: Selector, for event: UIControlEvents) {
+        _target = target
+        _selector = selector
+        _item.addTarget(self, action: #selector(onClick), for: event)
+    }
+    
+    // MARK: - Private Methods
+    
+    @objc private func onClick() {
+        if let target = _target as? NSObjectProtocol, let selector = _selector {
+            if target.responds(to: selector) {
+                target.perform(selector, with: self)
+            }
+        }
     }
     
     // MARK: - Methods
@@ -111,6 +141,8 @@ class FloatingSelectedView: UIView {
     func tomenu() {
         _state = .inmenu
         
+        _item.isUserInteractionEnabled = true
+
         menu!.addSubview(self)
         frame.origin = CGPoint(x: 8, y: 16)
     }

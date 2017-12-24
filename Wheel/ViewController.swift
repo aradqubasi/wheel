@@ -97,7 +97,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void {
         if controller.focused == pin {
-            self.selectPins([pin])
+//            self.selectPins([pin])
+            self.add([pin])
         }
         else {
             let moveto = { () -> Void in controller.view.move(to: index) }
@@ -116,7 +117,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     func onSelect(in controller: OverlayController) -> Void {
         let close = { () in controller.close() }
         let discharge = { (_:Bool) in controller.discharge()}
-        selectPins([controller.focused])
+//        selectPins([controller.focused])
+        add([controller.focused])
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
@@ -310,7 +312,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         dressing.view = overlay
         toDressing.overlay = dressing
         
-        fruits = DressingController()
+        fruits = FruitsController()
         fruits.delegate = self
         toFruits.overlay = fruits
         fruits.view = overlay
@@ -480,47 +482,34 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             
             var delay: TimeInterval = 0
             let speed = 0.15
+            let single = pins.count == 1 ? pins[0] : nil
             let last = pins.last!.asIngridient
             for pin in pins {
                 selectionController.copy(of: pin)
-                
-//                selectionController.push()
 
                 let move = { () -> Void in
-                    print("\(Date()) move \(pin.asIngridient.name)")
+//                    print("\(Date()) move \(pin.asIngridient.name)")
                     self.selectionController.moving(of: pin)
                 }
                 let finish = { (finished: Bool) -> Void in
-                    print("\(Date()) finish \(pin.asIngridient.name) \(finished)")
+//                    print("\(Date()) finish \(pin.asIngridient.name) \(finished)")
                     self.selectionController.merging(of: pin)
                     let merge = { () -> Void in
-//                        self.selectionController.merging(of: pin)
-                        self.selectionController.push(islast: pin.asIngridient == last)
+                        self.selectionController.push(exception: single, islast: pin.asIngridient == last)
+//                        self.selectionController.push(excluding: last)
                     }
                     let last = {(finished: Bool) -> Void in
-                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
+//                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
                     }
                     UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseInOut], animations: merge, completion: last)
                 }
                 UIView.animate(withDuration: 5 * speed, delay: delay * speed, options: [.curveEaseInOut], animations: move, completion: finish)
-                delay += 1
+                delay += 1.5
             }
-            
-            
-//            delay = 4
-//            for pin in pins {
-//                let push = { () -> Void in
-//                    print("\(Date()) push \(pin.asIngridient.name)")
-//                    self.selectionController.push()
-//                }
-//                UIView.animate(withDuration: 1, delay: delay, options: [], animations: push, completion: nil)
-//                delay += 1
-//            }
-            
         }
     }
     
-    private func selectPins(_ pins: [Floatable]) {
+//    private func selectPins(_ pins: [Floatable]) {
 
 //        if pins.count > 0 {
 //
@@ -554,7 +543,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
 //
 //        }
-    }
+//    }
     
 }
 

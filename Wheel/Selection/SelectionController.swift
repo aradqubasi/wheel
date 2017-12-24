@@ -381,23 +381,35 @@ class SelectionController {
     }
     
     /**animatable - push menu*/
-    func push(exception: Floatable?, islast: Bool) {
-        if (!islast && exception == nil) || exception != nil {
-            print("push exception: \(exception?.asIngridient.name) islast: \(islast)")
+    func push(islast: Bool) {
+        if (!islast) {
             var offset = CGPoint(x: 8 + 64, y: 16)
-            
             for spot in floatings {
-                print("spot \(spot.food?.name) in \(spot.state)")
-                if spot.state == .inmenu && (exception == nil || exception?.asIngridient != spot.food) {
+                if spot.state == .inmenu {
                     spot.frame.origin.x += 64
                     offset.x += 64
-                    print("push")
                 }
             }
-
             holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
         }
     }
+//    func push(exception: Floatable?, islast: Bool) {
+//        if (!islast && exception == nil) || exception != nil {
+//            print("push exception: \(exception?.asIngridient.name) islast: \(islast)")
+//            var offset = CGPoint(x: 8 + 64, y: 16)
+//
+//            for spot in floatings {
+//                print("spot \(spot.food?.name) in \(spot.state)")
+//                if spot.state == .inmenu && (exception == nil || exception?.asIngridient != spot.food) {
+//                    spot.frame.origin.x += 64
+//                    offset.x += 64
+//                    print("push")
+//                }
+//            }
+//
+//            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
+//        }
+//    }
     
     /**instant - finish movement*/
     func merging(of pin: Floatable) {

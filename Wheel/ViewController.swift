@@ -481,8 +481,20 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             }
             
             var delay: TimeInterval = 0
-            let speed = 0.15
-            let single = pins.count == 1 ? pins[0] : nil
+            let speed: TimeInterval = 0.15
+            let count: TimeInterval = pins.count == 1 ? 0.5 : 1
+//            let speed: TimeInterval = 1
+//            let single = pins.count == 1 ? pins[0] : nil
+            
+            if pins.count == 1 {
+                let merge = { () -> Void in
+                    self.selectionController.push(islast: false)
+                }
+                let last = {(finished: Bool) -> Void in
+                }
+                UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
+            }
+            
             let last = pins.last!.asIngridient
             for pin in pins {
                 selectionController.copy(of: pin)
@@ -495,15 +507,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //                    print("\(Date()) finish \(pin.asIngridient.name) \(finished)")
                     self.selectionController.merging(of: pin)
                     let merge = { () -> Void in
-                        self.selectionController.push(exception: single, islast: pin.asIngridient == last)
+//                        self.selectionController.push(exception: single, islast: pin.asIngridient == last)
 //                        self.selectionController.push(excluding: last)
+                        self.selectionController.push(islast: pin.asIngridient == last)
                     }
                     let last = {(finished: Bool) -> Void in
 //                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
                     }
-                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseInOut], animations: merge, completion: last)
+                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
                 }
-                UIView.animate(withDuration: 5 * speed, delay: delay * speed, options: [.curveEaseInOut], animations: move, completion: finish)
+                UIView.animate(withDuration: 5 * speed * count, delay: delay * speed, options: [.curveEaseIn], animations: move, completion: finish)
                 delay += 1.5
             }
         }

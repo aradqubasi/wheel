@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class RadialController: RVDelegate, PVDelegate {
-    
+
     // MARK: - Public Properties
     
     var delegate: RadialControllerDelegate?
@@ -94,7 +94,7 @@ class RadialController: RVDelegate, PVDelegate {
         let setPVDelegate = {
             (pin: PinView) -> Void in
             pin.delegate = self
-            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
+//            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
         }
         
         _pins = pins
@@ -136,16 +136,18 @@ class RadialController: RVDelegate, PVDelegate {
         }
 
         pin.setImage(image, for: .normal)
-        pin.imageEdgeInsets.left = 5
-        pin.imageEdgeInsets.right = 5
-        pin.imageEdgeInsets.top = 5
-        pin.imageEdgeInsets.bottom = 5
+//        pin.imageEdgeInsets.left = 5
+//        pin.imageEdgeInsets.right = 5
+//        pin.imageEdgeInsets.top = 5
+//        pin.imageEdgeInsets.bottom = 5
+        
+//        pin.frame.origin = .zero
+//        pin.frame.size.width = settings.size.width
+//        pin.frame.size.height = settings.size.height
+//        pin.clipsToBounds = true
         
         pin.frame.origin = .zero
-        pin.frame.size.width = settings.size.width
-        pin.frame.size.height = settings.size.height
-//        pin.layer.cornerRadius = settings.radius
-        pin.clipsToBounds = true
+        pin.setPin(size: settings.size)
         
         if state == .focused {
             _label?.text = pin.name.uppercased()
@@ -182,17 +184,30 @@ class RadialController: RVDelegate, PVDelegate {
         
     }
     
-    // MARK: - Actions
-    
-    @objc func onPinClick(_ sender: Any) {
-//        delegate?.onStateChange(to: active, of: view)
-        guard let pin = sender as? PinView, let index = _pins.index(of: pin) else {
+    func onClick(_ pin: PinView, with event: UIEvent?) {
+        guard let index = _pins.index(of: pin) else {
             fatalError("onPinClick invoked not by PinView")
         }
         delegate?.onPinClick(in: self, of: pin, at: index)
-//        _view.move(to: index)
-//        print("\(_name) click")
     }
+    
+    func onLock(in pin: PinView, is locked: Bool) {
+        if locked {
+            pin.state = .locked
+        }
+        else {
+            pin.state = .free
+        }
+    }
+    
+    // MARK: - Actions
+    
+//    @objc func onPinClick(_ sender: Any) {
+//        guard let pin = sender as? PinView, let index = _pins.index(of: pin) else {
+//            fatalError("onPinClick invoked not by PinView")
+//        }
+//        delegate?.onPinClick(in: self, of: pin, at: index)
+//    }
     
     // MARK: - Placeholder
     

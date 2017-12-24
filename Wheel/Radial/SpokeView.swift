@@ -147,7 +147,13 @@ class SpokeView: UIView {
         if x2 + y2 >= ir2 && x2 + y2 <= or2 {
             
             if point.y <= expectedLeftY && point.y <= expectedRightY {
-                let hitView = _pin.hitTest(.zero, with: event)
+                var new = self.convert(point, to: _pin)
+                if !_pin.bounds.contains(new) {
+                    new = .zero
+                }
+//                let hitView = _pin.hitTest(.zero, with: event)
+                let hitView = _pin.hitTest(new, with: event)
+                print(new)
                 return hitView
             }
             

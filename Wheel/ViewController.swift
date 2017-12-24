@@ -35,6 +35,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var fruits: OverlayController!
     
+    var options: OptionsController!
+    
     // MARK: - Subs
     
     var radialMenu: RadialView!
@@ -320,6 +322,9 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
         wheels.addGestureRecognizer(spinner)
+        
+        options = OptionsController()
+        options.view = overlay
     }
 
     override func didReceiveMemoryWarning() {
@@ -347,6 +352,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
+        options.set(for: rollButton)
+        options.show()
+        return
+        
         let shuffle = { () -> Void in
             self.bases.moveToRandomPin()
             self.fats.moveToRandomPin()
@@ -358,20 +367,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             
             self.selectionController.erase()
         }
-        
-//        let select = { (_: Bool) -> Void in
-//            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-//            self.selectPins(focus)
-//
-//            let placeholder = { () -> Void in self.toUnexpected.frame.origin.x += 0.1 }
-//            let offset = self.estimateSelectionTime(of: focus)
-//            let extra: [Floatable] = [self.toUnexpected, self.toDressing, self.toFruits]
-//            let upselect = {(_:Bool) in
-//                self.selectPins(extra)
-//                self.toUnexpected.frame.origin.x -= 0.1
-//            }
-//            UIView.animate(withDuration: 0.1, delay: offset, options: [], animations: placeholder, completion: upselect)
-//        }
         
         let select = { (_: Bool) -> Void in
             let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toUnexpected, self.toDressing, self.toFruits]
@@ -521,42 +516,5 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             }
         }
     }
-    
-//    private func selectPins(_ pins: [Floatable]) {
-
-//        if pins.count > 0 {
-//
-//            if selectionController.state == .hidden {
-//                let set = { () in self.selectionController.set() }
-//                let overgrow = { () in self.selectionController.overgrow() }
-//                let shrink = { () in self.selectionController.shrink() }
-//                set()
-//
-//                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
-//            }
-//
-//            self.selectionController.copy(pins)
-//
-//            let open = { () -> Void in
-//                self.selectionController.open(pins.count)
-//            }
-//            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: open, completion: nil)
-//
-//            let finish = { (_:Bool) in
-//                self.selectionController.merge()
-//            }
-//
-//            var delay: TimeInterval = 0
-//            let movings = self.selectionController.movings().reversed()
-//            for moving in movings.prefix(movings.count - 1) {
-//                UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: moving, completion: nil)
-//                delay += 0.1
-//            }
-//
-//            UIView.animate(withDuration: 0.5, delay: delay, options: [.curveEaseInOut], animations: movings.last!, completion: finish)
-//
-//        }
-//    }
-    
 }
 

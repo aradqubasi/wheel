@@ -405,6 +405,30 @@ public extension UIImage {
         }
     }
     
+    class var lock: UIImage {
+        get {
+            return UIImage(named: "lock")!
+        }
+    }
+    
+    class var biglock: UIImage {
+        get {
+            return UIImage(named: "biglock")!
+        }
+    }
+    
+    class var add: UIImage {
+        get {
+            return UIImage(named: "add")!
+        }
+    }
+    
+    class var more: UIImage {
+        get {
+            return UIImage(named: "more")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

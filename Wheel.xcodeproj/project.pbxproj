@@ -33,6 +33,7 @@
 		15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
 		155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */; };
+		155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */; };
 		159038261FE39639004A7FB8 /* DressingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159038251FE39639004A7FB8 /* DressingController.swift */; };
 		159038281FE397E6004A7FB8 /* FruitsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159038271FE397E6004A7FB8 /* FruitsController.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
@@ -109,6 +110,7 @@
 		15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSelectedView.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToOverlayButton.swift; sourceTree = "<group>"; };
+		155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsController.swift; sourceTree = "<group>"; };
 		159038251FE39639004A7FB8 /* DressingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DressingController.swift; sourceTree = "<group>"; };
 		159038271FE397E6004A7FB8 /* FruitsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitsController.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
@@ -233,6 +235,14 @@
 			path = Selection;
 			sourceTree = "<group>";
 		};
+		155BEC2D1FEFC8FD00E749B5 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
 		15F0BB271F404FCC006F646E = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +266,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				155BEC2D1FEFC8FD00E749B5 /* Options */,
 				15F6D0F21FE5105B00200E45 /* Radial */,
 				1525FE641FDC6477001CABF6 /* Overlay */,
 				1525FE631FDBC139001CABF6 /* RadialControllers */,
@@ -483,6 +494,7 @@
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */,
+				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
 				15F788001FB827B4001C32B1 /* FatsController.swift in Sources */,

@@ -13,6 +13,8 @@ protocol PVDelegate {
     func onTouchesMoved(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
     func onTouchesEnded(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
     func onTouchCanceled(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void
+    func onClick(_ pin: PinView, with event: UIEvent?) -> Void
+    func onLock(in pin: PinView, is locked: Bool) -> Void
 }
 extension PVDelegate {
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {

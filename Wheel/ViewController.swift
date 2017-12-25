@@ -529,6 +529,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
     
     private func add(_ pins: [Floatable]) {
+        let pins = pins.filter({ selectionController.will(fit: $0.asIngridient) })
         if pins.count > 0 {
             
             if selectionController.state == .hidden {

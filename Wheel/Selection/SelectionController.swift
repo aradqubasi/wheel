@@ -63,6 +63,12 @@ class SelectionController {
         }
     }
     
+//    var full: Bool {
+//        get {
+//            let
+//        }
+//    }
+    
     // MARK: - Private Properties
     
 
@@ -151,6 +157,8 @@ class SelectionController {
         })
         
         _state = .hidden
+        
+        readyCheck()
     }
     
     // MARK: - Actions
@@ -169,10 +177,49 @@ class SelectionController {
         delegate?.onRemove(of: sender, in: self)
     }
     
+    // MARK: - Private Methods
+    
+    private func readyCheck() {
+        let stuff = selected.map({ $0.asIngridient.kind })
+        
+        let basefull = stuff.filter({ $0 == .base }).count == 1
+        let fatmost = stuff.filter({ $0 == .fat }).count == 1
+        let veggitized = stuff.filter({ $0 == .veggy }).count == 1
+        let proteinum = stuff.filter({ $0 == .protein }).count == 1
+        let decorated = stuff.filter({
+            if $0 == .unexpected {
+                return true
+            }
+            else if $0 == .dressing {
+                return true
+            }
+            else if $0 == .fruits {
+                return true
+            }
+            else {
+                return false
+            }
+        }).count >= 1
+        
+        if basefull && fatmost && veggitized && proteinum && decorated {
+            cook.setImage(UIImage.nextpressed, for: .normal)
+            cook.isUserInteractionEnabled = true
+        }
+        else {
+            cook.setImage(UIImage.next, for: .normal)
+            cook.isUserInteractionEnabled = false
+        }
+    }
+    
     // MARK: - Public Methods
     
     func contains(_ touch: UITouch) -> Bool {
         return holder.bounds.contains(touch.location(in: holder))
+    }
+    
+    func will(fit ingridient: Ingridient) -> Bool {
+        let selected = self.selected.map({ $0.asIngridient })
+        return !selected.contains(where: { $0.kind == ingridient.kind })
     }
     
     // MARK: - Animation Methods
@@ -209,6 +256,8 @@ class SelectionController {
         }
         
         holder.contentSize = CGSize(width: 16 + 96, height: 96)
+        
+        readyCheck()
     }
     
     /**animatable - erase specific selected ingridient*/
@@ -236,6 +285,8 @@ class SelectionController {
             erased.discharge()
             holder.contentSize = CGSize(width: offset + 8 + 96, height: 96)
         }
+        
+        readyCheck()
 //        if let spot = floatings.first(where: { return $0.food == pin.asIngridient }) {
 //            spot.discharge()
 //            var offset = CGPoint(x: 8, y: 16)
@@ -352,6 +403,8 @@ class SelectionController {
         cook.alpha = 0
         
         holder.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+        
+        readyCheck()
     }
     
     /**instant - hide empty selection menu*/
@@ -419,5 +472,6 @@ class SelectionController {
             
 //            push()
         }
+        readyCheck()
     }
 }

@@ -155,7 +155,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - UIGestureRegocnizerDelegate Methods
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return !selectionController.contains(touch) && !unexpected.opened && !dressing.opened && !fruits.opened
+        return !selectionController.contains(touch) && !unexpected.opened && !dressing.opened && !fruits.opened && !options.opened
     }
     
     // MARK: - OptionsDelegate Methods
@@ -249,12 +249,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         wheels.addSubview(proteinsMenu)
         proteins.view = proteinsMenu
         
+        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        proteinsMark.textAlignment = .center
+        wheels.addSubview(proteinsMark)
+        proteinsMark.text = "proteins".uppercased()
+        proteins.label = proteinsMark
+        
         veggies = VeggiesController()
         veggies.delegate = self
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
 //        self.view.addSubview(veggiesMenu)
         wheels.addSubview(veggiesMenu)
         veggies.view = veggiesMenu
+        
+        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        veggiesMark.textAlignment = .center
+        wheels.addSubview(veggiesMark)
+        veggiesMark.text = "veggies".uppercased()
+        veggies.label = veggiesMark
         
         fats = FatsController()
         fats.delegate = self
@@ -263,12 +275,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         wheels.addSubview(fatsMenu)
         fats.view = fatsMenu
         
+        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        fatsMark.textAlignment = .center
+        wheels.addSubview(fatsMark)
+        fatsMark.text = "fats".uppercased()
+        fats.label = fatsMark
+        
         bases = BasesController()
         bases.delegate = self
         basesMenu = RadialView(center: leftMiddle,orientation: .left)
 //        self.view.addSubview(basesMenu)
         wheels.addSubview(basesMenu)
         bases.view = basesMenu
+        
+        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        basesMark.textAlignment = .center
+        wheels.addSubview(basesMark)
+        basesMark.text = "bases".uppercased()
+        bases.label = basesMark
         
         radialMenu = basesMenu
         
@@ -280,33 +304,29 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //        self.view.addSubview(rollButton)
         wheels.addSubview(rollButton)
         
-        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        proteinsMark.textAlignment = .center
-//        self.view.addSubview(proteinsMark)
-        wheels.addSubview(proteinsMark)
-        proteinsMark.text = "proteins".uppercased()
-        proteins.label = proteinsMark
+//        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        proteinsMark.textAlignment = .center
+//        wheels.addSubview(proteinsMark)
+//        proteinsMark.text = "proteins".uppercased()
+//        proteins.label = proteinsMark
         
-        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        veggiesMark.textAlignment = .center
-//        self.view.addSubview(veggiesMark)
-        wheels.addSubview(veggiesMark)
-        veggiesMark.text = "veggies".uppercased()
-        veggies.label = veggiesMark
+//        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        veggiesMark.textAlignment = .center
+//        wheels.addSubview(veggiesMark)
+//        veggiesMark.text = "veggies".uppercased()
+//        veggies.label = veggiesMark
         
-        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        fatsMark.textAlignment = .center
-//        self.view.addSubview(fatsMark)
-        wheels.addSubview(fatsMark)
-        fatsMark.text = "fats".uppercased()
-        fats.label = fatsMark
+//        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        fatsMark.textAlignment = .center
+//        wheels.addSubview(fatsMark)
+//        fatsMark.text = "fats".uppercased()
+//        fats.label = fatsMark
         
-        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        basesMark.textAlignment = .center
-//        self.view.addSubview(basesMark)
-        wheels.addSubview(basesMark)
-        basesMark.text = "bases".uppercased()
-        bases.label = basesMark
+//        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        basesMark.textAlignment = .center
+//        wheels.addSubview(basesMark)
+//        basesMark.text = "bases".uppercased()
+//        bases.label = basesMark
         
         let hand = UIImageView(image: UIImage.hand)
 //        self.view.addSubview(hand)

@@ -429,6 +429,12 @@ public extension UIImage {
         }
     }
     
+    class var unlock: UIImage {
+        get {
+            return UIImage(named: "close")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

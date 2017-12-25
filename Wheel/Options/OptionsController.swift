@@ -24,7 +24,9 @@ class OptionsController {
     
     var _background: UIView!
     
-    var _pin: Floatable?
+    var _pin: PinView?
+    
+    var _opened: Bool!
     
     // MARK: - Public Properties
     
@@ -54,12 +56,18 @@ class OptionsController {
         }
     }
     
-    var pin: Floatable? {
+    var pin: PinView? {
         get {
             return _pin
         }
         set (new) {
             _pin = new
+        }
+    }
+    
+    var opened: Bool {
+        get {
+            return _opened
         }
     }
     
@@ -96,6 +104,9 @@ class OptionsController {
         
         _background = UIView()
         _background.backgroundColor = UIColor.limedSpruce
+        
+//        _opened = false
+        discharge()
     }
     
     // MARK: - Actions
@@ -123,8 +134,15 @@ class OptionsController {
     // MARK: - Animation Methods
     
     /**instant - set views for display*/
-    func set(for pin: Floatable) {
+    func set(for pin: PinView) {
+        _opened = true
         _pin = pin
+        if pin.state == .locked {
+            _lock.setImage(UIImage.unlock, for: .normal)
+        }
+        else {
+            _lock.setImage(UIImage.biglock, for: .normal)
+        }
         if let scene = _scene {
             _background.frame = scene.bounds
             _background.alpha = 0
@@ -191,6 +209,7 @@ class OptionsController {
         _lock.frame.origin.x = -_lock.frame.width
         _more.frame.origin.x = -_more.frame.width
         _close.frame.origin.x = -_close.frame.width
+        _opened = false
     }
     
 }

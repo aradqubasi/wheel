@@ -211,7 +211,16 @@ class RadialController: RVDelegate, PVDelegate {
     
     func moveToRandomPin() {
         if let wheel = _view {
-            let index = Int(arc4random_uniform(UInt32(_pins.count)))
+            let allowed = _pins.filter({ return $0.state == .locked })
+            
+            var index: Int = -1
+            if allowed.count == 0 {
+                index = Int(arc4random_uniform(UInt32(_pins.count)))
+            }
+            else {
+                index = Int(arc4random_uniform(UInt32(allowed.count)))
+                index = _pins.index(of: allowed[index])!
+            }
             wheel.move(to: index)
         }
     }

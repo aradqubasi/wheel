@@ -97,7 +97,7 @@ class PinView: UIView, Floatable {
         self.addSubview(_pin)
         
         _lock = UIButton(frame: CGRect(origin: CGPoint(x: -16, y: -16), size: CGSize(side: 32)))
-        _lock.backgroundColor = UIColor.blue
+        _lock.backgroundColor = UIColor.azureradiance
         _lock.layer.cornerRadius = 16
         _lock.clipsToBounds = false
         _lock.setImage(UIImage.lock, for: .normal)
@@ -132,9 +132,11 @@ class PinView: UIView, Floatable {
         _state = state
         if state == .locked {
             _lock.alpha = 1
+//            _lock.transform = CGAffineTransform.identity
         }
         else {
             _lock.alpha = 0
+//            _lock.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
         }
         
     }
@@ -145,7 +147,7 @@ class PinView: UIView, Floatable {
     
     @objc private func onLongPress(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            setState(to: .locked)
+            delegate?.onLongPress(in: self)
         }
     }
     

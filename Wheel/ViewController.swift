@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate
 {
 
     // MARK: - Outlets
@@ -108,6 +108,12 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
     }
     
+    func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) {
+        options.set(for: pin)
+        let show = { () -> Void in self.options.show() }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: nil)
+    }
+    
     // MARK: - OverlayContollerDelegate
     
     func onClose(of controller: OverlayController) -> Void {
@@ -150,6 +156,40 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return !selectionController.contains(touch) && !unexpected.opened && !dressing.opened && !fruits.opened
+    }
+    
+    // MARK: - OptionsDelegate Methods
+    
+    func optionsDelegate(on action: OptionsActions, in controller: OptionsController) -> Void {
+        switch action {
+        case .add:
+            if let pin = options.pin {
+                let hide = { () -> Void in controller.hide() }
+                let reset = { (_: Bool) -> Void in self.options.discharge()}
+                UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
+                add([pin])
+            }
+        case .more:
+            print("hide")
+            let hide = { () -> Void in controller.hide() }
+            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
+        case .lock:
+            let hide = { () -> Void in
+                controller.hide()
+                if let pin = self.options.pin as? PinView {
+                    pin.state = pin.state == .locked ? .free : .locked
+                }
+            }
+            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
+
+        case .close:
+            print("hide")
+            let hide = { () -> Void in controller.hide() }
+            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
+        }
     }
     
     // MARK: - Initialioze
@@ -325,6 +365,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         options = OptionsController()
         options.view = overlay
+        options.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -352,9 +393,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-        options.set(for: rollButton)
-        options.show()
-        return
+//        options.set(for: rollButton)
+//        let show = { () -> Void in self.options.show() }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: nil)
+//        return
         
         let shuffle = { () -> Void in
             self.bases.moveToRandomPin()

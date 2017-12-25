@@ -13,4 +13,6 @@ protocol RadialControllerDelegate {
     
     func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void
     
+    func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) -> Void
+    
 }

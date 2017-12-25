@@ -191,13 +191,11 @@ class RadialController: RVDelegate, PVDelegate {
         delegate?.onPinClick(in: self, of: pin, at: index)
     }
     
-    func onLock(in pin: PinView, is locked: Bool) {
-        if locked {
-            pin.state = .locked
+    func onLongPress(in pin: PinView) {
+        guard let index = _pins.index(of: pin) else {
+            fatalError("onLongPress invoked by unlisted pin")
         }
-        else {
-            pin.state = .free
-        }
+        delegate?.radialController(preesing: pin, in: self, at: index)
     }
     
     // MARK: - Actions

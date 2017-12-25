@@ -71,4 +71,10 @@ public extension UIColor {
             return UIColor(red: 213 / 255, green: 235 / 255, blue: 240 / 255, alpha: 1)
         }
     }
+    
+    class var azureradiance: UIColor {
+        get {
+            return UIColor(red: 2 / 255, green: 135 / 255, blue: 249 / 255, alpha: 1)
+        }
+    }
 }

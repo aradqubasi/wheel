@@ -24,7 +24,11 @@ class OptionsController {
     
     var _background: UIView!
     
+    var _pin: Floatable?
+    
     // MARK: - Public Properties
+    
+    var delegate: OptionsDelegate?
     
     var view: UIView? {
         get {
@@ -50,6 +54,15 @@ class OptionsController {
         }
     }
     
+    var pin: Floatable? {
+        get {
+            return _pin
+        }
+        set (new) {
+            _pin = new
+        }
+    }
+    
     // MARK: - Initialization
     
     init() {
@@ -65,7 +78,7 @@ class OptionsController {
         _lock.setImage(UIImage.biglock, for: .normal)
         _lock.layer.cornerRadius = 28
         _lock.clipsToBounds = true
-        _lock.backgroundColor = .white
+        _lock.backgroundColor = .azureradiance
         
         _more = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 56)))
         _more.addTarget(self, action: #selector(onMore(_:)), for: .touchUpInside)
@@ -79,7 +92,7 @@ class OptionsController {
         _close.setImage(UIImage.close, for: .normal)
         _close.layer.cornerRadius = 28
         _close.clipsToBounds = true
-        _close.backgroundColor = .white
+        _close.backgroundColor = .clear
         
         _background = UIView()
         _background.backgroundColor = UIColor.limedSpruce
@@ -89,32 +102,40 @@ class OptionsController {
     
     @objc private func onAdd(_ sender: UIButton) {
         print("onAdd")
+        delegate?.optionsDelegate(on: .add, in: self)
     }
     
     @objc private func onLock(_ sender: UIButton) {
         print("onLock")
+        delegate?.optionsDelegate(on: .lock, in: self)
     }
     
     @objc private func onMore(_ sender: UIButton) {
         print("onMore")
+        delegate?.optionsDelegate(on: .more, in: self)
     }
   
     @objc private func onClose(_ sender: UIButton) {
         print("onClose")
+        delegate?.optionsDelegate(on: .close, in: self)
     }
     
     // MARK: - Animation Methods
     
     /**instant - set views for display*/
-    func set(for pin: UIView) {
+    func set(for pin: Floatable) {
+        _pin = pin
         if let scene = _scene {
             _background.frame = scene.bounds
             _background.alpha = 0
             let point: CGPoint = pin.convert(.zero, to: scene)
+//            print(point)
+//            let point: CGPoint = CGPoint(x: 150, y: 150)
             let buttons = [_add, _lock, _more, _close]
             buttons.forEach({
                 $0?.frame.origin = point
                 $0?.transform = CGAffineTransform.identity.scaledBy(x: 0.001, y: 0.001)
+//                $0?.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
             })
         }
     }
@@ -122,14 +143,49 @@ class OptionsController {
     /**animatable - display*/
     func show() {
         _background.alpha = 0.8
-        _add.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -3, y: -82)
-        _lock.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -48, y: 2)
-        _more.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -3, y: 78)
-        _close.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
+        
+        let angle: CGFloat = 0.33 * CGFloat.pi
+//        _add.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -cos(angle) * 80, y: -sin(angle) * 80)
+//        _lock.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -80, y: 0)
+//        _more.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -cos(angle) * 80, y: sin(angle) * 80)
+        
+        _add.transform = CGAffineTransform.identity
+        _add.frame.origin.x += -cos(angle) * 80
+        _add.frame.origin.y += -sin(angle) * 80
+        _lock.transform = CGAffineTransform.identity
+        _lock.frame.origin.x += -80
+        _lock.frame.origin.y += 0
+        _more.transform = CGAffineTransform.identity
+        _more.frame.origin.x += -cos(angle) * 80
+        _more.frame.origin.y += sin(angle) * 80
+
+        _close.transform = CGAffineTransform.identity
+    }
+
+    /**animatable - hide*/
+    func hide() {
+        _background.alpha = 0
+        
+//        _add.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+//        _lock.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+//        _more.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+//        _close.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
+        _add.frame.origin = _close.frame.origin
+        _add.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        _lock.frame.origin = _close.frame.origin
+        _lock.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        _more.frame.origin = _close.frame.origin
+        _more.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
+        _close.frame.origin = _close.frame.origin
+        _close.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
     }
     
     /**instant - hide away subviews*/
     func discharge() {
+        _add.transform = CGAffineTransform.identity
+        _lock.transform = CGAffineTransform.identity
+        _more.transform = CGAffineTransform.identity
+        _close.transform = CGAffineTransform.identity
         _background.frame.origin.x = -_background.frame.width
         _add.frame.origin.x = -_add.frame.width
         _lock.frame.origin.x = -_lock.frame.width

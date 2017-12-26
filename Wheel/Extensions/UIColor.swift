@@ -77,4 +77,22 @@ public extension UIColor {
             return UIColor(red: 2 / 255, green: 135 / 255, blue: 249 / 255, alpha: 1)
         }
     }
+    
+    class var tanhide: UIColor {
+        get {
+            return UIColor(red: 247 / 255, green: 157 / 255, blue: 67 / 255, alpha: 1)
+        }
+    }
+    
+    class var persimmon: UIColor {
+        get {
+            return UIColor(red: 249 / 255, green: 103 / 255, blue: 72 / 255, alpha: 1)
+        }
+    }
+    
+    class var radicalred: UIColor {
+        get {
+            return UIColor(red: 255 / 255, green: 69 / 255, blue: 97 / 255, alpha: 1)
+        }
+    }
 }

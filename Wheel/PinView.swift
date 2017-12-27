@@ -30,6 +30,15 @@ class _PinView: UIButton {
         delegate?.onTouchesEnded(superview! as! PinView, touches, with: event)
         super.touchesEnded(touches, with: event)
     }
+    
+    override var isUserInteractionEnabled: Bool {
+        get {
+            return super.isUserInteractionEnabled
+        }
+        set (new) {
+            super.isUserInteractionEnabled = new
+        }
+    }
 }
 
 class PinView: UIView, Floatable {

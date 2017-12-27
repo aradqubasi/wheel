@@ -31,10 +31,10 @@
                                     <constraint firstAttribute="width" constant="211" id="Y2u-Mb-vec"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSJ-NN-wAF">
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSJ-NN-wAF">
                                 <rect key="frame" x="24" y="437" width="327" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="327" id="RVa-N7-Ql7"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="327" id="RVa-N7-Ql7"/>
                                     <constraint firstAttribute="height" constant="31" id="tZ5-jQ-mYf"/>
                                 </constraints>
                                 <attributedString key="attributedText">
@@ -52,7 +52,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aJK-t1-xhs">
                                 <rect key="frame" x="91" y="28" width="193" height="49"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="193" id="Mkx-Al-ZrE"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="193" id="Mkx-Al-ZrE"/>
                                     <constraint firstAttribute="height" constant="49" id="hT2-r7-6Pm"/>
                                 </constraints>
                                 <attributedString key="attributedText">

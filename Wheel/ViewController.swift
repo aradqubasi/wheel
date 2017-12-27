@@ -17,6 +17,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - Private Properties
     
+//    var showtime: Bool!
+    
     var bases: RadialController!
     
     var fats: RadialController!
@@ -81,9 +83,20 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var spinner: UIPanGestureRecognizer!
     
+    var disabled: [Int : UIView] = [:]
+    
+//    static var animating: Bool = false
+    
+//    var lockscreen: UIView!
+    
+    var adding: Bool!
+    
     // MARK: - RadialControllerDelegate
     
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
+        print("onStateChange")
+        
+        
         let follow = { () -> Void in
             self.radialMenu = wheel
             self.bases.state = state
@@ -91,40 +104,81 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             self.veggies.state = state
             self.proteins.state = state
             self.pointer.state = state
+            
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        
+        let showend = { (_: Bool) -> Void in
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
         }
 
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: nil)
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: showend)
 
     }
     
     func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void {
+        print("onPinClick")
         if controller.focused == pin {
 //            self.selectPins([pin])
             self.add([pin])
         }
         else {
-            let moveto = { () -> Void in controller.view.move(to: index) }
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+            let moveto = { () -> Void in
+                controller.view.move(to: index)
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+            }
+            
+            let showend = { (_: Bool) -> Void in
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
+            
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
         }
     }
     
     func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) {
+        print("radialController")
+        
         options.set(for: pin)
-        let show = { () -> Void in self.options.show() }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: nil)
+        
+        let show = { () -> Void in
+            self.options.show()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        
+        let showend = { (_: Bool) -> Void in
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
+        
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: showend)
     }
     
     // MARK: - OverlayContollerDelegate
     
     func onClose(of controller: OverlayController) -> Void {
-        let close = { () in controller.close() }
-        let discharge = { (_:Bool) in controller.discharge()}
+        print("onClose")
+        let close = { () in
+            controller.close()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        let discharge = { (_:Bool) in
+            controller.discharge()
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
     func onSelect(in controller: OverlayController) -> Void {
-        let close = { () in controller.close() }
-        let discharge = { (_:Bool) in controller.discharge()}
+        print("onSelect")
+        
+        let close = { () in
+            controller.close()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        let discharge = { (_:Bool) in
+            controller.discharge()
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
 //        selectPins([controller.focused])
         add([controller.focused])
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
@@ -133,21 +187,42 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - SelectionDelegate
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
+        print("onRemove")
+        
         if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
-            let shrinkdown = { () in self.selectionController.shrinkdown() }
-            let discharge = { (_:Bool) in self.selectionController.discharge() }
+            let shrinkdown = { () in
+                self.selectionController.shrinkdown()
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+            }
+            let discharge = { (_:Bool) in
+                self.selectionController.discharge()
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
         }
         else {
-            let close = { () in controller.erase(pin) }
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: nil)
+            let close = { () in
+                controller.erase(pin)
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+            }
+            let showend = { (_: Bool) -> Void in
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: showend)
         }
     }
     
     func onCook(of pins: [Floatable], in controller: SelectionController) {
+        
         if selectionController.state == .visible {
-            let shrinkdown = { () in self.selectionController.shrinkdown() }
-            let discharge = { (_:Bool) in self.selectionController.discharge() }
+            let shrinkdown = { () in
+                self.selectionController.shrinkdown()
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+            }
+            let discharge = { (_:Bool) in
+                self.selectionController.discharge()
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
         }
     }
@@ -161,33 +236,55 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - OptionsDelegate Methods
     
     func optionsDelegate(on action: OptionsActions, in controller: OptionsController) -> Void {
+        print("optionsDelegate")
         switch action {
         case .add:
             if let pin = options.pin {
-                let hide = { () -> Void in controller.hide() }
-                let reset = { (_: Bool) -> Void in self.options.discharge()}
+                let hide = { () -> Void in
+//                    self.setUserInteractionEnabled(to: false, in: self.view, true)
+                    controller.hide()
+                }
+                let reset = { (_: Bool) -> Void in
+                    self.options.discharge()
+//                    self.setUserInteractionEnabled(to: true, in: self.view, true)
+                }
                 UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
                 add([pin])
             }
         case .more:
-            print("hide")
-            let hide = { () -> Void in controller.hide() }
-            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            let hide = { () -> Void in
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+                controller.hide()
+            }
+            let reset = { (_: Bool) -> Void in
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+                self.options.discharge()
+            }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
         case .lock:
             let hide = { () -> Void in
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
                 controller.hide()
-                if let pin = self.options.pin as? PinView {
+                if let pin = self.options.pin {
                     pin.state = pin.state == .locked ? .free : .locked
                 }
             }
-            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            let reset = { (_: Bool) -> Void in
+                self.options.discharge()
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
 
         case .close:
             print("hide")
-            let hide = { () -> Void in controller.hide() }
-            let reset = { (_: Bool) -> Void in self.options.discharge()}
+            let hide = { () -> Void in
+                controller.hide()
+//                self.setUserInteractionEnabled(to: false, in: self.view, true)
+            }
+            let reset = { (_: Bool) -> Void in
+                self.options.discharge()
+//                self.setUserInteractionEnabled(to: true, in: self.view, true)
+            }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
         }
     }
@@ -386,6 +483,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         options = OptionsController()
         options.view = overlay
         options.delegate = self
+        
+        adding = false
     }
 
     override func didReceiveMemoryWarning() {
@@ -395,30 +494,54 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Actions
     
     func onToUnexpectedClick(_ sender: UIButton) {
+        print("onToUnexpectedClick")
         unexpected.set(for: sender)
-        let open = { () in self.unexpected.open() }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+        let open = { () in
+            self.unexpected.open()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        let showend = { (_: Bool) -> Void in
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     func onToDressingClick(_ sender: UIButton) {
+        print("onToDressingClick")
         dressing.set(for: sender)
-        let open = { () in self.dressing.open() }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+        let open = { () in
+            self.dressing.open()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        let showend = { (_: Bool) -> Void in
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     func onToFruitsClick(_ sender: UIButton) {
+        print("onToFruitsClick")
         fruits.set(for: sender)
-        let open = { () in self.fruits.open() }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: nil)
+        let open = { () in
+            self.fruits.open()
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+        }
+        let showend = { (_: Bool) -> Void in
+//            self.setUserInteractionEnabled(to: true, in: self.view, true)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
+        print("onNextMenu")
 //        options.set(for: rollButton)
 //        let show = { () -> Void in self.options.show() }
 //        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: nil)
 //        return
         
         let shuffle = { () -> Void in
+//            self.setUserInteractionEnabled(to: false, in: self.view, true)
+            
             self.bases.moveToRandomPin()
             self.fats.moveToRandomPin()
             self.veggies.moveToRandomPin()
@@ -433,6 +556,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         let select = { (_: Bool) -> Void in
             let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toUnexpected, self.toDressing, self.toFruits]
             self.add(focus)
+            
+//           self.setUserInteractionEnabled(to: true, in: self.view, true)
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
@@ -449,6 +574,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     private var scrollTimeCollector: TimeInterval!
     
+    //TODO
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
@@ -528,9 +654,34 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
     }
     
+//    private func seek(_ view: UIView) -> Void {
+//        if !self.disabled.keys.contains(view.hash) {
+//            self.disabled[view.hash] = view
+//        }
+//        view.subviews.forEach({ seek($0) })
+//    }
+    
+//    private func setUserInteractionEnabled(to value: Bool, in view: UIView, _ recursive: Bool) {
+//        return
+//        seek(self.view)
+//        let prev = disabled.count
+//        disabled.forEach({ $0.value.isUserInteractionEnabled = value })
+//        let new = disabled.count
+//        print("set to \(value) for \(new) added \(new - prev)")
+//    }
+    
     private func add(_ pins: [Floatable]) {
+//        print("add")
+        if adding {
+            return
+        }
+        adding = true
+        
         let pins = pins.filter({ selectionController.will(fit: $0.asIngridient) })
         if pins.count > 0 {
+//            let showstart = { () -> Void in self.view.isUserInteractionEnabled = false }
+//            let showend = { () -> Void in self.view.isUserInteractionEnabled = false }
+//            setUserInteractionEnabled(to: false, in: view, true)
             
             if selectionController.state == .hidden {
                 self.selectionController.set()
@@ -571,12 +722,20 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
                     }
                     let last = {(finished: Bool) -> Void in
 //                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
+                        if pin.asIngridient == last {
+//                            self.setUserInteractionEnabled(to: true, in: self.view, true)
+                            self.adding = false
+//                            print("self.adding = false")
+                        }
                     }
                     UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
                 }
                 UIView.animate(withDuration: 5 * speed * count, delay: delay * speed, options: [.curveEaseIn], animations: move, completion: finish)
                 delay += 1.5
             }
+        }
+        else {
+            adding = false
         }
     }
 }

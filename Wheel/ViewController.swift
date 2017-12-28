@@ -85,6 +85,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     var disabled: [Int : UIView] = [:]
     
+    var scrollvelocity: CGFloat!
+    
 //    static var animating: Bool = false
     
 //    var lockscreen: UIView!
@@ -584,6 +586,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             //--
             scrollAngleCollector = 0
             scrollTimeCollector = 0
+            scrollvelocity = 0
         case .changed:
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
@@ -605,7 +608,35 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             scrollLastAngle = newAngle
             scrollLastTime = newTime
             scrollLastDeltaAngle = deltaAngle
+            scrollvelocity = deltaAngle / CGFloat(deltaTime)
         case .ended:
+//            let rightmiddle = CGPoint(x: view.bounds.width, y: view.bounds.height * 0.5)
+//            let scrolllocation = sender.location(in: view)
+//            var scrollradius = (scrolllocation.x - rightmiddle.x) * (scrolllocation.x - rightmiddle.x)
+//            scrollradius += (scrolllocation.y - rightmiddle.y) * (scrolllocation.y - rightmiddle.y)
+//            scrollradius = scrollradius.squareRoot()
+//            var velocity = sender.velocity(in: view).x * sender.velocity(in: view).x
+//            velocity += sender.velocity(in: view).y * sender.velocity(in: view).y
+//            velocity = velocity.squareRoot()
+//            var velocity: CGFloat = 100
+//            velocity = CGFloat.init(sign: scrollvelocity.sign, exponent: velocity.exponent, significand: velocity.significand)
+////            velocity.sign = scrollvelocity.sign
+//            let end = radialMenu.spokeAtEnd(at: velocity.sign)
+//            let time = radialMenu.timeToEnd(at: velocity)
+//
+//            print("end \(end) time \(time) velocity \(velocity)")
+//
+//            let deceleration = { () -> Void in
+//                self.radialMenu.move(to: end)
+//            }
+//
+//            let normalization = { (_: Bool) -> Void in
+//                self.radialMenu.move(to: self.radialMenu.RVFocused)
+//            }
+//
+//            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
+            
+            
             let deceleration = {
                 () -> Void in
                 let angle = self.scrollLastDeltaAngle * 0.225 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
@@ -615,7 +646,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             let normalization = { (_: Bool) -> Void in
                 self.radialMenu.move(to: self.radialMenu.RVFocused)
             }
-            
+
             UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
         default:
             print("\(sender.state)")

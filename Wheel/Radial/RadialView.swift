@@ -261,6 +261,19 @@ class RadialView: UIView, SVDelegate {
         
     }
     
+    func timeToEnd(at velocity: CGFloat) -> TimeInterval {
+        let end = spokeAtEnd(at: velocity.sign)
+        return TimeInterval(abs(_current - (_offset - CGFloat(end) * _distance)) / velocity)
+    }
+    
+    func spokeAtEnd(at direction: FloatingPointSign) -> Int {
+        if direction == .minus {
+            return _spokes.count - 1
+        }
+        else {
+            return 0
+        }
+    }
 
     // MARK: - Placeholders
 

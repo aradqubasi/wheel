@@ -32,4 +32,9 @@ extension UIView {
         return view
     }
 
+    var radius: CGFloat {
+        get {
+            return max(frame.width, frame.height)
+        }
+    }
 }

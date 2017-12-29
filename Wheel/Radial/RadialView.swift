@@ -274,6 +274,18 @@ class RadialView: UIView, SVDelegate {
             return 0
         }
     }
+    
+    /**angular distance to an end of the wheel, calculated based on direction of current angular velocity*/
+    func pathToEnd(at direction: FloatingPointSign) -> CGFloat {
+        let min = _offset - CGFloat(_spokes.count - 1) * _distance
+        let max = _offset
+        if direction == .minus {
+            return min - _current
+        }
+        else {
+            return max - _current
+        }
+    }
 
     // MARK: - Placeholders
 

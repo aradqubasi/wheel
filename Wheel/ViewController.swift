@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWWheelDelegate
 {
 
     // MARK: - Outlets
@@ -98,6 +98,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     func onStateChange(to state: WState, of wheel: RadialView) -> Void {
         print("onStateChange")
         
+        _decelerating = false
         
         let follow = { () -> Void in
             self.radialMenu = wheel
@@ -487,6 +488,46 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         options.delegate = self
         
         adding = false
+        
+//        let circle = UIView(frame: CGRect(center: view.center, side: view.bounds.width))
+//        circle.layer.borderWidth = 1
+//        circle.layer.borderColor = UIColor.black.cgColor
+//        view.addSubview(circle)
+//        let wheel = SWWheelView()
+//        wheel.delegate = self
+//        wheel.view = circle
+//        wheel.reload()
+//        testWheel = wheel
+//
+//        let toLeft = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 0 + 16), side: 32))
+//        toLeft.setTitle("<", for: .normal)
+//        toLeft.setTitleColor(.black, for: .normal)
+//        toLeft.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toLeft)
+//
+//        let toRight = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 32 + 16), side: 32))
+//        toRight.setTitle(">", for: .normal)
+//        toRight.setTitleColor(.black, for: .normal)
+//        toRight.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toRight)
+//
+//        let toNext = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 64 + 16), side: 32))
+//        toNext.setTitle("+", for: .normal)
+//        toNext.setTitleColor(.black, for: .normal)
+//        toNext.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toNext)
+//
+//        let toPrev = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 96 + 16), side: 32))
+//        toPrev.setTitle("-", for: .normal)
+//        toPrev.setTitleColor(.black, for: .normal)
+//        toPrev.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toPrev)
+//
+        let toRandom = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 128 + 16), side: 32))
+        toRandom.setTitle("?", for: .normal)
+        toRandom.setTitleColor(.black, for: .normal)
+        toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+        view.addSubview(toRandom)
     }
 
     override func didReceiveMemoryWarning() {
@@ -494,6 +535,71 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
 
     // MARK: - Actions
+    
+    var testWheel: SWWheelView!
+    
+    func to(_ sender: UIButton) {
+        let astep = CGFloat.pi / 12
+        var action: () -> Void = {  }
+        switch sender.title(for: .normal) ?? "none" {
+        case "<":
+            print("<")
+            action = { self.testWheel.rotate(by: -astep) }
+        case ">":
+            print(">")
+            action = { self.testWheel.rotate(by: astep) }
+        case "+":
+            print("+")
+            action = {
+                print("\(self.testWheel.focused.index)")
+                let next = self.testWheel.count - 1 == self.testWheel.focused.index ? 0 : self.testWheel.focused.index + 1
+                self.testWheel.move(to: next)
+            }
+        case "-":
+            print("-")
+            action = {
+                let prev = 0 == self.testWheel.focused.index ? self.testWheel.count - 1 : self.testWheel.focused.index - 1
+                self.testWheel.move(to: prev)
+            }
+        case "?":
+            print("?")
+//            deceleration(of: radialMenu, with: 3)
+            return
+        default:
+            fatalError("unhandled direction - \(sender.title(for: .normal) ?? "")")
+        }
+        
+        UIView.animate(withDuration: 0.225, animations: action, completion: nil)
+        
+        action = {
+
+            print("move to 0")
+            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
+                self.testWheel.move(to: 0)
+                print("moved to 0")
+            })
+            
+            print("move to 1")
+            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
+                self.testWheel.move(to: 1)
+                print("moved to 1")
+            })
+            
+            print("move to 2")
+            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
+                self.testWheel.move(to: 2)
+                print("moved to 2")
+            })
+            
+            print("move to 3")
+            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+                self.testWheel.move(to: 3)
+                print("moved to 3")
+            })
+        }
+        
+        UIView.animateKeyframes(withDuration: 4, delay: 0, options: [], animations: action, completion: nil)
+    }
     
     func onToUnexpectedClick(_ sender: UIButton) {
         print("onToUnexpectedClick")
@@ -587,6 +693,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             scrollAngleCollector = 0
             scrollTimeCollector = 0
             scrollvelocity = 0
+            _decelerating = false
         case .changed:
             let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             let newTime = Date()
@@ -610,50 +717,85 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             scrollLastDeltaAngle = deltaAngle
             scrollvelocity = deltaAngle / CGFloat(deltaTime)
         case .ended:
-//            let rightmiddle = CGPoint(x: view.bounds.width, y: view.bounds.height * 0.5)
-//            let scrolllocation = sender.location(in: view)
-//            var scrollradius = (scrolllocation.x - rightmiddle.x) * (scrolllocation.x - rightmiddle.x)
-//            scrollradius += (scrolllocation.y - rightmiddle.y) * (scrolllocation.y - rightmiddle.y)
-//            scrollradius = scrollradius.squareRoot()
-//            var velocity = sender.velocity(in: view).x * sender.velocity(in: view).x
-//            velocity += sender.velocity(in: view).y * sender.velocity(in: view).y
-//            velocity = velocity.squareRoot()
-//            var velocity: CGFloat = 100
-//            velocity = CGFloat.init(sign: scrollvelocity.sign, exponent: velocity.exponent, significand: velocity.significand)
-////            velocity.sign = scrollvelocity.sign
-//            let end = radialMenu.spokeAtEnd(at: velocity.sign)
-//            let time = radialMenu.timeToEnd(at: velocity)
-//
-//            print("end \(end) time \(time) velocity \(velocity)")
-//
-//            let deceleration = { () -> Void in
-//                self.radialMenu.move(to: end)
-//            }
-//
-//            let normalization = { (_: Bool) -> Void in
-//                self.radialMenu.move(to: self.radialMenu.RVFocused)
-//            }
-//
-//            UIView.animate(withDuration: time, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
-            
-            
-            let deceleration = {
-                () -> Void in
-                let angle = self.scrollLastDeltaAngle * 0.225 / CGFloat(Date().timeIntervalSince(self.scrollLastTime))
-                self.radialMenu.move(by: angle)
-            }
-
-            let normalization = { (_: Bool) -> Void in
-                self.radialMenu.move(to: self.radialMenu.RVFocused)
-            }
-
-            UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: deceleration, completion: normalization)
+//            print("current spoke \(radialMenu.RVFocused)")
+//            print("velocity \(scrollvelocity)")
+//            print("end spoke \(radialMenu.spokeAtEnd(at: scrollvelocity.sign))")
+//            print("time to end \(radialMenu.timeToEnd(at: scrollvelocity))")
+            _decelerating = true
+//            _deceleratingWheel = radialMenu
+            deceleration(of: radialMenu, with: scrollvelocity, and: scrollvelocity)
         default:
             print("\(sender.state)")
         }
     }
     
     // MARK: - Private Methods
+    
+    private var _decelerating: Bool!
+    
+//    private var _deceleratingWheel: RadialView!
+    
+    private func deceleration(of wheel: RadialView, with velocity: CGFloat, and power: CGFloat) {
+        if !_decelerating || radialMenu !== wheel {
+            
+            let move = { wheel.move(to: wheel.RVFocused) }
+            UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: move, completion: nil)
+            return
+        }
+        
+        let velocity = min(abs(velocity), 3) * (velocity.sign == .minus ? -1 : 1)
+        
+        let rate: CGFloat = 0.9
+        let period: TimeInterval = 0.1
+        
+        let pathToEnd = wheel.pathToEnd(at: velocity.sign)
+        let path = velocity * CGFloat(period)
+        
+        let end = abs(path) > abs(pathToEnd) || abs(power) < 0.1
+        let adjustedPath = abs(path) > abs(pathToEnd) ? pathToEnd : path
+        let adjustedPeriod = abs(path) > abs(pathToEnd) ? TimeInterval(abs(pathToEnd) / abs(velocity)) : period
+        
+        let move = { wheel.move(by: adjustedPath) }
+        
+        let check = { (_: Bool) in
+            if end {
+                self._decelerating = false
+            }
+            self.deceleration(of: wheel, with: velocity, and: power * rate)
+        }
+        
+        UIView.animate(withDuration: adjustedPeriod, delay: 0, options: [.allowUserInteraction], animations: move, completion: check)
+    }
+    
+//    private func deceleration(of wheel: RadialView, with velocity: CGFloat) {
+//        if !_decelerating || radialMenu !== wheel {
+//            wheel.move(to: wheel.RVFocused)
+//            return
+//        }
+//
+//        let velocity = min(abs(velocity), 3) * (velocity.sign == .minus ? -1 : 1)
+//
+//        let rate: CGFloat = 0.9
+//        let period: TimeInterval = 0.1
+//
+//        let pathToEnd = wheel.pathToEnd(at: velocity.sign)
+//        let path = velocity * CGFloat(period)
+//
+//        let end = abs(path) > abs(pathToEnd) || abs(velocity) < 0.1
+//        let adjustedPath = abs(path) > abs(pathToEnd) ? pathToEnd : path
+//        let adjustedPeriod = abs(path) > abs(pathToEnd) ? TimeInterval(abs(pathToEnd) / abs(velocity)) : period
+//
+//        let move = { wheel.move(by: adjustedPath) }
+//
+//        let check = { (_: Bool) in
+//            if end {
+//                self._decelerating = false
+//            }
+//            self.deceleration(of: wheel, with: velocity * rate)
+//        }
+//
+//        UIView.animate(withDuration: adjustedPeriod, delay: 0, options: [], animations: move, completion: check)
+//    }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
         

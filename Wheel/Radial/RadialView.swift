@@ -16,11 +16,10 @@ class RadialView: UIView, SVDelegate {
     
     var current: CGFloat {
         get {
-            var angle = _current
-            while angle > CGFloat.pi * 2  {
-                angle -= CGFloat.pi * 2
-            }
-            return angle
+            let transform = _spokes.first!.transform
+            let current = atan2f(Float(transform.b), Float(transform.a))
+            print("_current \(_current) current \(current)")
+            return CGFloat(current)
         }
     }
     
@@ -207,22 +206,39 @@ class RadialView: UIView, SVDelegate {
         for n in 0..<_spokes.count {
             let spokeAngle = _distance * CGFloat(n) + _current
             let spoke = _spokes[n]
-            if spokeAngle > _offset + _top {
+            let unlooped = spokeAngle.truncatingRemainder(dividingBy: CGFloat.pi * 2)
+            if  unlooped > _offset + _top {
                 spoke.SVState = .invisible
             }
-            else if spokeAngle < _offset - _bottom {
+            else if unlooped < _offset - _bottom {
                 spoke.SVState = .invisible
             }
-            else if spokeAngle > _offset + _distance / 2 {
+            else if unlooped > _offset + _distance / 2 {
                 spoke.SVState = .visible
             }
-            else if spokeAngle < _offset - _distance / 2 {
+            else if unlooped < _offset - _distance / 2 {
                 spoke.SVState = .visible
             }
             else {
                 spoke.SVState = .focused
                 _focused = n
             }
+//            if  spokeAngle > _offset + _top {
+//                spoke.SVState = .invisible
+//            }
+//            else if spokeAngle < _offset - _bottom {
+//                spoke.SVState = .invisible
+//            }
+//            else if spokeAngle > _offset + _distance / 2 {
+//                spoke.SVState = .visible
+//            }
+//            else if spokeAngle < _offset - _distance / 2 {
+//                spoke.SVState = .visible
+//            }
+//            else {
+//                spoke.SVState = .focused
+//                _focused = n
+//            }
             spoke.SVAngle = spokeAngle
             spoke.SVDistance = _distance
             spoke.name = name

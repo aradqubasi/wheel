@@ -200,14 +200,17 @@ class PinView: UIView, Floatable {
     
     func icon(default image: UIImage) -> PinView {
         for wState in WState.all {
-            let svState: [SVState: UIImage] = [.focused: image, .visible: image, .invisible: image.alpha(0)]
+//            let svState: [SVState: UIImage] = [.focused: image, .visible: image, .invisible: image.alpha(0)]
+            let svState: [SVState: UIImage] = [.focused: image, .visible: image, .invisible: image]
             images[wState] = svState
         }
         return self
     }
     
     func icon(_ image: UIImage, for state: WState) -> PinView {
-        images[state] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+//        images[state] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0)]
+        images[state] = [.focused: image, .visible: image.alpha(0.5), .invisible: image.alpha(0.5)]
+
         return self
     }
     

@@ -38,7 +38,7 @@ extension SWWheelDelegate {
         reddot.clipsToBounds = true
         let blackmark = UIView(frame: CGRect(x: 16 - 4, y: -8, width: 8, height: 24))
         blackmark.layer.cornerRadius = 4
-        blackmark.backgroundColor = .black
+        blackmark.backgroundColor = index == 0 ? .white : .black
         reddot.addSubview(blackmark)
         return reddot
     }

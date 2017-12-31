@@ -11,6 +11,7 @@
 		1508EEC51FF4BCD6003CF526 /* SWWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */; };
 		1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */; };
 		1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC81FF4E995003CF526 /* SWSpoke.swift */; };
+		150FB1C71FF8CA65003F2601 /* SWWheelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */; };
 		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE401F88C7AE00CC5357 /* RVOrientation.swift */; };
 		151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE421F8A031C00CC5357 /* RVSettings.swift */; };
@@ -96,6 +97,7 @@
 		1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelDelegate.swift; sourceTree = "<group>"; };
 		1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelSettings.swift; sourceTree = "<group>"; };
 		1508EEC81FF4E995003CF526 /* SWSpoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSpoke.swift; sourceTree = "<group>"; };
+		150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelProtocol.swift; sourceTree = "<group>"; };
 		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE401F88C7AE00CC5357 /* RVOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVOrientation.swift; sourceTree = "<group>"; };
 		151AFE421F8A031C00CC5357 /* RVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSettings.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */,
 				1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */,
 				1508EEC81FF4E995003CF526 /* SWSpoke.swift */,
+				150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */,
 			);
 			path = TranslatedRadial;
 			sourceTree = "<group>";
@@ -515,6 +518,7 @@
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
+				150FB1C71FF8CA65003F2601 /* SWWheelProtocol.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,

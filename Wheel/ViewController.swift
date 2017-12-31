@@ -489,7 +489,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         adding = false
         
-        let circle = UIView(frame: CGRect(center: view.center, side: view.bounds.width))
+        circle = UIView(frame: CGRect(center: view.center, side: view.bounds.width))
         circle.layer.borderWidth = 1
         circle.layer.borderColor = UIColor.black.cgColor
         view.addSubview(circle)
@@ -528,6 +528,18 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         toRandom.setTitleColor(.black, for: .normal)
         toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
         view.addSubview(toRandom)
+        
+        let toShrink = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 0 + 16), side: 32))
+        toShrink.setTitle("><", for: .normal)
+        toShrink.setTitleColor(.black, for: .normal)
+        toShrink.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+        view.addSubview(toShrink)
+        
+        let toExpand = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 32 + 16), side: 32))
+        toExpand.setTitle("<>", for: .normal)
+        toExpand.setTitleColor(.black, for: .normal)
+        toExpand.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+        view.addSubview(toExpand)
     }
 
     override func didReceiveMemoryWarning() {
@@ -537,6 +549,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Actions
     
     var testWheel: SWWheelView!
+    
+    var circle: UIView!
     
     func to(_ sender: UIButton) {
         let astep = CGFloat.pi / 12
@@ -565,6 +579,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             print("?")
 //            deceleration(of: radialMenu, with: 3)
             return
+        case "<>":
+            print("<>")
+            action = {
+                let prev = self.circle.center
+                self.circle.frame = CGRect(origin: .zero, size: CGSize(side: self.circle.frame.width + 40))
+                self.circle.center = prev
+//                self.testWheel.reload()
+                self.testWheel.resize()
+            }
+        case "><":
+            print("><")
+            action = {
+                let prev = self.circle.center
+                self.circle.frame = CGRect(origin: .zero, size: CGSize(side: self.circle.frame.width - 40))
+                self.circle.center = prev
+//                self.testWheel.reload()
+                self.testWheel.resize()
+            }
         default:
             fatalError("unhandled direction - \(sender.title(for: .normal) ?? "")")
         }

@@ -14,7 +14,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate {
     
     var delegate: RadialControllerDelegate?
     
-    var view: RadialView {
+    var view: SWAbstractWheelView {
         get {
             return _view
         }
@@ -64,7 +64,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate {
     
     var focused: PinView {
         get {
-            return _pins[_view.RVFocused]
+            return _pins[_view.index]
         }
     }
     
@@ -76,7 +76,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate {
     
     private var _state: WState!
     
-    private var _view: RadialView!
+    private var _view: SWAbstractWheelView!
     
     private var _stateSettings: [WState: WSettings]!
     
@@ -226,7 +226,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate {
     
     private func apply(_ state: WState) {
         
-        if let wheel = _view {
+        if var wheel = _view {
             if active != state {
                 wheel.RVState = .inactive
             }

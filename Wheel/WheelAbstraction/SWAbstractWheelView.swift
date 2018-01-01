@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 protocol SWAbstractWheelView {
     
+    var center: CGPoint { get }
+    
     var index: Int { get }
     
     var count: Int { get }
@@ -17,5 +19,11 @@ protocol SWAbstractWheelView {
     var delegate: SWAbstractWheelDelegate? { get set }
     
     var name: String { get set }
+    
+    func move(to index: Int) -> Void
+    
+    func move(by angle: CGFloat) -> Void
+    
+    var RVState: RVState { get set }
 
 }

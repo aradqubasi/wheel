@@ -41,7 +41,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - Subs
     
-    var radialMenu: RadialView!
+    var radialMenu: SWAbstractWheelView!
     
     var basesMenu: RadialView!
     
@@ -95,7 +95,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - RadialControllerDelegate
     
-    func onStateChange(to state: WState, of wheel: RadialView) -> Void {
+    func onStateChange(to state: WState, of wheel: SWAbstractWheelView) -> Void {
         print("onStateChange")
         
         _decelerating = false
@@ -559,10 +559,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         switch sender.title(for: .normal) ?? "none" {
         case "<":
             print("<")
-            action = { self.testWheel.rotate(by: -astep) }
+            action = { self.testWheel.move(by: -astep) }
         case ">":
             print(">")
-            action = { self.testWheel.rotate(by: astep) }
+            action = { self.testWheel.move(by: astep) }
         case "+":
             print("+")
             action = {
@@ -743,7 +743,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
                 let follow = { () -> Void in
                     self.radialMenu.move(by: deltaAngle)
                 }
-                let check = { (_: Bool) -> Void in  _ = self.radialMenu.current }
+                let check = { (_: Bool) -> Void in  /*_ = self.radialMenu.current*/ }
                 UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: check)
             }
             scrollLastAngle = newAngle
@@ -768,33 +768,34 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     private var _decelerating: Bool!
     
-    private func deceleration(of wheel: RadialView, with velocity: CGFloat) {
-        
-        let velocity = min(abs(velocity), 3) * (velocity.sign == .minus ? -1 : 1)
-        
-        let k: CGFloat = 0.5
-        var time = velocity * k
-
-//        let path = min(abs(wheel.pathToEnd(at: velocity.sign)), abs(velocity * time)) * (velocity.sign == .minus ? -1 : 1)
-        
-        let maxPath = wheel.pathToEnd(at: velocity.sign)
-        
-        var path = velocity * time
-        
-        if abs(path) > abs(maxPath) {
-            path = maxPath
-            time = path / velocity
+    private func deceleration(of wheel: SWAbstractWheelView, with velocity: CGFloat) {
+        if let wheel = wheel as? RadialView {
+            let velocity = min(abs(velocity), 3) * (velocity.sign == .minus ? -1 : 1)
+            
+            let k: CGFloat = 0.5
+            var time = velocity * k
+            
+            //        let path = min(abs(wheel.pathToEnd(at: velocity.sign)), abs(velocity * time)) * (velocity.sign == .minus ? -1 : 1)
+            
+            let maxPath = wheel.pathToEnd(at: velocity.sign)
+            
+            var path = velocity * time
+            
+            if abs(path) > abs(maxPath) {
+                path = maxPath
+                time = path / velocity
+            }
+            
+            let move = { wheel.move(by: path) }
+            
+            print("velocity \(velocity) time \(time) path \(path)")
+            UIView.animate(withDuration: TimeInterval(time), delay: 0, options: [.curveEaseOut], animations: move, completion: nil)
+            //        UIView.animate(withDuration: TimeInterval(time), delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: move, completion: nil)
         }
-        
-        let move = { wheel.move(by: path) }
-        
-        print("velocity \(velocity) time \(time) path \(path)")
-        UIView.animate(withDuration: TimeInterval(time), delay: 0, options: [.curveEaseOut], animations: move, completion: nil)
-//        UIView.animate(withDuration: TimeInterval(time), delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: move, completion: nil)
     }
     
     private func deceleration(of wheel: RadialView, with velocity: CGFloat, and power: CGFloat) {
-        if !_decelerating || radialMenu !== wheel {
+        if let radialMenu = radialMenu as? RadialView, !_decelerating || radialMenu !== wheel {
             
             let move = { wheel.move(to: wheel.RVFocused) }
             UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: move, completion: nil)

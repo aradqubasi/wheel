@@ -11,6 +11,16 @@ import UIKit
 class SWWheelView : SWAbstractWheelView {
     
     
+    // MARK: - Stuff to remove later
+    
+    var RVState: RVState = .active
+    
+    var center: CGPoint {
+        get {
+            return _view.center
+        }
+    }
+    
     // MARK: - Initialization
     
     init() {
@@ -19,10 +29,7 @@ class SWWheelView : SWAbstractWheelView {
         
         _current = 0
         
-//        _socket = UIView()
-        
         _view = UIView()
-//        _socket.addSubview(_view)
     }
     
     // MARK: - Public Properties
@@ -85,7 +92,7 @@ class SWWheelView : SWAbstractWheelView {
             
             _settings = delegate.radialView(self)
             
-            rotate(by: _settings.offset)
+            move(by: _settings.offset)
         }
     }
     
@@ -106,7 +113,7 @@ class SWWheelView : SWAbstractWheelView {
             
             _settings = delegate.radialView(self)
             
-            rotate(by: 0)
+            move(by: 0)
         }
     }
     
@@ -153,7 +160,7 @@ class SWWheelView : SWAbstractWheelView {
         _current = angle
     }
     
-    func rotate(by angle: CGFloat) -> Void {
+    func move(by angle: CGFloat) -> Void {
 //        let adjusted = (_current + angle).truncatingRemainder(dividingBy: (2 * CGFloat.pi))
         let adjusted = _current + angle
         rotate(to: adjusted)

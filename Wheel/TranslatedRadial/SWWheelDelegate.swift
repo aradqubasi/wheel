@@ -44,7 +44,8 @@ extension SWWheelDelegate {
     }
     
     func radialView(_ wheel: SWWheelView) -> SWWheelSettings {
-        let radius = min(wheel.view.bounds.width, wheel.view.bounds.height) * 0.5
+//        let radius = min(wheel.view.bounds.width, wheel.view.bounds.height) * 0.5
+        let radius = min(wheel.bounds.width, wheel.bounds.height) * 0.5
         let distance = 2 * CGFloat.pi / CGFloat(wheel.count)
         let offset = CGFloat(0)
         return SWWheelSettings(radius, distance, offset)

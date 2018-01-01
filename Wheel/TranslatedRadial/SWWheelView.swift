@@ -8,22 +8,18 @@
 
 import Foundation
 import UIKit
-class SWWheelView : SWAbstractWheelView {
+class SWWheelView : UIView, SWAbstractWheelView {
     
     
     // MARK: - Stuff to remove later
     
     var RVState: RVState = .active
     
-    var center: CGPoint {
-        get {
-            return _view.center
-        }
-    }
-    
     // MARK: - Initialization
     
-    init() {
+    override init(frame: CGRect) {
+        
+        super.init(frame: frame)
         
         _spokes = []
         
@@ -32,13 +28,15 @@ class SWWheelView : SWAbstractWheelView {
         _view = UIView()
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: - Public Properties
     
     var name: String = "Undefined"
     
     var delegate: SWAbstractWheelDelegate?
-    
-    var view: UIView!
     
     var count: Int {
         get {
@@ -46,6 +44,7 @@ class SWWheelView : SWAbstractWheelView {
         }
     }
     
+    /**index of pin which is the closest to focus*/
     var index: Int {
         get {
             guard let focused = _spokes.first(where: { return $0.focused }) else {
@@ -55,23 +54,15 @@ class SWWheelView : SWAbstractWheelView {
         }
     }
     
-    /**pin and another which is the closest to focus*/
-    var focused: SWSpoke {
-        get {
-            guard let focused = _spokes.first(where: { return $0.focused }) else {
-                fatalError("no focused spokes")
-            }
-            return focused
-        }
-    }
-    
     // MARK: - Public Methods
     
     func reload() {
         if let delegate = delegate {
             
-            _view.frame = view.bounds
-            view.addSubview(_view)
+//            _view.frame = view.bounds
+//            view.addSubview(_view)
+            _view.frame = self.bounds
+            self.addSubview(_view)
             
             _spokes.removeAll()
             _view.subviews.forEach({ $0.removeFromSuperview() })
@@ -99,7 +90,8 @@ class SWWheelView : SWAbstractWheelView {
     func resize() {
         if let delegate = delegate {
             
-            _view.frame = view.bounds
+//            _view.frame = view.bounds
+            _view.frame = self.bounds
 
             for spoke in _spokes {
                 let pin = spoke.pin
@@ -186,6 +178,9 @@ class SWWheelView : SWAbstractWheelView {
     
     /**current angle [0; 2pi)*/
     private var _current: CGFloat!
+    
+    /**outer view, which contain _view*/
+    private var _outer: UIView!
     
     // MARK: - Overrided Methods
     

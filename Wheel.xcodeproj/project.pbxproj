@@ -11,7 +11,8 @@
 		1508EEC51FF4BCD6003CF526 /* SWWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */; };
 		1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */; };
 		1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC81FF4E995003CF526 /* SWSpoke.swift */; };
-		150FB1C71FF8CA65003F2601 /* SWWheelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */; };
+		150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */; };
+		150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */; };
 		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE401F88C7AE00CC5357 /* RVOrientation.swift */; };
 		151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE421F8A031C00CC5357 /* RVSettings.swift */; };
@@ -97,7 +98,8 @@
 		1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelDelegate.swift; sourceTree = "<group>"; };
 		1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelSettings.swift; sourceTree = "<group>"; };
 		1508EEC81FF4E995003CF526 /* SWSpoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSpoke.swift; sourceTree = "<group>"; };
-		150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelProtocol.swift; sourceTree = "<group>"; };
+		150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelView.swift; sourceTree = "<group>"; };
+		150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelDelegate.swift; sourceTree = "<group>"; };
 		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE401F88C7AE00CC5357 /* RVOrientation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVOrientation.swift; sourceTree = "<group>"; };
 		151AFE421F8A031C00CC5357 /* RVSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RVSettings.swift; sourceTree = "<group>"; };
@@ -199,9 +201,17 @@
 				1508EEC41FF4BCD6003CF526 /* SWWheelDelegate.swift */,
 				1508EEC61FF4C90C003CF526 /* SWWheelSettings.swift */,
 				1508EEC81FF4E995003CF526 /* SWSpoke.swift */,
-				150FB1C61FF8CA65003F2601 /* SWWheelProtocol.swift */,
 			);
 			path = TranslatedRadial;
+			sourceTree = "<group>";
+		};
+		150FB1C81FFA2B34003F2601 /* WheelAbstraction */ = {
+			isa = PBXGroup;
+			children = (
+				150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */,
+				150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */,
+			);
+			path = WheelAbstraction;
 			sourceTree = "<group>";
 		};
 		1525FE631FDBC139001CABF6 /* RadialControllers */ = {
@@ -307,6 +317,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
 				1508EEC11FF4B990003CF526 /* TranslatedRadial */,
 				155BEC361FF1572600E749B5 /* LaunchScreen */,
 				155BEC2D1FEFC8FD00E749B5 /* Options */,
@@ -429,23 +440,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = "Oleg Sokolansky";
 				TargetAttributes = {
 					15F0BB2F1F404FCC006F646E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = C6HVJ64EDS;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 					15F0BB431F404FCC006F646E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = C6HVJ64EDS;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 15F0BB2F1F404FCC006F646E;
 					};
 					15F0BB4E1F404FCC006F646E = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = C6HVJ64EDS;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 15F0BB2F1F404FCC006F646E;
 					};
@@ -518,7 +532,7 @@
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
-				150FB1C71FF8CA65003F2601 /* SWWheelProtocol.swift in Sources */,
+				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
@@ -555,6 +569,7 @@
 				15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
+				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
 				15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */,
 				155BEC381FF1574E00E749B5 /* LaunchScreenController.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
@@ -628,7 +643,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -636,7 +653,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -665,6 +686,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -678,7 +700,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -686,7 +710,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -707,6 +735,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -720,7 +749,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.Wheel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -733,7 +763,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.Wheel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -747,7 +778,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.WheelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Wheel";
 			};
 			name = Debug;
@@ -762,7 +794,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.WheelTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wheel.app/Wheel";
 			};
 			name = Release;
@@ -776,7 +809,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.WheelUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Wheel;
 			};
 			name = Debug;
@@ -790,7 +824,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = olegtests.WheelUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = On;
+				SWIFT_VERSION = 4.0;
 				TEST_TARGET_NAME = Wheel;
 			};
 			name = Release;

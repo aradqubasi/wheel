@@ -28,6 +28,13 @@ struct WSettings {
         }
     }
     
+    /**Convert to RVSettings*/
+    var asSwWheelSettings: SWWheelSettings {
+        get {
+            return SWWheelSettings(radius, distance, 0)
+        }
+    }
+    
     // MARK: - Initializers
     
     init(_ radius: CGFloat, _ distance: CGFloat, _ size: CGSize) {

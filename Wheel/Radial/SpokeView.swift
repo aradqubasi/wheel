@@ -207,7 +207,7 @@ class SpokeView: UIView {
 //        _screen._angle = _distance
         
 //        let angle: CGFloat = abs(_angle) == CGFloat.pi * 0.5 ? _angle + 0.01 : _angle
-        var angle: CGFloat = abs(_angle).truncatingRemainder(dividingBy: CGFloat.pi * 0.5) <= 0.01 ? _angle + 0.01 : _angle
+        let angle: CGFloat = abs(_angle).truncatingRemainder(dividingBy: CGFloat.pi * 0.5) <= 0.01 ? _angle + 0.01 : _angle
         if _index == 1 {
 //            let wheel = delegate as! RadialView
             print("angle \(angle) wheel \(name)")

@@ -8,10 +8,14 @@
 
 import Foundation
 import UIKit
-protocol SWWheelProtocol {
-    var focused: Int { get }
+protocol SWAbstractWheelView {
+    
+    var index: Int { get }
+    
     var count: Int { get }
-    var delegate: SWWheelDelegate? { get set }
+    
+    var delegate: SWAbstractWheelDelegate? { get set }
+    
     var name: String { get set }
-//    func 
+
 }

@@ -130,9 +130,8 @@ class SelectionController {
         
         _shroud = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 94)))
         let gradient = CAGradientLayer()
-//        gradient.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
-        gradient.colors = [UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
-//        gradient.opacity = 0.83
+//        gradient.colors = [UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
+        gradient.colors = [UIColor.init(red: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
         gradient.frame = _shroud.bounds
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
         gradient.endPoint = CGPoint(x: 1, y: 0.5)
@@ -163,17 +162,14 @@ class SelectionController {
     
     // MARK: - Actions
     
-    @objc private func onCookClick(sender: UIButton) -> Void {
+    @IBAction private func onCookClick(sender: UIButton) -> Void {
 //        discharge()
 //        print("oncook")
         let ingridients = statics.filter({ return $0.state == .full})
         delegate?.onCook(of: ingridients, in: self)
     }
     
-//    @objc private func onFoodClick(sender: StaticSelectedView) {
-//        delegate?.onRemove(of: sender, in: self)
-//    }
-    @objc private func onFoodClick(sender: FloatingSelectedView) {
+    @IBAction private func onFoodClick(sender: FloatingSelectedView) {
         delegate?.onRemove(of: sender, in: self)
     }
     

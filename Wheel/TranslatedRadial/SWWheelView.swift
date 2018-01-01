@@ -8,7 +8,8 @@
 
 import Foundation
 import UIKit
-class SWWheelView {
+class SWWheelView : SWAbstractWheelView {
+    
     
     // MARK: - Initialization
     
@@ -26,13 +27,24 @@ class SWWheelView {
     
     // MARK: - Public Properties
     
-    var delegate: SWWheelDelegate?
+    var name: String = "Undefined"
+    
+    var delegate: SWAbstractWheelDelegate?
     
     var view: UIView!
     
     var count: Int {
         get {
             return _spokes.count
+        }
+    }
+    
+    var index: Int {
+        get {
+            guard let focused = _spokes.first(where: { return $0.focused }) else {
+                fatalError("no focused spokes")
+            }
+            return focused.index
         }
     }
     
@@ -107,7 +119,7 @@ class SWWheelView {
             let pin = spoke.pin
             let socket = spoke.socket
             let radius = _settings.radius - max(socket.frame.width, socket.frame.height) * 0.5
-            socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a));
+            socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
             
             do {
                 var unlooped = (a + angle).truncatingRemainder(dividingBy: CGFloat.pi * 2)
@@ -167,4 +179,50 @@ class SWWheelView {
     
     /**current angle [0; 2pi)*/
     private var _current: CGFloat!
+    
+    // MARK: - Overrided Methods
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//
+//        let radius = bounds.width / 2
+//        let thickness = max(_pin?.bounds.width ?? 0, _pin?.bounds.height ?? 0)
+//        let x2 = (point.x - radius) * (point.x - radius)
+//        let y2 = (point.y - radius) * (point.y - radius)
+//        let ir2 = (radius - thickness) * (radius - thickness)
+//        let or2 = (radius) * (radius)
+//
+//        let first = CGPoint(x: radius, y: radius)
+//        let north = _distance * radius
+//
+//        let left = CGPoint(x: radius - north / 2, y: 0)
+//        let mleft = (left.y - first.y) / (left.x - first.x)
+//        let expectedLeftY = mleft * (point.x - first.x) + first.y
+//
+//        let right = CGPoint(x: radius + north / 2, y: 0)
+//        let mright = (right.y - first.y) / (right.x - first.x)
+//        let expectedRightY = mright * (point.x - first.x) + first.y
+//
+//        if x2 + y2 >= ir2 && x2 + y2 <= or2 {
+//
+//            if point.y <= expectedLeftY && point.y <= expectedRightY {
+//                var new = self.convert(point, to: _pin)
+//                if !_pin.bounds.contains(new) {
+//                    new = .zero
+//                }
+//                //                let hitView = _pin.hitTest(.zero, with: event)
+//                let hitView = _pin.hitTest(new, with: event)
+//                print(new)
+//                return hitView
+//            }
+//
+//        }
+//
+//        let hitView = super.hitTest(point, with: event)
+//
+//        if hitView == self {
+//            return nil
+//        } else {
+//            return hitView
+//        }
+//    }
 }

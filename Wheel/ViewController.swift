@@ -444,6 +444,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
         let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
         toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
+//        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
         toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
         //        self.view.addSubview(toUnexpected)
         wheels.addSubview(toUnexpected)
@@ -489,57 +490,57 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         adding = false
         
-        circle = UIView(frame: CGRect(center: view.center, side: view.bounds.width))
-        circle.layer.borderWidth = 1
-        circle.layer.borderColor = UIColor.black.cgColor
-        view.addSubview(circle)
-        let wheel = SWWheelView()
-        wheel.delegate = self
-        wheel.view = circle
-        wheel.reload()
-        testWheel = wheel
-
-        let toLeft = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 0 + 16), side: 32))
-        toLeft.setTitle("<", for: .normal)
-        toLeft.setTitleColor(.black, for: .normal)
-        toLeft.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toLeft)
-
-        let toRight = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 32 + 16), side: 32))
-        toRight.setTitle(">", for: .normal)
-        toRight.setTitleColor(.black, for: .normal)
-        toRight.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toRight)
-
-        let toNext = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 64 + 16), side: 32))
-        toNext.setTitle("+", for: .normal)
-        toNext.setTitleColor(.black, for: .normal)
-        toNext.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toNext)
-
-        let toPrev = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 96 + 16), side: 32))
-        toPrev.setTitle("-", for: .normal)
-        toPrev.setTitleColor(.black, for: .normal)
-        toPrev.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toPrev)
-
-        let toRandom = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 128 + 16), side: 32))
-        toRandom.setTitle("?", for: .normal)
-        toRandom.setTitleColor(.black, for: .normal)
-        toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toRandom)
-        
-        let toShrink = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 0 + 16), side: 32))
-        toShrink.setTitle("><", for: .normal)
-        toShrink.setTitleColor(.black, for: .normal)
-        toShrink.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toShrink)
-        
-        let toExpand = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 32 + 16), side: 32))
-        toExpand.setTitle("<>", for: .normal)
-        toExpand.setTitleColor(.black, for: .normal)
-        toExpand.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toExpand)
+//        circle = UIView(frame: CGRect(center: view.center, side: view.bounds.width))
+//        circle.layer.borderWidth = 1
+//        circle.layer.borderColor = UIColor.black.cgColor
+//        view.addSubview(circle)
+//        let wheel = SWWheelView()
+//        wheel.delegate = self
+//        wheel.view = circle
+//        wheel.reload()
+//        testWheel = wheel
+//
+//        let toLeft = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 0 + 16), side: 32))
+//        toLeft.setTitle("<", for: .normal)
+//        toLeft.setTitleColor(.black, for: .normal)
+//        toLeft.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toLeft)
+//
+//        let toRight = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 32 + 16), side: 32))
+//        toRight.setTitle(">", for: .normal)
+//        toRight.setTitleColor(.black, for: .normal)
+//        toRight.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toRight)
+//
+//        let toNext = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 64 + 16), side: 32))
+//        toNext.setTitle("+", for: .normal)
+//        toNext.setTitleColor(.black, for: .normal)
+//        toNext.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toNext)
+//
+//        let toPrev = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 96 + 16), side: 32))
+//        toPrev.setTitle("-", for: .normal)
+//        toPrev.setTitleColor(.black, for: .normal)
+//        toPrev.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toPrev)
+//
+//        let toRandom = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 128 + 16), side: 32))
+//        toRandom.setTitle("?", for: .normal)
+//        toRandom.setTitleColor(.black, for: .normal)
+//        toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toRandom)
+//
+//        let toShrink = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 0 + 16), side: 32))
+//        toShrink.setTitle("><", for: .normal)
+//        toShrink.setTitleColor(.black, for: .normal)
+//        toShrink.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toShrink)
+//
+//        let toExpand = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 32 + 16), side: 32))
+//        toExpand.setTitle("<>", for: .normal)
+//        toExpand.setTitleColor(.black, for: .normal)
+//        toExpand.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toExpand)
     }
 
     override func didReceiveMemoryWarning() {
@@ -633,7 +634,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //        UIView.animateKeyframes(withDuration: 4, delay: 0, options: [], animations: action, completion: nil)
     }
     
-    func onToUnexpectedClick(_ sender: UIButton) {
+    @IBAction func onToUnexpectedClick(_ sender: UIButton) {
         print("onToUnexpectedClick")
         unexpected.set(for: sender)
         let open = { () in
@@ -646,7 +647,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
-    func onToDressingClick(_ sender: UIButton) {
+    @IBAction func onToDressingClick(_ sender: UIButton) {
         print("onToDressingClick")
         dressing.set(for: sender)
         let open = { () in
@@ -659,7 +660,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
-    func onToFruitsClick(_ sender: UIButton) {
+    @IBAction func onToFruitsClick(_ sender: UIButton) {
         print("onToFruitsClick")
         fruits.set(for: sender)
         let open = { () in

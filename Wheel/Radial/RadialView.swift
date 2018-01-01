@@ -8,11 +8,25 @@
 
 import UIKit
 
-class RadialView: UIView, SVDelegate {
+class RadialView: UIView, SVDelegate, SWAbstractWheelView {
 
     // MARK: - Public Properties
     
-    var delegate: RVDelegate?
+//    var delegate: RVDelegate?
+    
+    var index: Int {
+        get {
+            return RVFocused
+        }
+    }
+    
+    var count: Int {
+        get {
+            return _spokes.count
+        }
+    }
+    
+    var delegate: SWAbstractWheelDelegate?
     
     var current: CGFloat {
         get {
@@ -165,8 +179,8 @@ class RadialView: UIView, SVDelegate {
     
     private func show() {
         if let stateSettings = delegate?.radialView(self) {
-            _distance = stateSettings.pinDistance
-            _radius = stateSettings.wheelRadius
+            _distance = stateSettings.distance
+            _radius = stateSettings.radius
         }
         
         if _background == nil {

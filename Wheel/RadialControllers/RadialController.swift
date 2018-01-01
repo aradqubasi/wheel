@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class RadialController: RVDelegate, PVDelegate {
+class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate {
 
     // MARK: - Public Properties
     
@@ -105,26 +105,32 @@ class RadialController: RVDelegate, PVDelegate {
     
     // MARK: - RVDelegate Methods
     
-    func numberOfSpokes(in wheel: RadialView) -> Int {
+    func numberOfSpokes(in wheel: SWAbstractWheelView) -> Int {
         return _pins.count
     }
     
-    func radialView(_ wheel: RadialView) -> RVSettings {
+//    func radialView(_ wheel: SWAbstractWheelView) -> RVSettings {
+//        guard let settings = _stateSettings[state] else {
+//            fatalError("no settings @ state \(state) @ \(self)")
+//        }
+//        return settings.asRvSettings
+//    }
+    
+    func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
         guard let settings = _stateSettings[state] else {
             fatalError("no settings @ state \(state) @ \(self)")
         }
-//        print(settings.asRvSettings.wheelRadius)
-        return settings.asRvSettings
+        return settings.asSwWheelSettings
     }
     
-    func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
+    func radialView(pinFor wheel: SWAbstractWheelView, at index: Int) -> UIView {
         guard let pin = _pins.count > index ? _pins[index] : nil else {
             fatalError("no pin @ index \(index) @ \(self)")
         }
         return pin
     }
     
-    func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) {
+    func radialView(for wheel: SWAbstractWheelView, update pin: UIView, in state: SVState, at index: Int) {
         guard let pin = _pins.count > index ? _pins[index] : nil else {
             fatalError("no pin @ index \(index) @ \(self)")
         }
@@ -154,11 +160,11 @@ class RadialController: RVDelegate, PVDelegate {
         }
     }
     
-    func radialView(backgroundFor wheel: RadialView) -> UIView? {
+    func radialView(backgroundFor wheel: SWAbstractWheelView) -> UIView? {
         return UIView()
     }
     
-    func radialView(for wheel: RadialView, update background: UIView) {
+    func radialView(for wheel: SWAbstractWheelView, update background: UIView) {
         guard let settings = _stateSettings[_state] else {
             fatalError("no settings @ state \(_state) @ \(self)")
         }
@@ -197,15 +203,6 @@ class RadialController: RVDelegate, PVDelegate {
         }
         delegate?.radialController(preesing: pin, in: self, at: index)
     }
-    
-    // MARK: - Actions
-    
-//    @objc func onPinClick(_ sender: Any) {
-//        guard let pin = sender as? PinView, let index = _pins.index(of: pin) else {
-//            fatalError("onPinClick invoked not by PinView")
-//        }
-//        delegate?.onPinClick(in: self, of: pin, at: index)
-//    }
     
     // MARK: - Placeholder
     

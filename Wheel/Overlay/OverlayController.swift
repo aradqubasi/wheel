@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OverlayController: RVDelegate {
+class OverlayController: SWAbstractWheelDelegate /*RVDelegate*/ {
     
     // MARK: - Public Properties
     
@@ -77,33 +77,39 @@ class OverlayController: RVDelegate {
     
     // MARK: - RadialViewDelegate Methods
     
-    func numberOfSpokes(in wheel: RadialView) -> Int {
+    func numberOfSpokes(in wheel: SWAbstractWheelView) -> Int {
         return 6
     }
     
-    func radialView(_ wheel: RadialView) -> RVSettings {
-//        let radius = ((_scene?.bounds.width) ?? 0) / (2 * CGFloat(2).squareRoot())
+//    func radialView(_ wheel: SWAbstractWheelView) -> RVSettings {
+//        let radius = ((_scene?.bounds.width) ?? 0) * 0.5 - 40
+//        let distance = CGFloat.pi / 3
+//        let settings = RVSettings(radius, distance)
+//        return settings
+//    }
+    
+    func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
         let radius = ((_scene?.bounds.width) ?? 0) * 0.5 - 40
         let distance = CGFloat.pi / 3
-        let settings = RVSettings(radius, distance)
+        let settings = SWWheelSettings(radius, distance, CGFloat.pi * 1.5)
         return settings
     }
     
-    func radialView(pinFor wheel: RadialView, at index: Int) -> UIView {
+    func radialView(pinFor wheel: SWAbstractWheelView, at index: Int) -> UIView {
         let pin = _pins[index]
         
         return pin
     }
     
-    func radialView(for wheel: RadialView, update pin: UIView, in state: SVState, at index: Int) -> Void {
+    func radialView(for wheel: SWAbstractWheelView, update pin: UIView, in state: SVState, at index: Int) -> Void {
         
     }
     
-    func radialView(backgroundFor wheel: RadialView) -> UIView? {
+    func radialView(backgroundFor wheel: SWAbstractWheelView) -> UIView? {
         return nil
     }
     
-    func radialView(for wheel: RadialView, update background: UIView) -> Void {
+    func radialView(for wheel: SWAbstractWheelView, update background: UIView) -> Void {
         
     }
     
@@ -137,12 +143,12 @@ class OverlayController: RVDelegate {
         _pins.forEach({ (next) in next.state = next === pin ? .highlight : .regular })
     }
     
-    @objc private func onCloseClick(_ sender: UIButton) {
+    @IBAction private func onCloseClick(_ sender: UIButton) {
 //        print("OverlayController.onCloseClick")
         delegate?.onClose(of: self)
     }
     
-    @objc private func onIngridientClick(_ sender: NamedPinView) {
+    @IBAction private func onIngridientClick(_ sender: NamedPinView) {
 //        print("\(sender.name) is selected")
         focusing(sender)
         delegate?.onSelect(in: self)

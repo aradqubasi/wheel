@@ -81,7 +81,7 @@ class StaticSelectedView: UIView, Floatable {
     
     // MARK: - Private Methods
     
-    @objc private func onClick() {
+    @IBAction private func onClick() {
         if let target = _target as? NSObjectProtocol, let selector = _selector {
             if target.responds(to: selector) {
                 target.perform(selector, with: self)

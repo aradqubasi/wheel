@@ -150,11 +150,11 @@ class PinView: UIView, Floatable {
         
     }
     
-    @objc private func onClick() {
+    @IBAction private func onClick() {
         delegate?.onClick(self, with: nil)
     }
     
-    @objc private func onLongPress(_ sender: UILongPressGestureRecognizer) {
+    @IBAction private func onLongPress(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             delegate?.onLongPress(in: self)
         }

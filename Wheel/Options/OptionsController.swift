@@ -111,22 +111,22 @@ class OptionsController {
     
     // MARK: - Actions
     
-    @objc private func onAdd(_ sender: UIButton) {
+    @IBAction private func onAdd(_ sender: UIButton) {
         print("onAdd")
         delegate?.optionsDelegate(on: .add, in: self)
     }
     
-    @objc private func onLock(_ sender: UIButton) {
+    @IBAction private func onLock(_ sender: UIButton) {
         print("onLock")
         delegate?.optionsDelegate(on: .lock, in: self)
     }
     
-    @objc private func onMore(_ sender: UIButton) {
+    @IBAction private func onMore(_ sender: UIButton) {
         print("onMore")
         delegate?.optionsDelegate(on: .more, in: self)
     }
   
-    @objc private func onClose(_ sender: UIButton) {
+    @IBAction private func onClose(_ sender: UIButton) {
         print("onClose")
         delegate?.optionsDelegate(on: .close, in: self)
     }

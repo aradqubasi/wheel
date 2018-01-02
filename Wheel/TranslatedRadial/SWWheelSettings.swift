@@ -19,10 +19,14 @@ struct SWWheelSettings {
     /**offset to start angle, which is zero and focus pointer*/
     let offset: CGFloat
     
-    init(_ radius: CGFloat, _ distance: CGFloat, _ offset: CGFloat) {
+    /**pin's scale factor*/
+    let scale: CGFloat
+    
+    init(_ radius: CGFloat, _ distance: CGFloat, _ offset: CGFloat, _ scale: CGFloat) {
         self.radius = radius
         self.distance = distance
         self.offset = offset
+        self.scale = scale
     }
     
 }

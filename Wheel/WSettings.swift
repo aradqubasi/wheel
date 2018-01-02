@@ -21,6 +21,12 @@ struct WSettings {
     /**PinView size*/
     var size: CGSize
     
+    /**angular offset of focus, defaut at the top*/
+    var offset: CGFloat
+    
+    /**pin scale factor*/
+    var scale: CGFloat
+    
     /**Convert to RVSettings*/
     var asRvSettings: RVSettings {
         get {
@@ -31,16 +37,18 @@ struct WSettings {
     /**Convert to RVSettings*/
     var asSwWheelSettings: SWWheelSettings {
         get {
-            return SWWheelSettings(radius, distance, 0)
+            return SWWheelSettings(radius, distance, offset, scale)
         }
     }
     
     // MARK: - Initializers
     
-    init(_ radius: CGFloat, _ distance: CGFloat, _ size: CGSize) {
+    init(_ radius: CGFloat, _ distance: CGFloat, _ size: CGSize, _ offset: CGFloat, _ scale: CGFloat) {
         self.radius = radius
         self.distance = distance
         self.size = size
+        self.offset = offset
+        self.scale = scale
     }
     
     

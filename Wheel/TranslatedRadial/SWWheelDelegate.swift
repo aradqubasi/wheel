@@ -17,7 +17,7 @@ protocol SWWheelDelegate {
     
     func radialView(pinFor wheel: SWWheelView, at index: Int) -> UIView
     
-//    func radialView(for wheel: SWWheelView, update pin: UIView, in state: SVState, at index: Int) -> Void
+    func radialView(for wheel: SWWheelView, update spoke: SWSpoke) -> Void
     
 //    func radialView(backgroundFor wheel: SWWheelView) -> UIView?
     
@@ -48,6 +48,11 @@ extension SWWheelDelegate {
         let radius = min(wheel.bounds.width, wheel.bounds.height) * 0.5
         let distance = 2 * CGFloat.pi / CGFloat(wheel.count)
         let offset = CGFloat(0)
-        return SWWheelSettings(radius, distance, offset)
+        return SWWheelSettings(radius, distance, offset, 1)
     }
+    
+    func radialView(for wheel: SWWheelView, update spoke: SWSpoke) -> Void {
+        
+    }
+    
 }

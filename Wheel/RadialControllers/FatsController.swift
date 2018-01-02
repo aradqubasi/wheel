@@ -26,7 +26,7 @@ class FatsController : RadialController {
     
     // MARK: - Initialization
     
-    init() {
+    init(_ wheel: SWAbstractWheelView) {
 //
 //        let coconut = PinView()
 //        coconut.images = [
@@ -216,13 +216,13 @@ class FatsController : RadialController {
 //        pins.append(contentsOf: [coconut2, hazelnut2, seeds2, brazilnut2, cashewnut2, avocado2, peanut2])
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52)),
-            .fats: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 66, height: 66)),
-            .veggies: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52)),
-            .proteins: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52))
+            .bases: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .fats: WSettings(215, CGFloat.pi / 5 * 0.67, CGSize(width: 66, height: 66), CGFloat.pi * 1.5, 1),
+            .veggies: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .proteins: WSettings(210, CGFloat.pi / 5 * 0.67, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1)
         ]
         
-        super.init(pins, settings, "fats")
+        super.init(wheel, pins, settings, "fats")
         
     }
     

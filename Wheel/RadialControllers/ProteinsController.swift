@@ -26,7 +26,7 @@ class ProteinsController : RadialController {
     
     // MARK: - Initialization
     
-    init() {
+    init(_ wheel: SWAbstractWheelView) {
         
 //        let chickpeas = PinView()
 //        chickpeas.images = [
@@ -269,13 +269,13 @@ class ProteinsController : RadialController {
 //        pins.append(contentsOf: [chickpeas2, fish2, boiledegg2, beans2, peas2, friedegg2, lentils2, mushrooms2, shrimp2])
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
-            .fats: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
-            .veggies: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52)),
-            .proteins: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 66, height: 66))
+            .bases: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .fats: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .veggies: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .proteins: WSettings(353, CGFloat.pi / 5 * 0.4, CGSize(width: 66, height: 66), CGFloat.pi * 1.5, 1)
         ]
         
-        super.init(pins, settings, "proteins")
+        super.init(wheel, pins, settings, "proteins")
         
     }
     

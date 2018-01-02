@@ -13,10 +13,12 @@ class SWSpoke {
     let pin: UIView
     let index: Int
     var focused: Bool
-    init(_ socket: UIView, _ pin: UIView, _ index: Int, _ focused: Bool) {
+    var angle: CGFloat
+    init(_ socket: UIView, _ pin: UIView, _ index: Int, _ focused: Bool, _ angle: CGFloat) {
         self.socket = socket
         self.pin = pin
         self.index = index
         self.focused = focused
+        self.angle = angle
     }
 }

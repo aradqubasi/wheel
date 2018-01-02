@@ -44,7 +44,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     var radialMenu: SWAbstractWheelView!
     
     var basesMenu: RadialView!
-//    var basesMenu: SWAbstractWheelView!
+//    var basesMenu: SWWheelView!
     
     var fatsMenu: RadialView!
     
@@ -120,7 +120,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 
     }
     
-    func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void {
+    func onPinClick(in controller: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
         print("onPinClick")
         if controller.focused == pin {
 //            self.selectPins([pin])
@@ -128,7 +128,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
         else {
             let moveto = { () -> Void in
-                controller.view.move(to: index)
+                controller.move(to: index)
+//                controller.view.move(to: index)
 //                self.setUserInteractionEnabled(to: false, in: self.view, true)
             }
             
@@ -140,7 +141,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
     }
     
-    func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) {
+    func radialController(preesing pin: PinView, in controller: SWAbstractWheelController, at index: Int) {
         print("radialController")
         
         options.set(for: pin)
@@ -164,10 +165,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
     
     func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
-        let radius = min(testWheel.frame.width, testWheel.frame.width) * 0.5
+        let radius = testWheelRadius
         let distance = CGFloat.pi / 3
         let offset = CGFloat(0)
-        return SWWheelSettings(radius, distance, offset)
+        return SWWheelSettings(radius, distance, offset, 1)
     }
     
     func radialView(pinFor wheel: SWAbstractWheelView, at index: Int) -> UIView {
@@ -381,12 +382,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //        let leftMiddle = CGPoint(x: self.view.frame.width + 20, y: self.view.frame.height / 2)
         let leftMiddle = CGPoint(x: wheels.bounds.width + 20, y: wheels.bounds.height / 2)
         
-        proteins = ProteinsController()
-        proteins.delegate = self
+//        proteins = ProteinsController()
+//        proteins.delegate = self
+//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(proteinsMenu)
+//        proteins.view = proteinsMenu
+        
         proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-//        self.view.addSubview(proteinsMenu)
         wheels.addSubview(proteinsMenu)
-        proteins.view = proteinsMenu
+        proteins = ProteinsController(proteinsMenu)
+        proteins.delegate = self
         
         proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         proteinsMark.textAlignment = .center
@@ -394,12 +399,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         proteinsMark.text = "proteins".uppercased()
         proteins.label = proteinsMark
         
-        veggies = VeggiesController()
-        veggies.delegate = self
+//        veggies = VeggiesController()
+//        veggies.delegate = self
+//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(veggiesMenu)
+//        veggies.view = veggiesMenu
+        
         veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
-//        self.view.addSubview(veggiesMenu)
         wheels.addSubview(veggiesMenu)
-        veggies.view = veggiesMenu
+        veggies = VeggiesController(veggiesMenu)
+        veggies.delegate = self
         
         veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         veggiesMark.textAlignment = .center
@@ -407,12 +416,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         veggiesMark.text = "veggies".uppercased()
         veggies.label = veggiesMark
         
-        fats = FatsController()
-        fats.delegate = self
+//        fats = FatsController()
+//        fats.delegate = self
+//        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(fatsMenu)
+//        fats.view = fatsMenu
+        
         fatsMenu = RadialView(center: leftMiddle,orientation: .left)
-//        self.view.addSubview(fatsMenu)
         wheels.addSubview(fatsMenu)
-        fats.view = fatsMenu
+        fats = FatsController(fatsMenu)
+        fats.delegate = self
         
         fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         fatsMark.textAlignment = .center
@@ -420,18 +433,29 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         fatsMark.text = "fats".uppercased()
         fats.label = fatsMark
         
-        bases = BasesController()
-        bases.delegate = self
+//        bases = BasesController()
+//        bases.delegate = self
+//        basesMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(basesMenu)
+//        bases.view = basesMenu
+        
         basesMenu = RadialView(center: leftMiddle,orientation: .left)
-//        self.view.addSubview(basesMenu)
         wheels.addSubview(basesMenu)
-        bases.view = basesMenu
+        bases = BasesController(basesMenu)
+        bases.delegate = self
+        
+//        bases = BasesController()
+//        bases.delegate = self
+//        basesMenu = SWWheelView(frame: CGRect(center: leftMiddle, side: wheels.bounds.width * 2))
+//        wheels.addSubview(basesMenu)
+//        bases.view = basesMenu
         
         basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
         basesMark.textAlignment = .center
         wheels.addSubview(basesMark)
         basesMark.text = "bases".uppercased()
         bases.label = basesMark
+        bases.state = bases.initial
         
         radialMenu = basesMenu
         
@@ -529,54 +553,55 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         adding = false
         
-        testWheel = SWWheelView(frame: CGRect(center: view.center, side: view.bounds.width))
-        testWheel.layer.borderWidth = 1
-        testWheel.layer.borderColor = UIColor.black.cgColor
-        testWheel.delegate = self
-        view.addSubview(testWheel)
-        testWheel.reload()
-
-        let toLeft = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 0 + 16), side: 32))
-        toLeft.setTitle("<", for: .normal)
-        toLeft.setTitleColor(.black, for: .normal)
-        toLeft.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toLeft)
-
-        let toRight = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 32 + 16), side: 32))
-        toRight.setTitle(">", for: .normal)
-        toRight.setTitleColor(.black, for: .normal)
-        toRight.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toRight)
-
-        let toNext = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 64 + 16), side: 32))
-        toNext.setTitle("+", for: .normal)
-        toNext.setTitleColor(.black, for: .normal)
-        toNext.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toNext)
-
-        let toPrev = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 96 + 16), side: 32))
-        toPrev.setTitle("-", for: .normal)
-        toPrev.setTitleColor(.black, for: .normal)
-        toPrev.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toPrev)
-
-        let toRandom = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 128 + 16), side: 32))
-        toRandom.setTitle("?", for: .normal)
-        toRandom.setTitleColor(.black, for: .normal)
-        toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toRandom)
-
-        let toShrink = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 0 + 16), side: 32))
-        toShrink.setTitle("><", for: .normal)
-        toShrink.setTitleColor(.black, for: .normal)
-        toShrink.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toShrink)
-
-        let toExpand = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 32 + 16), side: 32))
-        toExpand.setTitle("<>", for: .normal)
-        toExpand.setTitleColor(.black, for: .normal)
-        toExpand.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
-        view.addSubview(toExpand)
+//        testWheelRadius = view.bounds.width * 0.5
+//        testWheel = SWWheelView(frame: CGRect(center: view.center, side: view.bounds.height))
+//        testWheel.layer.borderWidth = 1
+//        testWheel.layer.borderColor = UIColor.black.cgColor
+//        testWheel.delegate = self
+//        view.addSubview(testWheel)
+//        testWheel.reload()
+//
+//        let toLeft = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 0 + 16), side: 32))
+//        toLeft.setTitle("<", for: .normal)
+//        toLeft.setTitleColor(.black, for: .normal)
+//        toLeft.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toLeft)
+//
+//        let toRight = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 32 + 16), side: 32))
+//        toRight.setTitle(">", for: .normal)
+//        toRight.setTitleColor(.black, for: .normal)
+//        toRight.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toRight)
+//
+//        let toNext = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 64 + 16), side: 32))
+//        toNext.setTitle("+", for: .normal)
+//        toNext.setTitleColor(.black, for: .normal)
+//        toNext.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toNext)
+//
+//        let toPrev = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 96 + 16), side: 32))
+//        toPrev.setTitle("-", for: .normal)
+//        toPrev.setTitleColor(.black, for: .normal)
+//        toPrev.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toPrev)
+//
+//        let toRandom = UIButton(frame: CGRect(center: CGPoint(x: 16, y: 128 + 16), side: 32))
+//        toRandom.setTitle("?", for: .normal)
+//        toRandom.setTitleColor(.black, for: .normal)
+//        toRandom.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toRandom)
+//
+//        let toShrink = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 0 + 16), side: 32))
+//        toShrink.setTitle("><", for: .normal)
+//        toShrink.setTitleColor(.black, for: .normal)
+//        toShrink.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toShrink)
+//
+//        let toExpand = UIButton(frame: CGRect(center: CGPoint(x: 16 + 32, y: 32 + 16), side: 32))
+//        toExpand.setTitle("<>", for: .normal)
+//        toExpand.setTitleColor(.black, for: .normal)
+//        toExpand.addTarget(self, action: #selector(to(_:)), for: .touchUpInside)
+//        view.addSubview(toExpand)
     }
 
     override func didReceiveMemoryWarning() {
@@ -586,6 +611,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Actions
     
     var testWheel: SWWheelView!
+    
+    var testWheelRadius: CGFloat = 0
     
     @IBAction func to(_ sender: UIButton) {
         let astep = CGFloat.pi / 12
@@ -617,19 +644,14 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         case "<>":
             print("<>")
             action = {
-                let prev = self.testWheel.center
-                self.testWheel.frame = CGRect(origin: .zero, size: CGSize(side: self.testWheel.frame.width + 40))
-                self.testWheel.center = prev
-//                self.testWheel.reload()
+//                let prev = self.testWheel.center
+                self.testWheelRadius += 40
                 self.testWheel.resize()
             }
         case "><":
             print("><")
             action = {
-                let prev = self.testWheel.center
-                self.testWheel.frame = CGRect(origin: .zero, size: CGSize(side: self.testWheel.frame.width - 40))
-                self.testWheel.center = prev
-//                self.testWheel.reload()
+                self.testWheelRadius -= 40
                 self.testWheel.resize()
             }
         default:

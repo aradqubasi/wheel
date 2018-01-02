@@ -1,31 +1,32 @@
 //
-//  Extensions.swift
+//  SWWheelController.swift
 //  Wheel
 //
-//  Created by Oleg Sokolansky on 10/11/2017.
-//  Copyright © 2017 Oleg Sokolansky. All rights reserved.
+//  Created by Oleg Sokolansky on 02/01/2018.
+//  Copyright © 2018 Oleg Sokolansky. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAbstractWheelController {
-
+class SWWheelController: SWWheelDelegate, PVDelegate, SWAbstractWheelController {
+    
+    
     // MARK: - Public Properties
     
     var delegate: RadialControllerDelegate?
     
-//    var view: SWAbstractWheelView {
-//        get {
-//            return _view
-//        }
-//        set(new) {
-//            _view?.delegate = nil
-//            _view = new
+    var view: SWAbstractWheelView {
+        get {
+            return _view
+        }
+        set(new) {
+            _view?.delegate = nil
+            _view = new
 //            _view.delegate = self
-//            _view.name = _name
-//            apply(_state)
-//        }
-//    }
+            _view.name = _name
+            apply(_state)
+        }
+    }
     
     var label: UILabel {
         get {
@@ -84,28 +85,19 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     
     // MARK: - Initializer
     
-    init(_ wheel: SWAbstractWheelView, _ pins: [PinView], _ settings: [WState: WSettings], _ name: String) {
+    init(_ pins: [PinView], _ settings: [WState: WSettings], _ name: String) {
         
         _name = name
-//        print(initial)
-        
-        
-        
+
         let setPVDelegate = {
             (pin: PinView) -> Void in
             pin.delegate = self
-//            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
         }
         
         _pins = pins
         _pins.forEach(setPVDelegate)
         _stateSettings = settings
         state = initial
-        
-        _view = wheel
-        _view.delegate = self
-        _view.name = _name
-        apply(_state)
     }
     
     // MARK: - RVDelegate Methods
@@ -113,6 +105,13 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     func numberOfSpokes(in wheel: SWAbstractWheelView) -> Int {
         return _pins.count
     }
+    
+    //    func radialView(_ wheel: SWAbstractWheelView) -> RVSettings {
+    //        guard let settings = _stateSettings[state] else {
+    //            fatalError("no settings @ state \(state) @ \(self)")
+    //        }
+    //        return settings.asRvSettings
+    //    }
     
     func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
         guard let settings = _stateSettings[state] else {
@@ -138,7 +137,9 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
         guard let images = pin.images[_state], let image = images[state]  else {
             fatalError("no image @ index \(index) @ wstate \(_state) @ svstate \(state) @ \(self)")
         }
-
+        
+        //        if pin.
+        
         pin.setImage(image, for: .normal)
         
         if pin.frame.origin != .zero || pin.frame.size != settings.size {
@@ -170,7 +171,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     // MARK: - PinView Delegate Methods
     
     func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
-        delegate?.onStateChange(to: active, of: _view)
+        delegate?.onStateChange(to: active, of: view)
     }
     
     func onTouchesMoved(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
@@ -217,7 +218,7 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
         }
     }
     
-    func move(to index: Int) -> Void {
+    func move(to index: Int) {
         _view.move(to: index)
     }
     
@@ -243,13 +244,13 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
             guard let parent = label.superview else {
                 fatalError("view is not attached to superview")
             }
-        
+            
             var x = parent.bounds.width
             x -= settings.radius
             x -= label.frame.width / 2
             x += settings.size.width
             x += 20
-
+            
             let y = parent.bounds.height / 2 - label.frame.height / 2
             label.frame.origin = CGPoint(x: x, y: y)
             label.transform = CGAffineTransform(rotationAngle: -CGFloat.pi / 2)
@@ -257,4 +258,3 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
         }
     }
 }
-

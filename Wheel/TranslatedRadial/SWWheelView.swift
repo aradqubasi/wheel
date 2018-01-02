@@ -8,12 +8,7 @@
 
 import Foundation
 import UIKit
-class SWWheelView : UIView, SWAbstractWheelView {
-    
-    
-    // MARK: - Stuff to remove later
-    
-    var RVState: RVState = .active
+class SWWheelView : UIView {
     
     // MARK: - Initialization
     
@@ -36,7 +31,7 @@ class SWWheelView : UIView, SWAbstractWheelView {
     
     var name: String = "Undefined"
     
-    var delegate: SWAbstractWheelDelegate?
+    var delegate: SWWheelDelegate?
     
     var count: Int {
         get {
@@ -47,10 +42,7 @@ class SWWheelView : UIView, SWAbstractWheelView {
     /**index of pin which is the closest to focus*/
     var index: Int {
         get {
-            guard let focused = _spokes.first(where: { return $0.focused }) else {
-                fatalError("no focused spokes")
-            }
-            return focused.index
+            return _spokes.first(where: { return $0.focused })?.index ?? 0
         }
     }
     
@@ -58,9 +50,7 @@ class SWWheelView : UIView, SWAbstractWheelView {
     
     func reload() {
         if let delegate = delegate {
-            
-//            _view.frame = view.bounds
-//            view.addSubview(_view)
+
             _view.frame = self.bounds
             self.addSubview(_view)
             
@@ -76,7 +66,7 @@ class SWWheelView : UIView, SWAbstractWheelView {
                 socket.addSubview(pin)
                 pin.frame.origin = .zero
                 
-                let spoke = SWSpoke(socket, pin, index, false)
+                let spoke = SWSpoke(socket, pin, index, false, 0)
                 _spokes.append(spoke)
                 _view.addSubview(socket)
             }
@@ -90,17 +80,27 @@ class SWWheelView : UIView, SWAbstractWheelView {
     func resize() {
         if let delegate = delegate {
             
-//            _view.frame = view.bounds
             _view.frame = self.bounds
 
             for spoke in _spokes {
+                
                 let pin = spoke.pin
-                pin.transform = CGAffineTransform.identity
-                pin.frame.origin = .zero
+                if pin.frame != .zero {
+//                    print("identity rs 1 pin.framee \(pin.frame) .zero \(CGPoint.zero)")
+                    pin.transform = CGAffineTransform.identity
+                    pin.frame.origin = .zero
+                }
+                
+                let newSocketCenter = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+                let newPinSize = pin.frame.size
                 let socket = spoke.socket
-                socket.transform = CGAffineTransform.identity
-                socket.frame.size = pin.frame.size
-                socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+                if socket.frame.size != newPinSize || socket.center != newSocketCenter {
+//                    print("identity rs 2 socket.frame.size \(socket.frame.size) newPinSize \(newPinSize) socket.center \(socket.center) newSocketCenter \(newSocketCenter)")
+                    socket.transform = CGAffineTransform.identity
+                    socket.frame.size = pin.frame.size
+                    socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+                }
+                
             }
             
             _settings = delegate.radialView(self)
@@ -111,15 +111,10 @@ class SWWheelView : UIView, SWAbstractWheelView {
     
     func rotate(to angle: CGFloat) -> Void {
 
-//        _view.transform = CGAffineTransform.identity
         var found = false
         var a: CGFloat = 0
         for spoke in _spokes {
-            let pin = spoke.pin
             let socket = spoke.socket
-            let radius = _settings.radius - max(socket.frame.width, socket.frame.height) * 0.5
-            socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
-            
             do {
                 var unlooped = (a + angle).truncatingRemainder(dividingBy: CGFloat.pi * 2)
                 unlooped = unlooped < 0 ? 2 * CGFloat.pi - abs(unlooped) : unlooped
@@ -136,17 +131,19 @@ class SWWheelView : UIView, SWAbstractWheelView {
                 }
                 spoke.focused = found ? false : spoke.focused
                 found = spoke.focused ? true : false
+                
+                print("spoke \(spoke.index) is \(spoke.focused) at \(unlooped) to \(angle)")
             }
-            
-            pin.backgroundColor = spoke.focused ? .blue : .red
+            delegate?.radialView(for: self, update: spoke)
             a += _settings.distance
         }
         
-//        _view.transform = CGAffineTransform.identity.rotated(by: abs(angle) == CGFloat.pi ? angle * 1.01 : angle )
         _view.transform = CGAffineTransform.identity.rotated(by: angle)
-//        print(angle)
+
+        let factor = _settings.scale
         for spoke in _spokes {
-            spoke.pin.transform = CGAffineTransform.identity.rotated(by: -angle)
+            spoke.pin.transform = CGAffineTransform.identity.scaledBy(x: factor, y: factor).rotated(by: -angle)
+            spoke.angle = angle
         }
         
         _current = angle
@@ -180,7 +177,7 @@ class SWWheelView : UIView, SWAbstractWheelView {
     private var _current: CGFloat!
     
     /**outer view, which contain _view*/
-    private var _outer: UIView!
+//    private var _outer: UIView!
     
     // MARK: - Overrided Methods
     

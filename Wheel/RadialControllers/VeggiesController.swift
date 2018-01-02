@@ -26,7 +26,7 @@ class VeggiesController : RadialController {
     
     // MARK: - Initialization
     
-    init() {
+    init(_ wheel: SWAbstractWheelView) {
         
 //        let aubergine = PinView()
 //        aubergine.images = [
@@ -268,13 +268,13 @@ class VeggiesController : RadialController {
 //        pins.append(contentsOf: [aubergine2, tomato2, radish2, pepper2, broccoli2, carrot2, asparagus2, cauliflower2, corn2])
         
         let settings: [WState: WSettings] = [
-            .bases: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52)),
-            .fats: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52)),
-            .veggies: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 66, height: 66)),
-            .proteins: WSettings(279, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52))
+            .bases: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .fats: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1),
+            .veggies: WSettings(284, CGFloat.pi / 5 * 0.49, CGSize(width: 66, height: 66), CGFloat.pi * 1.5, 1),
+            .proteins: WSettings(279, CGFloat.pi / 5 * 0.49, CGSize(width: 52, height: 52), CGFloat.pi * 1.5, 1)
         ]
         
-        super.init(pins, settings, "veggies")
+        super.init(wheel, pins, settings, "veggies")
         
     }
     

@@ -91,7 +91,7 @@ class OverlayController: SWAbstractWheelDelegate /*RVDelegate*/ {
     func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
         let radius = ((_scene?.bounds.width) ?? 0) * 0.5 - 40
         let distance = CGFloat.pi / 3
-        let settings = SWWheelSettings(radius, distance, CGFloat.pi * 1.5)
+        let settings = SWWheelSettings(radius, distance, CGFloat.pi * 1.5, 1)
         return settings
     }
     

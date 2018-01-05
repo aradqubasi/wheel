@@ -10,11 +10,11 @@ import Foundation
 import UIKit
 class SWSpoke {
     let socket: UIView
-    let pin: UIView
+    let pin: PinView
     let index: Int
     var focused: Bool
     var angle: CGFloat
-    init(_ socket: UIView, _ pin: UIView, _ index: Int, _ focused: Bool, _ angle: CGFloat) {
+    init(_ socket: UIView, _ pin: PinView, _ index: Int, _ focused: Bool, _ angle: CGFloat) {
         self.socket = socket
         self.pin = pin
         self.index = index

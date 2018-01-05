@@ -225,18 +225,20 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     
     private func apply(_ state: WState) {
         
-        if var wheel = _view {
-            if active != state {
-                wheel.RVState = .inactive
-            }
-            else {
-                wheel.RVState = .active
-            }
-        }
+//        if var wheel = _view {
+//            if active != state {
+//                wheel.RVState = .inactive
+//            }
+//            else {
+//                wheel.RVState = .active
+//            }
+//        }
         
         guard let settings = _stateSettings[_state] else {
             fatalError("no settings @ state \(_state) @ \(self)")
         }
+        
+        _view?.flush(with: settings)
         
         if let label = _label {
             label.transform = CGAffineTransform(rotationAngle: 0)

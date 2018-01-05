@@ -1,37 +1,211 @@
 //
-//  SWRadialView.swift
+//  SWWheelView.swift
 //  Wheel
 //
-//  Created by Oleg Sokolansky on 28/12/2017.
-//  Copyright © 2017 Oleg Sokolansky. All rights reserved.
+//  Created by Oleg Sokolansky on 02/01/2018.
+//  Copyright © 2018 Oleg Sokolansky. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class SWWheelView : UIView {
+class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
     
-    // MARK: - Initialization
+    // MARK: - Initializers
     
-    override init(frame: CGRect) {
+    init(in container: UIView) {
         
-        super.init(frame: frame)
+        _container = container
         
-        _spokes = []
+        name = "Bases"
         
-        _current = 0
+        do {
+            let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
+            
+            let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), salad, 1, false, 0))
+            
+            let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), cabbage, 2, false, 0))
+            
+            let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), lettuce, 3, false, 0))
+            
+            let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), spinach, 4, false, 0))
+            
+            let brusselssprouts = PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), brusselssprouts, 5, false, 0))
+            
+//            zoodles (aka spiralized zucchini)
+            let zoodles = PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), zoodles, 6, false, 0))
+            
+            let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            _spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
+            
+            _state = .bases
+            
+            _settings = [
+                .bases: WSettings(155, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1.25),
+                .fats: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
+                .veggies: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
+                .proteins: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1)
+            ]
+            
+            _face = CGFloat.pi //* 0.75
+        }
         
-        _view = UIView()
+        _background = UIView()
+        _view = UIView(frame: _container.bounds)
+        _view.addSubview(_background)
+        _container.addSubview(_view)
+        for i in 0..<_spokes.count {
+            
+            let socket = _spokes[i].socket
+            let pin = _spokes[i].pin
+            
+            pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
+//            pin.frame.size = CGSize(width: 52, height: 52)
+            pin.setPin(size: CGSize(width: 52, height: 52))
+            guard let image = pin.images[_state]?[.visible] else {
+                fatalError("no image")
+            }
+            pin.setImage(image, for: .normal)
+            
+            socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
+            socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+            socket.addSubview(pin)
+            
+            _view.addSubview(socket)
+            
+            guard var radius = _settings[_state]?.radius else {
+                fatalError("no settings for state \(_state)")
+            }
+            radius -= socket.frame.width * 0.5
+            
+            let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
+            var a = delta * CGFloat(i)
+            a = a > CGFloat.pi ? a - 2 * CGFloat.pi : a
+            socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
+//            print("and the angle is \(a) out of \(delta * CGFloat(i))")
+            _spokes[i].angle = a
+        }
+        
+        do {
+            //add primary set
+            _extended = _spokes.reduce(into: _extended, { dict, next in
+                dict[next.angle] = next.index
+            })
+            //add set for face near pi
+            _extended = _spokes.filter({
+                return $0.angle <= 0
+            }).reduce(into: _extended, { dict, next in
+                let adjusted = next.angle + CGFloat.pi * 2
+                dict[adjusted] = next.index
+            })
+            //add set for face near -pi
+            _extended = _spokes.filter({
+                return $0.angle >= 0
+            }).reduce(into: _extended, { dict, next in
+                let adjusted = next.angle - 2 * CGFloat.pi
+                dict[adjusted] = next.index
+            })
+            //debug
+//            _spokes.sorted(by: {
+//                return $0.angle < $1.angle
+//            }).forEach({
+//                print("original \($0.angle) \($0.index)")
+//            })
+//            _extended.sorted(by: {
+//                return $0.key < $1.key
+//            }).forEach({
+//                print("extended \($0.key) \($0.value)")
+//            })
+        }
+        
+        flush(with: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Public Properties
+    // MARK: - Private Properties
     
-    var name: String = "Undefined"
+    /**angle/spoke index pairs, used for checking whether speicifc spoke is in focus*/
+    private var _extended: [CGFloat : Int] = [:]
     
-    var delegate: SWWheelDelegate?
+    private var _state: WState!
+    
+    private var _spokes: [SWSpoke] = []
+    
+    private var _settings: [WState : WSettings] = [:]
+    
+    /**angle at which spokes considered focused*/
+    private var _face: CGFloat!
+    
+    /**super view for all wheel heirarchy*/
+    private var _container: UIView!
+    
+    /**subview of _socket, hold spokes, rotates*/
+    private var _view: UIView!
+    
+    /**current angle*/
+    private var _current: CGFloat {
+        get {
+            return atan2(_view.transform.b, _view.transform.a)
+        }
+    }
+    
+    /**background view, resize each time state is updated*/
+    var _background: UIView!
+    
+    // MARK: - Private Methods
+    
+
+
+    // MARK: - SWAbstractWheelController
+    
+    var focused: PinView {
+        get {
+            guard let focused = _spokes.first(where: { return $0.focused }) else {
+                fatalError("no active spoke")
+            }
+            return focused.pin
+        }
+    }
+    
+    func moveToRandomPin() {
+        
+    }
+    
+    var state: WState {
+        get {
+            return _state
+        }
+        set(new) {
+            _state = new
+            flush(with: nil)
+        }
+    }
+    
+    // MARK: - SWAbstractWheelView
+    
+    var center: CGPoint {
+        get {
+            return _container.center
+        }
+    }
+    
+    var index: Int {
+        get {
+            guard let index = _spokes.first(where: { return $0.focused })?.index else {
+                fatalError("no active spoke")
+            }
+            return index
+        }
+    }
     
     var count: Int {
         get {
@@ -39,189 +213,77 @@ class SWWheelView : UIView {
         }
     }
     
-    /**index of pin which is the closest to focus*/
-    var index: Int {
-        get {
-            return _spokes.first(where: { return $0.focused })?.index ?? 0
-        }
+    /**we do not need it here... do not touch it*/
+    var delegate: SWAbstractWheelDelegate?
+    
+    /**wheel name, aestetics purposes only*/
+    var name: String
+    
+    /**rotate wheel to specific anglew which would bring pin to face*/
+    func move(to index: Int) {
+        let angle = _face - _spokes[index].angle
+        self.move(by: angle)
     }
     
-    // MARK: - Public Methods
-    
-    func reload() {
-        if let delegate = delegate {
-
-            _view.frame = self.bounds
-            self.addSubview(_view)
-            
-            _spokes.removeAll()
-            _view.subviews.forEach({ $0.removeFromSuperview() })
-            let count = delegate.numberOfSpokes(in: self)
-            for index in 0..<count {
-                let pin = delegate.radialView(pinFor: self, at: index)
-                
-                let socket = UIView()
-                socket.frame.size = pin.frame.size
-                socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
-                socket.addSubview(pin)
-                pin.frame.origin = .zero
-                
-                let spoke = SWSpoke(socket, pin, index, false, 0)
-                _spokes.append(spoke)
-                _view.addSubview(socket)
-            }
-            
-            _settings = delegate.radialView(self)
-            
-            move(by: _settings.offset)
+    /**set wheel to correct angle, pins to correct sizes, only transforms allowed*/
+    func move(by angle: CGFloat) {
+        let new = _current + angle
+        _view.transform = CGAffineTransform.identity.rotated(by: new)
+        guard let factor = _settings[state]?.scale else {
+            fatalError("no settings for state \(state)")
         }
-    }
-    
-    func resize() {
-        if let delegate = delegate {
-            
-            _view.frame = self.bounds
-
-            for spoke in _spokes {
-                
-                let pin = spoke.pin
-                if pin.frame != .zero {
-//                    print("identity rs 1 pin.framee \(pin.frame) .zero \(CGPoint.zero)")
-                    pin.transform = CGAffineTransform.identity
-                    pin.frame.origin = .zero
-                }
-                
-                let newSocketCenter = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
-                let newPinSize = pin.frame.size
-                let socket = spoke.socket
-                if socket.frame.size != newPinSize || socket.center != newSocketCenter {
-//                    print("identity rs 2 socket.frame.size \(socket.frame.size) newPinSize \(newPinSize) socket.center \(socket.center) newSocketCenter \(newSocketCenter)")
-                    socket.transform = CGAffineTransform.identity
-                    socket.frame.size = pin.frame.size
-                    socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
-                }
-                
-            }
-            
-            _settings = delegate.radialView(self)
-            
-            move(by: 0)
-        }
-    }
-    
-    func rotate(to angle: CGFloat) -> Void {
-
-        var found = false
-        var a: CGFloat = 0
         for spoke in _spokes {
-            let socket = spoke.socket
-            do {
-                var unlooped = (a + angle).truncatingRemainder(dividingBy: CGFloat.pi * 2)
-                unlooped = unlooped < 0 ? 2 * CGFloat.pi - abs(unlooped) : unlooped
-                let delta = _settings.distance * 0.5
-                
-                if _settings.offset - delta < 0 {
-                    spoke.focused = unlooped >= 2 * CGFloat.pi - abs(_settings.offset - delta) || unlooped < _settings.offset + delta
-                }
-                else if _settings.offset + delta > 2 * CGFloat.pi {
-                    spoke.focused = unlooped >= _settings.offset - delta || unlooped < _settings.offset + delta - 2 * CGFloat.pi
+            spoke.pin.transform = CGAffineTransform.identity.scaledBy(x: factor, y: factor).rotated(by: -new)
+//            spoke.angle = angle
+        }
+        
+        //check focus
+        do {
+            guard var delta = _settings[_state]?.distance else {
+                fatalError("no settings for state \(_state)")
+            }
+            delta *= 0.5
+            let current = _current
+            guard let focused = _extended.first(where: { return $0.key + current <= _face + delta && $0.key + current > _face - delta })?.value else {
+                fatalError("no focused pins")
+            }
+            
+            for spoke in _spokes {
+//                print("current \(_current)")
+                if spoke.index == focused {
+                    spoke.focused = true
+                    
+                    //focus pin
+                    do {
+                        guard let image = spoke.pin.images[_state]?.first(where: { return $0.key == .focused })?.value else {
+                            fatalError("no images for state \(_state):\(SVState.focused) in \(spoke.pin.name)")
+                        }
+                        spoke.pin.setImage(image, for: .normal)
+                    }
                 }
                 else {
-                    spoke.focused = unlooped >= _settings.offset - delta && unlooped < _settings.offset + delta
+                    spoke.focused = false
+                    
+                    //unfocus pin
+                    do {
+                        guard let image = spoke.pin.images[_state]?.first(where: { return $0.key == .visible })?.value else {
+                            fatalError("no images for state \(_state):\(SVState.visible) in \(spoke.pin.name)")
+                        }
+                        spoke.pin.setImage(image, for: .normal)
+                    }
                 }
-                spoke.focused = found ? false : spoke.focused
-                found = spoke.focused ? true : false
-                
-                print("spoke \(spoke.index) is \(spoke.focused) at \(unlooped) to \(angle)")
             }
-            delegate?.radialView(for: self, update: spoke)
-            a += _settings.distance
         }
-        
-        _view.transform = CGAffineTransform.identity.rotated(by: angle)
-
-        let factor = _settings.scale
-        for spoke in _spokes {
-            spoke.pin.transform = CGAffineTransform.identity.scaledBy(x: factor, y: factor).rotated(by: -angle)
-            spoke.angle = angle
-        }
-        
-        _current = angle
     }
     
-    func move(by angle: CGFloat) -> Void {
-//        let adjusted = (_current + angle).truncatingRemainder(dividingBy: (2 * CGFloat.pi))
-        let adjusted = _current + angle
-        rotate(to: adjusted)
+    func flush(with settings: WSettings?) {
+        move(by: 0)
+        guard let radius = _settings[_state]?.radius else {
+            fatalError("no radius for state \(_state)")
+        }
+        _background.frame.size = CGSize(width: radius * 2, height: radius * 2)
+        _background.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+        _ = _background.toLayerView
     }
 
-    
-    func move(to index: Int) -> Void {
-        let angle = _settings.offset - _settings.distance * CGFloat(index)
-        rotate(to: angle)
-    }
-    
-    // MARK: - Private Properties
-    
-    private var _spokes: [SWSpoke]!
-    
-    private var _settings: SWWheelSettings!
-    
-    /**subview of view, to hold rotating wheel*/
-//    private var _socket: UIView!
-    
-    /**subview of _socket, hold spokes, rotates*/
-    private var _view: UIView!
-    
-    /**current angle [0; 2pi)*/
-    private var _current: CGFloat!
-    
-    /**outer view, which contain _view*/
-//    private var _outer: UIView!
-    
-    // MARK: - Overrided Methods
-    
-//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//
-//        let radius = bounds.width / 2
-//        let thickness = max(_pin?.bounds.width ?? 0, _pin?.bounds.height ?? 0)
-//        let x2 = (point.x - radius) * (point.x - radius)
-//        let y2 = (point.y - radius) * (point.y - radius)
-//        let ir2 = (radius - thickness) * (radius - thickness)
-//        let or2 = (radius) * (radius)
-//
-//        let first = CGPoint(x: radius, y: radius)
-//        let north = _distance * radius
-//
-//        let left = CGPoint(x: radius - north / 2, y: 0)
-//        let mleft = (left.y - first.y) / (left.x - first.x)
-//        let expectedLeftY = mleft * (point.x - first.x) + first.y
-//
-//        let right = CGPoint(x: radius + north / 2, y: 0)
-//        let mright = (right.y - first.y) / (right.x - first.x)
-//        let expectedRightY = mright * (point.x - first.x) + first.y
-//
-//        if x2 + y2 >= ir2 && x2 + y2 <= or2 {
-//
-//            if point.y <= expectedLeftY && point.y <= expectedRightY {
-//                var new = self.convert(point, to: _pin)
-//                if !_pin.bounds.contains(new) {
-//                    new = .zero
-//                }
-//                //                let hitView = _pin.hitTest(.zero, with: event)
-//                let hitView = _pin.hitTest(new, with: event)
-//                print(new)
-//                return hitView
-//            }
-//
-//        }
-//
-//        let hitView = super.hitTest(point, with: event)
-//
-//        if hitView == self {
-//            return nil
-//        } else {
-//            return hitView
-//        }
-//    }
 }

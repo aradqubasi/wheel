@@ -18,4 +18,5 @@ protocol SWAbstractWheelController {
     
     func move(to index: Int) -> Void
     
+    func moveToRandomPin()
 }

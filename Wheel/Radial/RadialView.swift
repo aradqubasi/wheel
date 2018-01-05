@@ -9,6 +9,7 @@
 import UIKit
 
 class RadialView: UIView, SVDelegate, SWAbstractWheelView {
+    
 
     // MARK: - Public Properties
     
@@ -289,6 +290,15 @@ class RadialView: UIView, SVDelegate, SWAbstractWheelView {
         
         show()
         
+    }
+    
+    func flush(with settings: WSettings?) {
+        if let settings = settings {
+            _distance = settings.distance
+            _radius = settings.radius
+        }
+        
+        show()
     }
     
     func timeToEnd(at velocity: CGFloat) -> TimeInterval {

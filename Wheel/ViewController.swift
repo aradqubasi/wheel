@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWAbstractWheelDelegate
+class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
 {
     
     // MARK: - Outlets
@@ -19,7 +19,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
 //    var showtime: Bool!
     
-    var bases: RadialController!
+    var bases: SWAbstractWheelController!
+//    var bases: RadialController!
     
     var fats: RadialController!
     
@@ -42,9 +43,9 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Subs
     
     var radialMenu: SWAbstractWheelView!
-    
-    var basesMenu: RadialView!
-//    var basesMenu: SWWheelView!
+ 
+    var basesMenu: SWAbstractWheelView!
+//    var basesMenu: RadialView!
     
     var fatsMenu: RadialView!
     
@@ -160,41 +161,41 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - SWAbstractWheelDelegate
  
-    func numberOfSpokes(in wheel: SWAbstractWheelView) -> Int {
-        return 6
-    }
-    
-    func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
-        let radius = testWheelRadius
-        let distance = CGFloat.pi / 3
-        let offset = CGFloat(0)
-        return SWWheelSettings(radius, distance, offset, 1)
-    }
-    
-    func radialView(pinFor wheel: SWAbstractWheelView, at index: Int) -> UIView {
-        let reddot = UIView(frame: CGRect(center: .zero, side: 32))
-        reddot.layer.cornerRadius = 16
-        reddot.backgroundColor = .red
-        reddot.clipsToBounds = true
-        let blackmark = UIView(frame: CGRect(x: 16 - 4, y: -8, width: 8, height: 24))
-        blackmark.layer.cornerRadius = 4
-        blackmark.backgroundColor = index == 0 ? .white : .black
-        reddot.addSubview(blackmark)
-        return reddot
-    }
-    
-    func radialView(for wheel: SWAbstractWheelView, update pin: UIView, in state: SVState, at index: Int) {
-        print("radialView(for:, update:, in:, at:)")
-    }
-    
-    func radialView(backgroundFor wheel: SWAbstractWheelView) -> UIView? {
-        print("radialView(backgroundFor:)")
-        return UIView()
-    }
-    
-    func radialView(for wheel: SWAbstractWheelView, update background: UIView) {
-        print("radialView(for:, update:)")
-    }
+//    func numberOfSpokes(in wheel: SWAbstractWheelView) -> Int {
+//        return 6
+//    }
+//    
+//    func radialView(_ wheel: SWAbstractWheelView) -> SWWheelSettings {
+//        let radius = testWheelRadius
+//        let distance = CGFloat.pi / 3
+//        let offset = CGFloat(0)
+//        return SWWheelSettings(radius, distance, offset, 1)
+//    }
+//    
+//    func radialView(pinFor wheel: SWAbstractWheelView, at index: Int) -> UIView {
+//        let reddot = UIView(frame: CGRect(center: .zero, side: 32))
+//        reddot.layer.cornerRadius = 16
+//        reddot.backgroundColor = .red
+//        reddot.clipsToBounds = true
+//        let blackmark = UIView(frame: CGRect(x: 16 - 4, y: -8, width: 8, height: 24))
+//        blackmark.layer.cornerRadius = 4
+//        blackmark.backgroundColor = index == 0 ? .white : .black
+//        reddot.addSubview(blackmark)
+//        return reddot
+//    }
+//    
+//    func radialView(for wheel: SWAbstractWheelView, update pin: UIView, in state: SVState, at index: Int) {
+//        print("radialView(for:, update:, in:, at:)")
+//    }
+//    
+//    func radialView(backgroundFor wheel: SWAbstractWheelView) -> UIView? {
+//        print("radialView(backgroundFor:)")
+//        return UIView()
+//    }
+//    
+//    func radialView(for wheel: SWAbstractWheelView, update background: UIView) {
+//        print("radialView(for:, update:)")
+//    }
     
     // MARK: - OverlayContollerDelegate
     
@@ -433,29 +434,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         fatsMark.text = "fats".uppercased()
         fats.label = fatsMark
         
-//        bases = BasesController()
-//        bases.delegate = self
 //        basesMenu = RadialView(center: leftMiddle,orientation: .left)
 //        wheels.addSubview(basesMenu)
-//        bases.view = basesMenu
-        
-        basesMenu = RadialView(center: leftMiddle,orientation: .left)
-        wheels.addSubview(basesMenu)
-        bases = BasesController(basesMenu)
-        bases.delegate = self
-        
-//        bases = BasesController()
+//        bases = BasesController(basesMenu)
 //        bases.delegate = self
-//        basesMenu = SWWheelView(frame: CGRect(center: leftMiddle, side: wheels.bounds.width * 2))
-//        wheels.addSubview(basesMenu)
-//        bases.view = basesMenu
         
-        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        basesMark.textAlignment = .center
-        wheels.addSubview(basesMark)
-        basesMark.text = "bases".uppercased()
-        bases.label = basesMark
-        bases.state = bases.initial
+        let container = UIView.init(frame: CGRect(center: leftMiddle, side: 400))
+        wheels.addSubview(container)
+        let wheel = SWWheelView(in: container)
+        basesMenu = wheel
+        bases = wheel
+        
+        //TODO
+//        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        basesMark.textAlignment = .center
+//        wheels.addSubview(basesMark)
+//        basesMark.text = "bases".uppercased()
+//        bases.label = basesMark
+//        bases.state = bases.initial
         
         radialMenu = basesMenu
         
@@ -610,85 +606,85 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 
     // MARK: - Actions
     
-    var testWheel: SWWheelView!
+//    var testWheel: SWWheelView!
+//
+//    var testWheelRadius: CGFloat = 0
     
-    var testWheelRadius: CGFloat = 0
-    
-    @IBAction func to(_ sender: UIButton) {
-        let astep = CGFloat.pi / 12
-        var action: () -> Void = {  }
-        switch sender.title(for: .normal) ?? "none" {
-        case "<":
-            print("<")
-            action = { self.testWheel.move(by: -astep) }
-        case ">":
-            print(">")
-            action = { self.testWheel.move(by: astep) }
-        case "+":
-            print("+")
-            action = {
-                print("\(self.testWheel.index)")
-                let next = self.testWheel.count - 1 == self.testWheel.index ? 0 : self.testWheel.index + 1
-                self.testWheel.move(to: next)
-            }
-        case "-":
-            print("-")
-            action = {
-                let prev = 0 == self.testWheel.index ? self.testWheel.count - 1 : self.testWheel.index - 1
-                self.testWheel.move(to: prev)
-            }
-        case "?":
-            print("?")
-//            deceleration(of: radialMenu, with: 3)
-            return
-        case "<>":
-            print("<>")
-            action = {
-//                let prev = self.testWheel.center
-                self.testWheelRadius += 40
-                self.testWheel.resize()
-            }
-        case "><":
-            print("><")
-            action = {
-                self.testWheelRadius -= 40
-                self.testWheel.resize()
-            }
-        default:
-            fatalError("unhandled direction - \(sender.title(for: .normal) ?? "")")
-        }
-        
-        UIView.animate(withDuration: 0.225, animations: action, completion: nil)
-        
-//        action = {
-//
-//            print("move to 0")
-//            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
-//                self.testWheel.move(to: 0)
-//                print("moved to 0")
-//            })
-//
-//            print("move to 1")
-//            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
-//                self.testWheel.move(to: 1)
-//                print("moved to 1")
-//            })
-//
-//            print("move to 2")
-//            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
-//                self.testWheel.move(to: 2)
-//                print("moved to 2")
-//            })
-//
-//            print("move to 3")
-//            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
-//                self.testWheel.move(to: 3)
-//                print("moved to 3")
-//            })
+//    @IBAction func to(_ sender: UIButton) {
+//        let astep = CGFloat.pi / 12
+//        var action: () -> Void = {  }
+//        switch sender.title(for: .normal) ?? "none" {
+//        case "<":
+//            print("<")
+//            action = { self.testWheel.move(by: -astep) }
+//        case ">":
+//            print(">")
+//            action = { self.testWheel.move(by: astep) }
+//        case "+":
+//            print("+")
+//            action = {
+//                print("\(self.testWheel.index)")
+//                let next = self.testWheel.count - 1 == self.testWheel.index ? 0 : self.testWheel.index + 1
+//                self.testWheel.move(to: next)
+//            }
+//        case "-":
+//            print("-")
+//            action = {
+//                let prev = 0 == self.testWheel.index ? self.testWheel.count - 1 : self.testWheel.index - 1
+//                self.testWheel.move(to: prev)
+//            }
+//        case "?":
+//            print("?")
+////            deceleration(of: radialMenu, with: 3)
+//            return
+//        case "<>":
+//            print("<>")
+//            action = {
+////                let prev = self.testWheel.center
+//                self.testWheelRadius += 40
+//                self.testWheel.resize()
+//            }
+//        case "><":
+//            print("><")
+//            action = {
+//                self.testWheelRadius -= 40
+//                self.testWheel.resize()
+//            }
+//        default:
+//            fatalError("unhandled direction - \(sender.title(for: .normal) ?? "")")
 //        }
 //
-//        UIView.animateKeyframes(withDuration: 4, delay: 0, options: [], animations: action, completion: nil)
-    }
+//        UIView.animate(withDuration: 0.225, animations: action, completion: nil)
+//
+////        action = {
+////
+////            print("move to 0")
+////            UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.25, animations: {
+////                self.testWheel.move(to: 0)
+////                print("moved to 0")
+////            })
+////
+////            print("move to 1")
+////            UIView.addKeyframe(withRelativeStartTime: 0.25, relativeDuration: 0.25, animations: {
+////                self.testWheel.move(to: 1)
+////                print("moved to 1")
+////            })
+////
+////            print("move to 2")
+////            UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.25, animations: {
+////                self.testWheel.move(to: 2)
+////                print("moved to 2")
+////            })
+////
+////            print("move to 3")
+////            UIView.addKeyframe(withRelativeStartTime: 0.75, relativeDuration: 0.25, animations: {
+////                self.testWheel.move(to: 3)
+////                print("moved to 3")
+////            })
+////        }
+////
+////        UIView.animateKeyframes(withDuration: 4, delay: 0, options: [], animations: action, completion: nil)
+//    }
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {
         print("onToUnexpectedClick")

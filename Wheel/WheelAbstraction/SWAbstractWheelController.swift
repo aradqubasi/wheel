@@ -12,7 +12,7 @@ protocol SWAbstractWheelController {
     
     var focused: PinView { get }
     
-//    var view: SWAbstractWheelView { get set }
+    var delegate: RadialControllerDelegate? { get set }
     
     var state: WState { get set }
     

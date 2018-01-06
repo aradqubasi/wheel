@@ -439,10 +439,12 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
 //        bases = BasesController(basesMenu)
 //        bases.delegate = self
         
-        let container = UIView.init(frame: CGRect(center: leftMiddle, side: 400))
+//        let container = UIView.init(frame: CGRect(center: leftMiddle, side: 400))
+        let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 400))
         wheels.addSubview(container)
         let wheel = SWWheelView(in: container)
-        basesMenu = wheel
+        basesMenu = wheel.asSWAbstractWheelView()
+        wheel.delegate = self
         bases = wheel
         
         //TODO

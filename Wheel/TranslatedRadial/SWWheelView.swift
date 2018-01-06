@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
+class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate {
     
     // MARK: - Initializers
     
@@ -18,6 +18,7 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
         
         name = "Bases"
         
+        //pins & spokes setup
         do {
             let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
             _spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
@@ -44,7 +45,7 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
             let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
             _spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
             
-            _state = .bases
+            _state = initial
             
             _settings = [
                 .bases: WSettings(155, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1.25),
@@ -56,40 +57,43 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
             _face = CGFloat.pi //* 0.75
         }
         
-        _background = UIView()
-        _view = UIView(frame: _container.bounds)
-        _view.addSubview(_background)
-        _container.addSubview(_view)
-        for i in 0..<_spokes.count {
-            
-            let socket = _spokes[i].socket
-            let pin = _spokes[i].pin
-            
-            pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
-//            pin.frame.size = CGSize(width: 52, height: 52)
-            pin.setPin(size: CGSize(width: 52, height: 52))
-            guard let image = pin.images[_state]?[.visible] else {
-                fatalError("no image")
+        // drawing
+        do {
+            _background = UIView()
+//            _view = UIView(frame: _container.bounds)
+            _view = SWRingMaskView(frame: _container.bounds)
+            _view.delegate = self
+            _view.addSubview(_background)
+            _container.addSubview(_view)
+            for i in 0..<_spokes.count {
+                
+                let socket = _spokes[i].socket
+                let pin = _spokes[i].pin
+                
+                pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
+                pin.setPin(size: CGSize(width: 52, height: 52))
+                guard let image = pin.images[_state]?[.visible] else {
+                    fatalError("no image")
+                }
+                pin.setImage(image, for: .normal)
+                
+                socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
+                socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+                socket.addSubview(pin)
+                
+                _view.addSubview(socket)
+                
+                guard var radius = _settings[_state]?.radius else {
+                    fatalError("no settings for state \(_state)")
+                }
+                radius -= socket.frame.width * 0.5
+                
+                let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
+                var a = delta * CGFloat(i)
+                a = a > CGFloat.pi ? a - 2 * CGFloat.pi : a
+                socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
+                _spokes[i].angle = a
             }
-            pin.setImage(image, for: .normal)
-            
-            socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
-            socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
-            socket.addSubview(pin)
-            
-            _view.addSubview(socket)
-            
-            guard var radius = _settings[_state]?.radius else {
-                fatalError("no settings for state \(_state)")
-            }
-            radius -= socket.frame.width * 0.5
-            
-            let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
-            var a = delta * CGFloat(i)
-            a = a > CGFloat.pi ? a - 2 * CGFloat.pi : a
-            socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
-//            print("and the angle is \(a) out of \(delta * CGFloat(i))")
-            _spokes[i].angle = a
         }
         
         do {
@@ -149,8 +153,9 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
     private var _container: UIView!
     
     /**subview of _socket, hold spokes, rotates*/
-    private var _view: UIView!
-    
+//    private var _view: UIView!
+    private var _view: SWRingMaskView!
+
     /**current angle*/
     private var _current: CGFloat {
         get {
@@ -158,12 +163,36 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
         }
     }
     
+    /**this property is making sure that there is only a single instance of abstracted version of this view*/
+    private var _abstracted: SWWheelViewAbstracted?
+    
     /**background view, resize each time state is updated*/
     var _background: UIView!
     
     // MARK: - Private Methods
     
-
+    // MARK: - Public Properties
+    
+    var active: WState {
+        get {
+            return .bases
+        }
+    }
+    
+    var initial: WState {
+        get {
+            return .bases
+        }
+    }
+    
+    // MARK: - Public Methods
+    
+    func asSWAbstractWheelView() -> SWAbstractWheelView {
+        if _abstracted == nil {
+            _abstracted = SWWheelViewAbstracted(parent: self)
+        }
+        return _abstracted!
+    }
 
     // MARK: - SWAbstractWheelController
     
@@ -190,6 +219,9 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
         }
     }
     
+    /**we do not need it here... do not touch it*/
+    var delegate: RadialControllerDelegate?
+    
     // MARK: - SWAbstractWheelView
     
     var center: CGPoint {
@@ -212,9 +244,6 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
             return _spokes.count
         }
     }
-    
-    /**we do not need it here... do not touch it*/
-    var delegate: SWAbstractWheelDelegate?
     
     /**wheel name, aestetics purposes only*/
     var name: String
@@ -284,6 +313,20 @@ class SWWheelView: SWAbstractWheelView, SWAbstractWheelController {
         _background.frame.size = CGSize(width: radius * 2, height: radius * 2)
         _background.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
         _ = _background.toLayerView
+        _view._center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
+        _view._thickness = 65
+        _view._radius = radius
+//        _view._dots.forEach({ $0.removeFromSuperview() })
+//        for x in 0..<(Int(_view.bounds.width) / 10) {
+//            for y in 0..<(Int(_view.bounds.height) / 10) {
+//                _view.point(inside: CGPoint(x: x * 10, y: y * 10), with: nil)
+//            }
+//        }
     }
 
+    // MARK: - SWRingMaskDelegate Methods
+    
+    func onHit(_ sender: SWRingMaskView, with event: UIEvent?) {
+        delegate?.onStateChange(to: active, of: self.asSWAbstractWheelView())
+    }
 }

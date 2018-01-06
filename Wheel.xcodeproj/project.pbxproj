@@ -39,6 +39,8 @@
 		15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */; };
 		15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
+		154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */; };
+		154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */; };
 		155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */; };
 		155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */; };
 		155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */; };
@@ -54,6 +56,7 @@
 		15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */; };
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
+		15A77A11200019150030304F /* SWRingMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A10200019150030304F /* SWRingMaskView.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
@@ -129,6 +132,8 @@
 		15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedViewStates.swift; sourceTree = "<group>"; };
 		15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSelectedView.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskDelegate.swift; sourceTree = "<group>"; };
+		154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelViewAbstracted.swift; sourceTree = "<group>"; };
 		155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToOverlayButton.swift; sourceTree = "<group>"; };
 		155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsController.swift; sourceTree = "<group>"; };
 		155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +149,7 @@
 		15A73CA41FB6DE7500E3BB01 /* RadialControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadialControllerDelegate.swift; sourceTree = "<group>"; };
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
+		15A77A10200019150030304F /* SWRingMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskView.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +215,9 @@
 				1508EEC81FF4E995003CF526 /* SWSpoke.swift */,
 				150FB1CF1FFB516E003F2601 /* _SWWheelController.swift */,
 				15A77A0E1FFC25410030304F /* SWWheelView.swift */,
+				154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */,
+				15A77A10200019150030304F /* SWRingMaskView.swift */,
+				154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */,
 			);
 			path = TranslatedRadial;
 			sourceTree = "<group>";
@@ -535,6 +544,7 @@
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
 				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
+				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				155BEC3A1FF15A8200E749B5 /* BackgroundView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
@@ -566,6 +576,7 @@
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */,
+				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
@@ -586,6 +597,7 @@
 				155BEC381FF1574E00E749B5 /* LaunchScreenController.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
 				155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */,
+				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,
 				15F0BB621F404FE3006F646E /* RadialView.swift in Sources */,
 				15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */,
 				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,

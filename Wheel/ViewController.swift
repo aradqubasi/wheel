@@ -846,6 +846,31 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             UIView.animate(withDuration: TimeInterval(time), delay: 0, options: [.curveEaseOut], animations: move, completion: nil)
             //        UIView.animate(withDuration: TimeInterval(time), delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: move, completion: nil)
         }
+        else if wheel is SWWheelViewAbstracted {
+            let wheel = bases as! SWWheelView
+
+            let sliding: () -> Void = {
+                if velocity != 0 {
+                    let step = CGFloat.pi * 2 / CGFloat(wheel.count)
+                    var path = abs(velocity) * 0.5
+                    let steps = (path / step).rounded()
+                    path = abs(steps) < 1 ? step : step * steps
+                    path = velocity.sign == .minus ? -path : path
+                    wheel.move(by: path)
+                }
+            }
+            
+            let normalization = { (isDone: Bool) -> Void in
+                if isDone {
+                    let toSocket = { () -> Void in
+                        wheel.move(to: self.radialMenu.index)
+                    }
+                    UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: nil)
+                }
+            }
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: sliding, completion: normalization)
+        }
     }
     
     private func deceleration(of wheel: RadialView, with velocity: CGFloat, and power: CGFloat) {

@@ -16,6 +16,8 @@ protocol SWAbstractWheelController {
     
     var state: WState { get set }
     
+    var label: UILabel { get set }
+    
     func move(to index: Int) -> Void
     
     func moveToRandomPin()

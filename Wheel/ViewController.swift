@@ -445,14 +445,14 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         let wheel = SWWheelView(in: container)
         basesMenu = wheel.asSWAbstractWheelView()
         wheel.delegate = self
+//        wheel.label = basesMark
         bases = wheel
         
-        //TODO
-//        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-//        basesMark.textAlignment = .center
-//        wheels.addSubview(basesMark)
-//        basesMark.text = "bases".uppercased()
-//        bases.label = basesMark
+        basesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+        basesMark.textAlignment = .center
+        wheels.addSubview(basesMark)
+        basesMark.text = "bases".uppercased()
+        bases.label = basesMark
 //        bases.state = bases.initial
         
         radialMenu = basesMenu

@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
+class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {    
     
     // MARK: - Initializers
     
@@ -68,24 +68,29 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         // drawing
         do {
             _background = UIView()
-//            _view = UIView(frame: _container.bounds)
             _view = SWRingMaskView(frame: _container.bounds)
             _view.delegate = self
             _view.addSubview(_background)
             _container.addSubview(_view)
+            
+            let maxPinFactor = _settings.mapValues({ return $0.scale }).max(by: { return $1.value > $0.value })!.value
+            let offset = (maxPinFactor - 1) * 0.5
+            
             for i in 0..<_spokes.count {
                 
                 let socket = _spokes[i].socket
                 let pin = _spokes[i].pin
                 
-                pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
+//                pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
+                pin.frame.origin = CGPoint(x: 52 * offset, y: 52 * offset)
                 pin.setPin(size: CGSize(width: 52, height: 52))
                 guard let image = pin.images[_state]?[.visible] else {
                     fatalError("no image")
                 }
                 pin.setImage(image, for: .normal)
                 
-                socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
+//                socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
+                socket.frame.size = CGSize(width: 52 * maxPinFactor, height: 52 * maxPinFactor)
                 socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
                 socket.addSubview(pin)
                 
@@ -99,9 +104,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
                 var a = delta * CGFloat(i)
                 a = a > CGFloat.pi ? a - 2 * CGFloat.pi : a
-                socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
+//                socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
                 _spokes[i].angle = a
             }
+            
+            resize(to: _state)
         }
         
         do {
@@ -177,7 +184,56 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     /**background view, resize each time state is updated*/
     var _background: UIView!
     
+    /**show item name when active, otherwise wheel name*/
+    private var _label: UILabel?
+    
+    /**initial height of label before transforms are applied*/
+    private var _height: CGFloat?
+    
     // MARK: - Private Methods
+    
+    private func resize(to state: WState) {
+        
+        guard let settings = _settings[state] else {
+            fatalError("no settings for wheel \(name) @ \(state)")
+        }
+        
+        for spoke in _spokes {
+//            let radius = settings.radius - spoke.socket.frame.width * 0.5
+            let radius = settings.radius - spoke.pin.frame.width * 0.5 * settings.scale
+            let a = spoke.angle
+            spoke.socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
+        }
+        
+    }
+    
+    private func printMark(for state: WState) {
+        if let label = _label {
+            let text = state == active ? focused.asIngridient.name : name
+            label.text = text.uppercased()
+            label.font = UIFont.markunselected
+        }
+        
+        guard let settings = _settings[state] else {
+            fatalError("no settings for wheel \(name) @ \(state)")
+        }
+        
+        if let label = _label, let height = _height, let parent = label.superview {
+            print("mark center is \(label.center)")
+            let old = parent.convert(label.center, to: _container)
+            
+            var new = _view.center
+            new.x += -settings.radius + 52 * settings.scale + height * 0.5
+            print("mark height \(label.frame.height)")
+            
+            new.x -= old.x
+            new.y -= old.y
+            
+//            label.transform = CGAffineTransform.identity.rotated(by: -CGFloat.pi * 0.5).translatedBy(x: new.x, y: new.y)
+            print("mark translatedby \(new)")
+            label.transform = CGAffineTransform.identity.translatedBy(x: new.x, y: new.y).rotated(by: -CGFloat.pi * 0.5)
+        }
+    }
     
     // MARK: - Public Properties
     
@@ -224,6 +280,20 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         set(new) {
             _state = new
             flush(with: nil)
+        }
+    }
+    
+    var label: UILabel {
+        get {
+            guard let label = _label else {
+                fatalError("mark is not assigned to controller")
+            }
+            return label
+        }
+        set(new) {
+            _label = new
+            _height = new.frame.height
+            printMark(for: _state)
         }
     }
     
@@ -312,10 +382,13 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                     }
                 }
             }
+            
+            printMark(for: _state)
         }
     }
     
     func flush(with settings: WSettings?) {
+        resize(to: _state)
         move(by: 0)
         guard let radius = _settings[_state]?.radius else {
             fatalError("no radius for state \(_state)")
@@ -326,6 +399,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         _view._center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
         _view._thickness = 65
         _view._radius = radius
+        
+        printMark(for: _state)
 //        _view._dots.forEach({ $0.removeFromSuperview() })
 //        for x in 0..<(Int(_view.bounds.width) / 10) {
 //            for y in 0..<(Int(_view.bounds.height) / 10) {

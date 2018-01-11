@@ -12,58 +12,70 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - Initializers
     
-    init(in container: UIView) {
+    init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String) {
         
         _container = container
         
-        name = "Bases"
+        self.name = name
         
         //pins & spokes setup
         do {
-            let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            romainelettuce.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
+            _settings = settings
             
-            let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            salad.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), salad, 1, false, 0))
+            _face = angle
             
-            let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            cabbage.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), cabbage, 2, false, 0))
-            
-            let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            lettuce.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), lettuce, 3, false, 0))
-            
-            let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            spinach.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), spinach, 4, false, 0))
-            
-            let brusselssprouts = PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            brusselssprouts.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), brusselssprouts, 5, false, 0))
-            
-//            zoodles (aka spiralized zucchini)
-            let zoodles = PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            zoodles.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), zoodles, 6, false, 0))
-            
-            let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-            shavedfennel.delegate = self
-            _spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
+            _spokes = spokes
+            _spokes.forEach({ $0.pin.delegate = self })
             
             _state = initial
             
-            _settings = [
-                .bases: WSettings(155, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1.25),
-                .fats: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
-                .veggies: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
-                .proteins: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1)
-            ]
             
-            _face = CGFloat.pi //* 0.75
         }
+//        do {
+//            let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            romainelettuce.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
+//
+//            let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            salad.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), salad, 1, false, 0))
+//
+//            let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            cabbage.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), cabbage, 2, false, 0))
+//
+//            let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            lettuce.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), lettuce, 3, false, 0))
+//
+//            let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            spinach.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), spinach, 4, false, 0))
+//
+//            let brusselssprouts = PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            brusselssprouts.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), brusselssprouts, 5, false, 0))
+//
+////            zoodles (aka spiralized zucchini)
+//            let zoodles = PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            zoodles.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), zoodles, 6, false, 0))
+//
+//            let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+//            shavedfennel.delegate = self
+//            _spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
+//
+//            _state = initial
+//
+//            _settings = [
+//                .bases: WSettings(155, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1.25),
+//                .fats: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
+//                .veggies: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
+//                .proteins: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1)
+//            ]
+//
+//            _face = CGFloat.pi //* 0.75
+//        }
         
         // drawing
         do {
@@ -96,10 +108,10 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 
                 _view.addSubview(socket)
                 
-                guard var radius = _settings[_state]?.radius else {
+                guard var settings = _settings[_state] else {
                     fatalError("no settings for state \(_state)")
                 }
-                radius -= socket.frame.width * 0.5
+                let radius = settings.radius - settings.size.width * 0.5 * settings.scale
                 
                 let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
                 var a = delta * CGFloat(i)
@@ -200,7 +212,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         
         for spoke in _spokes {
 //            let radius = settings.radius - spoke.socket.frame.width * 0.5
-            let radius = settings.radius - spoke.pin.frame.width * 0.5 * settings.scale
+            let radius = settings.radius - settings.size.width * 0.5 * settings.scale
             let a = spoke.angle
             spoke.socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
         }

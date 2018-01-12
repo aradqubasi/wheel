@@ -22,11 +22,14 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     var bases: SWAbstractWheelController!
 //    var bases: RadialController!
     
-    var fats: RadialController!
+    var fats: SWAbstractWheelController!
+//    var fats: RadialController!
     
-    var veggies: RadialController!
+    var veggies: SWAbstractWheelController!
+//    var veggies: RadialController!
     
-    var proteins: RadialController!
+    var proteins: SWAbstractWheelController!
+//    var proteins: RadialController!
     
     var pointer: PointerController!
     
@@ -46,11 +49,14 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
  
     var basesMenu: SWAbstractWheelView!
     
-    var fatsMenu: RadialView!
+    var fatsMenu: SWAbstractWheelView!
+//    var fatsMenu: RadialView!
     
-    var veggiesMenu: RadialView!
+    var veggiesMenu: SWAbstractWheelView!
+//    var veggiesMenu: RadialView!
     
-    var proteinsMenu: RadialView!
+    var proteinsMenu: SWAbstractWheelView!
+//    var proteinsMenu: RadialView!
     
     var basesMark: UILabel!
     
@@ -313,45 +319,92 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         view.addSubview(wheels)
 
         let leftMiddle = CGPoint(x: wheels.bounds.width + 20, y: wheels.bounds.height / 2)
+   
+        //setup proteins
+        do {
+            let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 800))
+            wheels.addSubview(container)
+            let wheel = SWProteinsWheelView(in: container)
+            proteinsMenu = wheel.asSWAbstractWheelView()
+            wheel.delegate = self
+            proteins = wheel
+            
+            proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+            proteinsMark.textAlignment = .center
+            wheels.addSubview(proteinsMark)
+            proteinsMark.text = "veggies".uppercased()
+            proteins.label = proteinsMark
+        }
         
-        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-        wheels.addSubview(proteinsMenu)
-        proteins = ProteinsController(proteinsMenu)
-        proteins.delegate = self
+//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(proteinsMenu)
+//        proteins = ProteinsController(proteinsMenu)
+//        proteins.delegate = self
+//
+//        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        proteinsMark.textAlignment = .center
+//        wheels.addSubview(proteinsMark)
+//        proteinsMark.text = "proteins".uppercased()
+//        proteins.label = proteinsMark
         
-        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        proteinsMark.textAlignment = .center
-        wheels.addSubview(proteinsMark)
-        proteinsMark.text = "proteins".uppercased()
-        proteins.label = proteinsMark
+        //setup veggies
+        do {
+            let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
+            wheels.addSubview(container)
+            let wheel = SWVeggiesWheelView(in: container)
+            veggiesMenu = wheel.asSWAbstractWheelView()
+            wheel.delegate = self
+            veggies = wheel
+            
+            veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+            veggiesMark.textAlignment = .center
+            wheels.addSubview(veggiesMark)
+            veggiesMark.text = "veggies".uppercased()
+            veggies.label = veggiesMark
+        }
         
-        veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
-        wheels.addSubview(veggiesMenu)
-        veggies = VeggiesController(veggiesMenu)
-        veggies.delegate = self
+//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(veggiesMenu)
+//        veggies = VeggiesController(veggiesMenu)
+//        veggies.delegate = self
+//
+//        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        veggiesMark.textAlignment = .center
+//        wheels.addSubview(veggiesMark)
+//        veggiesMark.text = "veggies".uppercased()
+//        veggies.label = veggiesMark
         
-        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        veggiesMark.textAlignment = .center
-        wheels.addSubview(veggiesMark)
-        veggiesMark.text = "veggies".uppercased()
-        veggies.label = veggiesMark
+        //setup fats
+        do {
+            let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
+            wheels.addSubview(container)
+            let wheel = SWFatsWheelView(in: container)
+            fatsMenu = wheel.asSWAbstractWheelView()
+            wheel.delegate = self
+            fats = wheel
+            
+            fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+            fatsMark.textAlignment = .center
+            wheels.addSubview(fatsMark)
+            fatsMark.text = "fats".uppercased()
+            fats.label = fatsMark
+        }
         
-        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
-        wheels.addSubview(fatsMenu)
-        fats = FatsController(fatsMenu)
-        fats.delegate = self
-        
-        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-        fatsMark.textAlignment = .center
-        wheels.addSubview(fatsMark)
-        fatsMark.text = "fats".uppercased()
-        fats.label = fatsMark
+//        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
+//        wheels.addSubview(fatsMenu)
+//        fats = FatsController(fatsMenu)
+//        fats.delegate = self
+//
+//        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
+//        fatsMark.textAlignment = .center
+//        wheels.addSubview(fatsMark)
+//        fatsMark.text = "fats".uppercased()
+//        fats.label = fatsMark
         
         //setup bases
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 400))
             wheels.addSubview(container)
-            //let wheel = SWWheelView(in: container)
             let wheel = SWBasesWheelView(in: container)
             basesMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
@@ -571,7 +624,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             UIView.animate(withDuration: TimeInterval(time), delay: 0, options: [.curveEaseOut], animations: move, completion: nil)
         }
         else if wheel is SWWheelViewAbstracted {
-            let wheel = bases as! SWWheelView
+//            let wheel = wheel as! SWWheelView
 
             let sliding: () -> Void = {
                 if velocity != 0 {

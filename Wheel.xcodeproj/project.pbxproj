@@ -57,6 +57,9 @@
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
+		15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */; };
+		15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17020087E110050878B /* SWVeggiesWheelView.swift */; };
+		15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17220087E590050878B /* SWProteinsWheelView.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -148,6 +151,9 @@
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
+		15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFatsWheelView.swift; sourceTree = "<group>"; };
+		15BBE17020087E110050878B /* SWVeggiesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWVeggiesWheelView.swift; sourceTree = "<group>"; };
+		15BBE17220087E590050878B /* SWProteinsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProteinsWheelView.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -212,6 +218,9 @@
 				15A77A10200019150030304F /* SWRingMaskView.swift */,
 				154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */,
 				15BBE16C2005351B0050878B /* SWBasesWheelView.swift */,
+				15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */,
+				15BBE17020087E110050878B /* SWVeggiesWheelView.swift */,
+				15BBE17220087E590050878B /* SWProteinsWheelView.swift */,
 			);
 			path = TranslatedRadial;
 			sourceTree = "<group>";
@@ -542,6 +551,7 @@
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				155BEC3A1FF15A8200E749B5 /* BackgroundView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
+				15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */,
 				15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */,
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
@@ -556,6 +566,7 @@
 				159038281FE397E6004A7FB8 /* FruitsController.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
+				15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
@@ -564,6 +575,7 @@
 				15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
+				15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,

@@ -12,11 +12,15 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - Initializers
     
-    init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String) {
+    init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String, _ basePinWidth: CGFloat, _ inset: CGFloat) {
         
         _container = container
         
         self.name = name
+        
+        _pin = basePinWidth
+        
+        _inset = inset
         
         //pins & spokes setup
         do {
@@ -31,51 +35,6 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             
             
         }
-//        do {
-//            let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            romainelettuce.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
-//
-//            let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            salad.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), salad, 1, false, 0))
-//
-//            let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            cabbage.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), cabbage, 2, false, 0))
-//
-//            let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            lettuce.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), lettuce, 3, false, 0))
-//
-//            let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            spinach.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), spinach, 4, false, 0))
-//
-//            let brusselssprouts = PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            brusselssprouts.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), brusselssprouts, 5, false, 0))
-//
-////            zoodles (aka spiralized zucchini)
-//            let zoodles = PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            zoodles.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), zoodles, 6, false, 0))
-//
-//            let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//            shavedfennel.delegate = self
-//            _spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
-//
-//            _state = initial
-//
-//            _settings = [
-//                .bases: WSettings(155, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1.25),
-//                .fats: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
-//                .veggies: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1),
-//                .proteins: WSettings(141, CGFloat.pi * 2 / 8, .zero, CGFloat.pi, 1)
-//            ]
-//
-//            _face = CGFloat.pi //* 0.75
-//        }
         
         // drawing
         do {
@@ -93,30 +52,21 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 let socket = _spokes[i].socket
                 let pin = _spokes[i].pin
                 
-//                pin.frame.origin = CGPoint(x: 52 * 0.125, y: 52 * 0.125)
-                pin.frame.origin = CGPoint(x: 52 * offset, y: 52 * offset)
-                pin.setPin(size: CGSize(width: 52, height: 52))
+                pin.frame.origin = CGPoint(x: _pin * offset, y: _pin * offset)
+                pin.setPin(size: CGSize(width: _pin, height: _pin))
                 guard let image = pin.images[_state]?[.visible] else {
                     fatalError("no image")
                 }
                 pin.setImage(image, for: .normal)
                 
-//                socket.frame.size = CGSize(width: 52 * 1.25, height: 52 * 1.25)
-                socket.frame.size = CGSize(width: 52 * maxPinFactor, height: 52 * maxPinFactor)
+                socket.frame.size = CGSize(width: _pin * maxPinFactor, height: _pin * maxPinFactor)
                 socket.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
                 socket.addSubview(pin)
                 
                 _view.addSubview(socket)
                 
-                guard var settings = _settings[_state] else {
-                    fatalError("no settings for state \(_state)")
-                }
-                let radius = settings.radius - settings.size.width * 0.5 * settings.scale
-                
-                let delta = CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
-                var a = delta * CGFloat(i)
+                var a = _distance * CGFloat(i)
                 a = a > CGFloat.pi ? a - 2 * CGFloat.pi : a
-//                socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
                 _spokes[i].angle = a
             }
             
@@ -142,17 +92,6 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 let adjusted = next.angle - 2 * CGFloat.pi
                 dict[adjusted] = next.index
             })
-            //debug
-//            _spokes.sorted(by: {
-//                return $0.angle < $1.angle
-//            }).forEach({
-//                print("original \($0.angle) \($0.index)")
-//            })
-//            _extended.sorted(by: {
-//                return $0.key < $1.key
-//            }).forEach({
-//                print("extended \($0.key) \($0.value)")
-//            })
         }
         
         flush(with: nil)
@@ -202,6 +141,19 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     /**initial height of label before transforms are applied*/
     private var _height: CGFloat?
     
+    /**angular distance between pins*/
+    private var _distance: CGFloat {
+        get {
+            return CGFloat.pi * CGFloat(2) / CGFloat(_spokes.count)
+        }
+    }
+    
+    /**base size of pin, later modified by scale*/
+    private var _pin: CGFloat!
+    
+    /**pins inset from the edge of the wheel*/
+    private var _inset: CGFloat!
+    
     // MARK: - Private Methods
     
     private func resize(to state: WState) {
@@ -211,8 +163,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
         
         for spoke in _spokes {
-//            let radius = settings.radius - spoke.socket.frame.width * 0.5
-            let radius = settings.radius - settings.size.width * 0.5 * settings.scale
+            let radius = settings.radius - _pin * 0.5 * settings.scale - _inset
             let a = spoke.angle
             spoke.socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
         }
@@ -231,18 +182,12 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
         
         if let label = _label, let height = _height, let parent = label.superview {
-            print("mark center is \(label.center)")
             let old = parent.convert(label.center, to: _container)
             
             var new = _view.center
-            new.x += -settings.radius + 52 * settings.scale + height * 0.5
-            print("mark height \(label.frame.height)")
-            
+            new.x += -settings.radius + _pin * settings.scale + height * 0.5 + _inset
             new.x -= old.x
             new.y -= old.y
-            
-//            label.transform = CGAffineTransform.identity.rotated(by: -CGFloat.pi * 0.5).translatedBy(x: new.x, y: new.y)
-            print("mark translatedby \(new)")
             label.transform = CGAffineTransform.identity.translatedBy(x: new.x, y: new.y).rotated(by: -CGFloat.pi * 0.5)
         }
     }
@@ -282,7 +227,10 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
     
     func moveToRandomPin() {
-        
+        if _spokes.count != 0 {
+            let random = Int(arc4random_uniform(UInt32(_spokes.count)))
+            move(to: random)
+        }
     }
     
     var state: WState {
@@ -349,6 +297,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     /**set wheel to correct angle, pins to correct sizes, only transforms allowed*/
     func move(by angle: CGFloat) {
         let new = _current + angle
+        print("\(name) spin by \(new) or pi * \(new / CGFloat.pi)")
         _view.transform = CGAffineTransform.identity.rotated(by: new)
         guard let factor = _settings[state]?.scale else {
             fatalError("no settings for state \(state)")
@@ -360,10 +309,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         
         //check focus
         do {
-            guard var delta = _settings[_state]?.distance else {
-                fatalError("no settings for state \(_state)")
-            }
-            delta *= 0.5
+//            guard var delta = _settings[_state]?.distance else {
+//                fatalError("no settings for state \(_state)")
+//            }
+//            delta *= 0.5
+            let delta = _distance * 0.5
             let current = _current
             guard let focused = _extended.first(where: { return $0.key + current <= _face + delta && $0.key + current > _face - delta })?.value else {
                 fatalError("no focused pins")
@@ -402,14 +352,15 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     func flush(with settings: WSettings?) {
         resize(to: _state)
         move(by: 0)
-        guard let radius = _settings[_state]?.radius else {
-            fatalError("no radius for state \(_state)")
+        guard let settings = _settings[_state] else {
+            fatalError("no settings for state \(_state)")
         }
+        let radius = settings.radius
         _background.frame.size = CGSize(width: radius * 2, height: radius * 2)
         _background.center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
         _ = _background.toLayerView
         _view._center = CGPoint(x: _view.bounds.width * 0.5, y: _view.bounds.height * 0.5)
-        _view._thickness = 65
+        _view._thickness = settings.scale * _pin + _inset
         _view._radius = radius
         
         printMark(for: _state)

@@ -18,7 +18,7 @@ struct WSettings {
     /**Wheel radius*/
     var radius: CGFloat
     
-    /**PinView size*/
+    /**depricated PinView size*/
     var size: CGSize
     
     /**angular offset of focus, defaut at the top*/
@@ -51,5 +51,11 @@ struct WSettings {
         self.scale = scale
     }
     
-    
+    init(_ radius: CGFloat, _ scale: CGFloat) {
+        self.radius = radius
+        self.distance = 0
+        self.size = .zero
+        self.offset = 0
+        self.scale = scale
+    }
 }

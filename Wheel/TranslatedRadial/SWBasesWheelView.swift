@@ -49,17 +49,45 @@ class SWBasesWheelView: SWWheelView {
         let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
 //        shavedfennel.delegate = self
         spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
+        
+        let basePinWidth: CGFloat = 52
+        
+        let inset: CGFloat = 5
+        
+        var settings: [WState : WSettings] = [:]
+        do {
+            let inset = inset
+            let activeScale: CGFloat = 1
+            let usualScale: CGFloat = 1
+            let pin: CGFloat = basePinWidth
+            let mark: CGFloat = 14
+            let pointer: CGFloat = 12
+            let foundation: CGFloat = 78
+            let activeState: WState = .bases
+            let number: Int = 1
             
-        let settings: [WState : WSettings] = [
-            .bases: WSettings(155, CGFloat.pi * 2 / 8, CGSize(side: 52), CGFloat.pi, 1.25),
-            .fats: WSettings(141, CGFloat.pi * 2 / 8, CGSize(side: 52), CGFloat.pi, 1),
-            .veggies: WSettings(141, CGFloat.pi * 2 / 8, CGSize(side: 52), CGFloat.pi, 1),
-            .proteins: WSettings(141, CGFloat.pi * 2 / 8, CGSize(side: 52), CGFloat.pi, 1)
-        ]
-            
+            let usualThickness: CGFloat = mark + pin * usualScale + inset
+            let activeThickness: CGFloat = pointer + mark + pin * activeScale + inset
+            let states: [WState] = [.bases, .fats, .veggies, .proteins]
+            var before = true
+            for state in states {
+                let isActive = state == activeState
+                before = isActive ? false : before
+                let radius: CGFloat = foundation + CGFloat(number - 1) * usualThickness + (before || isActive ? activeThickness : usualThickness)
+                settings[state] = WSettings(radius, isActive ? activeScale : usualScale)
+            }
+        }
+        
+//        let settings: [WState : WSettings] = [
+//            .bases: WSettings(169, 1.25),
+//            .fats: WSettings(144, 1),
+//            .veggies: WSettings(144, 1),
+//            .proteins: WSettings(144, 1)
+//        ]
+        
         let leftward = CGFloat.pi
         
-        super.init(in: container, with: spokes, use: settings, facing: leftward, as: name)
+        super.init(in: container, with: spokes, use: settings, facing: leftward, as: name, basePinWidth, inset)
     }
     
     required init?(coder aDecoder: NSCoder) {

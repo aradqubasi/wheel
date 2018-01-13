@@ -60,6 +60,7 @@
 		15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */; };
 		15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17020087E110050878B /* SWVeggiesWheelView.swift */; };
 		15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17220087E590050878B /* SWProteinsWheelView.swift */; };
+		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -154,6 +155,7 @@
 		15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFatsWheelView.swift; sourceTree = "<group>"; };
 		15BBE17020087E110050878B /* SWVeggiesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWVeggiesWheelView.swift; sourceTree = "<group>"; };
 		15BBE17220087E590050878B /* SWProteinsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProteinsWheelView.swift; sourceTree = "<group>"; };
+		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -360,6 +362,7 @@
 				151AFE441F8A858200CC5357 /* WSettings.swift */,
 				15456D691FCAB8670018A1CD /* IngridientKinds.swift */,
 				15456D6B1FCB0DA10018A1CD /* Ingridient.swift */,
+				15BBE174200A80D20050878B /* SWConfiguration.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
 				15A73CA51FB6DE7500E3BB01 /* RadialControllerDelegate.swift in Sources */,
+				15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */,
 				155BEC381FF1574E00E749B5 /* LaunchScreenController.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
 				155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */,

@@ -540,7 +540,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             
         }
         
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
         
     }
     

@@ -65,9 +65,24 @@ class SWVeggiesWheelView: SWWheelView {
             
             let broccoli = PinView.create.name("broccoli").icon(default: UIImage.broccoli).icon(UIImage.Broccoli, for: .veggies).icon(selected: UIImage.Broccoli).kind(of: .veggy)
             spokes.append(SWSpoke.init(UIView(), broccoli, 13, false, 0))
+            
+            let carrot = PinView.create.name("carrot").icon(default: UIImage.carrot).icon(UIImage.Carrot, for: .veggies).icon(selected: UIImage.Carrot).kind(of: .veggy)
+            spokes.append(SWSpoke.init(UIView(), carrot, 14, false, 0))
+            
+            let asparagus = PinView.create.name("asparagus").icon(default: UIImage.asparagus).icon(UIImage.Asparagus, for: .veggies).icon(selected: UIImage.Asparagus).kind(of: .veggy)
+            spokes.append(SWSpoke.init(UIView(), asparagus, 15, false, 0))
+            
+            let cauliflower = PinView.create.name("cauliflower").icon(default: UIImage.cauliflower).icon(UIImage.Cauliflower, for: .veggies).icon(selected: UIImage.Cauliflower).kind(of: .veggy)
+            spokes.append(SWSpoke.init(UIView(), cauliflower, 16, false, 0))
+            
+            let corn = PinView.create.name("corn").icon(default: UIImage.corn).icon(UIImage.Corn, for: .veggies).icon(selected: UIImage.Corn).kind(of: .veggy)
+            spokes.append(SWSpoke.init(UIView(), corn, 17, false, 0))
+            
+            let aubergine2 = PinView.create.name("aubergine").icon(default: UIImage.aubergine).icon(UIImage.Aubergine, for: .veggies).icon(selected: UIImage.Aubergine).kind(of: .veggy)
+            spokes.append(SWSpoke.init(UIView(), aubergine2, 18, false, 0))
         }
         
-        let basePinWidth: CGFloat = 52
+        let basePinWidth: CGFloat = 42
         
         let inset: CGFloat = 5
         

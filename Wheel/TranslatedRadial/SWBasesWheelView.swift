@@ -16,41 +16,28 @@ class SWBasesWheelView: SWWheelView {
         
         let name = "Bases"
         
+        var pins: [PinView] = [
+            .romainelettuce,
+            .salad,
+            .cabbage,
+            .lettuce,
+            .spinach,
+            .brusselssprouts,
+            .zoodles,
+            .shavedfennel,
+            // loop over
+            .romainelettuce,
+            .salad,
+            .cabbage
+        ]
+        
         var spokes: [SWSpoke] = []
-        
-        let romainelettuce = PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        romainelettuce.delegate = self
-        spokes.append(SWSpoke.init(UIView(), romainelettuce, 0, true, 0))
-        
-        let salad = PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        salad.delegate = self
-        spokes.append(SWSpoke.init(UIView(), salad, 1, false, 0))
-        
-        let cabbage = PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        cabbage.delegate = self
-        spokes.append(SWSpoke.init(UIView(), cabbage, 2, false, 0))
-        
-        let lettuce = PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        lettuce.delegate = self
-        spokes.append(SWSpoke.init(UIView(), lettuce, 3, false, 0))
-        
-        let spinach = PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        spinach.delegate = self
-        spokes.append(SWSpoke.init(UIView(), spinach, 4, false, 0))
-        
-        let brusselssprouts = PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        brusselssprouts.delegate = self
-        spokes.append(SWSpoke.init(UIView(), brusselssprouts, 5, false, 0))
-        
-        let zoodles = PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        zoodles.delegate = self
-        spokes.append(SWSpoke.init(UIView(), zoodles, 6, false, 0))
-        
-        let shavedfennel = PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-//        shavedfennel.delegate = self
-        spokes.append(SWSpoke.init(UIView(), shavedfennel, 7, false, 0))
-        
-        let basePinWidth: CGFloat = 52
+        for index in 0..<pins.count {
+            spokes.append(SWSpoke.init(UIView(), pins[index], index, false, 0))
+        }
+        spokes.first!.focused = true
+
+        let basePinWidth: CGFloat = 42
         
         let inset: CGFloat = 5
         
@@ -77,13 +64,6 @@ class SWBasesWheelView: SWWheelView {
                 settings[state] = WSettings(radius, isActive ? activeScale : usualScale)
             }
         }
-        
-//        let settings: [WState : WSettings] = [
-//            .bases: WSettings(169, 1.25),
-//            .fats: WSettings(144, 1),
-//            .veggies: WSettings(144, 1),
-//            .proteins: WSettings(144, 1)
-//        ]
         
         let leftward = CGFloat.pi
         

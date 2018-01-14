@@ -79,9 +79,27 @@ class SWProteinsWheelView: SWWheelView {
             let shrimp = PinView.create.name("shrimp").icon(default: UIImage.shrimp).icon(UIImage.Shrimp, for: .proteins).icon(selected: UIImage.Shrimp).kind(of: .protein)
             spokes.append(SWSpoke.init(UIView(), shrimp, 17, false, 0))
             
+            let chickpeas2 = PinView.create.name("chickpeas").icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins).icon(selected: UIImage.Chickpeas).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), chickpeas2, 18, true, 0))
+            
+            let fish2 = PinView.create.name("fish").icon(default: UIImage.fish).icon(UIImage.Fish, for: .proteins).icon(selected: UIImage.Fish).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), fish2, 19, false, 0))
+            
+            let boiledegg2 = PinView.create.name("boiledegg").icon(default: UIImage.boiledegg).icon(UIImage.Boiledegg, for: .proteins).icon(selected: UIImage.Boiledegg).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), boiledegg2, 20, false, 0))
+            
+            let beans2 = PinView.create.name("beans").icon(default: UIImage.beans).icon(UIImage.Beans, for: .proteins).icon(selected: UIImage.Beans).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), beans2, 21, false, 0))
+            
+            let peas2 = PinView.create.name("peas").icon(default: UIImage.peas).icon(UIImage.Peas, for: .proteins).icon(selected: UIImage.Peas).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), peas2, 22, false, 0))
+            
+            let friedegg2 = PinView.create.name("friedegg").icon(default: UIImage.friedegg).icon(UIImage.Friedegg, for: .proteins).icon(selected: UIImage.Friedegg).kind(of: .protein)
+            spokes.append(SWSpoke.init(UIView(), friedegg2, 23, false, 0))
+            
         }
         
-        let basePinWidth: CGFloat = 52
+        let basePinWidth: CGFloat = 42
         
         let inset: CGFloat = 5
  

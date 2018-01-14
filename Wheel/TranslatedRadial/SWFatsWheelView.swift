@@ -58,9 +58,21 @@ class SWFatsWheelView: SWWheelView {
             
             let cashewnut = PinView.create.name("cashewnut").icon(default: UIImage.cashewnut).icon(UIImage.Cashewnut, for: .fats).icon(selected: UIImage.Cashewnut).kind(of: .fat)
             spokes.append(SWSpoke.init(UIView(), cashewnut, 11, false, 0))
+            
+            let avocado = PinView.create.name("avocado").icon(default: UIImage.avocado).icon(UIImage.Avocado, for: .fats).icon(selected: UIImage.Avocado).kind(of: .fat)
+            spokes.append(SWSpoke.init(UIView(), avocado, 12, false, 0))
+            
+            let peanut = PinView.create.name("peanut").icon(default: UIImage.peanut).icon(UIImage.Peanut, for: .fats).icon(selected: UIImage.Peanut).kind(of: .fat)
+            spokes.append(SWSpoke.init(UIView(), peanut, 13, false, 0))
+            
+            let coconut2 = PinView.create.name("coconut").icon(default: UIImage.coconut).icon(UIImage.Coconut, for: .fats).icon(selected: UIImage.Coconut).kind(of: .fat)
+            spokes.append(SWSpoke.init(UIView(), coconut2, 14, false, 0))
+            
+            let hazelnut2 = PinView.create.name("hazelnut").icon(default: UIImage.hazelnut).icon(UIImage.Hazelnut, for: .fats).icon(selected: UIImage.Hazelnut).kind(of: .fat)
+            spokes.append(SWSpoke.init(UIView(), hazelnut2, 15, false, 0))
         }
         
-        let basePinWidth: CGFloat = 52
+        let basePinWidth: CGFloat = 42
         
         let inset: CGFloat = 5
 

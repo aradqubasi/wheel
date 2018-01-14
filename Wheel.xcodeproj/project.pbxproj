@@ -54,6 +54,10 @@
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
 		15A77A11200019150030304F /* SWRingMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A10200019150030304F /* SWRingMaskView.swift */; };
+		15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */; };
+		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
+		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
+		15B00C43200B4A0E002B93A8 /* SWPagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -149,6 +153,10 @@
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
 		15A77A10200019150030304F /* SWRingMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskView.swift; sourceTree = "<group>"; };
+		15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
+		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
+		15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerConfig.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -317,6 +325,41 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		15B00C3A200B3AA3002B93A8 /* Wheels */ = {
+			isa = PBXGroup;
+			children = (
+				15F0BB351F404FCC006F646E /* ViewController.swift */,
+				15456D631FC94B320018A1CD /* PointerController.swift */,
+				15F43C401FA99CA700732CED /* PinView.swift */,
+				15F43C421FA99D4E00732CED /* PVDelegate.swift */,
+				15A73CA01FB62B0800E3BB01 /* WState.swift */,
+				151AFE441F8A858200CC5357 /* WSettings.swift */,
+				15456D691FCAB8670018A1CD /* IngridientKinds.swift */,
+				15456D6B1FCB0DA10018A1CD /* Ingridient.swift */,
+				15456D5C1FC028AD0018A1CD /* Extensions */,
+				15456D6F1FD27A5B0018A1CD /* Selection */,
+				1525FE631FDBC139001CABF6 /* RadialControllers */,
+				1525FE641FDC6477001CABF6 /* Overlay */,
+				15F6D0F21FE5105B00200E45 /* Radial */,
+				155BEC2D1FEFC8FD00E749B5 /* Options */,
+				155BEC361FF1572600E749B5 /* LaunchScreen */,
+				1508EEC11FF4B990003CF526 /* TranslatedRadial */,
+				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
+			);
+			path = Wheels;
+			sourceTree = "<group>";
+		};
+		15B00C3D200B3E5D002B93A8 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */,
+				15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */,
+				15B00C40200B489F002B93A8 /* SWPagerController.swift */,
+				15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 		15F0BB271F404FCC006F646E = {
 			isa = PBXGroup;
 			children = (
@@ -340,29 +383,14 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
-				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
-				1508EEC11FF4B990003CF526 /* TranslatedRadial */,
-				155BEC361FF1572600E749B5 /* LaunchScreen */,
-				155BEC2D1FEFC8FD00E749B5 /* Options */,
-				15F6D0F21FE5105B00200E45 /* Radial */,
-				1525FE641FDC6477001CABF6 /* Overlay */,
-				1525FE631FDBC139001CABF6 /* RadialControllers */,
-				15456D6F1FD27A5B0018A1CD /* Selection */,
-				15456D5C1FC028AD0018A1CD /* Extensions */,
+				15B00C3D200B3E5D002B93A8 /* Onboarding */,
+				15B00C3A200B3AA3002B93A8 /* Wheels */,
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
-				15F0BB351F404FCC006F646E /* ViewController.swift */,
-				15456D631FC94B320018A1CD /* PointerController.swift */,
+				15BBE174200A80D20050878B /* SWConfiguration.swift */,
 				15F0BB371F404FCC006F646E /* Main.storyboard */,
 				15F0BB3A1F404FCC006F646E /* Assets.xcassets */,
 				15F0BB3C1F404FCC006F646E /* LaunchScreen.storyboard */,
 				15F0BB3F1F404FCC006F646E /* Info.plist */,
-				15F43C401FA99CA700732CED /* PinView.swift */,
-				15F43C421FA99D4E00732CED /* PVDelegate.swift */,
-				15A73CA01FB62B0800E3BB01 /* WState.swift */,
-				151AFE441F8A858200CC5357 /* WSettings.swift */,
-				15456D691FCAB8670018A1CD /* IngridientKinds.swift */,
-				15456D6B1FCB0DA10018A1CD /* Ingridient.swift */,
-				15BBE174200A80D20050878B /* SWConfiguration.swift */,
 			);
 			path = Wheel;
 			sourceTree = "<group>";
@@ -564,6 +592,7 @@
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				15F0BB361F404FCC006F646E /* ViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
+				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				159038281FE397E6004A7FB8 /* FruitsController.swift in Sources */,
@@ -587,10 +616,13 @@
 				15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
+				15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
+				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
 				15F788001FB827B4001C32B1 /* FatsController.swift in Sources */,
+				15B00C43200B4A0E002B93A8 /* SWPagerConfig.swift in Sources */,
 				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,

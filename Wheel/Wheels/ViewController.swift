@@ -336,17 +336,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             proteins.label = proteinsMark
         }
         
-//        proteinsMenu = RadialView(center: leftMiddle,orientation: .left)
-//        wheels.addSubview(proteinsMenu)
-//        proteins = ProteinsController(proteinsMenu)
-//        proteins.delegate = self
-//
-//        proteinsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-//        proteinsMark.textAlignment = .center
-//        wheels.addSubview(proteinsMark)
-//        proteinsMark.text = "proteins".uppercased()
-//        proteins.label = proteinsMark
-        
         //setup veggies
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
@@ -363,17 +352,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             veggies.label = veggiesMark
         }
         
-//        veggiesMenu = RadialView(center: leftMiddle,orientation: .left)
-//        wheels.addSubview(veggiesMenu)
-//        veggies = VeggiesController(veggiesMenu)
-//        veggies.delegate = self
-//
-//        veggiesMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-//        veggiesMark.textAlignment = .center
-//        wheels.addSubview(veggiesMark)
-//        veggiesMark.text = "veggies".uppercased()
-//        veggies.label = veggiesMark
-        
         //setup fats
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
@@ -389,17 +367,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             fatsMark.text = "fats".uppercased()
             fats.label = fatsMark
         }
-        
-//        fatsMenu = RadialView(center: leftMiddle,orientation: .left)
-//        wheels.addSubview(fatsMenu)
-//        fats = FatsController(fatsMenu)
-//        fats.delegate = self
-//
-//        fatsMark = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 14))
-//        fatsMark.textAlignment = .center
-//        wheels.addSubview(fatsMark)
-//        fatsMark.text = "fats".uppercased()
-//        fats.label = fatsMark
         
         //setup bases
         do {

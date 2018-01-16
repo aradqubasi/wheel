@@ -58,6 +58,8 @@
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
 		15B00C43200B4A0E002B93A8 /* SWPagerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */; };
+		15B00C45200C76A5002B93A8 /* SWSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C44200C76A5002B93A8 /* SWSlideView.swift */; };
+		15B00C47200C7BF0002B93A8 /* SWObeySlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C46200C7BF0002B93A8 /* SWObeySlideView.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -157,6 +159,8 @@
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
 		15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerConfig.swift; sourceTree = "<group>"; };
+		15B00C44200C76A5002B93A8 /* SWSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSlideView.swift; sourceTree = "<group>"; };
+		15B00C46200C7BF0002B93A8 /* SWObeySlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWObeySlideView.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -356,6 +360,8 @@
 				15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */,
 				15B00C40200B489F002B93A8 /* SWPagerController.swift */,
 				15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */,
+				15B00C44200C76A5002B93A8 /* SWSlideView.swift */,
+				15B00C46200C7BF0002B93A8 /* SWObeySlideView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -602,6 +608,7 @@
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
+				15B00C45200C76A5002B93A8 /* SWSlideView.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
 				15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */,
@@ -617,6 +624,7 @@
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */,
+				15B00C47200C7BF0002B93A8 /* SWObeySlideView.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,

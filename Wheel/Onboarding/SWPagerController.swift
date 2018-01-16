@@ -16,12 +16,6 @@ class SWPagerController {
     
     let _view: UIView!
     
-    var config: SWConfiguration.Pager {
-        get {
-            return SWConfiguration.pager
-        }
-    }
-    
     // MARK: - Public Properties
     
     var view: UIView {
@@ -36,18 +30,19 @@ class SWPagerController {
         
         _view = view
         
-        for position in config.states {
+        let radius = SWConfiguration.Pager.diameter * 0.5
+        for position in SWConfiguration.Pager.states {
             let dot = UIView()
-            dot.layer.cornerRadius = config.radius
+            dot.layer.cornerRadius = radius
             
             //previous dots
-            dot.frame.origin.x +=  config.radius * CGFloat(position.value) * CGFloat(2)
+            dot.frame.origin.x +=  radius * CGFloat(position.value) * CGFloat(2)
             //previous spacings
-            dot.frame.origin.x += CGFloat(min(0, position.value - 1)) * config.spacing
+            dot.frame.origin.x += CGFloat(min(0, position.value - 1)) * SWConfiguration.Pager.spacing
             
-            dot.frame.size = CGSize(side: config.radius * 2)
+            dot.frame.size = CGSize(side: radius * 2)
             
-            dot.backgroundColor = config.inactive
+            dot.backgroundColor = SWConfiguration.Pager.inactive
             
             _view.addSubview(dot)
         }

@@ -16,6 +16,13 @@ class OnboardingViewController: UIViewController {
     
     @IBOutlet weak var pager: UIView!
     
+    var obey: SWSliderView!
+//    var greens: UITextView!
+//    var proteins: UITextView!
+//    var veggies: UITextView!
+//    var fats: UITextView!
+//    var ehancers: UITextView!
+    
     // MARK: - Private Properties
     
     private var pagerController: SWPagerController!
@@ -40,6 +47,12 @@ class OnboardingViewController: UIViewController {
         //setup pager
         do {
             pagerController = SWPagerController(pager)
+        }
+        
+        //setup sliders
+        do {
+            obey = SWObeySlideView(frame: view.bounds)
+            view.addSubview(obey)
         }
     }
 

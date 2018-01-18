@@ -18,19 +18,19 @@ class SWFatsSlideView: SWSliderView {
         
         //setup title
         do {
-            title.frame.size = SWConfiguration.LeafsSlide.Title.size
-            title.attributedText = SWConfiguration.LeafsSlide.Title.text
+            title.frame.size = SWConfiguration.FatsSlide.Title.size
+            title.attributedText = SWConfiguration.FatsSlide.Title.text
             title.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Title.offset
+            offset = SWConfiguration.FatsSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         
         //setup subtitle
         do {
-            subtitle.frame.size = SWConfiguration.LeafsSlide.Subtitle.size
-            subtitle.attributedText = SWConfiguration.LeafsSlide.Subtitle.text
+            subtitle.frame.size = SWConfiguration.FatsSlide.Subtitle.size
+            subtitle.attributedText = SWConfiguration.FatsSlide.Subtitle.text
             subtitle.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Subtitle.offset
+            offset = SWConfiguration.FatsSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         

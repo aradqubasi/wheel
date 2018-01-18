@@ -18,19 +18,19 @@ class SWEnhancersSlideView: SWSliderView {
         
         //setup title
         do {
-            title.frame.size = SWConfiguration.LeafsSlide.Title.size
-            title.attributedText = SWConfiguration.LeafsSlide.Title.text
+            title.frame.size = SWConfiguration.EnhancersSlide.Title.size
+            title.attributedText = SWConfiguration.EnhancersSlide.Title.text
             title.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Title.offset
+            offset = SWConfiguration.EnhancersSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         
         //setup subtitle
         do {
-            subtitle.frame.size = SWConfiguration.LeafsSlide.Subtitle.size
-            subtitle.attributedText = SWConfiguration.LeafsSlide.Subtitle.text
+            subtitle.frame.size = SWConfiguration.EnhancersSlide.Subtitle.size
+            subtitle.attributedText = SWConfiguration.EnhancersSlide.Subtitle.text
             subtitle.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Subtitle.offset
+            offset = SWConfiguration.EnhancersSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         

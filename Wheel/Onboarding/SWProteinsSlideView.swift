@@ -18,19 +18,19 @@ class SWProteinsSlideView: SWSliderView {
         
         //setup title
         do {
-            title.frame.size = SWConfiguration.LeafsSlide.Title.size
-            title.attributedText = SWConfiguration.LeafsSlide.Title.text
+            title.frame.size = SWConfiguration.ProteinsSlide.Title.size
+            title.attributedText = SWConfiguration.ProteinsSlide.Title.text
             title.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Title.offset
+            offset = SWConfiguration.ProteinsSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         
         //setup subtitle
         do {
-            subtitle.frame.size = SWConfiguration.LeafsSlide.Subtitle.size
-            subtitle.attributedText = SWConfiguration.LeafsSlide.Subtitle.text
+            subtitle.frame.size = SWConfiguration.ProteinsSlide.Subtitle.size
+            subtitle.attributedText = SWConfiguration.ProteinsSlide.Subtitle.text
             subtitle.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Subtitle.offset
+            offset = SWConfiguration.ProteinsSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         

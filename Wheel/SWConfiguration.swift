@@ -10,7 +10,8 @@ import Foundation
 import UIKit
 class SWConfiguration {
     
-    /**SWPagerConfig Section*/
+    // MARK: - SWPagerConfig
+    
     struct Pager {
         /**initial pager state*/
         static let inital: SWPagerStates = .obey
@@ -34,7 +35,8 @@ class SWConfiguration {
         static let states: [SWPagerStates:Int] = [.obey : 0, .leafs : 1, .proteins : 2, .veggies : 3, .fats : 4, .ehancers : 5]
     }
     
-    /**SWObeySlideView configuration*/
+    // MARK: - SWObeySlideView
+    
     struct ObeySlide {
         
         /**title rectangle*/
@@ -55,7 +57,8 @@ class SWConfiguration {
         }
     }
     
-    /**SWLeafsSlideViewConfiguration*/
+    // MARK: - SWLeafsSlideView
+    
     struct LeafsSlide {
         
         /**Title label settings*/
@@ -72,6 +75,189 @@ class SWConfiguration {
             
             /**size of title's frame*/
             static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of title frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 56)
+            
+        }
+        
+        /**Subtitle label settings*/
+        struct Subtitle {
+            
+            /**attributed string with subtitle text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 16)
+                    let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of subtitle's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of subtitle frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 88)
+            
+        }
+    }
+    
+    // MARK: - SWProteinsSlideView
+    
+    struct ProteinsSlide {
+        
+        /**Title label settings*/
+        struct Title {
+            
+            /**attributed string with title text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 28)
+                    let text = NSAttributedString(string: "Add Proteins", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of title's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of title frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 56)
+            
+        }
+        
+        /**Subtitle label settings*/
+        struct Subtitle {
+            
+            /**attributed string with subtitle text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 16)
+                    let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of subtitle's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of subtitle frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 88)
+            
+        }
+        
+    }
+    
+    // MARK: - SWVeggiesSlideView
+    
+    struct VeggiesSlide {
+        
+        /**Title label settings*/
+        struct Title {
+            
+            /**attributed string with title text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 28)
+                    let text = NSAttributedString(string: "Veggies (cooked or raw)", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of title's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of title frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 56)
+            
+        }
+        
+        /**Subtitle label settings*/
+        struct Subtitle {
+            
+            /**attributed string with subtitle text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 16)
+                    let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of subtitle's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of subtitle frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 88)
+            
+        }
+        
+    }
+    
+    // MARK: - SWFatsSlideView
+    
+    struct FatsSlide {
+        
+        /**Title label settings*/
+        struct Title {
+            
+            /**attributed string with title text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 28)
+                    let text = NSAttributedString(string: "Add health fats", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of title's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of title frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 56)
+            
+        }
+        
+        /**Subtitle label settings*/
+        struct Subtitle {
+            
+            /**attributed string with subtitle text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 16)
+                    let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of subtitle's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of subtitle frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 88)
+            
+        }
+        
+    }
+    
+    // MARK: - SWEnhancersSlideView
+    
+    struct EnhancersSlide {
+        
+        /**Title label settings*/
+        struct Title {
+            
+            /**attributed string with title text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 28)
+                    let text = NSAttributedString(string: "Flavor+Texture Enhancers", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of title's frame*/
+            static let size: CGSize = CGSize(width: 327, height: 32)
             
             /**offset of center of title frame to its superview*/
             static let offset: CGPoint = CGPoint(x: 0, y: 56)

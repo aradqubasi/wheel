@@ -18,19 +18,19 @@ class SWVeggiesSlideView: SWSliderView {
         
         //setup title
         do {
-            title.frame.size = SWConfiguration.LeafsSlide.Title.size
-            title.attributedText = SWConfiguration.LeafsSlide.Title.text
+            title.frame.size = SWConfiguration.VeggiesSlide.Title.size
+            title.attributedText = SWConfiguration.VeggiesSlide.Title.text
             title.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Title.offset
+            offset = SWConfiguration.VeggiesSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         
         //setup subtitle
         do {
-            subtitle.frame.size = SWConfiguration.LeafsSlide.Subtitle.size
-            subtitle.attributedText = SWConfiguration.LeafsSlide.Subtitle.text
+            subtitle.frame.size = SWConfiguration.VeggiesSlide.Subtitle.size
+            subtitle.attributedText = SWConfiguration.VeggiesSlide.Subtitle.text
             subtitle.textAlignment = .center
-            offset = SWConfiguration.LeafsSlide.Subtitle.offset
+            offset = SWConfiguration.VeggiesSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         }
         

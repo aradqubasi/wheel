@@ -285,5 +285,18 @@ class SWConfiguration {
         }
         
     }
+    
+    // MARK: - SWSlidersController
+    
+    struct SWSlidersController {
+        /**current to next state*/
+        static let transitions: [SWPagerStates:SWPagerStates] = [.obey : .leafs, .leafs : .proteins, .proteins : .veggies, .veggies : .fats, .fats : .ehancers, .ehancers : .obey]
+        
+        /**initial state*/
+        static let initial: SWPagerStates = .obey
+        
+        /**% of width which would trigger transition*/
+        static let threshold: CGFloat = 0.8
+    }
 }
 

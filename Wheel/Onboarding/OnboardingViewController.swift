@@ -16,46 +16,51 @@ class OnboardingViewController: UIViewController {
     
     @IBOutlet weak var pager: UIView!
     
-    var obey: UIView!
-    var leafs: UIView!
-    var proteins: UIView!
-    var veggies: UIView!
-    var fats: UIView!
-    var enhancers: UIView!
+//    var obey: UIView!
+//    var leafs: UIView!
+//    var proteins: UIView!
+//    var veggies: UIView!
+//    var fats: UIView!
+//    var enhancers: UIView!
     
     // MARK: - Public Properties
     
-    var state: SWPagerStates {
-        get {
-            return _state
-        }
-        set (new) {
-            _state = new
-            for slide in [obey, leafs, proteins, veggies, fats, enhancers] {
-                slide!.frame.origin = CGPoint(x: slide!.frame.width * -1, y: 0)
-            }
-            switch new {
-            case .obey:
-                obey.frame.origin = .zero
-            case .leafs:
-                leafs.frame.origin = .zero
-            case .proteins:
-                proteins.frame.origin = .zero
-            case .veggies:
-                veggies.frame.origin = .zero
-            case .fats:
-                fats.frame.origin = .zero
-            case .ehancers:
-                enhancers.frame.origin = .zero
-            }
-        }
-    }
+//    var state: SWPagerStates {
+//        get {
+//            return _state
+//        }
+//        set (new) {
+//            _state = new
+//            for slide in [obey, leafs, proteins, veggies, fats, enhancers] {
+//                slide!.frame.origin = CGPoint(x: slide!.frame.width * -1, y: 0)
+//            }
+//            switch new {
+//            case .obey:
+//                obey.frame.origin = .zero
+//            case .leafs:
+//                leafs.frame.origin = .zero
+//            case .proteins:
+//                proteins.frame.origin = .zero
+//            case .veggies:
+//                veggies.frame.origin = .zero
+//            case .fats:
+//                fats.frame.origin = .zero
+//            case .ehancers:
+//                enhancers.frame.origin = .zero
+//            }
+//            pagerController.state = new
+//        }
+//    }
     
     // MARK: - Private Properties
     
     private var pagerController: SWPagerController!
     
+    private var _slidersController: SWSlidersController!
+    
     private var _state: SWPagerStates!
+    
+    private var _slider: UIPanGestureRecognizer!
     
     // MARK: - Initalization
 
@@ -74,30 +79,16 @@ class OnboardingViewController: UIViewController {
             //-176 109 600 of 736
         }
         
-        //setup pager
+        //setup gesture capture
         do {
-            pagerController = SWPagerController(pager)
+            _slider = UIPanGestureRecognizer(target: self, action: #selector(onSlide(_:)))
+            view.addGestureRecognizer(_slider)
         }
         
-        //setup sliders
+        //setup controllers
         do {
-            obey = SWObeySlideView(frame: view.bounds)
-            view.addSubview(obey)
-            
-            leafs = SWLeafsSlideView(frame: view.bounds)
-            view.addSubview(leafs)
-            
-            proteins = SWProteinsSlideView(frame: view.bounds)
-            view.addSubview(proteins)
-            
-            veggies = SWVeggiesSlideView(frame: view.bounds)
-            view.addSubview(veggies)
-            
-            fats = SWFatsSlideView(frame: view.bounds)
-            view.addSubview(fats)
-            
-            enhancers = SWEnhancersSlideView(frame: view.bounds)
-            view.addSubview(enhancers)
+            pagerController = SWPagerController(pager)
+            _slidersController = SWSlidersController(view)
         }
         
         //setup test buttons
@@ -112,8 +103,6 @@ class OnboardingViewController: UIViewController {
             next.addTarget(self, action: #selector(onNext(_:)), for: .touchUpInside)
             view.addSubview(next)
         }
-        
-        state = .obey
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,38 +113,48 @@ class OnboardingViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func onNext(_ sender: UIButton) {
-        print("next")
-        switch state {
-        case .obey:
-            state = .leafs
-        case .leafs:
-            state = .proteins
-        case .proteins:
-            state = .veggies
-        case .veggies:
-            state = .fats
-        case .fats:
-            state = .ehancers
-        case .ehancers:
-            state = .obey
-        }
+        _slidersController.prepare(true)
+        let transition = { () -> Void in self._slidersController.transition() }
+        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
     }
     
     @IBAction private func onPrev(_ sender: UIButton) {
-        print("prev")
-        switch state {
-        case .obey:
-            state = .ehancers
-        case .leafs:
-            state = .obey
-        case .proteins:
-            state = .leafs
-        case .veggies:
-            state = .proteins
-        case .fats:
-            state = .veggies
-        case .ehancers:
-            state = .fats
+        _slidersController.prepare(false)
+        let transition = { () -> Void in self._slidersController.transition() }
+        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
+    }
+    
+    private var _last: Date!
+    
+    @IBAction private func onSlide(_ sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            _last = Date()
+        case .changed:
+            let delta = Date().timeIntervalSince(_last)
+            _last = Date()
+            let path = sender.translation(in: view).x
+            if _slidersController.test(path) {
+                let path = sender.translation(in: view).x
+                _slidersController.prepare(path < 0)
+                let transition = { () -> Void in self._slidersController.transition() }
+                let sync = { (_: Bool) -> Void in self.pagerController.state = self._slidersController.state }
+                UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
+                _slider.isEnabled = false
+                _slider.isEnabled = true
+            }
+            else {
+                let move = { () -> Void in self._slidersController.move(to: path) }
+                UIView.animate(withDuration: delta, animations: move)
+            }
+        case .ended:
+            let path = sender.translation(in: view).x
+            _slidersController.prepare(path < 0)
+            let transition = { () -> Void in self._slidersController.transition() }
+            let sync = { (_: Bool) -> Void in self.pagerController.state = self._slidersController.state }
+            UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
+        default:
+            print("\(sender.state)")
         }
     }
     

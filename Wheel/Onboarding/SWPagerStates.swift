@@ -9,7 +9,7 @@
 import Foundation
 enum SWPagerStates {
     case obey
-    case greens
+    case leafs
     case proteins
     case veggies
     case fats

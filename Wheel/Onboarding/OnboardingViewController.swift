@@ -17,7 +17,7 @@ class OnboardingViewController: UIViewController {
     @IBOutlet weak var pager: UIView!
     
     var obey: SWSliderView!
-//    var greens: UITextView!
+    var leafs: SWSliderView!
 //    var proteins: UITextView!
 //    var veggies: UITextView!
 //    var fats: UITextView!
@@ -52,7 +52,10 @@ class OnboardingViewController: UIViewController {
         //setup sliders
         do {
             obey = SWObeySlideView(frame: view.bounds)
-            view.addSubview(obey)
+//            view.addSubview(obey)
+            
+            leafs = SWLeafsSlideView(frame: view.bounds)
+            view.addSubview(leafs)
         }
     }
 

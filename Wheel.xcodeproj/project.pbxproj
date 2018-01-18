@@ -85,6 +85,11 @@
 		15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C421FA99D4E00732CED /* PVDelegate.swift */; };
 		15F43C451FAF655100732CED /* CGSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C441FAF655100732CED /* CGSize.swift */; };
 		15F43C471FAF6DA600732CED /* SocketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F43C461FAF6DA600732CED /* SocketView.swift */; };
+		15F4AF222010720900C486FF /* SWLeafsSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF212010720900C486FF /* SWLeafsSlideView.swift */; };
+		15F4AF242010745200C486FF /* SWProteinsSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF232010745200C486FF /* SWProteinsSlideView.swift */; };
+		15F4AF262010746D00C486FF /* SWVeggiesSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF252010746D00C486FF /* SWVeggiesSlideView.swift */; };
+		15F4AF282010748600C486FF /* SWFatsSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF272010748600C486FF /* SWFatsSlideView.swift */; };
+		15F4AF2A2010749E00C486FF /* SWEnhancersSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
 		15F788001FB827B4001C32B1 /* FatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F787FF1FB827B4001C32B1 /* FatsController.swift */; };
 		15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F788011FB82A1A001C32B1 /* VeggiesController.swift */; };
@@ -192,6 +197,11 @@
 		15F43C421FA99D4E00732CED /* PVDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PVDelegate.swift; sourceTree = "<group>"; };
 		15F43C441FAF655100732CED /* CGSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSize.swift; sourceTree = "<group>"; };
 		15F43C461FAF6DA600732CED /* SocketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketView.swift; sourceTree = "<group>"; };
+		15F4AF212010720900C486FF /* SWLeafsSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLeafsSlideView.swift; sourceTree = "<group>"; };
+		15F4AF232010745200C486FF /* SWProteinsSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProteinsSlideView.swift; sourceTree = "<group>"; };
+		15F4AF252010746D00C486FF /* SWVeggiesSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWVeggiesSlideView.swift; sourceTree = "<group>"; };
+		15F4AF272010748600C486FF /* SWFatsSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFatsSlideView.swift; sourceTree = "<group>"; };
+		15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWEnhancersSlideView.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
 		15F787FF1FB827B4001C32B1 /* FatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatsController.swift; sourceTree = "<group>"; };
 		15F788011FB82A1A001C32B1 /* VeggiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggiesController.swift; sourceTree = "<group>"; };
@@ -362,6 +372,11 @@
 				15B00C42200B4A0E002B93A8 /* SWPagerConfig.swift */,
 				15B00C44200C76A5002B93A8 /* SWSlideView.swift */,
 				15B00C46200C7BF0002B93A8 /* SWObeySlideView.swift */,
+				15F4AF212010720900C486FF /* SWLeafsSlideView.swift */,
+				15F4AF232010745200C486FF /* SWProteinsSlideView.swift */,
+				15F4AF252010746D00C486FF /* SWVeggiesSlideView.swift */,
+				15F4AF272010748600C486FF /* SWFatsSlideView.swift */,
+				15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -603,6 +618,7 @@
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				159038281FE397E6004A7FB8 /* FruitsController.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
+				15F4AF242010745200C486FF /* SWProteinsSlideView.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
 				15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
@@ -610,7 +626,9 @@
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15B00C45200C76A5002B93A8 /* SWSlideView.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
+				15F4AF282010748600C486FF /* SWFatsSlideView.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
+				15F4AF2A2010749E00C486FF /* SWEnhancersSlideView.swift in Sources */,
 				15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
@@ -618,6 +636,7 @@
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
+				15F4AF222010720900C486FF /* SWLeafsSlideView.swift in Sources */,
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				15A73CA31FB657D700E3BB01 /* BasesController.swift in Sources */,
@@ -633,6 +652,7 @@
 				15B00C43200B4A0E002B93A8 /* SWPagerConfig.swift in Sources */,
 				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
+				15F4AF262010746D00C486FF /* SWVeggiesSlideView.swift in Sources */,
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* IngridientKinds.swift in Sources */,

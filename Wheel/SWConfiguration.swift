@@ -22,17 +22,21 @@ class SWConfiguration {
         static let spacing: CGFloat = 8
         
         /**dot color of active page*/
-        static let active: UIColor = UIColor.white
+        static let color: UIColor = UIColor.white
+        
+        /**dot color of active page*/
+        static let active = UIColor.white.withAlphaComponent(1)
         
         /**dot color of inactive page*/
-        static let inactive: UIColor = UIColor.gray
+        static let inactive = UIColor.white.withAlphaComponent(0.4)
         
         /**zero-based ordered state set*/
-        static let states: [SWPagerStates:Int] = [.obey : 0, .greens : 1, .proteins : 2, .veggies : 3, .fats : 4, .ehancers : 5]
+        static let states: [SWPagerStates:Int] = [.obey : 0, .leafs : 1, .proteins : 2, .veggies : 3, .fats : 4, .ehancers : 5]
     }
     
     /**SWObeySlideView configuration*/
     struct ObeySlide {
+        
         /**title rectangle*/
         static let size: CGSize = CGSize(width: 340, height: 141)
         
@@ -40,15 +44,60 @@ class SWConfiguration {
         static var text: NSAttributedString {
             get {
                 let bold = UIFont(name: "Avenir-Heavy", size: 32)
+                
                 let usual = UIFont(name: "Avenir-Book", size: 32)
-                
-                
+
                 let text = NSMutableAttributedString(string: "Build a Power Salad to\nkeep you full and\nEnergized ", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
                 text.addAttributes([.font: bold as Any], range: NSMakeRange(8, 11))
                 
                 return text
             }
         }
+    }
+    
+    /**SWLeafsSlideViewConfiguration*/
+    struct LeafsSlide {
+        
+        /**Title label settings*/
+        struct Title {
+            
+            /**attributed string with title text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 28)
+                    let text = NSAttributedString(string: "Add Leafy Green", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of title's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of title frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 56)
+            
+        }
+        
+        /**Subtitle label settings*/
+        struct Subtitle {
+            
+            /**attributed string with subtitle text*/
+            static var text: NSAttributedString {
+                get {
+                    let usual = UIFont(name: "Avenir-Book", size: 16)
+                    let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+                    return text
+                }
+            }
+            
+            /**size of subtitle's frame*/
+            static let size: CGSize = CGSize(width: 320, height: 32)
+            
+            /**offset of center of subtitle frame to its superview*/
+            static let offset: CGPoint = CGPoint(x: 0, y: 88)
+            
+        }
+        
     }
 }
 

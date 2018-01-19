@@ -91,6 +91,8 @@
 		15F4AF282010748600C486FF /* SWFatsSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF272010748600C486FF /* SWFatsSlideView.swift */; };
 		15F4AF2A2010749E00C486FF /* SWEnhancersSlideView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */; };
 		15F4AF2C2010CBB800C486FF /* SWSlidersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */; };
+		15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */; };
+		15F4AF302011E82F00C486FF /* SWBowlSceneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
 		15F788001FB827B4001C32B1 /* FatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F787FF1FB827B4001C32B1 /* FatsController.swift */; };
 		15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F788011FB82A1A001C32B1 /* VeggiesController.swift */; };
@@ -204,6 +206,8 @@
 		15F4AF272010748600C486FF /* SWFatsSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFatsSlideView.swift; sourceTree = "<group>"; };
 		15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWEnhancersSlideView.swift; sourceTree = "<group>"; };
 		15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSlidersController.swift; sourceTree = "<group>"; };
+		15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlSceneController.swift; sourceTree = "<group>"; };
+		15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlSceneImage.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
 		15F787FF1FB827B4001C32B1 /* FatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatsController.swift; sourceTree = "<group>"; };
 		15F788011FB82A1A001C32B1 /* VeggiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggiesController.swift; sourceTree = "<group>"; };
@@ -380,6 +384,8 @@
 				15F4AF272010748600C486FF /* SWFatsSlideView.swift */,
 				15F4AF292010749E00C486FF /* SWEnhancersSlideView.swift */,
 				15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */,
+				15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */,
+				15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -602,6 +608,7 @@
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
 				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
+				15F4AF302011E82F00C486FF /* SWBowlSceneImage.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				155BEC3A1FF15A8200E749B5 /* BackgroundView.swift in Sources */,
@@ -636,6 +643,7 @@
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
 				15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */,
+				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,

@@ -93,6 +93,8 @@
 		15F4AF2C2010CBB800C486FF /* SWSlidersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */; };
 		15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */; };
 		15F4AF302011E82F00C486FF /* SWBowlSceneImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */; };
+		15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF312013426F00C486FF /* SWBowlActSteps.swift */; };
+		15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF33201344B200C486FF /* SWBowlActParams.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
 		15F788001FB827B4001C32B1 /* FatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F787FF1FB827B4001C32B1 /* FatsController.swift */; };
 		15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F788011FB82A1A001C32B1 /* VeggiesController.swift */; };
@@ -208,6 +210,8 @@
 		15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSlidersController.swift; sourceTree = "<group>"; };
 		15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlSceneController.swift; sourceTree = "<group>"; };
 		15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlSceneImage.swift; sourceTree = "<group>"; };
+		15F4AF312013426F00C486FF /* SWBowlActSteps.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActSteps.swift; sourceTree = "<group>"; };
+		15F4AF33201344B200C486FF /* SWBowlActParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActParams.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
 		15F787FF1FB827B4001C32B1 /* FatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FatsController.swift; sourceTree = "<group>"; };
 		15F788011FB82A1A001C32B1 /* VeggiesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VeggiesController.swift; sourceTree = "<group>"; };
@@ -386,6 +390,8 @@
 				15F4AF2B2010CBB800C486FF /* SWSlidersController.swift */,
 				15F4AF2D2011E6AD00C486FF /* SWBowlSceneController.swift */,
 				15F4AF2F2011E82F00C486FF /* SWBowlSceneImage.swift */,
+				15F4AF312013426F00C486FF /* SWBowlActSteps.swift */,
+				15F4AF33201344B200C486FF /* SWBowlActParams.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -604,6 +610,7 @@
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
+				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
 				151AFE4B1FA5015500CC5357 /* SVSettings.swift in Sources */,
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
@@ -634,6 +641,7 @@
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
+				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
 				15B00C45200C76A5002B93A8 /* SWSlideView.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15F4AF282010748600C486FF /* SWFatsSlideView.swift in Sources */,

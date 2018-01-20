@@ -479,6 +479,30 @@ public extension UIImage {
         }
     }
     
+    class var frontleaf1: UIImage {
+        get {
+            return UIImage(named: "Frontleaf1")!
+        }
+    }
+    
+    class var frontleaf2: UIImage {
+        get {
+            return UIImage(named: "Frontleaf2")!
+        }
+    }
+    
+    class var frontleaf3: UIImage {
+        get {
+            return UIImage(named: "Frontleaf3")!
+        }
+    }
+    
+    class var frontleaf4: UIImage {
+        get {
+            return UIImage(named: "Frontleaf4")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

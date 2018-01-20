@@ -154,9 +154,11 @@ class OnboardingViewController: UIViewController {
     
     private func transition(to state: SWPagerStates) {
         _slidersController.prepare(for: state)
+        _bowlController.play(to: state, at: .before)
         let transition = { () -> Void in
             self._slidersController.transition()
-            self._bowlController.state = state
+//            self._bowlController.state = state
+            self._bowlController.play(to: state, at: .after)
         }
         let sync = { (_: Bool) -> Void in
             self._state = state

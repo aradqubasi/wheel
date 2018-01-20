@@ -83,15 +83,15 @@ class OnboardingViewController: UIViewController {
         
         //setup test buttons
         do {
-            let prev = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 16), size: CGSize(width: 32, height: 32)))
-            prev.setTitle("<", for: .normal)
-            prev.addTarget(self, action: #selector(onPrev(_:)), for: .touchUpInside)
-            view.addSubview(prev)
-            
-            let next = UIButton(frame: CGRect(origin: CGPoint(x: view.bounds.width - 32, y: 16), size: CGSize(width: 32, height: 32)))
-            next.setTitle(">", for: .normal)
-            next.addTarget(self, action: #selector(onNext(_:)), for: .touchUpInside)
-            view.addSubview(next)
+//            let prev = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 16), size: CGSize(width: 32, height: 32)))
+//            prev.setTitle("<", for: .normal)
+//            prev.addTarget(self, action: #selector(onPrev(_:)), for: .touchUpInside)
+//            view.addSubview(prev)
+//
+//            let next = UIButton(frame: CGRect(origin: CGPoint(x: view.bounds.width - 32, y: 16), size: CGSize(width: 32, height: 32)))
+//            next.setTitle(">", for: .normal)
+//            next.addTarget(self, action: #selector(onNext(_:)), for: .touchUpInside)
+//            view.addSubview(next)
         }
     }
 
@@ -162,7 +162,7 @@ class OnboardingViewController: UIViewController {
             self._state = state
             self.pagerController.state = state
         }
-        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
+        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
 //        let bowlChange = { () -> Void in self._bowlController.state = state }
 //        UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: bowlChange, completion: nil)
     }

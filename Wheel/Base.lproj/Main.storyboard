@@ -8,6 +8,11 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="HelveticaNeue.ttc">
+            <string>HelveticaNeue</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--Onboarding-->
         <scene sceneID="ZaX-RN-MeC">
@@ -27,7 +32,10 @@
                                     <constraint firstAttribute="height" constant="21" id="Iao-L3-kwA"/>
                                     <constraint firstAttribute="width" constant="126" id="wsg-Nw-Wwc"/>
                                 </constraints>
-                                <state key="normal" title="SKIP"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <state key="normal" title="SKIP">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="skip:" destination="uok-RC-Ph1" eventType="touchUpInside" id="yG5-iD-Iea"/>
                                     <segue destination="BYZ-38-t0r" kind="showDetail" action="showViewController:sender:" id="1xO-bq-zxa"/>

@@ -37,7 +37,15 @@ class SWBowlSceneController {
         
         _scene = scene
         
-        _actors = [SWBowlSceneImage.frontbowl]
+        _actors = [
+            SWBowlSceneImage.backbowl,
+            SWBowlSceneImage.spoon,
+            SWBowlSceneImage.backleaf1,
+            SWBowlSceneImage.backleaf2,
+            SWBowlSceneImage.backleaf3,
+            SWBowlSceneImage.backleaf4,
+            SWBowlSceneImage.frontbowl
+        ]
         _actors.forEach({
             _scene.addSubview($0.image)
             $0.state = _state

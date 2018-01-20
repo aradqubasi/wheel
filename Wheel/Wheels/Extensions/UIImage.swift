@@ -455,6 +455,30 @@ public extension UIImage {
         }
     }
     
+    class var backleaf1: UIImage {
+        get {
+            return UIImage(named: "Backleaf1")!
+        }
+    }
+    
+    class var backleaf2: UIImage {
+        get {
+            return UIImage(named: "Backleaf2")!
+        }
+    }
+    
+    class var backleaf3: UIImage {
+        get {
+            return UIImage(named: "Backleaf3")!
+        }
+    }
+    
+    class var backleaf4: UIImage {
+        get {
+            return UIImage(named: "Backleaf4")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

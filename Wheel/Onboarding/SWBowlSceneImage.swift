@@ -70,18 +70,210 @@ class SWBowlSceneImage {
     
     class var frontbowl: SWBowlSceneImage {
         get {
-            let slightlyUp = CGPoint(x: 0, y: -28)
+            let above = CGPoint(x: 0, y: -28)
             let original = CGPoint(x: 1, y: 1)
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontbowl)
                 , offsets: [
-                    .obey: slightlyUp,
-                    .leafs: slightlyUp,
-                    .proteins: slightlyUp,
-                    .veggies: slightlyUp,
-                    .fats: slightlyUp,
-                    .ehancers: slightlyUp
+                    .obey: above,
+                    .leafs: above,
+                    .proteins: above,
+                    .veggies: above,
+                    .fats: above,
+                    .ehancers: above
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var backbowl: SWBowlSceneImage {
+        get {
+            let above = CGPoint(x: 0, y: -74)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.backbowl)
+                , offsets: [
+                    .obey: above,
+                    .leafs: above,
+                    .proteins: above,
+                    .veggies: above,
+                    .fats: above,
+                    .ehancers: above
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var spoon: SWBowlSceneImage {
+        get {
+            let upleft = CGPoint(x: -89, y: -97)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.spoon)
+                , offsets: [
+                    .obey: upleft,
+                    .leafs: upleft,
+                    .proteins: upleft,
+                    .veggies: upleft,
+                    .fats: upleft,
+                    .ehancers: upleft
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var backleaf1: SWBowlSceneImage {
+        get {
+            let upleft = CGPoint(x: -49, y: -63.5)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.backleaf1)
+                , offsets: [
+                    .obey: upleft,
+                    .leafs: upleft,
+                    .proteins: upleft,
+                    .veggies: upleft,
+                    .fats: upleft,
+                    .ehancers: upleft
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var backleaf2: SWBowlSceneImage {
+        get {
+            let upright = CGPoint(x: 15, y: -66)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.backleaf2)
+                , offsets: [
+                    .obey: upright,
+                    .leafs: upright,
+                    .proteins: upright,
+                    .veggies: upright,
+                    .fats: upright,
+                    .ehancers: upright
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var backleaf3: SWBowlSceneImage {
+        get {
+            let upleft = CGPoint(x: -89.44, y: -75.17)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.backleaf3)
+                , offsets: [
+                    .obey: upleft,
+                    .leafs: upleft,
+                    .proteins: upleft,
+                    .veggies: upleft,
+                    .fats: upleft,
+                    .ehancers: upleft
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
+    }
+    
+    class var backleaf4: SWBowlSceneImage {
+        get {
+            let upright = CGPoint(x: 69, y: -72.4)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.backleaf4)
+                , offsets: [
+                    .obey: upright,
+                    .leafs: upright,
+                    .proteins: upright,
+                    .veggies: upright,
+                    .fats: upright,
+                    .ehancers: upright
                 ], scales: [
                     .obey: CGPoint(x: 0.2, y: 0.2),
                     .leafs: original,

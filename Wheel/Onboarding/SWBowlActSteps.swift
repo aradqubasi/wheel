@@ -9,5 +9,6 @@
 import Foundation
 enum SWBowlActSteps {
     case before
+    case inbetween
     case after
 }

@@ -38,12 +38,13 @@ class SWBowlSceneController {
         _scene = scene
         
         _actors = [
-//            SWBowlSceneImage.backbowl,
+            SWBowlSceneImage.backbowl,
             SWBowlSceneImage.spoon,
-//            SWBowlSceneImage.backleaf1,
-//            SWBowlSceneImage.backleaf2,
-//            SWBowlSceneImage.backleaf3,
-//            SWBowlSceneImage.backleaf4,
+            SWBowlSceneImage.backleaf1,
+            SWBowlSceneImage.backleaf2,
+            SWBowlSceneImage.backleaf3,
+            SWBowlSceneImage.backleaf4,
+            SWBowlSceneImage.frontleaf2,
             SWBowlSceneImage.frontbowl
         ]
 //        _actors.forEach({

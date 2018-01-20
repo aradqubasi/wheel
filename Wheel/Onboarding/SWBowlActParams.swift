@@ -17,9 +17,19 @@ struct SWBowlActParams {
     
     let alpha: CGFloat
     
+    let angle: CGFloat
+ 
     init(offset: CGPoint, scale: CGPoint, alpha: CGFloat) {
         self.offset = offset
         self.scale = scale
         self.alpha = alpha
+        self.angle = 0
+    }
+    
+    init(offset: CGPoint, scale: CGPoint, alpha: CGFloat, angle: CGFloat) {
+        self.offset = offset
+        self.scale = scale
+        self.alpha = alpha
+        self.angle = angle
     }
 }

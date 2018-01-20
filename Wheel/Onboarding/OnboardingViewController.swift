@@ -154,18 +154,27 @@ class OnboardingViewController: UIViewController {
     
     private func transition(to state: SWPagerStates) {
         _slidersController.prepare(for: state)
-        _bowlController.play(to: state, at: .before)
         let transition = { () -> Void in
             self._slidersController.transition()
-//            self._bowlController.state = state
-            self._bowlController.play(to: state, at: .after)
+            self._bowlController.play(to: state, at: .inbetween)
         }
         let sync = { (_: Bool) -> Void in
             self._state = state
             self.pagerController.state = state
         }
         UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
-//        let bowlChange = { () -> Void in self._bowlController.state = state }
+        
+        _bowlController.play(to: state, at: .before)
+        let toInbetween = { () -> Void in
+             self._bowlController.play(to: state, at: .inbetween)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: toInbetween, completion: nil)
+        let toAfter = { () -> Void in
+            self._bowlController.play(to: state, at: .after)
+        }
+        UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: toAfter, completion: nil)
+
+        //        let bowlChange = { () -> Void in self._bowlController.state = state }
 //        UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: bowlChange, completion: nil)
     }
     

@@ -24,8 +24,6 @@ class SWBowlSceneImage {
     
     // MARK: - Public Properties
     
-    /**image itself*/
-    
     var image: UIImageView {
         get {
             return _image
@@ -54,9 +52,11 @@ class SWBowlSceneImage {
             
             _image.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
             _image.alpha = alpha
-            _image.transform = CGAffineTransform.identity.scaledBy(x: scale.x, y: scale.y)
+            _image.transform = CGAffineTransform.identity.scaledBy(x: scale.x, y: scale.y)//.translatedBy(x: offset.x, y: offset.y)
         }
     }
+    
+    // MARK: - Initialization
     
     init (_ image: UIImageView, offsets: [SWPagerStates: CGPoint], scales: [SWPagerStates: CGPoint], alphas: [SWPagerStates: CGFloat], in initial: SWPagerStates) {
         _image = image
@@ -64,6 +64,40 @@ class SWBowlSceneImage {
         _scales = scales
         _alphas = alphas
         _state = initial
+    }
+    
+    // MARK: - Premades
+    
+    class var frontbowl: SWBowlSceneImage {
+        get {
+            let slightlyUp = CGPoint(x: 0, y: -28)
+            let original = CGPoint(x: 1, y: 1)
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.frontbowl)
+                , offsets: [
+                    .obey: slightlyUp,
+                    .leafs: slightlyUp,
+                    .proteins: slightlyUp,
+                    .veggies: slightlyUp,
+                    .fats: slightlyUp,
+                    .ehancers: slightlyUp
+                ], scales: [
+                    .obey: CGPoint(x: 0.2, y: 0.2),
+                    .leafs: original,
+                    .proteins: original,
+                    .veggies: original,
+                    .fats: original,
+                    .ehancers: original
+                ], alphas: [
+                    .obey: 0,
+                    .leafs: visible,
+                    .proteins: visible,
+                    .veggies: visible,
+                    .fats: visible,
+                    .ehancers: visible
+                ], in: .obey)
+        }
     }
     
 }

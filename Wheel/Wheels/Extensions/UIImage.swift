@@ -435,6 +435,26 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Bowl Scene Images
+    
+    class var frontbowl: UIImage {
+        get {
+            return UIImage(named: "Frontbowl")!
+        }
+    }
+
+    class var backbowl: UIImage {
+        get {
+            return UIImage(named: "Backbowl")!
+        }
+    }
+    
+    class var spoon: UIImage {
+        get {
+            return UIImage(named: "Spoon")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

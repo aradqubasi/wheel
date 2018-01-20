@@ -32,7 +32,7 @@ class SWSlidersController {
     
     // MARK: - Initialization
     
-    init(_ view: UIView) {
+    init(_ view: UIView, in initial: SWPagerStates) {
         _view = view
         
         _slides = [:]
@@ -43,7 +43,8 @@ class SWSlidersController {
         _slides[.fats] = SWFatsSlideView(frame: view.bounds)
         _slides[.ehancers] = SWEnhancersSlideView(frame: view.bounds)
         
-        _state = SWConfiguration.SWSlidersController.initial
+//        _state = SWConfiguration.SWSlidersController.initial
+        _state = initial
         
         _slides.forEach({
             $0.value.frame.origin = CGPoint(x: _view.bounds.width, y: 0)
@@ -58,11 +59,12 @@ class SWSlidersController {
     // MARK: - Public properties
     
     /**instant - set frames for animation*/
-    func prepare(_ forward: Bool) {
-        let transitions = SWConfiguration.SWSlidersController.transitions
-        guard let next: SWPagerStates = forward ? transitions.first(where: { return $0.key == state })?.value : transitions.first(where: { return $0.value == state })?.key else {
-            fatalError("no transition from \(state) moving forward \(forward)")
-        }
+    func prepare(for next: SWPagerStates) {
+//        let transitions = SWConfiguration.SWSlidersController.transitions
+//        guard let next: SWPagerStates = forward ? transitions.first(where: { return $0.key == state })?.value : transitions.first(where: { return $0.value == state })?.key else {
+//            fatalError("no transition from \(state) moving forward \(forward)")
+//        }
+        let forward = _state.next() == next
         guard let slide = _slides[next] else {
             fatalError("slide for next state \(state) is not available")
         }

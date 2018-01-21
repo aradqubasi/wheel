@@ -10,6 +10,34 @@ import Foundation
 import UIKit
 class SWConfiguration {
     
+    // MARK: - Segues Names
+    
+    struct Segues {
+        
+        static let onboardingToWheels: String = "OnboardingToWheels"
+        
+    }
+    
+    // MARK: - Skip button
+    
+    struct Skip {
+        
+        /**superview center - button center in superview bounds coordinate system*/
+        static let offset: CGPoint = CGPoint(x: 0, y: 310)
+        
+        static let size: CGSize = CGSize(width: 126, height: 21)
+        
+        static var text: NSAttributedString {
+            get {
+                let bold = UIFont(name: "Avenir-Heavy", size: 18)
+                
+                let text = NSMutableAttributedString(string: "SKIP", attributes: [.foregroundColor: UIColor.white, .font: bold as Any])
+                
+                return text
+            }
+        }
+    }
+    
     // MARK: - SWPagerConfig
     
     struct Pager {

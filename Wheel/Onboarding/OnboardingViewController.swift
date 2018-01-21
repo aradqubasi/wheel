@@ -48,6 +48,8 @@ class OnboardingViewController: UIViewController {
     
     private var _bowlController: SWBowlSceneController!
     
+    private var _skip: UIButton!
+    
     // MARK: - Initalization
 
     override func viewDidLoad() {
@@ -81,17 +83,15 @@ class OnboardingViewController: UIViewController {
             _bowlController = SWBowlSceneController(view, in: _state)
         }
         
-        //setup test buttons
+        //setup skip button
         do {
-//            let prev = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 16), size: CGSize(width: 32, height: 32)))
-//            prev.setTitle("<", for: .normal)
-//            prev.addTarget(self, action: #selector(onPrev(_:)), for: .touchUpInside)
-//            view.addSubview(prev)
-//
-//            let next = UIButton(frame: CGRect(origin: CGPoint(x: view.bounds.width - 32, y: 16), size: CGSize(width: 32, height: 32)))
-//            next.setTitle(">", for: .normal)
-//            next.addTarget(self, action: #selector(onNext(_:)), for: .touchUpInside)
-//            view.addSubview(next)
+            let offset = SWConfiguration.Skip.offset
+            let center = CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0.5)
+            _skip = UIButton(frame: CGRect(origin: .zero, size: SWConfiguration.Skip.size))
+            _skip.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
+            _skip.setAttributedTitle(SWConfiguration.Skip.text, for: .normal)
+            _skip.addTarget(self, action: #selector(onSkip(_:)), for: .touchUpInside)
+            view.addSubview(_skip)
         }
     }
 
@@ -112,6 +112,10 @@ class OnboardingViewController: UIViewController {
         _slidersController.prepare(for: _state.prev())
         let transition = { () -> Void in self._slidersController.transition() }
         UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
+    }
+    
+    @IBAction private func onSkip(_ sender: UIButton) {
+        performSegue(withIdentifier: SWConfiguration.Segues.onboardingToWheels, sender: self)
     }
     
     private var _last: Date!

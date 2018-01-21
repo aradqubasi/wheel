@@ -228,7 +228,7 @@ class SWBowlSceneImage {
     
     class var spoon: SWBowlSceneImage {
         get {
-            let upleft = CGPoint(x: -89, y: -97)
+            let upleft = CGPoint(x: -79, y: -97)
             let original = CGPoint(x: 1, y: 1)
             let shrinked = CGPoint(x: 0.2, y: 0.2)
             let invisible: CGFloat = 0
@@ -751,7 +751,6 @@ class SWBowlSceneImage {
             let shrinked = CGPoint(x: 0.2, y: 0.2)
             let invisible: CGFloat = 0
             let visible: CGFloat = 1
-            let bendleft: CGFloat = CGFloat.pi * 2 / 360 * 12
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.egg2)
                 , with: [
@@ -783,6 +782,670 @@ class SWBowlSceneImage {
                     .ehancers: [
                         .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var mushroom1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -72, y: -171)
+            let down = CGPoint(x: -85, y: -75)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.mushroom1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var mushroom2: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 38.1, y: -169.9)
+            let down = CGPoint(x: 15.86, y: -61.14)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.mushroom2)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var protoleaf: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 33.52, y: -117.7)
+            let down = CGPoint(x: 6, y: -15)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.protoleaf)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: original, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    // MARK: - Premaded Veggies
+    
+    class var brocolli1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -14, y: -134)
+            let down = CGPoint(x: 5, y: -79)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.brocolli1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var brocolli2: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 63, y: -148.5)
+            let down = CGPoint(x: 54, y: -27.5)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.brocolli2)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var pepperony: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -77, y: -200.5)
+            let down = CGPoint(x: -38, y: -88.5)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.pepperony)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var cucumber: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 15, y: -188)
+            let down = CGPoint(x: 27, y: -99)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.cucumber)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    // MARK: - Fats
+    
+    class var cashew1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -48.8, y: -182)
+            let down = CGPoint(x: -43, y: -65.5)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.cashew1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var cashew2: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 75.5, y: -235)
+            let down = CGPoint(x: 49, y: -90)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.cashew2)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var avocado1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 0, y: -175)
+            let down = CGPoint(x: -80, y: -89)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.avocado1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    // MARK: - Enhancera
+    
+    class var olive1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -27.5, y: -239.5)
+            let down = CGPoint(x: -75.5, y: -87.5)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.olive1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var olive2: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: -4, y: -150)
+            let down = CGPoint(x: -13, y: -92)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.olive2)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var olive3: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 74, y: -169)
+            let down = CGPoint(x: 62, y: -102)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.olive3)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
+                        .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
+                    ]
+                ]
+                , in: .obey
+                , at: .before)
+        }
+    }
+    
+    class var pepper1: SWBowlSceneImage {
+        get {
+            let up = CGPoint(x: 33, y: -214)
+            let down = CGPoint(x: -23, y: -89)
+            let original = CGPoint(x: 1, y: 1)
+            let shrinked = CGPoint(x: 0.2, y: 0.2)
+            let invisible: CGFloat = 0
+            let visible: CGFloat = 1
+            return SWBowlSceneImage(
+                UIImageView.init(image: UIImage.pepper1)
+                , with: [
+                    .obey: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .leafs: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .proteins: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .veggies: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .fats: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .after: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible)
+                    ],
+                    .ehancers: [
+                        .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
+                        .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
                 ]

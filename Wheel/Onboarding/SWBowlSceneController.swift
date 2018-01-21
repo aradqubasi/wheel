@@ -39,7 +39,14 @@ class SWBowlSceneController {
         
         _actors = [
             SWBowlSceneImage.backbowl,
+            SWBowlSceneImage.avocado1,
             SWBowlSceneImage.spoon,
+            SWBowlSceneImage.olive1,
+            SWBowlSceneImage.olive2,
+            SWBowlSceneImage.olive3,
+            SWBowlSceneImage.pepper1,
+            SWBowlSceneImage.pepperony,
+            SWBowlSceneImage.cashew2,
             SWBowlSceneImage.backleaf1,
             SWBowlSceneImage.backleaf2,
             SWBowlSceneImage.backleaf3,
@@ -49,8 +56,15 @@ class SWBowlSceneController {
             SWBowlSceneImage.frontleaf3,
             SWBowlSceneImage.frontleaf4,
             SWBowlSceneImage.frontleaf5,
+            SWBowlSceneImage.brocolli1,
+            SWBowlSceneImage.brocolli2,
+            SWBowlSceneImage.cucumber,
             SWBowlSceneImage.egg1,
             SWBowlSceneImage.egg2,
+            SWBowlSceneImage.protoleaf,
+            SWBowlSceneImage.mushroom1,
+            SWBowlSceneImage.mushroom2,
+            SWBowlSceneImage.cashew1,
             SWBowlSceneImage.frontbowl
         ]
 //        _actors.forEach({

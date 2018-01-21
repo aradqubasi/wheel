@@ -539,6 +539,72 @@ public extension UIImage {
         }
     }
     
+    class var brocolli1: UIImage {
+        get {
+            return UIImage(named: "Brocolli1")!
+        }
+    }
+    
+    class var brocolli2: UIImage {
+        get {
+            return UIImage(named: "Brocolli2")!
+        }
+    }
+    
+    class var cucumber: UIImage {
+        get {
+            return UIImage(named: "Cucumber")!
+        }
+    }
+    
+    class var pepperony: UIImage {
+        get {
+            return UIImage(named: "Pepperony")!
+        }
+    }
+    
+    class var cashew1: UIImage {
+        get {
+            return UIImage(named: "cashew1")!
+        }
+    }
+    
+    class var cashew2: UIImage {
+        get {
+            return UIImage(named: "cashew2")!
+        }
+    }
+    
+    class var avocado1: UIImage {
+        get {
+            return UIImage(named: "avocado1")!
+        }
+    }
+    
+    class var olive1: UIImage {
+        get {
+            return UIImage(named: "olive1")!
+        }
+    }
+    
+    class var olive2: UIImage {
+        get {
+            return UIImage(named: "olive2")!
+        }
+    }
+    
+    class var olive3: UIImage {
+        get {
+            return UIImage(named: "olive3")!
+        }
+    }
+    
+    class var pepper1: UIImage {
+        get {
+            return UIImage(named: "pepper1")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

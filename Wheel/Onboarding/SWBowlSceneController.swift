@@ -44,7 +44,13 @@ class SWBowlSceneController {
             SWBowlSceneImage.backleaf2,
             SWBowlSceneImage.backleaf3,
             SWBowlSceneImage.backleaf4,
+            SWBowlSceneImage.frontleaf1,
             SWBowlSceneImage.frontleaf2,
+            SWBowlSceneImage.frontleaf3,
+            SWBowlSceneImage.frontleaf4,
+            SWBowlSceneImage.frontleaf5,
+            SWBowlSceneImage.egg1,
+            SWBowlSceneImage.egg2,
             SWBowlSceneImage.frontbowl
         ]
 //        _actors.forEach({

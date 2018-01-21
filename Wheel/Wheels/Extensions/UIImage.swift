@@ -502,6 +502,42 @@ public extension UIImage {
             return UIImage(named: "Frontleaf4")!
         }
     }
+ 
+    class var frontleaf5: UIImage {
+        get {
+            return UIImage(named: "Frontleaf5")!
+        }
+    }
+    
+    class var egg1: UIImage {
+        get {
+            return UIImage(named: "Egg1")!
+        }
+    }
+    
+    class var egg2: UIImage {
+        get {
+            return UIImage(named: "Egg2")!
+        }
+    }
+    
+    class var mushroom1: UIImage {
+        get {
+            return UIImage(named: "Mushroom1")!
+        }
+    }
+    
+    class var mushroom2: UIImage {
+        get {
+            return UIImage(named: "Mushroom2")!
+        }
+    }
+    
+    class var protoleaf: UIImage {
+        get {
+            return UIImage(named: "Protoleaf")!
+        }
+    }
     
     // MARK: - Custom Initializer
     

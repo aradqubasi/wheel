@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum SWPagerStates {
+enum SWPagerStates: String, Codable {
     case obey
     case leafs
     case proteins
@@ -29,7 +29,6 @@ enum SWPagerStates {
             return .ehancers
         case .ehancers:
             return .obey
-//        default: fatalError("unimplemented next() for state \(self)")
         }
     }
     
@@ -47,7 +46,6 @@ enum SWPagerStates {
             return .veggies
         case .ehancers:
             return .fats
-//        default: fatalError("unimplemented next() for state \(self)")
         }
     }
 }

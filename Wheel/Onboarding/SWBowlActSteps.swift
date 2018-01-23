@@ -7,7 +7,8 @@
 //
 
 import Foundation
-enum SWBowlActSteps {
+enum SWBowlActSteps: String, Codable {
+    
     case before
     case inbetween
     case after

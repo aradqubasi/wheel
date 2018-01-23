@@ -447,6 +447,9 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         adding = false
 
+        let titleView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
+        titleView.backgroundColor = UIColor.red
+        navigationItem.titleView = titleView
     }
 
     override func didReceiveMemoryWarning() {

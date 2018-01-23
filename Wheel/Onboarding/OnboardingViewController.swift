@@ -12,29 +12,7 @@ class OnboardingViewController: UIViewController {
     
     // MARK: - Outlets
     
-    @IBOutlet weak var skip: UIButton!
-    
     @IBOutlet weak var pager: UIView!
-    
-//    var obey: UIView!
-//    var leafs: UIView!
-//    var proteins: UIView!
-//    var veggies: UIView!
-//    var fats: UIView!
-//    var enhancers: UIView!
-    
-    // MARK: - Public Properties
-    
-//    var state: SWPagerStates {
-//        get {
-//            return _state
-//        }
-//        set (new) {
-//            _state = new
-//            pagerController.state = new
-//            _bowlController.state = new
-//        }
-//    }
 
     // MARK: - Private Properties
     
@@ -131,10 +109,6 @@ class OnboardingViewController: UIViewController {
             if _slidersController.test(path) {
                 let path = sender.translation(in: view).x
                 transition(to: path < 0 ? _state.next() : _state.prev())
-//                _slidersController.prepare(path < 0)
-//                let transition = { () -> Void in self._slidersController.transition() }
-//                let sync = { (_: Bool) -> Void in self.pagerController.state = self._slidersController.state }
-//                UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
                 _slider.isEnabled = false
                 _slider.isEnabled = true
             }
@@ -145,10 +119,6 @@ class OnboardingViewController: UIViewController {
         case .ended:
             let path = sender.translation(in: view).x
             transition(to: path < 0 ? _state.next() : _state.prev())
-//            _slidersController.prepare(path < 0)
-//            let transition = { () -> Void in self._slidersController.transition() }
-//            let sync = { (_: Bool) -> Void in self.pagerController.state = self._slidersController.state }
-//            UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: transition, completion: sync)
         default:
             print("\(sender.state)")
         }
@@ -178,8 +148,6 @@ class OnboardingViewController: UIViewController {
         }
         UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: toAfter, completion: nil)
 
-        //        let bowlChange = { () -> Void in self._bowlController.state = state }
-//        UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: bowlChange, completion: nil)
     }
     
     /*

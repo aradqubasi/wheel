@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-struct SWBowlActParams {
+struct SWBowlActParams: Codable {
     
     /**distance between center of view and superview in superview.bounds coordinate system*/
     let offset: CGPoint

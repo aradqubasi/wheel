@@ -60,13 +60,9 @@ class SWSlidersController {
     
     /**instant - set frames for animation*/
     func prepare(for next: SWPagerStates) {
-//        let transitions = SWConfiguration.SWSlidersController.transitions
-//        guard let next: SWPagerStates = forward ? transitions.first(where: { return $0.key == state })?.value : transitions.first(where: { return $0.value == state })?.key else {
-//            fatalError("no transition from \(state) moving forward \(forward)")
-//        }
         let forward = _state.next() == next
         guard let slide = _slides[next] else {
-            fatalError("slide for next state \(state) is not available")
+            fatalError("slide for next state \(next) is not available")
         }
         slide.frame.origin = CGPoint(x: forward ? _view.bounds.width : -_view.bounds.width, y: 0)
         _next = next
@@ -81,8 +77,8 @@ class SWSlidersController {
     
     /**animatable - move slide by specified amount, until transigtion treshhold is reached*/
     func move(to path: CGFloat) {
-        guard let current = _slides[state] else {
-            fatalError("no slide for \(state)")
+        guard let current = _slides[_state] else {
+            fatalError("no slide for \(_state)")
         }
         current.frame.origin.x = path
     }
@@ -92,8 +88,8 @@ class SWSlidersController {
         guard let new = _slides[_next] else {
             fatalError("no slide for \(_next)")
         }
-        guard let old = _slides[state] else {
-            fatalError("no slide for \(state)")
+        guard let old = _slides[_state] else {
+            fatalError("no slide for \(_state)")
         }
         new.frame.origin = .zero
         old.frame.origin = CGPoint(x: _forward ? -_view.bounds.width : _view.bounds.width, y: 0)

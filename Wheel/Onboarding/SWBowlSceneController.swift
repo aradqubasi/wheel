@@ -24,10 +24,6 @@ class SWBowlSceneController {
         get {
             return _state
         }
-//        set (new) {
-//            _state = new
-//            _actors.forEach({ $0.state = _state })
-//        }
     }
     
     // MARK: - Initialization
@@ -67,10 +63,6 @@ class SWBowlSceneController {
             SWBowlSceneImage.cashew1,
             SWBowlSceneImage.frontbowl
         ]
-//        _actors.forEach({
-//            _scene.addSubview($0.image)
-//            $0.state = _state
-//        })
         _actors.forEach({ _scene.addSubview($0.image) })
         play(to: _state, at: .before)
     }

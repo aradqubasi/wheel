@@ -18,13 +18,9 @@ class SWBowlSceneImage {
     
     private var _step: SWBowlActSteps
     
-//    private let _offsets: [SWPagerStates: CGPoint]
-//
-//    private let _scales: [SWPagerStates: CGPoint]
-//
-//    private let _alphas: [SWPagerStates: CGFloat]
+//    private let _story: [SWPagerStates: [SWBowlActSteps: SWBowlActParams]]
     
-    private let _story: [SWPagerStates: [SWBowlActSteps: SWBowlActParams]]
+    private let _story: SWBowlActStory
     
     // MARK: - Public Properties
     
@@ -34,43 +30,9 @@ class SWBowlSceneImage {
         }
     }
     
-    var state: SWPagerStates {
-        get {
-            return _state
-        }
-//        set (new) {
-//            _state = new
-//            guard let offset = _offsets[_state] else {
-//                fatalError("no offset for state \(_state)")
-//            }
-//            guard let scale = _scales[_state] else {
-//                fatalError("no scale for state \(_state)")
-//            }
-//            guard let alpha = _alphas[_state] else {
-//                fatalError("no alpha for state \(_state)")
-//            }
-//            guard let scene = _image.superview else {
-//                fatalError("image without superview")
-//            }
-//            let center = CGPoint(x: scene.bounds.width * 0.5, y: scene.bounds.height * 0.5)
-//
-//            _image.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
-//            _image.alpha = alpha
-//            _image.transform = CGAffineTransform.identity.scaledBy(x: scale.x, y: scale.y)
-//        }
-    }
-    
     // MARK: - Initialization
     
-//    init (_ image: UIImageView, offsets: [SWPagerStates: CGPoint], scales: [SWPagerStates: CGPoint], alphas: [SWPagerStates: CGFloat], in initial: SWPagerStates) {
-//        _image = image
-//        _offsets = offsets
-//        _scales = scales
-//        _alphas = alphas
-//        _state = initial
-//    }
-    
-    init (_ image: UIImageView, with story: [SWPagerStates: [SWBowlActSteps: SWBowlActParams]], in initial: SWPagerStates, at step: SWBowlActSteps) {
+    init (_ image: UIImageView, with story: SWBowlActStory, in initial: SWPagerStates, at step: SWBowlActSteps) {
         _image = image
         _story = story
         _state = initial
@@ -82,7 +44,7 @@ class SWBowlSceneImage {
     func play(to state: SWPagerStates, at step: SWBowlActSteps) {
         _state = state
         _step = step
-        guard let story = _story[state] else {
+        guard let story = _story.byState[state] else {
             fatalError("no story for state \(_state)")
         }
         if let step = story[step] {
@@ -102,81 +64,69 @@ class SWBowlSceneImage {
     
     // MARK: - Premades
 
-//    class var frontbowl: SWBowlSceneImage {
-//        get {
-//            let above = CGPoint(x: 0, y: -28)
-//            let original = CGPoint(x: 1, y: 1)
-//            let visible: CGFloat = 1
-//            return SWBowlSceneImage(
-//                UIImageView.init(image: UIImage.frontbowl)
-//                , offsets: [
-//                    .obey: above,
-//                    .leafs: above,
-//                    .proteins: above,
-//                    .veggies: above,
-//                    .fats: above,
-//                    .ehancers: above
-//                ], scales: [
-//                    .obey: CGPoint(x: 0.2, y: 0.2),
-//                    .leafs: original,
-//                    .proteins: original,
-//                    .veggies: original,
-//                    .fats: original,
-//                    .ehancers: original
-//                ], alphas: [
-//                    .obey: 0,
-//                    .leafs: visible,
-//                    .proteins: visible,
-//                    .veggies: visible,
-//                    .fats: visible,
-//                    .ehancers: visible
-//                ], in: .obey)
-//        }
-//    }
-
     class var frontbowl: SWBowlSceneImage {
         get {
-            let above = CGPoint(x: 0, y: -28)
-            let original = CGPoint(x: 1, y: 1)
-            let shrinked = CGPoint(x: 0.2, y: 0.2)
-            let invisible: CGFloat = 0
-            let visible: CGFloat = 1
-            return SWBowlSceneImage(
-                UIImageView.init(image: UIImage.frontbowl)
-                , with: [
-                    .obey: [
-                        .before: SWBowlActParams(offset: above, scale: original, alpha: invisible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: invisible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: invisible)
-                    ],
-                    .leafs: [
-                        .before: SWBowlActParams(offset: above, scale: shrinked, alpha: invisible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
-                    ],
-                    .proteins: [
-                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
-                    ],
-                    .veggies: [
-                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
-                    ],
-                    .fats: [
-                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
-                    ],
-                    .ehancers: [
-                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
-                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
-                    ]
-                ]
-                , in: .obey
-                , at: .before)
+//            let above = CGPoint(x: 0, y: -28)
+//            let original = CGPoint(x: 1, y: 1)
+//            let shrinked = CGPoint(x: 0.2, y: 0.2)
+//            let invisible: CGFloat = 0
+//            let visible: CGFloat = 1
+//            let image = SWBowlSceneImage(
+//                UIImageView.init(image: UIImage.frontbowl)
+//                , with: SWBowlActStory([
+//                    .obey: [
+//                        .before: SWBowlActParams(offset: above, scale: original, alpha: invisible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: invisible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: invisible)
+//                    ],
+//                    .leafs: [
+//                        .before: SWBowlActParams(offset: above, scale: shrinked, alpha: invisible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
+//                    ],
+//                    .proteins: [
+//                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
+//                    ],
+//                    .veggies: [
+//                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
+//                    ],
+//                    .fats: [
+//                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
+//                    ],
+//                    .ehancers: [
+//                        .before: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
+//                        .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
+//                    ]
+//                ])
+//                , in: .obey
+//                , at: .before)
+
+            
+            //            do {
+//                let json = try JSONEncoder().encode(image._story)
+////                print(json)
+//                let stringify = String(data: json, encoding: String.Encoding.utf8) as String!
+//                print(stringify)
+//            }
+//            catch {
+//                print("\(error)")
+//            }
+            var story: SWBowlActStory!
+            do {
+                let frontbowl = NSDataAsset(name: "frontbowl")
+//                let json = String(data: frontbowl!.data, encoding: String.Encoding.utf8) as String!
+//                print(json)
+                story = try! JSONDecoder().decode(SWBowlActStory.self, from: frontbowl!.data)
+            }
+            let image = SWBowlSceneImage.init(UIImageView.init(image: UIImage.frontbowl), with: story, in: .obey, at: .before)
+            return image
         }
     }
     
@@ -189,7 +139,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.backbowl)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: above, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: above, scale: original, alpha: invisible),
@@ -220,7 +170,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: above, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: above, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -235,7 +185,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.spoon)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
@@ -266,7 +216,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: upleft, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -281,7 +231,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.backleaf1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
@@ -312,7 +262,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: upleft, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -327,7 +277,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.backleaf2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: upright, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: upright, scale: original, alpha: invisible),
@@ -358,7 +308,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: upright, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: upright, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -373,7 +323,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.backleaf3)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: invisible),
@@ -404,7 +354,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: upleft, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: upleft, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -419,7 +369,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.backleaf4)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: upright, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: upright, scale: original, alpha: invisible),
@@ -450,7 +400,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: upright, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: upright, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -467,7 +417,7 @@ class SWBowlSceneImage {
             let bendright: CGFloat = CGFloat.pi * 2 / 360 * 30
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontleaf1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: above, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: above, scale: shrinked, alpha: invisible),
@@ -498,7 +448,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: plate, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: plate, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -515,7 +465,7 @@ class SWBowlSceneImage {
             let bendleft: CGFloat = -CGFloat.pi * 2 / 360 * 50
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontleaf2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -546,7 +496,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -562,7 +512,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontleaf3)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -593,7 +543,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -609,7 +559,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontleaf4)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -640,7 +590,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -656,7 +606,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.frontleaf5)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -687,7 +637,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -706,7 +656,7 @@ class SWBowlSceneImage {
             let bendleft: CGFloat = CGFloat.pi * 2 / 360 * 12
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.egg1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -737,7 +687,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible, angle: bendleft),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible, angle: bendleft)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -753,7 +703,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.egg2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -784,7 +734,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -800,7 +750,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.mushroom1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -831,7 +781,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -847,7 +797,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.mushroom2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -878,7 +828,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -894,7 +844,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.protoleaf)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: original, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: invisible),
@@ -925,7 +875,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -943,7 +893,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.brocolli1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -974,7 +924,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -990,7 +940,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.brocolli2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1021,7 +971,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1037,7 +987,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.pepperony)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1068,7 +1018,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1084,7 +1034,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.cucumber)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1115,7 +1065,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1133,7 +1083,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.cashew1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1164,7 +1114,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1180,7 +1130,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.cashew2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1211,7 +1161,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1227,7 +1177,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.avocado1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1258,7 +1208,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: down, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1276,7 +1226,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.olive1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1307,7 +1257,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1323,7 +1273,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.olive2)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1354,7 +1304,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1370,7 +1320,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.olive3)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1401,7 +1351,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }
@@ -1417,7 +1367,7 @@ class SWBowlSceneImage {
             let visible: CGFloat = 1
             return SWBowlSceneImage(
                 UIImageView.init(image: UIImage.pepper1)
-                , with: [
+                , with: SWBowlActStory([
                     .obey: [
                         .before: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
                         .inbetween: SWBowlActParams(offset: up, scale: shrinked, alpha: invisible),
@@ -1448,7 +1398,7 @@ class SWBowlSceneImage {
                         .inbetween: SWBowlActParams(offset: up, scale: original, alpha: visible),
                         .after: SWBowlActParams(offset: down, scale: original, alpha: visible)
                     ]
-                ]
+                ])
                 , in: .obey
                 , at: .before)
         }

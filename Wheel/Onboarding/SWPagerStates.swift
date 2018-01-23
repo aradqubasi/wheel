@@ -15,6 +15,8 @@ enum SWPagerStates: String, Codable {
     case fats
     case ehancers
     
+    static let inital: SWPagerStates = .obey
+    
     func next() -> SWPagerStates {
         switch self {
         case .obey:
@@ -47,5 +49,9 @@ enum SWPagerStates: String, Codable {
         case .ehancers:
             return .fats
         }
+    }
+    
+    static func all() -> [SWPagerStates] {
+        return [.obey, .leafs, .proteins, .veggies, .fats, .ehancers]
     }
 }

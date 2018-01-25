@@ -1,0 +1,58 @@
+{
+  "initial": {
+    "alpha": 0,
+    "offset": [
+      33.52,
+      -117.7
+    ],
+    "angle": 0,
+    "scale": [
+      0.2,
+      0.2
+    ]
+  },
+  "differential": [
+    "proteins",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          6,
+          -15
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "before",
+      {
+        "alpha": 0,
+        "offset": [
+          33.52,
+          -117.7
+        ],
+        "angle": 0,
+        "scale": [
+          0.2,
+          0.2
+        ]
+      },
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          33.52,
+          -117.7
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

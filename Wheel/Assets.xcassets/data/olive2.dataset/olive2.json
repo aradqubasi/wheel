@@ -1,0 +1,58 @@
+{
+  "initial": {
+    "alpha": 0,
+    "offset": [
+      -4,
+      -150
+    ],
+    "angle": 0,
+    "scale": [
+      0.2,
+      0.2
+    ]
+  },
+  "differential": [
+    "ehancers",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          -13,
+          -92
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "before",
+      {
+        "alpha": 0,
+        "offset": [
+          -4,
+          -150
+        ],
+        "angle": 0,
+        "scale": [
+          0.2,
+          0.2
+        ]
+      },
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          -4,
+          -150
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

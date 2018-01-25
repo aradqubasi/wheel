@@ -1,0 +1,58 @@
+{
+  "initial": {
+    "alpha": 0,
+    "offset": [
+      -37,
+      -169.5
+    ],
+    "angle": 0,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "leafs",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          -23,
+          -60.5
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      },
+      "before",
+      {
+        "alpha": 0,
+        "offset": [
+          -37,
+          -169.5
+        ],
+        "angle": -0.8726646259971648,
+        "scale": [
+          0.2,
+          0.2
+        ]
+      },
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          -37,
+          -169.5
+        ],
+        "angle": -0.8726646259971648,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

@@ -14,7 +14,7 @@ class SWBowlSceneController {
     
     private var _scene: UIView!
     
-    private var _actors: [SWBowlSceneImage]
+    private var _actors: [SWBowlSceneView]
     
     private var _state: SWPagerStates
     
@@ -34,34 +34,35 @@ class SWBowlSceneController {
         _scene = scene
         
         _actors = [
-            SWBowlSceneImage.backbowl,
-            SWBowlSceneImage.avocado1,
-            SWBowlSceneImage.spoon,
-            SWBowlSceneImage.olive1,
-            SWBowlSceneImage.olive2,
-            SWBowlSceneImage.olive3,
-            SWBowlSceneImage.pepper1,
-            SWBowlSceneImage.pepperony,
-            SWBowlSceneImage.cashew2,
-            SWBowlSceneImage.backleaf1,
-            SWBowlSceneImage.backleaf2,
-            SWBowlSceneImage.backleaf3,
-            SWBowlSceneImage.backleaf4,
-            SWBowlSceneImage.frontleaf1,
-            SWBowlSceneImage.frontleaf2,
-            SWBowlSceneImage.frontleaf3,
-            SWBowlSceneImage.frontleaf4,
-            SWBowlSceneImage.frontleaf5,
-            SWBowlSceneImage.brocolli1,
-            SWBowlSceneImage.brocolli2,
-            SWBowlSceneImage.cucumber,
-            SWBowlSceneImage.egg1,
-            SWBowlSceneImage.egg2,
-            SWBowlSceneImage.protoleaf,
-            SWBowlSceneImage.mushroom1,
-            SWBowlSceneImage.mushroom2,
-            SWBowlSceneImage.cashew1,
-            SWBowlSceneImage.frontbowl
+            SWBowlSceneView.obeyTitle,
+            SWBowlSceneView.backbowl,
+            SWBowlSceneView.avocado1,
+            SWBowlSceneView.spoon,
+            SWBowlSceneView.olive1,
+            SWBowlSceneView.olive2,
+            SWBowlSceneView.olive3,
+            SWBowlSceneView.pepper1,
+            SWBowlSceneView.pepperony,
+            SWBowlSceneView.cashew2,
+            SWBowlSceneView.backleaf1,
+            SWBowlSceneView.backleaf2,
+            SWBowlSceneView.backleaf3,
+            SWBowlSceneView.backleaf4,
+            SWBowlSceneView.frontleaf1,
+            SWBowlSceneView.frontleaf2,
+            SWBowlSceneView.frontleaf3,
+            SWBowlSceneView.frontleaf4,
+            SWBowlSceneView.frontleaf5,
+            SWBowlSceneView.brocolli1,
+            SWBowlSceneView.brocolli2,
+            SWBowlSceneView.cucumber,
+            SWBowlSceneView.egg1,
+            SWBowlSceneView.egg2,
+            SWBowlSceneView.protoleaf,
+            SWBowlSceneView.mushroom1,
+            SWBowlSceneView.mushroom2,
+            SWBowlSceneView.cashew1,
+            SWBowlSceneView.frontbowl
         ]
         _actors.forEach({ _scene.addSubview($0.image) })
         play(to: _state, at: .before)

@@ -17,6 +17,7 @@ class SWObeySlideView: SWSliderView {
         title.attributedText = SWConfiguration.ObeySlide.text
         title.textAlignment = .center
         title.center = CGPoint(x: bounds.width * 0.5, y: bounds.height * 0.5)
+        title.alpha = 0
     }
     
 }

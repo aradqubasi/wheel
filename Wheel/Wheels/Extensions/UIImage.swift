@@ -439,169 +439,169 @@ public extension UIImage {
     
     class var frontbowl: UIImage {
         get {
-            return UIImage(named: "Frontbowl")!
+            return UIImage(named: "onboarding/images/Frontbowl")!
         }
     }
 
     class var backbowl: UIImage {
         get {
-            return UIImage(named: "Backbowl")!
+            return UIImage(named: "onboarding/images/Backbowl")!
         }
     }
     
     class var spoon: UIImage {
         get {
-            return UIImage(named: "Spoon")!
+            return UIImage(named: "onboarding/images/Spoon")!
         }
     }
     
     class var backleaf1: UIImage {
         get {
-            return UIImage(named: "Backleaf1")!
+            return UIImage(named: "onboarding/images/Backleaf1")!
         }
     }
     
     class var backleaf2: UIImage {
         get {
-            return UIImage(named: "Backleaf2")!
+            return UIImage(named: "onboarding/images/Backleaf2")!
         }
     }
     
     class var backleaf3: UIImage {
         get {
-            return UIImage(named: "Backleaf3")!
+            return UIImage(named: "onboarding/images/Backleaf3")!
         }
     }
     
     class var backleaf4: UIImage {
         get {
-            return UIImage(named: "Backleaf4")!
+            return UIImage(named: "onboarding/images/Backleaf4")!
         }
     }
     
     class var frontleaf1: UIImage {
         get {
-            return UIImage(named: "Frontleaf1")!
+            return UIImage(named: "onboarding/images/Frontleaf1")!
         }
     }
     
     class var frontleaf2: UIImage {
         get {
-            return UIImage(named: "Frontleaf2")!
+            return UIImage(named: "onboarding/images/Frontleaf2")!
         }
     }
     
     class var frontleaf3: UIImage {
         get {
-            return UIImage(named: "Frontleaf3")!
+            return UIImage(named: "onboarding/images/Frontleaf3")!
         }
     }
     
     class var frontleaf4: UIImage {
         get {
-            return UIImage(named: "Frontleaf4")!
+            return UIImage(named: "onboarding/images/Frontleaf4")!
         }
     }
  
     class var frontleaf5: UIImage {
         get {
-            return UIImage(named: "Frontleaf5")!
+            return UIImage(named: "onboarding/images/Frontleaf5")!
         }
     }
     
     class var egg1: UIImage {
         get {
-            return UIImage(named: "Egg1")!
+            return UIImage(named: "onboarding/images/Egg1")!
         }
     }
     
     class var egg2: UIImage {
         get {
-            return UIImage(named: "Egg2")!
+            return UIImage(named: "onboarding/images/Egg2")!
         }
     }
     
     class var mushroom1: UIImage {
         get {
-            return UIImage(named: "Mushroom1")!
+            return UIImage(named: "onboarding/images/Mushroom1")!
         }
     }
     
     class var mushroom2: UIImage {
         get {
-            return UIImage(named: "Mushroom2")!
+            return UIImage(named: "onboarding/images/Mushroom2")!
         }
     }
     
     class var protoleaf: UIImage {
         get {
-            return UIImage(named: "Protoleaf")!
+            return UIImage(named: "onboarding/images/Protoleaf")!
         }
     }
     
     class var brocolli1: UIImage {
         get {
-            return UIImage(named: "Brocolli1")!
+            return UIImage(named: "onboarding/images/Brocolli1")!
         }
     }
     
     class var brocolli2: UIImage {
         get {
-            return UIImage(named: "Brocolli2")!
+            return UIImage(named: "onboarding/images/Brocolli2")!
         }
     }
     
     class var cucumber: UIImage {
         get {
-            return UIImage(named: "Cucumber")!
+            return UIImage(named: "onboarding/images/Cucumber")!
         }
     }
     
     class var pepperony: UIImage {
         get {
-            return UIImage(named: "Pepperony")!
+            return UIImage(named: "onboarding/images/Pepperony")!
         }
     }
     
     class var cashew1: UIImage {
         get {
-            return UIImage(named: "cashew1")!
+            return UIImage(named: "onboarding/images/cashew1")!
         }
     }
     
     class var cashew2: UIImage {
         get {
-            return UIImage(named: "cashew2")!
+            return UIImage(named: "onboarding/images/cashew2")!
         }
     }
     
     class var avocado1: UIImage {
         get {
-            return UIImage(named: "avocado1")!
+            return UIImage(named: "onboarding/images/avocado1")!
         }
     }
     
     class var olive1: UIImage {
         get {
-            return UIImage(named: "olive1")!
+            return UIImage(named: "onboarding/images/olive1")!
         }
     }
     
     class var olive2: UIImage {
         get {
-            return UIImage(named: "olive2")!
+            return UIImage(named: "onboarding/images/olive2")!
         }
     }
     
     class var olive3: UIImage {
         get {
-            return UIImage(named: "olive3")!
+            return UIImage(named: "onboarding/images/olive3")!
         }
     }
     
     class var pepper1: UIImage {
         get {
-            return UIImage(named: "pepper1")!
+            return UIImage(named: "onboarding/images/pepper1")!
         }
     }
     

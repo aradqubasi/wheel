@@ -23,6 +23,7 @@ class SWLeafsSlideView: SWSliderView {
             title.textAlignment = .center
             offset = SWConfiguration.LeafsSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
+            title.alpha = 0
         }
         
         //setup subtitle
@@ -32,6 +33,7 @@ class SWLeafsSlideView: SWSliderView {
             subtitle.textAlignment = .center
             offset = SWConfiguration.LeafsSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
+            subtitle.alpha = 0
         }
         
     }

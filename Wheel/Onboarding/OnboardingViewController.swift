@@ -142,11 +142,14 @@ class OnboardingViewController: UIViewController {
         let toInbetween = { () -> Void in
              self._bowlController.play(to: state, at: .inbetween)
         }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: toInbetween, completion: nil)
+        let toInbetweenTime: TimeInterval = 0.35
+//        let toInbetweenTime: TimeInterval = 2
+        UIView.animate(withDuration: toInbetweenTime, delay: 0, options: [.curveEaseOut], animations: toInbetween, completion: nil)
         let toAfter = { () -> Void in
             self._bowlController.play(to: state, at: .after)
         }
-        UIView.animate(withDuration: 0.225, delay: 0.225, options: [], animations: toAfter, completion: nil)
+        let toAfterTime: TimeInterval = 0.35
+        UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, options: [.curveEaseOut], animations: toAfter, completion: nil)
 
     }
     

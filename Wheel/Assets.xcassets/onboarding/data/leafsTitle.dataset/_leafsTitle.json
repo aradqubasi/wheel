@@ -1,53 +1,43 @@
 {
   "initial": {
-    "alpha": 0,
+    "alpha": 1,
     "offset": [
-      -12,
-      -141
+      1420.5,
+      55.5
     ],
     "angle": 0,
     "scale": [
-      0.2,
-      0.2
+      1,
+      1
     ]
   },
   "differential": [
     "leafs",
     [
-      "after",
+      "inbetween",
       {
         "alpha": 1,
         "offset": [
-          0,
-          -67
+          0.5,
+          55.5
         ],
         "angle": 0,
         "scale": [
           1,
           1
         ]
-      },
-      "before",
-      {
-        "alpha": 0,
-        "offset": [
-          -12,
-          -141
-        ],
-        "angle": 0.5235987755982988,
-        "scale": [
-          0.2,
-          0.2
-        ]
-      },
+      }
+    ],
+    "proteins",
+    [
       "inbetween",
       {
         "alpha": 1,
         "offset": [
-          -12,
-          -141
+          -4323.5,
+          55.5
         ],
-        "angle": 0.5235987755982988,
+        "angle": 0,
         "scale": [
           1,
           1

@@ -6,7 +6,7 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "frontbowl.json",
+      "filename" : "_frontbowl.json",
       "universal-type-identifier" : "public.json"
     }
   ]

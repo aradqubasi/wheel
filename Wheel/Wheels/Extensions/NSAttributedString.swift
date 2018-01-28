@@ -30,4 +30,25 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    class var leafsSubtitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 16)
+            let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var onboardingHeader: NSAttributedString {
+        get {
+            let bold = UIFont(name: "Avenir-Black", size: 32)
+            
+            let usual = UIFont(name: "Avenir-Book", size: 32)
+            
+            let text = NSMutableAttributedString(string: "saladwheel", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            text.addAttributes([.font: bold as Any], range: NSMakeRange(0, 5))
+            
+            return text
+        }
+    }
 }

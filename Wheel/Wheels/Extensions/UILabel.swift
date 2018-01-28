@@ -32,4 +32,26 @@ extension UILabel {
         }
     }
     
+    class var leafsSubtitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.leafsSubtitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var onboardingHeader: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 193, height: 49)
+            label.attributedText = NSAttributedString.onboardingHeader
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
 }

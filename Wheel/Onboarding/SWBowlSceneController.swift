@@ -35,6 +35,9 @@ class SWBowlSceneController {
         
         _actors = [
             SWBowlSceneView.obeyTitle,
+            SWBowlSceneView.leafsTitle,
+            SWBowlSceneView.leafsSubtitle,
+            SWBowlSceneView.onboardingHeader,
             SWBowlSceneView.backbowl,
             SWBowlSceneView.avocado1,
             SWBowlSceneView.spoon,
@@ -52,7 +55,7 @@ class SWBowlSceneController {
             SWBowlSceneView.frontleaf2,
             SWBowlSceneView.frontleaf3,
             SWBowlSceneView.frontleaf4,
-            SWBowlSceneView.frontleaf5,
+//            SWBowlSceneView.frontleaf5,
             SWBowlSceneView.brocolli1,
             SWBowlSceneView.brocolli2,
             SWBowlSceneView.cucumber,

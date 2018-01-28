@@ -1,9 +1,9 @@
 {
   "initial": {
-    "alpha": 0,
+    "alpha": 1,
     "offset": [
-      69,
-      -72.4
+      15,
+      -456
     ],
     "angle": 0,
     "scale": [
@@ -14,25 +14,12 @@
   "differential": [
     "leafs",
     [
-      "before",
-      {
-        "alpha": 0,
-        "offset": [
-          69,
-          -72.4
-        ],
-        "angle": 0,
-        "scale": [
-          0.2,
-          0.2
-        ]
-      },
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [
-          69,
-          -72.4
+          15,
+          -66
         ],
         "angle": 0,
         "scale": [

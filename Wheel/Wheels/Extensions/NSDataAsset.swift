@@ -177,4 +177,22 @@ extension NSDataAsset {
             return NSDataAsset(name: "onboarding/data/pepper1")!
         }
     }
+    
+    class var leafsTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/leafsTitle")!
+        }
+    }
+    
+    class var leafsSubtitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/leafsSubtitle")!
+        }
+    }
+    
+    class var onboardingHeader: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/onboardingHeader")!
+        }
+    }
 }

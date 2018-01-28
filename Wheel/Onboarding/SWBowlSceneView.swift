@@ -340,23 +340,24 @@ class SWBowlSceneView {
         }
     }
     
-    class var obeyTitle: SWBowlSceneView {
+    class var leafsTitle: SWBowlSceneView {
         get {
-            let center = CGPoint(x: 0, y: 0)
-            let left = CGPoint(x: -812, y: 0)
-            let original = CGPoint(x: 1, y: 1)
-            let visible: CGFloat = 1
-            let image = SWBowlSceneView(
-                UILabel.leafsTitle
-                , with: SWBowlActStory(initial: SWBowlActParams(offset: center, scale: original, alpha: visible), differential: [
-                    .leafs: [
-                        .inbetween: SWBowlActParams(offset: left, scale: original, alpha: visible),
-                    ]
-                    ])
-                , in: .obey
-                , at: .before)
-
-            return image
+            let label = SWBowlSceneView(UILabel.leafsTitle, with: SWBowlActStory.leafsTitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var leafsSubtitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.leafsSubtitle, with: SWBowlActStory.leafsSubtitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var onboardingHeader: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.onboardingHeader, with: SWBowlActStory.onboardingHeader, in: .obey, at: .before)
+            return label
         }
     }
 }

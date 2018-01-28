@@ -6,7 +6,7 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "spoon.json",
+      "filename" : "_spoon.json",
       "universal-type-identifier" : "public.json"
     }
   ]

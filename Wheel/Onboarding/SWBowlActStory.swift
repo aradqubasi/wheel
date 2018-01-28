@@ -248,4 +248,22 @@ class SWBowlActStory: Codable {
             return getBy(asset: NSDataAsset.pepper1)
         }
     }
+    
+    class var leafsTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.leafsTitle)
+        }
+    }
+    
+    class var leafsSubtitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.leafsSubtitle)
+        }
+    }
+    
+    class var onboardingHeader: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.onboardingHeader)
+        }
+    }
 }

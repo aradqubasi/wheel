@@ -1,9 +1,9 @@
 {
   "initial": {
-    "alpha": 0,
+    "alpha": 1,
     "offset": [
-      -77,
-      -200.5
+      6084.5,
+      86.5
     ],
     "angle": 0,
     "scale": [
@@ -12,40 +12,30 @@
     ]
   },
   "differential": [
-    "veggies",
+    "proteins",
     [
-      "after",
+      "inbetween",
       {
         "alpha": 1,
         "offset": [
-          -38,
-          -88.5
+          0.5,
+          86.5
         ],
         "angle": 0,
         "scale": [
           1,
           1
         ]
-      },
-      "before",
-      {
-        "alpha": 0,
-        "offset": [
-          -77,
-          -200.5
-        ],
-        "angle": 0,
-        "scale": [
-          0.2,
-          0.2
-        ]
-      },
+      }
+    ],
+    "veggies",
+    [
       "inbetween",
       {
         "alpha": 1,
         "offset": [
-          -77,
-          -200.5
+          -2342.5,
+          86.5
         ],
         "angle": 0,
         "scale": [

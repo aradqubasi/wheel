@@ -30,6 +30,8 @@ class SWBowlSceneView {
         }
     }
     
+    var name: String = ""
+    
     // MARK: - Initialization
     
     init (_ image: UIView, with story: SWBowlActStory, in initial: SWPagerStates, at step: SWBowlActSteps) {
@@ -343,6 +345,7 @@ class SWBowlSceneView {
     class var leafsTitle: SWBowlSceneView {
         get {
             let label = SWBowlSceneView(UILabel.leafsTitle, with: SWBowlActStory.leafsTitle, in: .obey, at: .before)
+            label.name = "leafsTitle"
             return label
         }
     }
@@ -350,6 +353,7 @@ class SWBowlSceneView {
     class var leafsSubtitle: SWBowlSceneView {
         get {
             let label = SWBowlSceneView(UILabel.leafsSubtitle, with: SWBowlActStory.leafsSubtitle, in: .obey, at: .before)
+            label.name = "leafsSubtitle"
             return label
         }
     }
@@ -357,6 +361,34 @@ class SWBowlSceneView {
     class var onboardingHeader: SWBowlSceneView {
         get {
             let label = SWBowlSceneView(UILabel.onboardingHeader, with: SWBowlActStory.onboardingHeader, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var proteinsTitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.proteinsTitle, with: SWBowlActStory.proteinsTitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var proteinsSubtitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.proteinsSubtitle, with: SWBowlActStory.proteinsSubtitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var veggiesTitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.veggiesTitle, with: SWBowlActStory.veggiesTitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var veggiesSubtitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.veggiesSubtitle, with: SWBowlActStory.veggiesSubtitle, in: .obey, at: .before)
             return label
         }
     }

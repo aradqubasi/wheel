@@ -143,13 +143,16 @@ class OnboardingViewController: UIViewController {
              self._bowlController.play(to: state, at: .inbetween)
         }
         let toInbetweenTime: TimeInterval = 0.35
-//        let toInbetweenTime: TimeInterval = 2
-        UIView.animate(withDuration: toInbetweenTime, delay: 0, options: [.curveEaseOut], animations: toInbetween, completion: nil)
+//        let toInbetweenTime: TimeInterval = 5
+//        UIView.animate(withDuration: toInbetweenTime, delay: 0, options: [.curveEaseInOut], animations: toInbetween, completion: nil)
+        UIView.animate(withDuration: toInbetweenTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toInbetween, completion: nil)
         let toAfter = { () -> Void in
             self._bowlController.play(to: state, at: .after)
         }
         let toAfterTime: TimeInterval = 0.35
-        UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, options: [.curveEaseOut], animations: toAfter, completion: nil)
+//        let toAfterTime: TimeInterval = 5
+//        UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, options: [.curveEaseInOut], animations: toAfter, completion: nil)
+        UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toAfter, completion: nil)
 
     }
     

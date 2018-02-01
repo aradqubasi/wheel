@@ -6,7 +6,7 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "egg1.json",
+      "filename" : "_egg1.json",
       "universal-type-identifier" : "public.json"
     }
   ]

@@ -51,4 +51,36 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    class var proteinsTitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 28)
+            let text = NSAttributedString(string: "Add Proteins", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var proteinsSubtitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 16)
+            let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var veggiesTitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 28)
+            let text = NSAttributedString(string: "Veggies (cooked or raw)", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var veggiesSubtitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 16)
+            let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
 }

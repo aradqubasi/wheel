@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      -62.87,
+      -2382.14
+    ],
+    "angle": -10,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "veggies",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          -55.65,
+          -82.5
+        ],
+        "angle": -0.174532925199433,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

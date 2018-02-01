@@ -195,4 +195,28 @@ extension NSDataAsset {
             return NSDataAsset(name: "onboarding/data/onboardingHeader")!
         }
     }
+    
+    class var proteinsTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/proteinsTitle")!
+        }
+    }
+    
+    class var proteinsSubtitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/proteinsSubtitle")!
+        }
+    }
+    
+    class var veggiesTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/veggiesTitle")!
+        }
+    }
+    
+    class var veggiesSubtitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/veggiesSubtitle")!
+        }
+    }
 }

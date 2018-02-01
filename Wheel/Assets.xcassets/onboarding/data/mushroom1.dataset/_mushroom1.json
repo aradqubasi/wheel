@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      -92.07,
+      -988.82
+    ],
+    "angle": -20,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "proteins",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          -65.65,
+          -69.65
+        ],
+        "angle": -0.349065850398866,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

@@ -23,6 +23,7 @@ class SWVeggiesSlideView: SWSliderView {
             title.textAlignment = .center
             offset = SWConfiguration.VeggiesSlide.Title.offset
             title.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
+            title.alpha = 0
         }
         
         //setup subtitle
@@ -32,6 +33,7 @@ class SWVeggiesSlideView: SWSliderView {
             subtitle.textAlignment = .center
             offset = SWConfiguration.VeggiesSlide.Subtitle.offset
             subtitle.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
+            subtitle.alpha = 0
         }
         
     }

@@ -54,4 +54,47 @@ extension UILabel {
         }
     }
     
+    class var proteinsTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.proteinsTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var proteinsSubtitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.proteinsSubtitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var veggiesTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.veggiesTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var veggiesSubtitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.veggiesSubtitle
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

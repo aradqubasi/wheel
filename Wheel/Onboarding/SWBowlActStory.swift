@@ -266,4 +266,28 @@ class SWBowlActStory: Codable {
             return getBy(asset: NSDataAsset.onboardingHeader)
         }
     }
+    
+    class var proteinsTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.proteinsTitle)
+        }
+    }
+    
+    class var proteinsSubtitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.proteinsSubtitle)
+        }
+    }
+    
+    class var veggiesTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.veggiesTitle)
+        }
+    }
+    
+    class var veggiesSubtitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.veggiesSubtitle)
+        }
+    }
 }

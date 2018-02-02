@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      -57.62,
+      -967.715
+    ],
+    "angle": 140,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "fats",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          -57.62,
+          -63.905
+        ],
+        "angle": 2.44346095279206,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

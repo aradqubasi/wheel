@@ -6,7 +6,7 @@
   "data" : [
     {
       "idiom" : "universal",
-      "filename" : "pepper1.json",
+      "filename" : "_pepper1.json",
       "universal-type-identifier" : "public.json"
     }
   ]

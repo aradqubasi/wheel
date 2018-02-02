@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      473.995,
+      -1014.725
+    ],
+    "angle": -130,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "ehancers",
+    [
+      "after",
+      {
+        "alpha": 1,
+        "offset": [
+          49.515,
+          -70.865
+        ],
+        "angle": -2.26892802759263,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

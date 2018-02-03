@@ -96,4 +96,9 @@ public extension UIColor {
         }
     }
     
+    class var candlelight: UIColor {
+        get {
+            return UIColor(red: 255 / 255, green: 220 / 255, blue: 38 / 255, alpha: 1)
+        }
+    }
 }

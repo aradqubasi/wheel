@@ -605,6 +605,36 @@ public extension UIImage {
         }
     }
     
+    class var leftBowlCheek: UIImage {
+        get {
+            return UIImage(named: "onboarding/images/leftBowlCheek")!
+        }
+    }
+    
+    class var rightBowlCheek: UIImage {
+        get {
+            return UIImage(named: "onboarding/images/rightBowlCheek")!
+        }
+    }
+    
+    class var leftBowlEye: UIImage {
+        get {
+            return UIImage(named: "onboarding/images/leftBowlEye")!
+        }
+    }
+    
+    class var rightBowlEye: UIImage {
+        get {
+            return UIImage(named: "onboarding/images/rightBowlEye")!
+        }
+    }
+    
+    class var bowlMounth: UIImage {
+        get {
+            return UIImage(named: "onboarding/images/bowlMounth")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

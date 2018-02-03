@@ -34,6 +34,7 @@ class SWBowlSceneController {
         _scene = scene
         
         _actors = [
+            SWBowlSceneView.bowlSun,
             SWBowlSceneView.obeyTitle,
             SWBowlSceneView.leafsTitle,
             SWBowlSceneView.leafsSubtitle,
@@ -41,6 +42,11 @@ class SWBowlSceneController {
             SWBowlSceneView.proteinsSubtitle,
             SWBowlSceneView.veggiesTitle,
             SWBowlSceneView.veggiesSubtitle,
+            SWBowlSceneView.fatsTitle,
+            SWBowlSceneView.fatsSubtitle,
+            SWBowlSceneView.enhancersTitle,
+            SWBowlSceneView.enhancersSubtitle,
+            SWBowlSceneView.proceedTitle,
             SWBowlSceneView.onboardingHeader,
             SWBowlSceneView.backbowl,
             SWBowlSceneView.spoon,
@@ -52,10 +58,8 @@ class SWBowlSceneController {
             SWBowlSceneView.frontleaf2,
             SWBowlSceneView.frontleaf3,
             SWBowlSceneView.frontleaf4,
-//            SWBowlSceneView.frontleaf5,
             SWBowlSceneView.egg1,
             SWBowlSceneView.egg2,
-//            SWBowlSceneView.protoleaf,
             SWBowlSceneView.brocolli1,
             SWBowlSceneView.brocolli2,
             SWBowlSceneView.cucumber,
@@ -69,7 +73,12 @@ class SWBowlSceneController {
             SWBowlSceneView.avocado1,
             SWBowlSceneView.pepper1,
             SWBowlSceneView.cashew1,
-            SWBowlSceneView.frontbowl
+            SWBowlSceneView.frontbowl,
+            SWBowlSceneView.leftBowlEye,
+            SWBowlSceneView.rightBowlEye,
+            SWBowlSceneView.leftBowlCheek,
+            SWBowlSceneView.rightBowlCheek,
+            SWBowlSceneView.bowlMounth
         ]
         _actors.forEach({ _scene.addSubview($0.image) })
         play(to: _state, at: .before)

@@ -374,7 +374,6 @@
 				151AFE441F8A858200CC5357 /* WSettings.swift */,
 				15456D691FCAB8670018A1CD /* IngridientKinds.swift */,
 				15456D6B1FCB0DA10018A1CD /* Ingridient.swift */,
-				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15456D6F1FD27A5B0018A1CD /* Selection */,
 				1525FE631FDBC139001CABF6 /* RadialControllers */,
 				1525FE641FDC6477001CABF6 /* Overlay */,
@@ -434,6 +433,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15B00C3D200B3E5D002B93A8 /* Onboarding */,
 				15B00C3A200B3AA3002B93A8 /* Wheels */,
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,

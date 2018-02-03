@@ -83,4 +83,44 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    class var fatsTitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 28)
+            let text = NSAttributedString(string: "Add health fats", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var fatsSubtitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 16)
+            let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var enhancersTitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 28)
+            let text = NSAttributedString(string: "Flavor+Texture Enhancers", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var enhancersSubtitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 16)
+            let text = NSAttributedString(string: "Choose one", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
+    
+    class var proceedTitle: NSAttributedString {
+        get {
+            let usual = UIFont(name: "Avenir-Book", size: 36)
+            let text = NSAttributedString(string: "Let’s build it!", attributes: [.foregroundColor: UIColor.white, .font: usual as Any])
+            return text
+        }
+    }
 }

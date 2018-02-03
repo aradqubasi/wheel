@@ -32,10 +32,12 @@ class SWPagerController {
         }
         set (new) {
             _state = new
-            for dot in _dots {
-                
-                dot.value.backgroundColor = dot.key == new ? SWConfiguration.Pager.active : SWConfiguration.Pager.inactive
-                
+            if (new != .proceed) {
+                _dots.forEach({$0.value.alpha = 1})
+                _dots.forEach({$0.value.backgroundColor = $0.key == new ? SWConfiguration.Pager.active : SWConfiguration.Pager.inactive})
+            }
+            else {
+                _dots.forEach({$0.value.alpha = 0})
             }
         }
     }

@@ -290,4 +290,70 @@ class SWBowlActStory: Codable {
             return getBy(asset: NSDataAsset.veggiesSubtitle)
         }
     }
+    
+    class var fatsTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.fatsTitle)
+        }
+    }
+    
+    class var fatsSubtitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.fatsSubtitle)
+        }
+    }
+    
+    class var enhancersTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.enhancersTitle)
+        }
+    }
+    
+    class var enhancersSubtitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.enhancersSubtitle)
+        }
+    }
+    
+    class var leftBowlEye: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.leftBowlEye)
+        }
+    }
+    
+    class var rightBowlEye: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.rightBowlEye)
+        }
+    }
+    
+    class var leftBowlCheek: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.leftBowlCheek)
+        }
+    }
+    
+    class var rightBowlCheek: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.rightBowlCheek)
+        }
+    }
+    
+    class var bowlMounth: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.bowlMounth)
+        }
+    }
+    
+    class var bowlSun: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.bowlSun)
+        }
+    }
+    
+    class var proceedTitle: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.proceedTitle)
+        }
+    }
 }

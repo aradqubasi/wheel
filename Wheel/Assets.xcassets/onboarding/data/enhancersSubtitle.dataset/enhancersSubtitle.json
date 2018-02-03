@@ -1,0 +1,48 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      3850.5,
+      86.5
+    ],
+    "angle": 0,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "proceed",
+    [
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          -3629.5,
+          86.5
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ],
+    "ehancers",
+    [
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          0.5,
+          86.5
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

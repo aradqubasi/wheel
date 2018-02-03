@@ -219,4 +219,71 @@ extension NSDataAsset {
             return NSDataAsset(name: "onboarding/data/veggiesSubtitle")!
         }
     }
+    
+    class var fatsTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/fatsTitle")!
+        }
+    }
+    
+    class var fatsSubtitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/fatsSubtitle")!
+        }
+    }
+    
+    class var enhancersTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/enhancersTitle")!
+        }
+    }
+    
+    class var enhancersSubtitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/enhancersSubtitle")!
+        }
+    }
+    
+    class var leftBowlEye: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/leftBowlEye")!
+        }
+    }
+    
+    class var rightBowlEye: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/rightBowlEye")!
+        }
+    }
+    
+    class var leftBowlCheek: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/leftBowlCheek")!
+        }
+    }
+    
+    class var rightBowlCheek: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/rightBowlCheek")!
+        }
+    }
+    
+    class var bowlMounth: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/bowlMounth")!
+        }
+    }
+    
+    class var bowlSun: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/bowlSun")!
+        }
+    }
+    
+    class var proceedTitle: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/proceedTitle")!
+        }
+    }
+    
 }

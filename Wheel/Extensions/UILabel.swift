@@ -97,4 +97,59 @@ extension UILabel {
             return label
         }
     }
+    
+    class var fatsTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.fatsTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var fatsSubtitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.fatsSubtitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var enhancersTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.enhancersTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var enhacersSubtitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.enhancersSubtitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
+    class var proceedTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 327, height: 31)
+            label.attributedText = NSAttributedString.proceedTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

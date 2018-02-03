@@ -18,7 +18,7 @@ class OnboardingViewController: UIViewController {
     
     private var pagerController: SWPagerController!
     
-    private var _slidersController: SWSlidersController!
+//    private var _slidersController: SWSlidersController!
     
     private var _state: SWPagerStates!
     
@@ -57,7 +57,7 @@ class OnboardingViewController: UIViewController {
         //setup controllers
         do {
             pagerController = SWPagerController(pager)
-            _slidersController = SWSlidersController(view, in: _state)
+//            _slidersController = SWSlidersController(view, in: _state)
             _bowlController = SWBowlSceneController(view, in: _state)
         }
         
@@ -81,15 +81,15 @@ class OnboardingViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func onNext(_ sender: UIButton) {
-        _slidersController.prepare(for: _state.next())
-        let transition = { () -> Void in self._slidersController.transition() }
-        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
+//        _slidersController.prepare(for: _state.next())
+//        let transition = { () -> Void in self._slidersController.transition() }
+//        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
     }
     
     @IBAction private func onPrev(_ sender: UIButton) {
-        _slidersController.prepare(for: _state.prev())
-        let transition = { () -> Void in self._slidersController.transition() }
-        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
+//        _slidersController.prepare(for: _state.prev())
+//        let transition = { () -> Void in self._slidersController.transition() }
+//        UIView.animate(withDuration: 0.225, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: transition, completion: nil)
     }
     
     @IBAction private func onSkip(_ sender: UIButton) {
@@ -106,16 +106,16 @@ class OnboardingViewController: UIViewController {
             let delta = Date().timeIntervalSince(_last)
             _last = Date()
             let path = sender.translation(in: view).x
-            if _slidersController.test(path) {
-                let path = sender.translation(in: view).x
-                transition(to: path < 0 ? _state.next() : _state.prev())
-                _slider.isEnabled = false
-                _slider.isEnabled = true
-            }
-            else {
-                let move = { () -> Void in self._slidersController.move(to: path) }
-                UIView.animate(withDuration: delta, animations: move)
-            }
+//            if _slidersController.test(path) {
+//                let path = sender.translation(in: view).x
+//                transition(to: path < 0 ? _state.next() : _state.prev())
+//                _slider.isEnabled = false
+//                _slider.isEnabled = true
+//            }
+//            else {
+//                let move = { () -> Void in self._slidersController.move(to: path) }
+//                UIView.animate(withDuration: delta, animations: move)
+//            }
         case .ended:
             let path = sender.translation(in: view).x
             transition(to: path < 0 ? _state.next() : _state.prev())
@@ -127,9 +127,9 @@ class OnboardingViewController: UIViewController {
     // MARK: - Private Methods
     
     private func transition(to state: SWPagerStates) {
-        _slidersController.prepare(for: state)
+//        _slidersController.prepare(for: state)
         let transition = { () -> Void in
-            self._slidersController.transition()
+//            self._slidersController.transition()
             self._bowlController.play(to: state, at: .inbetween)
         }
         let sync = { (_: Bool) -> Void in

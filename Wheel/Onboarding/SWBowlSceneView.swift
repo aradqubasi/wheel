@@ -392,4 +392,81 @@ class SWBowlSceneView {
             return label
         }
     }
+    
+    class var fatsTitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.fatsSubtitle, with: SWBowlActStory.fatsTitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var fatsSubtitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.fatsTitle, with: SWBowlActStory.fatsSubtitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var enhancersTitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.enhancersTitle, with: SWBowlActStory.enhancersTitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var enhancersSubtitle: SWBowlSceneView {
+        get {
+            let label = SWBowlSceneView(UILabel.enhacersSubtitle, with: SWBowlActStory.enhancersSubtitle, in: .obey, at: .before)
+            return label
+        }
+    }
+    
+    class var leftBowlEye: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIImageView.init(image: UIImage.leftBowlEye), with: SWBowlActStory.leftBowlEye, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var rightBowlEye: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIImageView.init(image: UIImage.rightBowlEye), with: SWBowlActStory.rightBowlEye, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var leftBowlCheek: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIImageView.init(image: UIImage.leftBowlCheek), with: SWBowlActStory.leftBowlCheek, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var rightBowlCheek: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIImageView.init(image: UIImage.rightBowlCheek), with: SWBowlActStory.rightBowlCheek, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var bowlMounth: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIImageView.init(image: UIImage.bowlMounth), with: SWBowlActStory.bowlMounth, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var bowlSun: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIView.bowlSun, with: SWBowlActStory.bowlSun, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var proceedTitle: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UILabel.proceedTitle, with: SWBowlActStory.proceedTitle, in: .obey, at: .before)
+            return image
+        }
+    }
 }

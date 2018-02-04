@@ -123,4 +123,24 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    class var skip: NSAttributedString {
+        get {
+            let bold = UIFont(name: "Avenir-Heavy", size: 18)
+            
+            let text = NSMutableAttributedString(string: "SKIP", attributes: [.foregroundColor: UIColor.white, .font: bold as Any])
+            
+            return text
+        }
+    }
+    
+    class var proceed: NSAttributedString {
+        get {
+            let bold = UIFont(name: "Avenir-Heavy", size: 18)
+            
+            let text = NSMutableAttributedString(string: "PROCEED", attributes: [.foregroundColor: UIColor.white, .font: bold as Any])
+            
+            return text
+        }
+    }
 }

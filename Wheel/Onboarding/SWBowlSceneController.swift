@@ -26,9 +26,20 @@ class SWBowlSceneController {
         }
     }
     
+    var actors: [SWBowlSceneView] {
+        get {
+            return _actors
+        }
+        set(new) {
+            _actors = new
+            attach()
+        }
+    }
+    
     // MARK: - Initialization
     
     init(_ scene: UIView, in initial: SWPagerStates) {
+        
         _state = initial
         
         _scene = scene
@@ -80,14 +91,20 @@ class SWBowlSceneController {
             SWBowlSceneView.rightBowlCheek,
             SWBowlSceneView.bowlMounth
         ]
-        _actors.forEach({ _scene.addSubview($0.image) })
-        play(to: _state, at: .before)
+        attach()
     }
     
     // MARK: - Public Methods
     
     func play(to state: SWPagerStates, at step: SWBowlActSteps) {
         _actors.forEach({ $0.play(to: state, at: step) })
+    }
+    
+    // MARK: - Private Methods
+    
+    private func attach() {
+        _actors.forEach({ _scene.addSubview($0.image) })
+        play(to: _state, at: .before)
     }
     
 }

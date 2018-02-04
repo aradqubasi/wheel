@@ -356,4 +356,16 @@ class SWBowlActStory: Codable {
             return getBy(asset: NSDataAsset.proceedTitle)
         }
     }
+    
+    class var skip: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.skip)
+        }
+    }
+    
+    class var proceed: SWBowlActStory {
+        get {
+            return getBy(asset: NSDataAsset.proceed)
+        }
+    }
 }

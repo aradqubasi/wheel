@@ -286,4 +286,16 @@ extension NSDataAsset {
         }
     }
     
+    class var skip: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/skip")!
+        }
+    }
+    
+    class var proceed: NSDataAsset {
+        get {
+            return NSDataAsset(name: "onboarding/data/proceed")!
+        }
+    }
+    
 }

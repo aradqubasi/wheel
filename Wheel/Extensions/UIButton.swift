@@ -23,7 +23,6 @@ extension UIButton {
     
     var asToUnexpected: UIButton {
         get {
-//            self.backgroundColor = UIColor.gray
             self.setImage(UIImage.unexpected, for: .normal)
             self.layer.cornerRadius = 28
             self.frame.size = CGSize(side: 56)
@@ -46,6 +45,24 @@ extension UIButton {
             self.layer.cornerRadius = 28
             self.frame.size = CGSize(side: 56)
             return self
+        }
+    }
+    
+    // MARK: - Premadees
+    
+    class var skip: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 126, height: 21)))
+            button.setAttributedTitle(NSAttributedString.skip, for: .normal)
+            return button
+        }
+    }
+    
+    class var proceed: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 126, height: 21)))
+            button.setAttributedTitle(NSAttributedString.proceed, for: .normal)
+            return button
         }
     }
 }

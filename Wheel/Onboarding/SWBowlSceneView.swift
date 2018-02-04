@@ -395,14 +395,14 @@ class SWBowlSceneView {
     
     class var fatsTitle: SWBowlSceneView {
         get {
-            let label = SWBowlSceneView(UILabel.fatsSubtitle, with: SWBowlActStory.fatsTitle, in: .obey, at: .before)
+            let label = SWBowlSceneView(UILabel.fatsTitle, with: SWBowlActStory.fatsTitle, in: .obey, at: .before)
             return label
         }
     }
     
     class var fatsSubtitle: SWBowlSceneView {
         get {
-            let label = SWBowlSceneView(UILabel.fatsTitle, with: SWBowlActStory.fatsSubtitle, in: .obey, at: .before)
+            let label = SWBowlSceneView(UILabel.fatsSubtitle, with: SWBowlActStory.fatsSubtitle, in: .obey, at: .before)
             return label
         }
     }
@@ -466,6 +466,20 @@ class SWBowlSceneView {
     class var proceedTitle: SWBowlSceneView {
         get {
             let image = SWBowlSceneView(UILabel.proceedTitle, with: SWBowlActStory.proceedTitle, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var skip: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIButton.skip, with: SWBowlActStory.skip, in: .obey, at: .before)
+            return image
+        }
+    }
+    
+    class var proceed: SWBowlSceneView {
+        get {
+            let image = SWBowlSceneView(UIButton.proceed, with: SWBowlActStory.proceed, in: .obey, at: .before)
             return image
         }
     }

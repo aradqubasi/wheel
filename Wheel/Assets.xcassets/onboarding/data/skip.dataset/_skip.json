@@ -1,0 +1,32 @@
+{
+  "initial": {
+    "alpha": 1,
+    "offset": [
+      0,
+      310
+    ],
+    "angle": 0,
+    "scale": [
+      1,
+      1
+    ]
+  },
+  "differential": [
+    "proceed",
+    [
+      "inbetween",
+      {
+        "alpha": 1,
+        "offset": [
+          -1000,
+          310
+        ],
+        "angle": 0,
+        "scale": [
+          1,
+          1
+        ]
+      }
+    ]
+  ]
+}

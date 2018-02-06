@@ -143,4 +143,17 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    class var wheelsTitle: NSAttributedString {
+        get {
+            let bold = UIFont(name: "Avenir-Heavy", size: 24)
+            
+            let usual = UIFont(name: "Avenir-Light", size: 24)
+            
+            let text = NSMutableAttributedString(string: "Saladwheel", attributes: [.foregroundColor: UIColor.limedSpruce, .font: usual as Any])
+            text.addAttributes([.font: bold as Any], range: NSMakeRange(0, 5))
+            
+            return text
+        }
+    }
 }

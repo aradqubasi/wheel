@@ -17,19 +17,13 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - Private Properties
     
-//    var showtime: Bool!
-    
     var bases: SWAbstractWheelController!
-//    var bases: RadialController!
     
     var fats: SWAbstractWheelController!
-//    var fats: RadialController!
     
     var veggies: SWAbstractWheelController!
-//    var veggies: RadialController!
     
     var proteins: SWAbstractWheelController!
-//    var proteins: RadialController!
     
     var pointer: PointerController!
     
@@ -50,13 +44,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     var basesMenu: SWAbstractWheelView!
     
     var fatsMenu: SWAbstractWheelView!
-//    var fatsMenu: RadialView!
     
     var veggiesMenu: SWAbstractWheelView!
-//    var veggiesMenu: RadialView!
     
     var proteinsMenu: SWAbstractWheelView!
-//    var proteinsMenu: RadialView!
     
     var basesMark: UILabel!
     
@@ -95,6 +86,12 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     var scrollvelocity: CGFloat!
     
     var adding: Bool!
+    
+    // MARK: - Debug
+    
+    var input: UITextField!
+    
+    var roll: UIButton!
     
     // MARK: - RadialControllerDelegate
     
@@ -447,9 +444,24 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         adding = false
 
-        let titleView = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 25, height: 25)))
-        titleView.backgroundColor = UIColor.red
-        navigationItem.titleView = titleView
+        //navigation bar decoration
+        do {
+            navigationItem.titleView = UILabel.wheelTitle
+        }
+        
+        
+//        do {
+//            input = UITextField(frame: CGRect(origin: CGPoint(x: 0, y: 100), size: CGSize(width: 1000, height: 20)))
+//            input.layer.borderColor = UIColor.black.cgColor
+//            input.layer.borderWidth = 2
+//            view.addSubview(input)
+//
+//            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
+//            roll.setTitleColor(UIColor.black, for: .normal)
+//            roll.setTitle("*", for: .normal)
+//            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
+//            view.addSubview(roll)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -457,6 +469,17 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
 
     // MARK: - Actions
+    
+    @IBAction func onDebug(_ sender: UIButton) {
+        guard let text = input.text, let number = NumberFormatter().number(from: text) else {
+            print("invalid cgfloat value")
+            return
+        }
+        let k = CGFloat(number.floatValue)
+        print(k)
+//        UIView.animate(withDuration: 1, animations: { self.radialMenu.move(by: CGFloat.pi * k) })
+        rotate(by: CGFloat.pi * k, in: 1, afterwards: nil)
+    }
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {
         print("onToUnexpectedClick")
@@ -524,14 +547,12 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     private var scrollTimeCollector: TimeInterval!
     
-    //TODO
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             scrollLastAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
             scrollLastTime = Date()
             scrollLastDeltaAngle = 0
-            //--
             scrollAngleCollector = 0
             scrollTimeCollector = 0
             scrollvelocity = 0
@@ -568,56 +589,48 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     // MARK: - Private Methods
     
+    private func rotate(by angle: CGFloat, in time: TimeInterval, afterwards: ((_:Bool) -> Void)?) {
+        let step: CGFloat = angle < 0 ? -0.5 : 0.5
+        
+        let rotation = {() -> Void in
+            var full = angle
+            let period = TimeInterval(step / angle)
+            var time: TimeInterval = 0
+            
+            while full > step {
+                UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: period, animations: { self.radialMenu.move(by: step) })
+                full -= step
+                time += period
+            }
+            
+            let duration = TimeInterval(full / angle)
+            UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: duration, animations: { self.radialMenu.move(by: full) })
+        }
+        UIView.animateKeyframes(withDuration: time, delay: 0, options: [], animations: rotation, completion: afterwards)
+    }
+    
     private var _decelerating: Bool!
     
     private func deceleration(of wheel: SWAbstractWheelView, with velocity: CGFloat) {
-        if let wheel = wheel as? RadialView {
-            let velocity = min(abs(velocity), 3) * (velocity.sign == .minus ? -1 : 1)
-            
-            let k: CGFloat = 0.5
-            var time = velocity * k
-            
-            //        let path = min(abs(wheel.pathToEnd(at: velocity.sign)), abs(velocity * time)) * (velocity.sign == .minus ? -1 : 1)
-            
-            let maxPath = wheel.pathToEnd(at: velocity.sign)
-            
-            var path = velocity * time
-            
-            if abs(path) > abs(maxPath) {
-                path = maxPath
-                time = path / velocity
-            }
-            
-            let move = { wheel.move(by: path) }
-            
-            print("velocity \(velocity) time \(time) path \(path)")
-            UIView.animate(withDuration: TimeInterval(time), delay: 0, options: [.curveEaseOut], animations: move, completion: nil)
+        var path: CGFloat = 0
+        if velocity != 0 {
+            let step = CGFloat.pi * 2 / CGFloat(wheel.count)
+            path = abs(velocity) * 0.5
+            let steps = (path / step).rounded()
+            path = abs(steps) < 1 ? step : step * steps
+            path = velocity.sign == .minus ? -path : path
         }
-        else if wheel is SWWheelViewAbstracted {
-//            let wheel = wheel as! SWWheelView
+        
+        let normalization = { (isDone: Bool) -> Void in
+            if isDone {
+                let toSocket = { () -> Void in
+                    wheel.move(to: self.radialMenu.index)
+                }
+                UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: nil)
+            }
+        }
 
-            let sliding: () -> Void = {
-                if velocity != 0 {
-                    let step = CGFloat.pi * 2 / CGFloat(wheel.count)
-                    var path = abs(velocity) * 0.5
-                    let steps = (path / step).rounded()
-                    path = abs(steps) < 1 ? step : step * steps
-                    path = velocity.sign == .minus ? -path : path
-                    wheel.move(by: path)
-                }
-            }
-            
-            let normalization = { (isDone: Bool) -> Void in
-                if isDone {
-                    let toSocket = { () -> Void in
-                        wheel.move(to: self.radialMenu.index)
-                    }
-                    UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: nil)
-                }
-            }
-            
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseOut], animations: sliding, completion: normalization)
-        }
+        rotate(by: path, in: 0.5, afterwards: normalization)
     }
     
     private func getAngle(point: CGPoint, center: CGPoint) -> CGFloat {
@@ -683,23 +696,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
                 selectionController.copy(of: pin)
 
                 let move = { () -> Void in
-//                    print("\(Date()) move \(pin.asIngridient.name)")
                     self.selectionController.moving(of: pin)
                 }
                 let finish = { (finished: Bool) -> Void in
-//                    print("\(Date()) finish \(pin.asIngridient.name) \(finished)")
                     self.selectionController.merging(of: pin)
                     let merge = { () -> Void in
-//                        self.selectionController.push(exception: single, islast: pin.asIngridient == last)
-//                        self.selectionController.push(excluding: last)
                         self.selectionController.push(islast: pin.asIngridient == last)
                     }
                     let last = {(finished: Bool) -> Void in
-//                        print("\(Date()) last \(pin.asIngridient.name) \(finished)")
                         if pin.asIngridient == last {
-//                            self.setUserInteractionEnabled(to: true, in: self.view, true)
                             self.adding = false
-//                            print("self.adding = false")
                         }
                     }
                     UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)

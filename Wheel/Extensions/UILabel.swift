@@ -152,4 +152,15 @@ extension UILabel {
             return label
         }
     }
+    
+    class var wheelTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 127, height: 33)
+            label.attributedText = NSAttributedString.wheelsTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

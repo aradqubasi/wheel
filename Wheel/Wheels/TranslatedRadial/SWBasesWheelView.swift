@@ -22,13 +22,14 @@ class SWBasesWheelView: SWWheelView {
             .cabbage,
             .lettuce,
             .spinach,
-            .brusselssprouts,
-            .zoodles,
-            .shavedfennel,
             // loop over
             .romainelettuce,
             .salad,
-            .cabbage
+            .cabbage,
+            .lettuce,
+            .spinach,
+            .romainelettuce,
+            .salad
         ]
         
         var spokes: [SWSpoke] = []

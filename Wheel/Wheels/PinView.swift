@@ -211,31 +211,31 @@ class PinView: UIView, Floatable {
     
     class var romainelettuce: PinView {
         get {
-            return PinView.create.name("romainelettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            return PinView.create.name("romainelettuce").icon(default: UIImage.romainelettuce).icon(UIImage.Romainelettuce, for: .bases).icon(selected: UIImage.Romainelettuce).kind(of: .base)
         }
     }
     
     class var salad: PinView {
         get {
-            return PinView.create.name("salad").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            return PinView.create.name("salad").icon(default: UIImage.salad).icon(UIImage.Salad, for: .bases).icon(selected: UIImage.Salad).kind(of: .base)
         }
     }
     
     class var cabbage: PinView {
         get {
-            return PinView.create.name("cabbage").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            return PinView.create.name("cabbage").icon(default: UIImage.cabbage).icon(UIImage.Cabbage, for: .bases).icon(selected: UIImage.Cabbage).kind(of: .base)
         }
     }
     
     class var lettuce: PinView {
         get {
-            return PinView.create.name("lettuce").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            return PinView.create.name("lettuce").icon(default: UIImage.lettuce).icon(UIImage.Lettuce, for: .bases).icon(selected: UIImage.Lettuce).kind(of: .base)
         }
     }
     
     class var spinach: PinView {
         get {
-            return PinView.create.name("spinach").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
+            return PinView.create.name("spinach").icon(default: UIImage.spinach).icon(UIImage.Spinach, for: .bases).icon(selected: UIImage.Spinach).kind(of: .base)
         }
     }
     

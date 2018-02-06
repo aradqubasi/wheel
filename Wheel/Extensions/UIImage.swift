@@ -15,109 +15,109 @@ public extension UIImage {
     
     static var asparagus: UIImage {
         get {
-            return UIImage(named: "_asparagus")!
+            return UIImage(named: "wheels/veggies/inactive/asparagus")!
         }
     }
  
     static var Asparagus: UIImage {
         get {
-            return UIImage(named: "asparagus")!
+            return UIImage(named: "wheels/veggies/active/asparagus")!
         }
     }
     
     static var aubergine: UIImage {
         get {
-            return UIImage(named: "_aubergine")!
+            return UIImage(named: "wheels/veggies/inactive/aubergine")!
         }
     }
 
     static var Aubergine: UIImage {
         get {
-            return UIImage(named: "aubergine")!
+            return UIImage(named: "wheels/veggies/active/aubergine")!
         }
     }
     
     static var broccoli: UIImage {
         get {
-            return UIImage(named: "_broccoli")!
+            return UIImage(named: "wheels/veggies/inactive/broccoli")!
         }
     }
  
     static var Broccoli: UIImage {
         get {
-            return UIImage(named: "broccoli")!
+            return UIImage(named: "wheels/veggies/active/broccoli")!
         }
     }
     
     static var carrot: UIImage {
         get {
-            return UIImage(named: "_carrot")!
+            return UIImage(named: "wheels/veggies/inactive/carrot")!
         }
     }
 
     static var Carrot: UIImage {
         get {
-            return UIImage(named: "carrot")!
+            return UIImage(named: "wheels/veggies/active/carrot")!
         }
     }
     
     static var cauliflower: UIImage {
         get {
-            return UIImage(named: "_cauliflower")!
+            return UIImage(named: "wheels/veggies/inactive/cauliflower")!
         }
     }
   
     static var Cauliflower: UIImage {
         get {
-            return UIImage(named: "cauliflower")!
+            return UIImage(named: "wheels/veggies/active/cauliflower")!
         }
     }
     
      static var corn: UIImage {
         get {
-            return UIImage(named: "_corn")!
+            return UIImage(named: "wheels/veggies/inactive/corn")!
         }
     }
 
     static var Corn: UIImage {
         get {
-            return UIImage(named: "corn")!
+            return UIImage(named: "wheels/veggies/active/corn")!
         }
     }
     
     static var pepper: UIImage {
         get {
-            return UIImage(named: "_pepper")!
+            return UIImage(named: "wheels/veggies/inactive/pepper")!
         }
     }
 
     static var Pepper: UIImage {
         get {
-            return UIImage(named: "pepper")!
+            return UIImage(named: "wheels/veggies/active/pepper")!
         }
     }
     
     static var radish: UIImage {
         get {
-            return UIImage(named: "_radish")!
+            return UIImage(named: "wheels/veggies/inactive/radish")!
         }
     }
 
     static var Radish: UIImage {
         get {
-            return UIImage(named: "radish")!
+            return UIImage(named: "wheels/veggies/active/radish")!
         }
     }
     
     static var tomato: UIImage {
         get {
-            return UIImage(named: "_tomato")!
+            return UIImage(named: "wheels/veggies/inactive/tomato")!
         }
     }
     
     static var Tomato: UIImage {
         get {
-            return UIImage(named: "tomato")!
+            return UIImage(named: "wheels/veggies/active/tomato")!
         }
     }
     
@@ -235,85 +235,147 @@ public extension UIImage {
     
     static var avocado: UIImage {
         get {
-            return UIImage(named: "_avocado")!
+            return UIImage(named: "wheels/fats/inactive/avocado")!
         }
     }
     
     static var Avocado: UIImage {
         get {
-            return UIImage(named: "avocado")!
+            return UIImage(named: "wheels/fats/active/avocado")!
         }
     }
     
     static var brazilnut: UIImage {
         get {
-            return UIImage(named: "_brazilnut")!
+            return UIImage(named: "wheels/fats/inactive/brazilnut")!
         }
     }
     
     static var Brazilnut: UIImage {
         get {
-            return UIImage(named: "brazilnut")!
+            return UIImage(named: "wheels/fats/active/brazilnut")!
         }
     }
     
     static var cashewnut: UIImage {
         get {
-            return UIImage(named: "_cashewnut")!
+            return UIImage(named: "wheels/fats/inactive/cashewnut")!
         }
     }
     
     static var Cashewnut: UIImage {
         get {
-            return UIImage(named: "cashewnut")!
+            return UIImage(named: "wheels/fats/active/cashewnut")!
         }
     }
     
     static var coconut: UIImage {
         get {
-            return UIImage(named: "_coconut")!
+            return UIImage(named: "wheels/fats/inactive/coconut")!
         }
     }
     
     static var Coconut: UIImage {
         get {
-            return UIImage(named: "coconut")!
+            return UIImage(named: "wheels/fats/active/coconut")!
         }
     }
     
     static var hazelnut: UIImage {
         get {
-            return UIImage(named: "_hazelnut")!
+            return UIImage(named: "wheels/fats/inactive/hazelnut")!
         }
     }
     
     static var Hazelnut: UIImage {
         get {
-            return UIImage(named: "hazelnut")!
+            return UIImage(named: "wheels/fats/active/hazelnut")!
         }
     }
     
     static var peanut: UIImage {
         get {
-            return UIImage(named: "_peanut")!
+            return UIImage(named: "wheels/fats/inactive/peanut")!
         }
     }
     
     static var Peanut: UIImage {
         get {
-            return UIImage(named: "peanut")!
+            return UIImage(named: "wheels/fats/active/peanut")!
         }
     }
     
     static var seeds: UIImage {
         get {
-            return UIImage(named: "_seeds")!
+            return UIImage(named: "wheels/fats/inactive/seeds")!
         }
     }
     
     static var Seeds: UIImage {
         get {
-            return UIImage(named: "seeds")!
+            return UIImage(named: "wheels/fats/active/seeds")!
+        }
+    }
+    
+    // MARK: - Bases
+    
+    static var cabbage: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/inactive/cabbage")!
+        }
+    }
+    
+    static var Cabbage: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/active/cabbage")!
+        }
+    }
+    
+    static var lettuce: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/inactive/lettuce")!
+        }
+    }
+    
+    static var Lettuce: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/active/lettuce")!
+        }
+    }
+    
+    static var romainelettuce: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/inactive/romainelettuce")!
+        }
+    }
+    
+    static var Romainelettuce: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/active/romainelettuce")!
+        }
+    }
+    
+    static var salad: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/inactive/salad")!
+        }
+    }
+    
+    static var Salad: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/active/salad")!
+        }
+    }
+    
+    static var spinach: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/inactive/spinach")!
+        }
+    }
+    
+    static var Spinach: UIImage {
+        get {
+            return UIImage(named: "wheels/bases/active/spinach")!
         }
     }
     

@@ -597,7 +597,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             let period = TimeInterval(step / angle)
             var time: TimeInterval = 0
             
-            while full > step {
+            while abs(full) > abs(step) {
                 UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: period, animations: { self.radialMenu.move(by: step) })
                 full -= step
                 time += period

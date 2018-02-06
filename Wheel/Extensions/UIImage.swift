@@ -125,109 +125,109 @@ public extension UIImage {
     
     static var beans: UIImage {
         get {
-            return UIImage(named: "_beans")!
+            return UIImage(named: "wheels/proteins/inactive/beans")!
         }
     }
     
     static var Beans: UIImage {
         get {
-            return UIImage(named: "beans")!
+            return UIImage(named: "wheels/proteins/active/beans")!
         }
     }
     
     static var boiledegg: UIImage {
         get {
-            return UIImage(named: "_boiledegg")!
+            return UIImage(named: "wheels/proteins/inactive/boiledegg")!
         }
     }
     
     static var Boiledegg: UIImage {
         get {
-            return UIImage(named: "boiledegg")!
+            return UIImage(named: "wheels/proteins/active/boiledegg")!
         }
     }
     
     static var chickpeas: UIImage {
         get {
-            return UIImage(named: "_chickpeas")!
+            return UIImage(named: "wheels/proteins/inactive/chickpeas")!
         }
     }
     
     static var Chickpeas: UIImage {
         get {
-            return UIImage(named: "chickpeas")!
+            return UIImage(named: "wheels/proteins/active/chickpeas")!
         }
     }
     
     static var fish: UIImage {
         get {
-            return UIImage(named: "_fish")!
+            return UIImage(named: "wheels/proteins/inactive/fish")!
         }
     }
     
     static var Fish: UIImage {
         get {
-            return UIImage(named: "fish")!
+            return UIImage(named: "wheels/proteins/active/fish")!
         }
     }
     
     static var friedegg: UIImage {
         get {
-            return UIImage(named: "_friedegg")!
+            return UIImage(named: "wheels/proteins/inactive/friedegg")!
         }
     }
     
     static var Friedegg: UIImage {
         get {
-            return UIImage(named: "friedegg")!
+            return UIImage(named: "wheels/proteins/active/friedegg")!
         }
     }
  
     static var lentils: UIImage {
         get {
-            return UIImage(named: "_lentils")!
+            return UIImage(named: "wheels/proteins/inactive/lentils")!
         }
     }
     
     static var Lentils: UIImage {
         get {
-            return UIImage(named: "lentils")!
+            return UIImage(named: "wheels/proteins/active/lentils")!
         }
     }
     
     static var mushrooms: UIImage {
         get {
-            return UIImage(named: "_mushrooms")!
+            return UIImage(named: "wheels/proteins/inactive/mushrooms")!
         }
     }
     
     static var Mushrooms: UIImage {
         get {
-            return UIImage(named: "mushrooms")!
+            return UIImage(named: "wheels/proteins/active/mushrooms")!
         }
     }
     
     static var peas: UIImage {
         get {
-            return UIImage(named: "_peas")!
+            return UIImage(named: "wheels/proteins/inactive/peas")!
         }
     }
     
     static var Peas: UIImage {
         get {
-            return UIImage(named: "peas")!
+            return UIImage(named: "wheels/proteins/active/peas")!
         }
     }
     
     static var shrimp: UIImage {
         get {
-            return UIImage(named: "_shrimp")!
+            return UIImage(named: "wheels/proteins/inactive/shrimp")!
         }
     }
     
     static var Shrimp: UIImage {
         get {
-            return UIImage(named: "shrimp")!
+            return UIImage(named: "wheels/proteins/active/shrimp")!
         }
     }
     
@@ -383,37 +383,37 @@ public extension UIImage {
     
     class var cookedgrains: UIImage {
         get {
-            return UIImage(named: "cookedgrains")!
+            return UIImage(named: "wheels/unexpected/active/cookedgrains")!
         }
     }
     
     class var cottagecheese: UIImage {
         get {
-            return UIImage(named: "cottagecheese")!
+            return UIImage(named: "wheels/unexpected/active/cottagecheese")!
         }
     }
     
     class var hotpepper: UIImage {
         get {
-            return UIImage(named: "hotpepper")!
+            return UIImage(named: "wheels/unexpected/active/hotpepper")!
         }
     }
     
     class var olives: UIImage {
         get {
-            return UIImage(named: "olives")!
+            return UIImage(named: "wheels/unexpected/active/olives")!
         }
     }
     
     class var onion: UIImage {
         get {
-            return UIImage(named: "onion")!
+            return UIImage(named: "wheels/unexpected/active/onion")!
         }
     }
     
     class var pickledveggies: UIImage {
         get {
-            return UIImage(named: "pickledveggies")!
+            return UIImage(named: "wheels/unexpected/active/pickledveggies")!
         }
     }
     

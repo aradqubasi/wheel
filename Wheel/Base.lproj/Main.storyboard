@@ -60,15 +60,18 @@
                         <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="xWz-25-UeH"/>
+                    <connections>
+                        <segue destination="xjE-g0-XdL" kind="show" identifier="WheelsToFilter" action="showDetailViewController:sender:" id="E78-qi-xpU"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="649" y="-111"/>
         </scene>
-        <!--View Controller-->
+        <!--Filter-->
         <scene sceneID="de4-Ub-Gip">
             <objects>
-                <viewController id="xjE-g0-XdL" sceneMemberID="viewController">
+                <viewController id="xjE-g0-XdL" userLabel="Filter" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5aA-UE-LCQ"/>
                         <viewControllerLayoutGuide type="bottom" id="2BW-qd-DtV"/>
@@ -81,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-sm-Iju" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-578" y="262"/>
+            <point key="canvasLocation" x="-978" y="661"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7PR-xV-cVs">

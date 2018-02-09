@@ -393,12 +393,6 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         wheels.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases)
         
-        selectionController = SelectionController()
-        selectionController.delegate = self
-        selection = TransparentView(frame: self.view.bounds)
-        wheels.addSubview(selection)
-        selectionController.view = selection
-        
         //left side menu initialization
         var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
         let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
@@ -418,6 +412,12 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         
         overlay = TransparentView(frame: self.view.bounds)
         wheels.addSubview(overlay)
+        
+        selectionController = SelectionController()
+        selectionController.delegate = self
+        selection = TransparentView(frame: self.view.bounds)
+        wheels.addSubview(selection)
+        selectionController.view = selection
         
         unexpected = UnexpectedController()
         unexpected.delegate = self
@@ -447,6 +447,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         //navigation bar decoration
         do {
             navigationItem.titleView = UILabel.wheelTitle
+            
+//            let hamburger = UIBarButtonItem.hamburger
+//            hamburger.target = self
+//            hamburger.action = #selector(onHamburgerButtonClick(_:))
+//            navigationItem.leftBarButtonItem = hamburger
+            
+            let filter = UIBarButtonItem.filter
+            filter.target = self
+            filter.action = #selector(onFilterButtonClick(_:))
+            navigationItem.rightBarButtonItem = filter
         }
         
         
@@ -469,6 +479,16 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     }
 
     // MARK: - Actions
+    
+    @IBAction func onFilterButtonClick(_ sender: UIBarButtonItem) {
+        print("onFilterButtonClick")
+        performSegue(withIdentifier: "WheelsToFilter", sender: self)
+        
+    }
+ 
+    @IBAction func onHamburgerButtonClick(_ sender: UIBarButtonItem) {
+        print("onHamburgerButtonClick")
+    }
     
     @IBAction func onDebug(_ sender: UIButton) {
         guard let text = input.text, let number = NumberFormatter().number(from: text) else {

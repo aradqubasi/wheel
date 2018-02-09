@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {    
+class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - Initializers
     
@@ -95,6 +95,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
         
         flush(with: nil)
+        move(to: spokes.count / 2)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -102,6 +103,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
     
     // MARK: - Private Properties
+    
+    private var fixedOrientation = false
     
     /**angle/spoke index pairs, used for checking whether speicifc spoke is in focus*/
     private var _extended: [CGFloat : Int] = [:]
@@ -166,6 +169,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             let radius = settings.radius - _pin * 0.5 * settings.scale - _inset
             let a = spoke.angle
             spoke.socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
+            spoke.pin.transform = CGAffineTransform.identity.rotated(by: fixedOrientation ? 0 : a - CGFloat.pi)
         }
         
     }
@@ -297,22 +301,17 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     /**set wheel to correct angle, pins to correct sizes, only transforms allowed*/
     func move(by angle: CGFloat) {
         let new = _current + angle
-        print("\(name) spin by \(new) or pi * \(new / CGFloat.pi)")
+//        print("\(name) spin by \(new) or pi * \(new / CGFloat.pi)")
         _view.transform = CGAffineTransform.identity.rotated(by: new)
         guard let factor = _settings[state]?.scale else {
             fatalError("no settings for state \(state)")
         }
         for spoke in _spokes {
-            spoke.pin.transform = CGAffineTransform.identity.scaledBy(x: factor, y: factor).rotated(by: -new)
-//            spoke.angle = angle
+            spoke.pin.transform = CGAffineTransform.identity.scaledBy(x: factor, y: factor).rotated(by: fixedOrientation ? -new : spoke.angle - CGFloat.pi)
         }
         
         //check focus
         do {
-//            guard var delta = _settings[_state]?.distance else {
-//                fatalError("no settings for state \(_state)")
-//            }
-//            delta *= 0.5
             let delta = _distance * 0.5
             let current = _current
             guard let focused = _extended.first(where: { return $0.key + current <= _face + delta && $0.key + current > _face - delta })?.value else {
@@ -320,7 +319,6 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             }
             
             for spoke in _spokes {
-//                print("current \(_current)")
                 if spoke.index == focused {
                     spoke.focused = true
                     
@@ -364,12 +362,6 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         _view._radius = radius
         
         printMark(for: _state)
-//        _view._dots.forEach({ $0.removeFromSuperview() })
-//        for x in 0..<(Int(_view.bounds.width) / 10) {
-//            for y in 0..<(Int(_view.bounds.height) / 10) {
-//                _view.point(inside: CGPoint(x: x * 10, y: y * 10), with: nil)
-//            }
-//        }
     }
 
     // MARK: - SWRingMaskDelegate Methods

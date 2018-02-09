@@ -421,79 +421,91 @@ public extension UIImage {
     
     static var dice: UIImage {
         get {
-            return UIImage(named: "dice")!
+            return UIImage(named: "wheelgui/dice")!
         }
     }
     
     static var hand: UIImage {
         get {
-            return UIImage(named: "hand")!
+            return UIImage(named: "wheelgui/hand")!
         }
     }
     
     static var next: UIImage {
         get {
-            return UIImage(named: "next")!
+            return UIImage(named: "wheelgui/next")!
         }
     }
     
     static var nextpressed: UIImage {
         get {
-            return UIImage(named: "nextpressed")!
+            return UIImage(named: "wheelgui/nextpressed")!
         }
     }
     
     class var close: UIImage {
         get {
-            return UIImage(named: "close")!
+            return UIImage(named: "wheelgui/close")!
         }
     }
     
     class var unexpected: UIImage {
         get {
-            return UIImage(named: "unexpected")!
+            return UIImage(named: "wheelgui/unexpected")!
         }
     }
     
     class var dressing: UIImage {
         get {
-            return UIImage(named: "dressing")!
+            return UIImage(named: "wheelgui/dressing")!
         }
     }
     
     class var fruits: UIImage {
         get {
-            return UIImage(named: "fruits")!
+            return UIImage(named: "wheelgui/fruits")!
         }
     }
     
     class var lock: UIImage {
         get {
-            return UIImage(named: "lock")!
+            return UIImage(named: "wheelgui/lock")!
         }
     }
     
     class var biglock: UIImage {
         get {
-            return UIImage(named: "biglock")!
+            return UIImage(named: "wheelgui/biglock")!
         }
     }
     
     class var add: UIImage {
         get {
-            return UIImage(named: "add")!
+            return UIImage(named: "wheelgui/add")!
         }
     }
     
     class var more: UIImage {
         get {
-            return UIImage(named: "more")!
+            return UIImage(named: "wheelgui/more")!
         }
     }
     
     class var unlock: UIImage {
         get {
-            return UIImage(named: "close")!
+            return UIImage(named: "wheelgui/close")!
+        }
+    }
+    
+    class var filter: UIImage {
+        get {
+            return UIImage(named: "wheelgui/filter")!
+        }
+    }
+    
+    class var hamburger: UIImage {
+        get {
+            return UIImage(named: "wheelgui/hamburger")!
         }
     }
     

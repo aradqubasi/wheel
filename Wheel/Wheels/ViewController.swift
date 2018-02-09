@@ -548,7 +548,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         }
         
         let select = { (_: Bool) -> Void in
-            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toUnexpected, self.toDressing, self.toFruits]
+            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toFruits, self.toDressing, self.toUnexpected]
             self.add(focus)
             
         }
@@ -713,24 +713,50 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             
             let last = pins.last!.asIngridient
             for pin in pins {
-                selectionController.copy(of: pin)
-
-                let move = { () -> Void in
-                    self.selectionController.moving(of: pin)
+//                selectionController.copy(of: pin)
+//
+//                let move = { () -> Void in
+//                    self.selectionController.moving(of: pin)
+//                }
+//                let finish = { (finished: Bool) -> Void in
+//                    self.selectionController.merging(of: pin)
+//                    let merge = { () -> Void in
+//                        self.selectionController.push(islast: pin.asIngridient == last)
+//                    }
+//                    let last = {(finished: Bool) -> Void in
+//                        if pin.asIngridient == last {
+//                            self.adding = false
+//                        }
+//                    }
+//                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
+//                }
+//                UIView.animate(withDuration: 5 * speed * count, delay: delay * speed, options: [.curveEaseIn], animations: move, completion: finish)
+//                delay += 1.5
+                
+                let copy = {
+                    self.selectionController.copy(of: pin)
                 }
-                let finish = { (finished: Bool) -> Void in
-                    self.selectionController.merging(of: pin)
-                    let merge = { () -> Void in
-                        self.selectionController.push(islast: pin.asIngridient == last)
+                
+                let afterCopy = { (_: Bool) -> Void in
+                    let move = { () -> Void in
+                        self.selectionController.moving(of: pin)
                     }
-                    let last = {(finished: Bool) -> Void in
-                        if pin.asIngridient == last {
-                            self.adding = false
+                    let finish = { (finished: Bool) -> Void in
+                        self.selectionController.merging(of: pin)
+                        let merge = { () -> Void in
+                            self.selectionController.push(islast: pin.asIngridient == last)
                         }
+                        let last = {(finished: Bool) -> Void in
+                            if pin.asIngridient == last {
+                                self.adding = false
+                            }
+                        }
+                        UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
                     }
-                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
+                    UIView.animate(withDuration: 5 * speed * count, delay: 0, options: [.curveEaseIn], animations: move, completion: finish)
                 }
-                UIView.animate(withDuration: 5 * speed * count, delay: delay * speed, options: [.curveEaseIn], animations: move, completion: finish)
+                
+                UIView.animate(withDuration: 0, delay: delay * speed, options: [], animations: copy, completion: afterCopy)
                 delay += 1.5
             }
         }

@@ -101,4 +101,11 @@ public extension UIColor {
             return UIColor(red: 255 / 255, green: 220 / 255, blue: 38 / 255, alpha: 1)
         }
     }
+    
+    class var mountainmeadow: UIColor {
+        get {
+            return UIColor(red: 27 / 255, green: 191 / 255, blue: 148 / 255, alpha: 1)
+        }
+    }
+    
 }

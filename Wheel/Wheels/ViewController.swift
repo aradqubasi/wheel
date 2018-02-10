@@ -411,7 +411,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         wheels.addSubview(toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
-        wheels.addSubview(overlay)
+//        wheels.addSubview(overlay)
+        navigationController?.view.addSubview(overlay)
         
         selectionController = SelectionController()
         selectionController.delegate = self
@@ -448,10 +449,10 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
         do {
             navigationItem.titleView = UILabel.wheelTitle
             
-//            let hamburger = UIBarButtonItem.hamburger
-//            hamburger.target = self
-//            hamburger.action = #selector(onHamburgerButtonClick(_:))
-//            navigationItem.leftBarButtonItem = hamburger
+            let hamburger = UIBarButtonItem.hamburger
+            hamburger.target = self
+            hamburger.action = #selector(onHamburgerButtonClick(_:))
+            navigationItem.leftBarButtonItem = hamburger
             
             let filter = UIBarButtonItem.filter
             filter.target = self

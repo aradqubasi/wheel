@@ -21,10 +21,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchbackground" translatesAutoresizingMaskIntoConstraints="NO" id="98E-30-DzZ" userLabel="background">
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchbackground" translatesAutoresizingMaskIntoConstraints="NO" id="98E-30-DzZ" userLabel="background">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launchicon" translatesAutoresizingMaskIntoConstraints="NO" id="Dpj-Yr-tqa" userLabel="icon">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchicon" translatesAutoresizingMaskIntoConstraints="NO" id="Dpj-Yr-tqa" userLabel="icon">
                                 <rect key="frame" x="82" y="219" width="211" height="168"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="168" id="P93-Ij-uxq"/>
@@ -96,7 +96,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="launchbackground" width="414" height="736"/>
-        <image name="launchicon" width="208" height="167"/>
+        <image name="wheelgui/launchbackground" width="414" height="736"/>
+        <image name="wheelgui/launchicon" width="208" height="167"/>
     </resources>
 </document>

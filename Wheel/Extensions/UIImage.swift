@@ -709,6 +709,14 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Filter
+    
+    class var isCheckedMark: UIImage {
+        get {
+            return UIImage(named: "filter/check")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

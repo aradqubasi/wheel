@@ -108,4 +108,15 @@ public extension UIColor {
         }
     }
     
+    class var oxfordblue: UIColor {
+        get {
+            return UIColor(red: 59 / 255, green: 72 / 255, blue: 89 / 255, alpha: 1)
+        }
+    }
+    
+    class var regentgrey: UIColor {
+        get {
+            return UIColor(red: 142 / 255, green: 154 / 255, blue: 163 / 255, alpha: 1)
+        }
+    }
 }

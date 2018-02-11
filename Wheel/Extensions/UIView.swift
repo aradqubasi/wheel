@@ -26,17 +26,27 @@ extension UIView {
         }
     }
 
+    // MARK: - Methods
     
     func attach(_ view: UIView) -> UIView {
         self.addSubview(view)
         return view
     }
+    
+    func addSizeConstraints() {
+        widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+    }
 
+    // MARK: - Properties
+    
     var radius: CGFloat {
         get {
             return max(frame.width, frame.height)
         }
     }
+    
+    // MARK: - Helpers
     
     class var bowlSun: UIView {
         get {
@@ -54,4 +64,5 @@ extension UIView {
             return sun
         }
     }
+    
 }

@@ -34,6 +34,7 @@ extension UIView {
     }
     
     func addSizeConstraints() {
+//        translatesAutoresizingMaskIntoConstraints = false
         widthAnchor.constraint(equalToConstant: frame.width).isActive = true
         heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
@@ -43,6 +44,12 @@ extension UIView {
     var radius: CGFloat {
         get {
             return max(frame.width, frame.height)
+        }
+    }
+    
+    var scale: CGFloat {
+        get {
+            return sqrt(CGFloat(transform.a * transform.a + transform.c * transform.c))
         }
     }
     

@@ -717,6 +717,12 @@ public extension UIImage {
         }
     }
     
+    class var back: UIImage {
+        get {
+            return UIImage(named: "filter/back")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

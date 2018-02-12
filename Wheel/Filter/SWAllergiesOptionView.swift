@@ -93,6 +93,7 @@ class SWAllergiesOptionView: UIView {
         _checkbox.onTintColor = .mountainmeadow
         
         _line.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - border), size: CGSize(width: bounds.width, height: border))
+        _line.alpha = 0.34
         _line.backgroundColor = .tiara
         
     }

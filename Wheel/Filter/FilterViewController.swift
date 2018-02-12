@@ -118,6 +118,8 @@ class FilterViewController: UIViewController, UITableViewDataSource {
             $0.addSizeConstraints()
         })
         
+        
+        
         _ingredients = [noPreferences, vegan, vegeterian, percetarian]
         
         _ingredients.forEach({ $0.onCheck(self, selector: #selector(onIngredientsOptionClick(_:))) })
@@ -126,14 +128,44 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
         
         _stack = UIStackView(arrangedSubviews: subviews)
+        
+//        for index in 0..<subviews.count {
+//            let subview = subviews[index]
+//
+//            if index == 0 {
+//                subview.topAnchor.constraint(equalTo: _stack.topAnchor).isActive = true
+//            }
+//            else {
+//                subview.topAnchor.constraint(equalTo: subviews[index - 1].bottomAnchor).isActive = true
+//            }
+//            subview.leadingAnchor.constraint(equalTo: _stack.leadingAnchor).isActive = true
+//            if let alignable = subview as? SWAlignableProtocol {
+//                alignable.alignSubviews()
+//            }
+//            subview.addSizeConstraints()
+//            print("intristic size of \(index) is \(subview.intrinsicContentSize)")
+//        }
+        
         _stack.axis = .vertical
         _stack.translatesAutoresizingMaskIntoConstraints = false
+        print("_stack.intrinsicContentSize = \(_stack.intrinsicContentSize)")
+        
 //        view.addSubview(_stack)
         
         _scroll = UIScrollView(frame: view.bounds)
         _scroll.addSubview(_stack)
-        _scroll.contentSize = CGSize(width: 414, height: 892 - 71)
+        _stack.leadingAnchor.constraint(equalTo: _scroll.leadingAnchor).isActive = true
+        
+        _stack.trailingAnchor.constraint(equalTo: _scroll.trailingAnchor).isActive = true
+        _stack.bottomAnchor.constraint(equalTo: _scroll.bottomAnchor).isActive = true
+        _stack.topAnchor.constraint(equalTo: _scroll.topAnchor).isActive = true
+        _stack.widthAnchor.constraint(equalTo: _scroll.widthAnchor).isActive = true
+        
+        print("_scroll.contentSize = \(_scroll.contentSize)")
+//        _scroll.contentSize = CGSize(width: 414, height: 892 - 71)
         view.addSubview(_scroll)
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem.back
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,7 +178,7 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
         let overcheck: () -> Void = { self._ingredients.forEach({ $0.checked = sender == $0 }) }
         
-        UIView.animate(withDuration: 0.112, animations: overcheck)
+        UIView.animate(withDuration: 0.225, animations: overcheck)
     }
     
 }

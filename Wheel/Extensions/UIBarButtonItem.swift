@@ -24,4 +24,10 @@ extension UIBarButtonItem {
         }
     }
     
+    class var back: UIBarButtonItem {
+        get {
+            let button = UIBarButtonItem(image: .back, style: .plain, target: nil, action: nil)
+            return button
+        }
+    }
 }

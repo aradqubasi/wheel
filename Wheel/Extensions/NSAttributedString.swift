@@ -227,4 +227,24 @@ extension NSAttributedString {
         }
     }
     
+    class var filterTitle: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "Food preferences", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Heavy", size: 16) as Any])
+            return text
+        }
+    }
+    
+    class var ok: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "OK", attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
+            return text
+        }
+    }
+    
+    class var grayok: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "OK", attributes: [.foregroundColor: UIColor.gray, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
+            return text
+        }
+    }
 }

@@ -66,4 +66,14 @@ extension UIButton {
         }
     }
     
+    class var ok: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 414, height: 63)))
+            button.backgroundColor = .shamrock
+            button.setAttributedTitle(NSAttributedString.ok, for: .normal)
+            button.setAttributedTitle(NSAttributedString.grayok, for: .highlighted)
+            return button
+        }
+    }
+    
 }

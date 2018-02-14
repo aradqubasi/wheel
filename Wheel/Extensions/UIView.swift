@@ -39,6 +39,24 @@ extension UIView {
         heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
 
+    func addCenterBottomConstraints() {
+        guard let superview = superview else {
+            fatalError("view is not attached to superview")
+        }
+        centerXAnchor.constraint(equalTo: superview.centerXAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+    }
+    
+    func addBoundsConstraints() {
+        guard let superview = superview else {
+            fatalError("view is not attached to superview")
+        }
+        topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
+        leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
+        trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
+    }
+    
     // MARK: - Properties
     
     var radius: CGFloat {

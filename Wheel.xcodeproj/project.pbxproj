@@ -54,6 +54,13 @@
 		1583879620303F51001E4008 /* SWHeaderOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1583879520303F51001E4008 /* SWHeaderOptionView.swift */; };
 		15838798203043B8001E4008 /* SWAlignableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15838797203043B8001E4008 /* SWAlignableProtocol.swift */; };
 		1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15838799203045A8001E4008 /* SWAllergiesOptionView.swift */; };
+		1583879D2033FEA7001E4008 /* SWOptionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1583879C2033FEA7001E4008 /* SWOptionType.swift */; };
+		1583879F2033FEE8001E4008 /* SWOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1583879E2033FEE8001E4008 /* SWOption.swift */; };
+		158387A220340371001E4008 /* SWOptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A120340371001E4008 /* SWOptionRepository.swift */; };
+		158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */; };
+		158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A6203409B9001E4008 /* SWRootAssembler.swift */; };
+		158387A920340DBC001E4008 /* SWContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A820340DBC001E4008 /* SWContext.swift */; };
+		158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */; };
 		159038261FE39639004A7FB8 /* DressingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159038251FE39639004A7FB8 /* DressingController.swift */; };
 		159038281FE397E6004A7FB8 /* FruitsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159038271FE397E6004A7FB8 /* FruitsController.swift */; };
 		159F18831F63D4920079C545 /* SpokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159F18821F63D4920079C545 /* SpokeView.swift */; };
@@ -168,6 +175,13 @@
 		1583879520303F51001E4008 /* SWHeaderOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHeaderOptionView.swift; sourceTree = "<group>"; };
 		15838797203043B8001E4008 /* SWAlignableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAlignableProtocol.swift; sourceTree = "<group>"; };
 		15838799203045A8001E4008 /* SWAllergiesOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAllergiesOptionView.swift; sourceTree = "<group>"; };
+		1583879C2033FEA7001E4008 /* SWOptionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOptionType.swift; sourceTree = "<group>"; };
+		1583879E2033FEE8001E4008 /* SWOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOption.swift; sourceTree = "<group>"; };
+		158387A120340371001E4008 /* SWOptionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOptionRepository.swift; sourceTree = "<group>"; };
+		158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryOptionRepository.swift; sourceTree = "<group>"; };
+		158387A6203409B9001E4008 /* SWRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRootAssembler.swift; sourceTree = "<group>"; };
+		158387A820340DBC001E4008 /* SWContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWContext.swift; sourceTree = "<group>"; };
+		158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRootAssembler.swift; sourceTree = "<group>"; };
 		159038251FE39639004A7FB8 /* DressingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DressingController.swift; sourceTree = "<group>"; };
 		159038271FE397E6004A7FB8 /* FruitsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitsController.swift; sourceTree = "<group>"; };
 		159F18821F63D4920079C545 /* SpokeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpokeView.swift; sourceTree = "<group>"; };
@@ -379,6 +393,34 @@
 			path = Filter;
 			sourceTree = "<group>";
 		};
+		1583879B2033FE32001E4008 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1583879C2033FEA7001E4008 /* SWOptionType.swift */,
+				1583879E2033FEE8001E4008 /* SWOption.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		158387A020340321001E4008 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				158387A120340371001E4008 /* SWOptionRepository.swift */,
+				158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		158387A5203408A2001E4008 /* Assemblers */ = {
+			isa = PBXGroup;
+			children = (
+				158387A6203409B9001E4008 /* SWRootAssembler.swift */,
+				158387A820340DBC001E4008 /* SWContext.swift */,
+				158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */,
+			);
+			path = Assemblers;
+			sourceTree = "<group>";
+		};
 		15B00C3A200B3AA3002B93A8 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
@@ -441,6 +483,9 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				158387A5203408A2001E4008 /* Assemblers */,
+				158387A020340321001E4008 /* Repositories */,
+				1583879B2033FE32001E4008 /* Model */,
 				1583878D202ED5DB001E4008 /* HamburberNavigation */,
 				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15838790202ED774001E4008 /* Filter */,
@@ -640,6 +685,7 @@
 			files = (
 				1525FE661FDC6600001CABF6 /* OverlayController.swift in Sources */,
 				15456D6C1FCB0DA10018A1CD /* Ingridient.swift in Sources */,
+				158387A220340371001E4008 /* SWOptionRepository.swift in Sources */,
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
@@ -660,6 +706,7 @@
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
+				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
 				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
@@ -674,6 +721,7 @@
 				15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
+				1583879D2033FEA7001E4008 /* SWOptionType.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
@@ -686,6 +734,7 @@
 				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
+				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
@@ -696,6 +745,7 @@
 				15838792202ED7A3001E4008 /* FilterViewController.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
+				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
 				15F788001FB827B4001C32B1 /* FatsController.swift in Sources */,
@@ -707,6 +757,7 @@
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* IngridientKinds.swift in Sources */,
 				15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */,
+				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
@@ -717,6 +768,7 @@
 				1583879620303F51001E4008 /* SWHeaderOptionView.swift in Sources */,
 				15838798203043B8001E4008 /* SWAlignableProtocol.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
+				1583879F2033FEE8001E4008 /* SWOption.swift in Sources */,
 				15F4AF3720164C5200C486FF /* WheelNavigationController.swift in Sources */,
 				155BEC381FF1574E00E749B5 /* LaunchScreenController.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,

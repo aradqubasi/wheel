@@ -765,5 +765,19 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
             adding = false
         }
     }
+    
+    // MARK: - Navigation
+    
+    @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "WheelsToFilter" {
+            (segue.destination as? FilterViewController)?.repository = SWContext.root.resolve()
+        }
+        
+    }
+    
 }
 

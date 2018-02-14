@@ -163,4 +163,15 @@ extension UILabel {
             return label
         }
     }
+    
+    class var filterTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 133, height: 32)
+            label.attributedText = NSAttributedString.filterTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

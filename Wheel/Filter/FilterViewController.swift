@@ -20,6 +20,16 @@ class FilterViewController: UIViewController, UITableViewDataSource {
     
     private var _allergies: [SWAllergiesOptionView]!
     
+    private var _noAllergies: SWAllergiesOptionView!
+    
+    private var _back: UIBarButtonItem!
+    
+    private var _ok: UIButton!
+    
+    // MARK: - Dependencies
+    
+    var repository: SWOptionRepository!
+    
     // MARK: - UITableViewDataSource Methods
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -126,6 +136,10 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
         _allergies = [noAllergiesOption, glutenIntolerantOption, wheatIntolerantOption, lactoseIntolerantOption]
         
+        _allergies.forEach({ $0.onCheck(self, selector: #selector(onAllergiesOptionClick(_:))) })
+        
+        _noAllergies = noAllergiesOption
+        
         
         _stack = UIStackView(arrangedSubviews: subviews)
         
@@ -152,9 +166,13 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
 //        view.addSubview(_stack)
         
-        _scroll = UIScrollView(frame: view.bounds)
+//        _scroll = UIScrollView(frame: view.bounds)
+        _scroll = UIScrollView()
+        view.addSubview(_scroll)
         _scroll.addSubview(_stack)
+        _scroll.translatesAutoresizingMaskIntoConstraints = false
         _stack.leadingAnchor.constraint(equalTo: _scroll.leadingAnchor).isActive = true
+        _scroll.addBoundsConstraints()
         
         _stack.trailingAnchor.constraint(equalTo: _scroll.trailingAnchor).isActive = true
         _stack.bottomAnchor.constraint(equalTo: _scroll.bottomAnchor).isActive = true
@@ -163,9 +181,26 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
         print("_scroll.contentSize = \(_scroll.contentSize)")
 //        _scroll.contentSize = CGSize(width: 414, height: 892 - 71)
-        view.addSubview(_scroll)
+//        view.addSubview(_scroll)
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem.back
+        let _back = UIBarButtonItem.back
+        _back.target = self
+        _back.action = #selector(onBackButtonClick(_:))
+        navigationItem.leftBarButtonItem = _back
+        
+        navigationItem.titleView = UILabel.filterTitle
+        
+        _ok = UIButton.ok
+        view.addSubview(_ok)
+        _ok.translatesAutoresizingMaskIntoConstraints = false
+        _ok.addSizeConstraints()
+        _ok.addCenterBottomConstraints()
+        _ok.addTarget(self, action: #selector(onOkButtonClick(_:)), for: .touchUpInside)
+        
+        view.constraints.filter({ $0.firstAttribute == .bottom && $0.firstItem === _scroll }).first!.isActive = false
+        _scroll.bottomAnchor.constraint(equalTo: _ok.topAnchor).isActive = true
+        
+        repository.getAll().forEach({ print($0.name) })
     }
 
     override func didReceiveMemoryWarning() {
@@ -180,5 +215,31 @@ class FilterViewController: UIViewController, UITableViewDataSource {
         
         UIView.animate(withDuration: 0.225, animations: overcheck)
     }
+    
+    @IBAction private func onAllergiesOptionClick(_ sender: SWAllergiesOptionView) {
+        if sender == _noAllergies && sender.checked {
+            _allergies.forEach({ $0.checked = $0 == sender })
+        }
+        else if sender != _noAllergies && _noAllergies.checked {
+            _allergies.forEach({ $0.checked = $0 == _noAllergies ? false : $0.checked })
+        }
+    }
+    
+    @IBAction private func onBackButtonClick(_ sender: UIBarButtonItem) {
+        
+        performSegue(withIdentifier: "FilterToWheels", sender: self)
+        
+    }
+    
+    @IBAction private func onOkButtonClick(_ sender: UIButton) {
+        
+        performSegue(withIdentifier: "FilterToWheels", sender: self)
+        
+    }
+//    @IBAction func unwindToViewController(segue: UIStoryboardSegue) {
+//
+//        //code
+//
+//    }
     
 }

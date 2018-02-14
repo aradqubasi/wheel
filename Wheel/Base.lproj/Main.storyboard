@@ -82,8 +82,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="bpf-Zz-Dna"/>
+                    <connections>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-sm-Iju" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Tij-yj-lQg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-63" y="660"/>
         </scene>

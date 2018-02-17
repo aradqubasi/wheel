@@ -54,6 +54,7 @@ extension UIButton {
         get {
             let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 126, height: 21)))
             button.setAttributedTitle(NSAttributedString.skip, for: .normal)
+            button.setAttributedTitle(NSAttributedString.skip.invert(), for: .highlighted)
             return button
         }
     }
@@ -62,6 +63,7 @@ extension UIButton {
         get {
             let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 126, height: 21)))
             button.setAttributedTitle(NSAttributedString.proceed, for: .normal)
+            button.setAttributedTitle(NSAttributedString.proceed.invert(), for: .highlighted)
             return button
         }
     }
@@ -71,7 +73,8 @@ extension UIButton {
             let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 414, height: 63)))
             button.backgroundColor = .shamrock
             button.setAttributedTitle(NSAttributedString.ok, for: .normal)
-            button.setAttributedTitle(NSAttributedString.grayok, for: .highlighted)
+            button.setAttributedTitle(NSAttributedString.ok.invert(), for: .highlighted)
+//            button.setAttributedTitle(NSAttributedString.grayok, for: .highlighted)
             return button
         }
     }

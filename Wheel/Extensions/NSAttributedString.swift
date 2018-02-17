@@ -10,6 +10,28 @@ import Foundation
 import UIKit
 extension NSAttributedString {
     
+    // MARK: - Extension Methods
+    
+    func invert() -> NSAttributedString {
+        let text = NSMutableAttributedString(attributedString: self)
+        if let original = text.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor {
+            var inverted: UIColor!
+            switch original {
+            case .white: inverted = .gray
+            default: inverted = original
+            }
+            let linewise = NSRange(location: 0, length: text.length)
+            text.removeAttribute(.foregroundColor, range: linewise)
+            text.addAttribute(.foregroundColor, value: inverted, range: linewise)
+            return text
+        }
+        else {
+            return self
+        }
+    }
+    
+    // MARK: - Premadees
+    
     class var obeyTitle: NSAttributedString {
         get {
             let bold = UIFont(name: "Avenir-Heavy", size: 32)
@@ -164,26 +186,26 @@ extension NSAttributedString {
         }
     }
     
-    class var veganOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Vegan", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
-    
-    class var vegeterianOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Vegeterian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
-    
-    class var percetarianOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Percetarian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
+//    class var veganOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Vegan", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
+//
+//    class var vegeterianOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Vegeterian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
+//
+//    class var percetarianOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Percetarian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
     
     class var noFoodPreferencesOption: NSAttributedString {
         get {
@@ -206,26 +228,26 @@ extension NSAttributedString {
         }
     }
     
-    class var glutenIntolerantOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Gluten intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
-    
-    class var wheatIntolerantOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Wheat intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
-    
-    class var lactoseIntolerantOption: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "Lactose intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-            return text
-        }
-    }
+//    class var glutenIntolerantOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Gluten intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
+//    
+//    class var wheatIntolerantOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Wheat intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
+//    
+//    class var lactoseIntolerantOption: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "Lactose intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+//            return text
+//        }
+//    }
     
     class var filterTitle: NSAttributedString {
         get {
@@ -241,10 +263,10 @@ extension NSAttributedString {
         }
     }
     
-    class var grayok: NSAttributedString {
-        get {
-            let text = NSAttributedString(string: "OK", attributes: [.foregroundColor: UIColor.gray, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
-            return text
-        }
-    }
+//    class var grayok: NSAttributedString {
+//        get {
+//            let text = NSAttributedString(string: "OK", attributes: [.foregroundColor: UIColor.gray, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
+//            return text
+//        }
+//    }
 }

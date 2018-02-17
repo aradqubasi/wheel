@@ -29,6 +29,8 @@ class SWIngrigientsOptionView: UIView, SWAlignableProtocol {
     
     var _line: UIView!
     
+    var _order: Int?
+    
     //MARK: - Public Properties
 
     /**instant*/
@@ -55,6 +57,21 @@ class SWIngrigientsOptionView: UIView, SWAlignableProtocol {
         set (new) {
             _checkfront.transform = CGAffineTransform.identity.scaledBy(x: new ? 0.1 : 1, y: new ? 0.1 : 1)
             _checkfront.alpha = new ? 0 : 1
+        }
+    }
+    
+    var order: Int {
+        get {
+            if _order == nil {
+                _order = 0
+                return 0
+            }
+            else {
+                return _order!
+            }
+        }
+        set(new) {
+            _order = new
         }
     }
     

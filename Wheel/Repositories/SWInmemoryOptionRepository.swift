@@ -12,13 +12,17 @@ import UIKit
 class SWInmemoryOptionRepository : SWOptionRepository {
     
     private static var _options: [SWOption] = [
-        SWOption("Vegan", of: .ingredient),
-        SWOption("Vegeterian", of: .ingredient),
-        SWOption("Percetarian", of: .ingredient),
-        SWOption("Gluten intolerant", of: .allergy),
-        SWOption("Wheat intolerant", of: .allergy),
-        SWOption("Lactose intolerant", of: .allergy)
+        SWOption(1, "Vegan", of: .ingredient),
+        SWOption(2, "Vegeterian", of: .ingredient),
+        SWOption(3, "Percetarian", of: .ingredient),
+        SWOption(4, "Gluten intolerant", of: .allergy),
+        SWOption(5, "Wheat intolerant", of: .allergy),
+        SWOption(6, "Lactose intolerant", of: .allergy)
     ]
+    
+    func getAll(by type: SWOptionType) -> [SWOption] {
+        return SWInmemoryOptionRepository._options.filter({ $0.type == type })
+    }
     
     func getAll() -> [SWOption] {
         return SWInmemoryOptionRepository._options

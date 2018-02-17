@@ -769,7 +769,7 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     // MARK: - Navigation
     
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
-        
+        SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

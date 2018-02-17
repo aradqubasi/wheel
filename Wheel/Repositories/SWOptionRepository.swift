@@ -11,6 +11,8 @@ protocol SWOptionRepository {
     
     func getAll() -> [SWOption]
     
+    func getAll(by type: SWOptionType) -> [SWOption]
+    
     func save(_ option: SWOption)
     
 }

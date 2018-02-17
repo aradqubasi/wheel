@@ -22,6 +22,8 @@ class SWAllergiesOptionView: UIView {
     
     var _line: UIView!
     
+    var _order: Int?
+    
     //MARK: - Public Properties
     
     /**instant*/
@@ -41,6 +43,21 @@ class SWAllergiesOptionView: UIView {
         }
         set (new) {
             _checkbox.setOn(new, animated: true)
+        }
+    }
+    
+    var order: Int {
+        get {
+            if _order == nil {
+                _order = 0
+                return 0
+            }
+            else {
+                return _order!
+            }
+        }
+        set(new) {
+            _order = new
         }
     }
     

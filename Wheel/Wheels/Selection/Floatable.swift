@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 protocol Floatable {
     
-    var asIngridient: Ingridient { get }
+    var asIngridient: SWIngredient { get }
     
     func convert(_ point: CGPoint, to coordinateSpace: UICoordinateSpace) -> CGPoint
     

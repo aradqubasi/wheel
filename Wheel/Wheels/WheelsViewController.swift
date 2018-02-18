@@ -8,12 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
+class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
 {
     
     // MARK: - Outlets
     
     // MARK: - Public Properties
+    
+    var assembler: SWWheelsAssembler!
     
     // MARK: - Private Properties
     
@@ -273,6 +275,8 @@ class ViewController: UIViewController, RadialControllerDelegate, OverlayControl
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(assembler == nil ? "no assembler" : "assembler")
         
         view.backgroundColor = UIColor.aquaHaze
         

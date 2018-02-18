@@ -102,9 +102,9 @@ class NamedPinView: UIView, Floatable {
     
     // MARK: - Floatable Protocol
     
-    var asIngridient: Ingridient {
+    var asIngridient: SWIngredient {
         get {
-            return Ingridient(name, of: .unexpected, as: _button.image(for: .normal)!)
+            return SWIngredient(name, of: .unexpected, as: _button.image(for: .normal)!, _button.image(for: .normal)!)
         }
     }
     

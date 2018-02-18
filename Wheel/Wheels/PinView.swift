@@ -75,13 +75,13 @@ class PinView: UIView, Floatable {
     
     var isBlank: Bool = false
     
-    var kind: IngridientKinds!
+    var kind: SWIngredientKinds!
     
     // MARK: - Floatable Protocol
     
-    var asIngridient: Ingridient {
+    var asIngridient: SWIngredient {
         get {
-            return Ingridient(name, of: kind, as: original)
+            return SWIngredient(name, of: kind, as: original, original)
         }
     }
     
@@ -196,7 +196,7 @@ class PinView: UIView, Floatable {
         return self
     }
     
-    func kind(of ingridient: IngridientKinds) -> PinView {
+    func kind(of ingridient: SWIngredientKinds) -> PinView {
         self.kind = ingridient
         return self
     }

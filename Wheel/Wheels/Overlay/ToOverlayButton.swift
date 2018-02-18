@@ -12,7 +12,7 @@ class ToOverlayButton: UIButton, Floatable {
     
     var overlay: OverlayController?
     
-    var asIngridient: Ingridient {
+    var asIngridient: SWIngredient {
         get {
             guard let focused = overlay?.focused else {
                 fatalError("overlay is not assigned to ToOverlayButton")

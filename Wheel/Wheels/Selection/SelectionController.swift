@@ -213,7 +213,7 @@ class SelectionController {
         return holder.bounds.contains(touch.location(in: holder))
     }
     
-    func will(fit ingridient: Ingridient) -> Bool {
+    func will(fit ingridient: SWIngredient) -> Bool {
         let selected = self.selected.map({ $0.asIngridient })
         return !selected.contains(where: { $0.kind == ingridient.kind })
     }

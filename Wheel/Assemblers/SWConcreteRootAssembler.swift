@@ -9,6 +9,10 @@
 import Foundation
 class SWConcreteRootAssembler: SWRootAssembler {
     
+    func resolve() -> SWAfterlaunchAssembler {
+        return SWConcreteAfterlaunchAssembler()
+    }
+    
     func resolve() -> SWOptionRepository {
         return SWInmemoryOptionRepository()
     }

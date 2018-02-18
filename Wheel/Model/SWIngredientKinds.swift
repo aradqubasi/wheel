@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum IngridientKinds {
+enum SWIngredientKinds {
     case base
     case fat
     case veggy

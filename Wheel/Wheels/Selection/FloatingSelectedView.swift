@@ -18,7 +18,7 @@ class FloatingSelectedView: UIView, Floatable {
         }
     }
     
-    var food: Ingridient? {
+    var food: SWIngredient? {
         get {
             return _food
         }
@@ -30,7 +30,7 @@ class FloatingSelectedView: UIView, Floatable {
     
     // MARK: - Private Properties
     
-    private var _food: Ingridient?
+    private var _food: SWIngredient?
     
     private var _state: FloatingSelectedViewStates!
     
@@ -48,7 +48,7 @@ class FloatingSelectedView: UIView, Floatable {
     
     // MARK: - Floatable Protocol Methods
     
-    var asIngridient: Ingridient {
+    var asIngridient: SWIngredient {
         get {
             return _food!
         }

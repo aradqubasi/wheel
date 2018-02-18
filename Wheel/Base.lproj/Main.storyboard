@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Bo9-Se-FJX">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EcW-aW-da7">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,11 +14,11 @@
                         <viewControllerLayoutGuide type="bottom" id="fNP-ag-Z5Q"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Ls-Pi-wet">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t21-yf-Em7" userLabel="Pager">
-                                <rect key="frame" x="143.5" y="471" width="88" height="8"/>
+                                <rect key="frame" x="256" y="404" width="88" height="8"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="Gfp-lW-Pdg"/>
@@ -45,16 +41,16 @@
             </objects>
             <point key="canvasLocation" x="-912.79999999999995" y="-633.73313343328346"/>
         </scene>
-        <!--View Controller-->
+        <!--Wheels View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WheelsViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.96470588235294119" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -77,7 +73,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2BW-qd-DtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6zx-Kv-Ji3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -127,8 +123,102 @@
             </objects>
             <point key="canvasLocation" x="-979.20000000000005" y="660.2698650674663"/>
         </scene>
+        <!--AfterLaunch-->
+        <scene sceneID="AAF-7d-Yri">
+            <objects>
+                <viewController id="EcW-aW-da7" userLabel="AfterLaunch" customClass="AfterlaunchViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="CMn-cz-kXr"/>
+                        <viewControllerLayoutGuide type="bottom" id="gxO-eG-5M7"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SHE-Gm-7eZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchbackground" translatesAutoresizingMaskIntoConstraints="NO" id="iYf-68-6nR" userLabel="background">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchicon" translatesAutoresizingMaskIntoConstraints="NO" id="KeE-8t-AEv" userLabel="icon">
+                                <rect key="frame" x="194.5" y="219" width="211" height="168"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="211" id="8NY-He-Adp"/>
+                                    <constraint firstAttribute="height" constant="168" id="kAQ-Ib-9kI"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAv-wK-PdJ">
+                                <rect key="frame" x="136.5" y="437" width="327" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="31" id="MOW-at-Tdk"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="327" id="e55-Ik-qGY"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="Let’s build it! ">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="36" name="Avenir-Light"/>
+                                            <font key="NSOriginalFont" size="36" name="Avenir-Light"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3m-Ph-qER">
+                                <rect key="frame" x="203.5" y="28" width="193" height="49"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="49" id="EO8-pJ-KGP"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="193" id="LXD-1Q-sJi"/>
+                                </constraints>
+                                <attributedString key="attributedText">
+                                    <fragment content="salad">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="36" name="Avenir-Black"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="wheel">
+                                        <attributes>
+                                            <color key="NSColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <font key="NSFont" size="36" name="Avenir-Book"/>
+                                            <font key="NSOriginalFont" size="36" name="Avenir-Book"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KeE-8t-AEv" firstAttribute="centerX" secondItem="SHE-Gm-7eZ" secondAttribute="centerX" id="0dB-6z-thi"/>
+                            <constraint firstItem="d3m-Ph-qER" firstAttribute="top" secondItem="SHE-Gm-7eZ" secondAttribute="top" constant="28" id="9qJ-of-gIK"/>
+                            <constraint firstItem="iYf-68-6nR" firstAttribute="centerY" secondItem="SHE-Gm-7eZ" secondAttribute="centerY" id="CCI-Qn-yUv"/>
+                            <constraint firstItem="d3m-Ph-qER" firstAttribute="centerX" secondItem="SHE-Gm-7eZ" secondAttribute="centerX" id="DPB-Y6-XUN"/>
+                            <constraint firstItem="kAv-wK-PdJ" firstAttribute="centerX" secondItem="SHE-Gm-7eZ" secondAttribute="centerX" id="FgD-ih-cxa"/>
+                            <constraint firstItem="iYf-68-6nR" firstAttribute="centerX" secondItem="SHE-Gm-7eZ" secondAttribute="centerX" id="Hb0-RB-ml4"/>
+                            <constraint firstItem="iYf-68-6nR" firstAttribute="height" secondItem="SHE-Gm-7eZ" secondAttribute="height" id="jfq-al-e7l"/>
+                            <constraint firstItem="KeE-8t-AEv" firstAttribute="top" secondItem="SHE-Gm-7eZ" secondAttribute="top" constant="219" id="ks8-eR-ukI"/>
+                            <constraint firstItem="iYf-68-6nR" firstAttribute="width" secondItem="SHE-Gm-7eZ" secondAttribute="width" id="lJq-EO-gUg"/>
+                            <constraint firstItem="kAv-wK-PdJ" firstAttribute="top" secondItem="KeE-8t-AEv" secondAttribute="bottom" constant="50" id="vHy-ld-Kwp"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="Bo9-Se-FJX" kind="show" identifier="AfterlaunchToOnboarding" animates="NO" id="1BX-wz-KmR"/>
+                        <segue destination="Nwf-Rb-0fH" kind="show" identifier="AfterlaunchToWheels" id="JsK-hI-aH2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ssh-sV-Pix" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1916" y="-17"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="wheelgui/launchbackground" width="414" height="736"/>
+        <image name="wheelgui/launchicon" width="208" height="167"/>
+    </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="JsK-hI-aH2"/>
         <segue reference="Xb9-Iq-PWI"/>
     </inferredMetricsTieBreakers>
 </document>

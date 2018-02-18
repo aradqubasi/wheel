@@ -10,6 +10,10 @@ import UIKit
 
 class OnboardingViewController: UIViewController {
     
+    // MARK: - Public Properties
+    
+    var assembler: SWOnboardingAssembler!
+    
     // MARK: - Outlets
     
     @IBOutlet weak var pager: UIView!
@@ -23,6 +27,8 @@ class OnboardingViewController: UIViewController {
     private var _bowlController: SWBowlSceneController!
     
     private var _skip: UIButton!
+    
+    private var _segues: SWSegueRepository!
     
     // MARK: - Initalization
 
@@ -72,6 +78,9 @@ class OnboardingViewController: UIViewController {
             (proceed.image as! UIButton).addTarget(self, action: #selector(onProceed(_:)), for: .touchUpInside)
             _bowlController.actors.append(proceed)
         }
+        
+        _segues = assembler.resolve()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -82,11 +91,11 @@ class OnboardingViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func onSkip(_ sender: UIButton) {
-        performSegue(withIdentifier: SWConfiguration.Segues.onboardingToWheels, sender: self)
+        performSegue(withIdentifier: _segues.getOnboardingToWheels().identifier, sender: self)
     }
     
     @IBAction private func onProceed(_ sender: UIButton) {
-        performSegue(withIdentifier: SWConfiguration.Segues.onboardingToWheels, sender: self)
+        performSegue(withIdentifier: _segues.getOnboardingToWheels().identifier, sender: self)
     }
     
     @IBAction private func onSwipeLeft(_ sender: UISwipeGestureRecognizer) {
@@ -141,14 +150,18 @@ class OnboardingViewController: UIViewController {
         UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toAfter, completion: finalize)
     }
     
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let navigator = segue.destination as? UINavigationController, let wheels = navigator.topViewController as? WheelsViewController {
+            let wheelsAssembler: SWWheelsAssembler = assembler.resolve()
+            wheels.assembler = wheelsAssembler
+        }
+        else {
+            fatalError("Segues does not directed to Wheels View Controller")
+        }
     }
-    */
+ 
 
 }

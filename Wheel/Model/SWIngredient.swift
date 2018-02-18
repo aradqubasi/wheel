@@ -8,20 +8,23 @@
 
 import Foundation
 import UIKit
-struct Ingridient: Hashable {
+struct SWIngredient: Hashable {
     
     // MARK: - Public Properties
     
-    var kind: IngridientKinds
+    var kind: SWIngredientKinds
     
     var name: String
     
     var image: UIImage
     
-    init(_ name: String, of kind: IngridientKinds, as image: UIImage) {
+    var outline: UIImage
+    
+    init(_ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage) {
         self.name = name
         self.kind = kind
         self.image = image
+        self.outline = outline
     }
     
     // MARK: - Hashable implementation
@@ -32,7 +35,7 @@ struct Ingridient: Hashable {
         }
     }
     
-    static func ==(lhs: Ingridient, rhs: Ingridient) -> Bool {
+    static func ==(lhs: SWIngredient, rhs: SWIngredient) -> Bool {
         return lhs.name == rhs.name && lhs.kind == rhs.kind //&& lhs.image == rhs.image
     }
 }

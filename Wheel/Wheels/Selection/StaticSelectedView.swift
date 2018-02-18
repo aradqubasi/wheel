@@ -18,7 +18,7 @@ class StaticSelectedView: UIView, Floatable {
         }
     }
     
-    var food: Ingridient? {
+    var food: SWIngredient? {
         get {
             return _food
         }
@@ -30,7 +30,7 @@ class StaticSelectedView: UIView, Floatable {
     
     private var _selector: Selector?
     
-    private var _food: Ingridient?
+    private var _food: SWIngredient?
     
     private var _state: StaticSelectedViewStates!
     
@@ -62,7 +62,7 @@ class StaticSelectedView: UIView, Floatable {
     
     // MARK: - Floatable Implementation
     
-    var asIngridient: Ingridient {
+    var asIngridient: SWIngredient {
         get {
             guard let ingridient = food else {
                 fatalError("StaticSelectedView does not have attached ingridient")
@@ -102,7 +102,7 @@ class StaticSelectedView: UIView, Floatable {
     }
 
     /**animatable - open blank spot at the point @ holder coordinate system*/
-    func open(for food: Ingridient) {
+    func open(for food: SWIngredient) {
         _state = .opened
         
         _food = food

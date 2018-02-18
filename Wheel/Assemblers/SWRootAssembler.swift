@@ -10,5 +10,7 @@ import Foundation
 protocol SWRootAssembler {
     
     func resolve() -> SWOptionRepository
+    
+    func resolve() -> SWAfterlaunchAssembler
 
 }

@@ -90,6 +90,7 @@
 		15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */; };
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
+		15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801B203A9BE800596CC8 /* CGFloat.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -227,6 +228,7 @@
 		15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
+		15BA801B203A9BE800596CC8 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -366,6 +368,7 @@
 				154DF0B4201C5CBE00B8391A /* UILabel.swift */,
 				1583878B202ACFD7001E4008 /* UIBarButtonItem.swift */,
 				158387AC203554A7001E4008 /* String.swift */,
+				15BA801B203A9BE800596CC8 /* CGFloat.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -824,6 +827,7 @@
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
+				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,
 				156B0BE020396DE100CFEEA4 /* SWSegue.swift in Sources */,
 				15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */,
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,

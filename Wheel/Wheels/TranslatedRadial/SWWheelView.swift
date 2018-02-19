@@ -12,6 +12,63 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - Initializers
     
+    convenience init(_ ingredients: [SWIngredient], with spacing: CGFloat, as active: WState, in container: UIView, facing angle: CGFloat) {
+        
+        // calculate geometry
+        let basePinWidth: CGFloat = 42
+        let inset: CGFloat = 5
+        var settings: [WState : WSettings] = [:]
+        do {
+            let inset = inset
+            let activeScale: CGFloat = 1
+            let usualScale: CGFloat = 1
+            let pin: CGFloat = basePinWidth
+            let mark: CGFloat = 14
+            let pointer: CGFloat = 12
+            let foundation: CGFloat = 78
+            guard let number: Int = WState.all.index(of: active) else {
+                fatalError("state does not exists at WState.all collection")
+            }
+            
+            let usualThickness: CGFloat = mark + pin * usualScale + inset
+            let activeThickness: CGFloat = pointer + mark + pin * activeScale + inset
+            var before = true
+            for state in WState.all {
+                let isActive = state == active
+                before = isActive ? false : before
+                let radius: CGFloat = foundation + CGFloat(number - 1) * usualThickness + (before || isActive ? activeThickness : usualThickness)
+                settings[state] = WSettings(radius, isActive ? activeScale : usualScale)
+            }
+        }
+        
+        // calculate capacity
+        var capacity: Int
+        do {
+            guard let maxSizes = settings[active] else {
+                fatalError("active state was not defined")
+            }
+            let pinArcLength = basePinWidth
+            let pinAngularSize = pinArcLength / maxSizes.radius
+            let spacingArcLength = spacing
+            let spacingAngularSize = spacingArcLength / maxSizes.radius
+            // 2pi = capacity * (spacing + pin) + spacing
+            capacity = Int((2 * CGFloat.pi - spacingAngularSize) / (pinAngularSize + spacingAngularSize))
+        }
+        
+        var spokes: [SWSpoke] = []
+        do {
+            var i = 0
+            for j in 0..<capacity {
+                
+                let chickpeas = PinView.create.name("chickpeas").icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins).icon(selected: UIImage.Chickpeas).kind(of: .protein)
+                spokes.append(SWSpoke.init(UIView(), chickpeas, 0, true, 0))
+            }
+            
+        }
+        
+        self.init(in: container, with: [], use: settings, facing: .leftward, as: "", basePinWidth, inset)
+    }
+    
     init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String, _ basePinWidth: CGFloat, _ inset: CGFloat) {
         
         _container = container

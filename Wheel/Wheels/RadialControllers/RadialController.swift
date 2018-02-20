@@ -8,24 +8,11 @@
 
 import Foundation
 import UIKit
-class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAbstractWheelController {
+class RadialController: SWAbstractWheelDelegate, PVDelegate, SWAbstractWheelController {
 
     // MARK: - Public Properties
     
     var delegate: RadialControllerDelegate?
-    
-//    var view: SWAbstractWheelView {
-//        get {
-//            return _view
-//        }
-//        set(new) {
-//            _view?.delegate = nil
-//            _view = new
-//            _view.delegate = self
-//            _view.name = _name
-//            apply(_state)
-//        }
-//    }
     
     var label: UILabel {
         get {
@@ -87,14 +74,10 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     init(_ wheel: SWAbstractWheelView, _ pins: [PinView], _ settings: [WState: WSettings], _ name: String) {
         
         _name = name
-//        print(initial)
-        
-        
         
         let setPVDelegate = {
             (pin: PinView) -> Void in
             pin.delegate = self
-//            pin.addTarget(self, action: #selector(self.onPinClick(_:)), for: .touchUpInside)
         }
         
         _pins = pins
@@ -224,15 +207,6 @@ class RadialController: /*RVDelegate*/ SWAbstractWheelDelegate, PVDelegate, SWAb
     // MARK: - Private Methods
     
     private func apply(_ state: WState) {
-        
-//        if var wheel = _view {
-//            if active != state {
-//                wheel.RVState = .inactive
-//            }
-//            else {
-//                wheel.RVState = .active
-//            }
-//        }
         
         guard let settings = _stateSettings[_state] else {
             fatalError("no settings @ state \(_state) @ \(self)")

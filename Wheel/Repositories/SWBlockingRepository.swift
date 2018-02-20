@@ -7,6 +7,8 @@
 //
 
 import Foundation
-protocol SWBlockingsRepository {
+protocol SWBlockingRepository {
+    
+    func getAll(by ingredient: SWIngredient) -> [SWBlocking]
     
 }

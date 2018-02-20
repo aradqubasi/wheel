@@ -778,6 +778,9 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
         SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
+        
+        (bases as! SWWheelView).refill(with: [SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad), SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage)])
+        (bases as! SWWheelView).flush(with: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

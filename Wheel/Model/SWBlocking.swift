@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct SWBlockings {
+struct SWBlocking {
     
     let id: Int?
     

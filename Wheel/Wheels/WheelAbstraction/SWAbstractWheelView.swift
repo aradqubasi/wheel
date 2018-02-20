@@ -24,7 +24,8 @@ protocol SWAbstractWheelView {
     
     func move(by angle: CGFloat) -> Void
     
-    func flush(with settings: WSettings?)
-//    var RVState: RVState { get set }
+//    func flush(with settings: WSettings?)
+    
+    func flush()
 
 }

@@ -11,4 +11,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWIngredientRepository
     
+    func resolve() -> SWBlockingRepository
+    
 }

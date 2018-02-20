@@ -131,10 +131,6 @@ class PinView: UIView, Floatable {
         _lock.frame.origin = CGPoint(x: -16, y: -16)
         
         _pin.frame.origin = .zero
-//        _pin.imageEdgeInsets.left = 5
-//        _pin.imageEdgeInsets.right = 5
-//        _pin.imageEdgeInsets.top = 5
-//        _pin.imageEdgeInsets.bottom = 5
     }
     
     private func setState(to state: PinState) {

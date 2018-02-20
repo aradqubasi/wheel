@@ -278,6 +278,21 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
         return _abstracted!
     }
+    
+    func refill(with pool: [SWIngredient]) {
+        let capacity = _spokes.count
+        do {
+            var i = 0
+            for j in 0..<capacity {
+                
+                let ingredient = pool[i]
+                let pin = _spokes[j].pin
+                _ = pin.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: active).icon(selected: ingredient.image).kind(of: ingredient.kind)
+                i = i == pool.count - 1 ? 0 : i + 1
+            }
+            
+        }
+    }
 
     // MARK: - SWAbstractWheelController
     

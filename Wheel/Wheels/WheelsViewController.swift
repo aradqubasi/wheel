@@ -19,6 +19,8 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     
     // MARK: - Private Properties
     
+    private var _ingredients: SWIngredientRepository!
+    
     var bases: SWAbstractWheelController!
     
     var fats: SWAbstractWheelController!
@@ -276,6 +278,8 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        _ingredients = assembler.resolve()
+        
         print(assembler == nil ? "no assembler" : "assembler")
         
         view.backgroundColor = UIColor.aquaHaze
@@ -373,7 +377,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 400))
             wheels.addSubview(container)
-            let wheel = SWBasesWheelView(in: container)
+            let wheel = SWWheelView.init(_ingredients.getAll(by: .base), with: 20, as: .bases, in: container, facing: .leftward)
             basesMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
             bases = wheel

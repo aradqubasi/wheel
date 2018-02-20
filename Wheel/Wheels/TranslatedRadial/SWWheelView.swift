@@ -36,7 +36,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             for state in WState.all {
                 let isActive = state == active
                 before = isActive ? false : before
-                let radius: CGFloat = foundation + CGFloat(number - 1) * usualThickness + (before || isActive ? activeThickness : usualThickness)
+                let radius: CGFloat = foundation + CGFloat(number) * usualThickness + (before || isActive ? activeThickness : usualThickness)
                 settings[state] = WSettings(radius, isActive ? activeScale : usualScale)
             }
         }
@@ -60,13 +60,16 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             var i = 0
             for j in 0..<capacity {
                 
-                let chickpeas = PinView.create.name("chickpeas").icon(default: UIImage.chickpeas).icon(UIImage.Chickpeas, for: .proteins).icon(selected: UIImage.Chickpeas).kind(of: .protein)
-                spokes.append(SWSpoke.init(UIView(), chickpeas, 0, true, 0))
+                let ingredient = ingredients[i]
+                let pin = PinView.create.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: active).icon(selected: ingredient.image).kind(of: ingredient.kind)
+                spokes.append(SWSpoke.init(UIView(), pin, j, j == 0, 0))
+                
+                i = i == ingredients.count - 1 ? 0 : i + 1
             }
             
         }
         
-        self.init(in: container, with: [], use: settings, facing: .leftward, as: "", basePinWidth, inset)
+        self.init(in: container, with: spokes, use: settings, facing: angle, as: active.rawValue, basePinWidth, inset)
     }
     
     init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String, _ basePinWidth: CGFloat, _ inset: CGFloat) {

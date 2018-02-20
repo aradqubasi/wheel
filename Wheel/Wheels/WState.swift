@@ -7,7 +7,7 @@
 //
 
 import Foundation
-enum WState {
+enum WState: String {
     
     case bases
     

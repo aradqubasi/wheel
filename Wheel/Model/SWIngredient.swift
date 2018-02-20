@@ -12,6 +12,8 @@ struct SWIngredient: Hashable {
     
     // MARK: - Public Properties
     
+    var id: Int?
+    
     var kind: SWIngredientKinds
     
     var name: String
@@ -20,7 +22,8 @@ struct SWIngredient: Hashable {
     
     var outline: UIImage
     
-    init(_ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage) {
+    init(id: Int? = nil, _ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage) {
+        self.id = id
         self.name = name
         self.kind = kind
         self.image = image

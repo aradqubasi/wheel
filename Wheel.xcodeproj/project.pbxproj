@@ -91,6 +91,8 @@
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
 		15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801B203A9BE800596CC8 /* CGFloat.swift */; };
+		15BA801E203BF46400596CC8 /* SWBlockings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801D203BF46400596CC8 /* SWBlockings.swift */; };
+		15BA8020203BF57F00596CC8 /* SWBlockingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801F203BF57F00596CC8 /* SWBlockingsRepository.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -229,6 +231,8 @@
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
 		15BA801B203A9BE800596CC8 /* CGFloat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGFloat.swift; sourceTree = "<group>"; };
+		15BA801D203BF46400596CC8 /* SWBlockings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBlockings.swift; sourceTree = "<group>"; };
+		15BA801F203BF57F00596CC8 /* SWBlockingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBlockingsRepository.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -446,6 +450,7 @@
 				1583879E2033FEE8001E4008 /* SWOption.swift */,
 				156B0BD0203961FB00CFEEA4 /* SWAppState.swift */,
 				156B0BDF20396DE100CFEEA4 /* SWSegue.swift */,
+				15BA801D203BF46400596CC8 /* SWBlockings.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -461,6 +466,7 @@
 				156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */,
 				156B0BE120396E1A00CFEEA4 /* SWSegueRepository.swift */,
 				156B0BE320396E7E00CFEEA4 /* SWInmemorySegueRepository.swift */,
+				15BA801F203BF57F00596CC8 /* SWBlockingsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -743,6 +749,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1525FE661FDC6600001CABF6 /* OverlayController.swift in Sources */,
+				15BA801E203BF46400596CC8 /* SWBlockings.swift in Sources */,
 				15456D6C1FCB0DA10018A1CD /* SWIngredient.swift in Sources */,
 				158387A220340371001E4008 /* SWOptionRepository.swift in Sources */,
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
@@ -763,6 +770,7 @@
 				15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */,
 				15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */,
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
+				15BA8020203BF57F00596CC8 /* SWBlockingsRepository.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,

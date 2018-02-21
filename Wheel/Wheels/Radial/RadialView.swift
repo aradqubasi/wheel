@@ -10,7 +10,6 @@ import UIKit
 
 class RadialView: UIView, SVDelegate, SWAbstractWheelView {
     
-
     // MARK: - Public Properties
     
 //    var delegate: RVDelegate?
@@ -329,5 +328,8 @@ class RadialView: UIView, SVDelegate, SWAbstractWheelView {
 
     // MARK: - Placeholders
 
+    func flush() {
+        
+    }
     
 }

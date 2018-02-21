@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-class RadialController: SWAbstractWheelDelegate, PVDelegate, SWAbstractWheelController {
+class RadialController: SWAbstractWheelDelegate, PVDelegate {
 
     // MARK: - Public Properties
     
@@ -212,7 +212,8 @@ class RadialController: SWAbstractWheelDelegate, PVDelegate, SWAbstractWheelCont
             fatalError("no settings @ state \(_state) @ \(self)")
         }
         
-        _view?.flush(with: settings)
+//        _view?.flush(with: settings)
+        _view?.flush()
         
         if let label = _label {
             label.transform = CGAffineTransform(rotationAngle: 0)

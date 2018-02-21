@@ -94,6 +94,7 @@
 		15BA801E203BF46400596CC8 /* SWBlocking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801D203BF46400596CC8 /* SWBlocking.swift */; };
 		15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */; };
 		15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */; };
+		15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8023203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -235,6 +236,7 @@
 		15BA801D203BF46400596CC8 /* SWBlocking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBlocking.swift; sourceTree = "<group>"; };
 		15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBlockingRepository.swift; sourceTree = "<group>"; };
 		15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryBlockingRepository.swift; sourceTree = "<group>"; };
+		15BA8023203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelControllerDelegate.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -325,6 +327,7 @@
 				150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */,
 				150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */,
 				15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */,
+				15BA8023203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift */,
 			);
 			path = WheelAbstraction;
 			sourceTree = "<group>";
@@ -866,6 +869,7 @@
 				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,
+				15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */,
 				156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

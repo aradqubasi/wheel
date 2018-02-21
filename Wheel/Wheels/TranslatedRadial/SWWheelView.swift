@@ -154,7 +154,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             })
         }
         
-        flush(with: nil)
+        flush()
         move(to: spokes.count / 2)
     }
     
@@ -318,7 +318,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
         set(new) {
             _state = new
-            flush(with: nil)
+            flush()
         }
     }
     
@@ -337,9 +337,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
     
     /**we do not need it here... do not touch it*/
-    var delegate: RadialControllerDelegate?
-    
-    // MARK: - SWAbstractWheelView
+    var delegate: SWAbstractWheelControllerDelegate?
     
     var center: CGPoint {
         get {
@@ -422,7 +420,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
     }
     
-    func flush(with settings: WSettings?) {
+    func flush() {
         resize(to: _state)
         move(by: 0)
         guard let settings = _settings[_state] else {
@@ -442,7 +440,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     // MARK: - SWRingMaskDelegate Methods
     
     func onHit(_ sender: SWRingMaskView, with event: UIEvent?) {
-        delegate?.onStateChange(to: active, of: self.asSWAbstractWheelView())
+//        delegate?.onStateChange(to: active, of: self.asSWAbstractWheelView())
+        delegate?.onStateChange(self, to: active)
     }
     
     // MARK: - PVDelegate Methods
@@ -451,13 +450,15 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         guard let index = _spokes.map({ return $0.pin }).index(of: pin) else {
             fatalError("onPinClick invoked not by PinView")
         }
-        delegate?.onPinClick(in: self, of: pin, at: index)
+//        delegate?.onPinClick(in: self, of: pin, at: index)
+        delegate?.onPinClick(self, of: pin, at: index)
     }
     
     func onLongPress(in pin: PinView) {
         guard let index = _spokes.map({ return $0.pin }).index(of: pin) else {
             fatalError("onLongPress invoked by unlisted pin")
         }
-        delegate?.radialController(preesing: pin, in: self, at: index)
+//        delegate?.radialController(preesing: pin,?in: self, at: index)
+        delegate?.onPinPress(self, of: pin, at: index)
     }
 }

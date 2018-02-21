@@ -10,15 +10,23 @@ import Foundation
 import UIKit
 protocol SWAbstractWheelController {
     
+    var count: Int { get }
+    
     var focused: PinView { get }
     
-    var delegate: RadialControllerDelegate? { get set }
+    var center: CGPoint { get }
+    
+    var index: Int { get }
+    
+    var delegate: SWAbstractWheelControllerDelegate? { get set }
     
     var state: WState { get set }
     
     var label: UILabel { get set }
     
     func move(to index: Int) -> Void
+    
+    func move(by angle: CGFloat) -> Void
     
     func moveToRandomPin()
 }

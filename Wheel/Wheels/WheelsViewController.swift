@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
+class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
 {
     
     // MARK: - Outlets
@@ -20,6 +20,8 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     // MARK: - Private Properties
     
     private var _ingredients: SWIngredientRepository!
+    
+    private var _blockings: SWBlockingRepository!
     
     var bases: SWAbstractWheelController!
     
@@ -43,15 +45,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     
     // MARK: - Subs
     
-    var radialMenu: SWAbstractWheelView!
- 
-    var basesMenu: SWAbstractWheelView!
-    
-    var fatsMenu: SWAbstractWheelView!
-    
-    var veggiesMenu: SWAbstractWheelView!
-    
-    var proteinsMenu: SWAbstractWheelView!
+    var current: SWAbstractWheelController!
     
     var basesMark: UILabel!
     
@@ -85,8 +79,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     
     var spinner: UIPanGestureRecognizer!
     
-    var disabled: [Int : UIView] = [:]
-    
     var scrollvelocity: CGFloat!
     
     var adding: Bool!
@@ -97,15 +89,15 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     
     var roll: UIButton!
     
-    // MARK: - RadialControllerDelegate
+    // MARK: - SWAbstractWheelControllerDelegate
     
-    func onStateChange(to state: WState, of wheel: SWAbstractWheelView) -> Void {
+    func onStateChange(_ sender: SWAbstractWheelController, to state: WState) -> Void {
         print("onStateChange")
         
         _decelerating = false
         
         let follow = { () -> Void in
-            self.radialMenu = wheel
+            self.current = sender
             self.bases.state = state
             self.fats.state = state
             self.veggies.state = state
@@ -119,14 +111,14 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
 
     }
     
-    func onPinClick(in controller: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
+    func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
         print("onPinClick")
-        if controller.focused == pin {
+        if sender.focused == pin {
             self.add([pin])
         }
         else {
             let moveto = { () -> Void in
-                controller.move(to: index)
+                sender.move(to: index)
             }
             
             let showend = { (_: Bool) -> Void in }
@@ -135,7 +127,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         }
     }
     
-    func radialController(preesing pin: PinView, in controller: SWAbstractWheelController, at index: Int) {
+    func onPinPress(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) {
         print("radialController")
         
         options.set(for: pin)
@@ -273,14 +265,13 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         }
     }
     
-    // MARK: - Initialioze
+    // MARK: - Initialize
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         _ingredients = assembler.resolve()
-        
-        print(assembler == nil ? "no assembler" : "assembler")
+        _blockings = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -330,7 +321,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 800))
             wheels.addSubview(container)
             let wheel = SWProteinsWheelView(in: container)
-            proteinsMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
             proteins = wheel
             
@@ -346,7 +336,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
             wheels.addSubview(container)
             let wheel = SWVeggiesWheelView(in: container)
-            veggiesMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
             veggies = wheel
             
@@ -362,7 +351,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
             wheels.addSubview(container)
             let wheel = SWFatsWheelView(in: container)
-            fatsMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
             fats = wheel
             
@@ -378,7 +366,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 400))
             wheels.addSubview(container)
             let wheel = SWWheelView.init(_ingredients.getAll(by: .base), with: 20, as: .bases, in: container, facing: .leftward)
-            basesMenu = wheel.asSWAbstractWheelView()
             wheel.delegate = self
             bases = wheel
             
@@ -389,7 +376,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             bases.label = basesMark
         }
         
-        radialMenu = basesMenu
+        current = bases
         
         wheels.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
@@ -419,7 +406,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         wheels.addSubview(toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
-//        wheels.addSubview(overlay)
         navigationController?.view.addSubview(overlay)
         
         selectionController = SelectionController()
@@ -506,7 +492,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         }
         let k = CGFloat(number.floatValue)
         print(k)
-//        UIView.animate(withDuration: 1, animations: { self.radialMenu.move(by: CGFloat.pi * k) })
         rotate(by: CGFloat.pi * k, in: 1, afterwards: nil)
     }
     
@@ -579,7 +564,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
     @IBAction func onScroll(_ sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            scrollLastAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
+            scrollLastAngle = getAngle(point: sender.location(in: self.view), center: current.center)
             scrollLastTime = Date()
             scrollLastDeltaAngle = 0
             scrollAngleCollector = 0
@@ -587,7 +572,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             scrollvelocity = 0
             _decelerating = false
         case .changed:
-            let newAngle = getAngle(point: sender.location(in: self.view), center: radialMenu.center)
+            let newAngle = getAngle(point: sender.location(in: self.view), center: current.center)
             let newTime = Date()
             var deltaAngle = newAngle - scrollLastAngle
             var deltaTime = newTime.timeIntervalSince(scrollLastTime)
@@ -600,9 +585,9 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
                 scrollAngleCollector = 0
                 
                 let follow = { () -> Void in
-                    self.radialMenu.move(by: deltaAngle)
+                    self.current.move(by: deltaAngle)
                 }
-                let check = { (_: Bool) -> Void in  /*_ = self.radialMenu.current*/ }
+                let check = { (_: Bool) -> Void in  }
                 UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: check)
             }
             scrollLastAngle = newAngle
@@ -610,7 +595,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             scrollLastDeltaAngle = deltaAngle
             scrollvelocity = deltaAngle / CGFloat(deltaTime)
         case .ended:
-            deceleration(of: radialMenu, with: scrollvelocity)
+            deceleration(of: current, with: scrollvelocity)
         default:
             print("\(sender.state)")
         }
@@ -627,20 +612,20 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             var time: TimeInterval = 0
             
             while abs(full) > abs(step) {
-                UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: period, animations: { self.radialMenu.move(by: step) })
+                UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: period, animations: { self.current.move(by: step) })
                 full -= step
                 time += period
             }
             
             let duration = TimeInterval(full / angle)
-            UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: duration, animations: { self.radialMenu.move(by: full) })
+            UIView.addKeyframe(withRelativeStartTime: time, relativeDuration: duration, animations: { self.current.move(by: full) })
         }
         UIView.animateKeyframes(withDuration: time, delay: 0, options: [], animations: rotation, completion: afterwards)
     }
     
     private var _decelerating: Bool!
     
-    private func deceleration(of wheel: SWAbstractWheelView, with velocity: CGFloat) {
+    private func deceleration(of wheel: SWAbstractWheelController, with velocity: CGFloat) {
         var path: CGFloat = 0
         if velocity != 0 {
             let step = CGFloat.pi * 2 / CGFloat(wheel.count)
@@ -653,7 +638,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         let normalization = { (isDone: Bool) -> Void in
             if isDone {
                 let toSocket = { () -> Void in
-                    wheel.move(to: self.radialMenu.index)
+                    wheel.move(to: self.current.index)
                 }
                 UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: nil)
             }
@@ -722,25 +707,6 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
             
             let last = pins.last!.asIngridient
             for pin in pins {
-//                selectionController.copy(of: pin)
-//
-//                let move = { () -> Void in
-//                    self.selectionController.moving(of: pin)
-//                }
-//                let finish = { (finished: Bool) -> Void in
-//                    self.selectionController.merging(of: pin)
-//                    let merge = { () -> Void in
-//                        self.selectionController.push(islast: pin.asIngridient == last)
-//                    }
-//                    let last = {(finished: Bool) -> Void in
-//                        if pin.asIngridient == last {
-//                            self.adding = false
-//                        }
-//                    }
-//                    UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
-//                }
-//                UIView.animate(withDuration: 5 * speed * count, delay: delay * speed, options: [.curveEaseIn], animations: move, completion: finish)
-//                delay += 1.5
                 
                 let copy = {
                     self.selectionController.copy(of: pin)
@@ -780,7 +746,7 @@ class WheelsViewController: UIViewController, RadialControllerDelegate, OverlayC
         SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
         (bases as! SWWheelView).refill(with: [SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad), SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage)])
-        (bases as! SWWheelView).flush(with: nil)
+        (bases as! SWWheelView).flush()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

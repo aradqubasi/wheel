@@ -59,8 +59,11 @@ class SWWheelViewAbstracted: SWAbstractWheelView {
         _wheel.move(by: angle)
     }
     
-    func flush(with settings: WSettings?) {
-        _wheel.flush(with: settings)
+    func flush() {
+        _wheel.flush()
     }
+//    func flush(with settings: WSettings?) {
+//        _wheel.flush(with: settings)
+//    }
     
 }

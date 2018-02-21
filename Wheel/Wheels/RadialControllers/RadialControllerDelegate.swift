@@ -15,8 +15,8 @@ protocol RadialControllerDelegate {
 //
 //    func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) -> Void
     
-    func onPinClick(in controller: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void
+    func onPinClick(in controller: RadialController, of pin: PinView, at index: Int) -> Void
     
-    func radialController(preesing pin: PinView, in controller: SWAbstractWheelController, at index: Int) -> Void
+    func radialController(preesing pin: PinView, in controller: RadialController, at index: Int) -> Void
     
 }

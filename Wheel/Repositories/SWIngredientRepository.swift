@@ -9,6 +9,8 @@
 import Foundation
 protocol SWIngredientRepository {
     
+    func getAll() -> [SWIngredient]
+    
     func getAll(by kind: SWIngredientKinds) -> [SWIngredient]
     
 }

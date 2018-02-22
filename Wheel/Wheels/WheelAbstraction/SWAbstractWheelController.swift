@@ -29,4 +29,8 @@ protocol SWAbstractWheelController {
     func move(by angle: CGFloat) -> Void
     
     func moveToRandomPin()
+    
+    func refill(with pool: [SWIngredient]) -> Void
+    
+    func flush() -> Void
 }

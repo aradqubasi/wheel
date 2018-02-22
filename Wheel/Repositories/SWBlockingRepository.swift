@@ -9,6 +9,8 @@
 import Foundation
 protocol SWBlockingRepository {
     
+    func getAll() -> [SWBlocking]
+    
     func getAll(by ingredient: SWIngredient) -> [SWBlocking]
     
 }

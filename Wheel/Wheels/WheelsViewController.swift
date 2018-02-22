@@ -23,6 +23,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     private var _blockings: SWBlockingRepository!
     
+    private var _options: SWOptionRepository!
+    
     var bases: SWAbstractWheelController!
     
     var fats: SWAbstractWheelController!
@@ -272,6 +274,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         
         _ingredients = assembler.resolve()
         _blockings = assembler.resolve()
+        _options = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -745,8 +748,47 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
         SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
-        (bases as! SWWheelView).refill(with: [SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad), SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage)])
-        (bases as! SWWheelView).flush()
+//        (bases as! SWWheelView).refill(with: [SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad), SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage)])
+//        (bases as! SWWheelView).flush()
+        
+        var ingredients: [SWIngredientKinds:[SWIngredient]] = [
+            .base: [],
+            .fat: [],
+            .veggy: [],
+            .protein: []
+        ]
+        _ingredients.getAll().forEach({ (ingredient) in
+            var match = true
+            _options.getAll().forEach({ (option) in
+                if !option.checked {
+                    return
+                }
+                _blockings.getAll().forEach({ (blocking) in
+                    if option.id != blocking.optionId {
+                        return
+                    }
+                    else if blocking.ingredientId != ingredient.id {
+                        return
+                    }
+                    else {
+                        match = false
+                    }
+                })
+            })
+            if match {
+                if ingredients[ingredient.kind] != nil {
+                    ingredients[ingredient.kind]!.append(ingredient)
+                }
+            }
+        })
+        bases.refill(with: ingredients[.base]!)
+        bases.flush()
+        fats.refill(with: ingredients[.fat]!)
+        fats.flush()
+        veggies.refill(with: ingredients[.veggy]!)
+        veggies.flush()
+        proteins.refill(with: ingredients[.protein]!)
+        proteins.flush()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

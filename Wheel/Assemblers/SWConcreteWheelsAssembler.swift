@@ -17,4 +17,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWInmemoryBlockingRepoitory()
     }
     
+    func resolve() -> SWOptionRepository {
+        return SWInmemoryOptionRepository()
+    }
+    
 }

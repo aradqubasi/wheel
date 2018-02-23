@@ -21,4 +21,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWInmemoryOptionRepository()
     }
     
+    func resolve() -> SWWheelPositionCalculator {
+        return SWConcreteWheelPositionCalculator()
+    }
+    
 }

@@ -15,4 +15,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWOptionRepository
     
+    func resolve() -> SWWheelPositionCalculator
+    
 }

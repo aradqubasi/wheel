@@ -36,9 +36,11 @@ class PointerController {
     
     private var _offsets: [WState: CGFloat]!
     
+    private var _positioner: SWWheelPositionCalculator!
+    
     // MARK: - Initializer
     
-    init(view: UIImageView, in state: WState) {
+    init(view: UIImageView, in state: WState, at positioner: SWWheelPositionCalculator) {
         self.view = view
         _state = state
         _offsets = [
@@ -47,12 +49,28 @@ class PointerController {
             WState.veggies: 190,
             WState.proteins: 264
         ]
+        _positioner = positioner
         apply(state: _state)
     }
     
     // MARK: - Private Methods
     
     private func apply(state: WState) {
+//        guard var y = view.superview?.bounds.height else {
+//            fatalError("pointer view is not attached to superview")
+//        }
+//        y /= 2
+//        y -= view.frame.height / 2
+//        guard var x = view.superview?.bounds.width else {
+//            fatalError("pointer view is not attached to superview")
+//        }
+//        guard let offset = _offsets[state] else {
+//            fatalError("state \(state) is not implemented")
+//        }
+//        x -= offset
+//        x -= view.frame.height / 2
+//        view.frame.origin = CGPoint(x: x, y: y)
+        
         guard var y = view.superview?.bounds.height else {
             fatalError("pointer view is not attached to superview")
         }
@@ -61,11 +79,13 @@ class PointerController {
         guard var x = view.superview?.bounds.width else {
             fatalError("pointer view is not attached to superview")
         }
-        guard let offset = _offsets[state] else {
-            fatalError("state \(state) is not implemented")
-        }
-        x -= offset
+        x /= 2
         x -= view.frame.height / 2
-        view.frame.origin = CGPoint(x: x, y: y)
+
+        guard let new = _positioner.getPointerPositions(from: CGPoint(x: x, y: y), toward: .zero)[state] else {
+            fatalError("no point position for \(state)")
+        }
+        
+        view.center = new
     }
 }

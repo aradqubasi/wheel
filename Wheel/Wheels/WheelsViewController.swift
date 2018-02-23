@@ -389,7 +389,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         
         let hand = UIImageView(image: UIImage.hand)
         wheels.addSubview(hand)
-        pointer = PointerController(view: hand, in: .bases)
+        pointer = PointerController(view: hand, in: .bases, at: assembler.resolve())
         
         //left side menu initialization
         var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)

@@ -95,6 +95,7 @@
 		15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */; };
 		15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */; };
 		15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8023203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift */; };
+		15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8025203FDAF900596CC8 /* SWWheelPositionCalculator.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -237,6 +238,7 @@
 		15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBlockingRepository.swift; sourceTree = "<group>"; };
 		15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryBlockingRepository.swift; sourceTree = "<group>"; };
 		15BA8023203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelControllerDelegate.swift; sourceTree = "<group>"; };
+		15BA8025203FDAF900596CC8 /* SWWheelPositionCalculator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelPositionCalculator.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				155BEC361FF1572600E749B5 /* LaunchScreen */,
 				1508EEC11FF4B990003CF526 /* TranslatedRadial */,
 				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
+				15BA8025203FDAF900596CC8 /* SWWheelPositionCalculator.swift */,
 			);
 			path = Wheels;
 			sourceTree = "<group>";
@@ -780,6 +783,7 @@
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
+				15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
 				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,

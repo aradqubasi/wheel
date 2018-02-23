@@ -38,9 +38,11 @@ class PointerController {
     
     private var _positioner: SWWheelPositionCalculator!
     
+    private var _origin: CGPoint!
+    
     // MARK: - Initializer
     
-    init(view: UIImageView, in state: WState, at positioner: SWWheelPositionCalculator) {
+    init(view: UIImageView, in state: WState, at positioner: SWWheelPositionCalculator, origin: CGPoint) {
         self.view = view
         _state = state
         _offsets = [
@@ -50,6 +52,7 @@ class PointerController {
             WState.proteins: 264
         ]
         _positioner = positioner
+        _origin = origin
         apply(state: _state)
     }
     
@@ -70,19 +73,8 @@ class PointerController {
 //        x -= offset
 //        x -= view.frame.height / 2
 //        view.frame.origin = CGPoint(x: x, y: y)
-        
-        guard var y = view.superview?.bounds.height else {
-            fatalError("pointer view is not attached to superview")
-        }
-        y /= 2
-        y -= view.frame.height / 2
-        guard var x = view.superview?.bounds.width else {
-            fatalError("pointer view is not attached to superview")
-        }
-        x /= 2
-        x -= view.frame.height / 2
-
-        guard let new = _positioner.getPointerPositions(from: CGPoint(x: x, y: y), toward: .zero)[state] else {
+    
+        guard let new = _positioner.getPointerPositions(from: _origin, toward: .zero)[state] else {
             fatalError("no point position for \(state)")
         }
         

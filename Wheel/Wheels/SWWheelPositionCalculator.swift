@@ -47,6 +47,7 @@ class SWConcreteWheelPositionCalculator: SWWheelPositionCalculator {
             let distance = radius - (mark + basePinWidth * activeScale + inset)
             // TODO: - use center and direction
             positions[state] = CGPoint(x: center.x - distance + pointer * 0.5, y: center.y)
+            print("state \(state) pos \(CGPoint(x: center.x - distance + pointer * 0.5, y: center.y))")
         }
         return positions
     }

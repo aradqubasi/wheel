@@ -104,7 +104,7 @@ class NamedPinView: UIView, Floatable {
     
     var asIngridient: SWIngredient {
         get {
-            return SWIngredient(name, of: .unexpected, as: _button.image(for: .normal)!, _button.image(for: .normal)!)
+            return SWIngredient(name, of: .unexpected, as: _button.image(for: .normal)!, _button.image(for: .normal)!, quantity: -1, unit: "void")
         }
     }
     

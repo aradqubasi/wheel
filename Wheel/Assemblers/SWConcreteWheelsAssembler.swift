@@ -25,4 +25,12 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteWheelPositionCalculator()
     }
     
+    func resolve() -> SWSegueRepository {
+        return SWInmemorySegueRepository()
+    }
+    
+    func resolve() -> SWRecipyAssembler {
+        return SWConcreteRecipyAssembler()
+    }
+    
 }

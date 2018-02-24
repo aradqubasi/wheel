@@ -17,4 +17,8 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWWheelPositionCalculator
     
+    func resolve() -> SWSegueRepository
+    
+    func resolve() -> SWRecipyAssembler
+    
 }

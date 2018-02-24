@@ -25,6 +25,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     private var _options: SWOptionRepository!
     
+    private var _segues: SWSegueRepository!
+    
     var bases: SWAbstractWheelController!
     
     var fats: SWAbstractWheelController!
@@ -36,6 +38,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     var pointer: PointerController!
     
     var selectionController: SelectionController!
+    
+    var selected: [SWIngredient]!
     
     var unexpected: OverlayController!
     
@@ -202,6 +206,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     func onCook(of pins: [Floatable], in controller: SelectionController) {
         
+        selected = selectionController.selected.map({ $0.asIngridient })
+        
         if selectionController.state == .visible {
             let shrinkdown = { () in
                 self.selectionController.shrinkdown()
@@ -211,6 +217,9 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
         }
+        
+        performSegue(withIdentifier: _segues.getWheelsToRecipy().identifier, sender: self)
+        
     }
     
     // MARK: - UIGestureRegocnizerDelegate Methods
@@ -275,6 +284,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         _ingredients = assembler.resolve()
         _blockings = assembler.resolve()
         _options = assembler.resolve()
+        _segues = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -480,7 +490,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onFilterButtonClick(_ sender: UIBarButtonItem) {
         print("onFilterButtonClick")
-        performSegue(withIdentifier: "WheelsToFilter", sender: self)
+        performSegue(withIdentifier: _segues.getWheelsToFilter().identifier, sender: self)
         
     }
  
@@ -529,8 +539,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-        print("onNextMenu")
-        
+
         let shuffle = { () -> Void in
             
             self.bases.moveToRandomPin()
@@ -792,9 +801,26 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "WheelsToFilter" {
+        switch segue.identifier {
+        // TODO: - pass assembler
+        case _segues.getWheelsToFilter().identifier?:
             (segue.destination as? FilterViewController)?.repository = SWContext.root.resolve()
+        case _segues.getWheelsToRecipy().identifier?:
+            if let recipyViewController = (segue.destination as? RecipyViewController) {
+                recipyViewController.assembler = assembler.resolve()
+                recipyViewController.selection = []
+                selected.forEach({
+                    if let ingredient = _ingredients.get(by: $0.name) {
+                        recipyViewController.selection.append(ingredient)
+                    }
+                })
+            }
+        default:
+            fatalError("Unrecognized segue")
         }
+//        if segue.identifier == "WheelsToFilter" {
+//            (segue.destination as? FilterViewController)?.repository = SWContext.root.resolve()
+//        }
         
     }
     

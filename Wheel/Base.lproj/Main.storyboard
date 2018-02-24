@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="EcW-aW-da7">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,11 +18,11 @@
                         <viewControllerLayoutGuide type="bottom" id="fNP-ag-Z5Q"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="9Ls-Pi-wet">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t21-yf-Em7" userLabel="Pager">
-                                <rect key="frame" x="256" y="404" width="88" height="8"/>
+                                <rect key="frame" x="143.5" y="471" width="88" height="8"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="88" id="Gfp-lW-Pdg"/>
@@ -50,7 +54,7 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.96470588235294119" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
@@ -58,6 +62,7 @@
                     <navigationItem key="navigationItem" id="xWz-25-UeH"/>
                     <connections>
                         <segue destination="xjE-g0-XdL" kind="show" identifier="WheelsToFilter" id="Xb9-Iq-PWI"/>
+                        <segue destination="zk1-cU-Buj" kind="show" identifier="WheelsToRecipy" id="tTt-hq-gRy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,7 +78,7 @@
                         <viewControllerLayoutGuide type="bottom" id="2BW-qd-DtV"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="6zx-Kv-Ji3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -86,6 +91,24 @@
                 <exit id="Tij-yj-lQg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-63" y="660"/>
+        </scene>
+        <!--Recipy-->
+        <scene sceneID="KjG-FZ-xIg">
+            <objects>
+                <viewController id="zk1-cU-Buj" userLabel="Recipy" customClass="RecipyViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="vb9-T9-sSY"/>
+                        <viewControllerLayoutGuide type="bottom" id="QWo-4s-K73"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Sm1-ca-Rqq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="60i-sn-fiS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1316" y="694"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="7PR-xV-cVs">
@@ -132,21 +155,21 @@
                         <viewControllerLayoutGuide type="bottom" id="gxO-eG-5M7"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="SHE-Gm-7eZ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchbackground" translatesAutoresizingMaskIntoConstraints="NO" id="iYf-68-6nR" userLabel="background">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchicon" translatesAutoresizingMaskIntoConstraints="NO" id="KeE-8t-AEv" userLabel="icon">
-                                <rect key="frame" x="194.5" y="219" width="211" height="168"/>
+                                <rect key="frame" x="82" y="219" width="211" height="168"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="211" id="8NY-He-Adp"/>
                                     <constraint firstAttribute="height" constant="168" id="kAQ-Ib-9kI"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kAv-wK-PdJ">
-                                <rect key="frame" x="136.5" y="437" width="327" height="31"/>
+                                <rect key="frame" x="24" y="437" width="327" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="31" id="MOW-at-Tdk"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="327" id="e55-Ik-qGY"/>
@@ -164,7 +187,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d3m-Ph-qER">
-                                <rect key="frame" x="203.5" y="28" width="193" height="49"/>
+                                <rect key="frame" x="91" y="28" width="193" height="49"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="49" id="EO8-pJ-KGP"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="193" id="LXD-1Q-sJi"/>

@@ -17,4 +17,11 @@ extension String {
         }
     }
     
+    var toRecipyTitle: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Heavy", size: 16) as Any])
+            return text
+        }
+    }
+    
 }

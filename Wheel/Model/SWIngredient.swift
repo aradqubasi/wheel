@@ -22,12 +22,20 @@ struct SWIngredient: Hashable {
     
     var outline: UIImage
     
-    init(id: Int? = nil, _ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage) {
+    /**quantity per serving*/
+    var quantity: Double
+    
+    /**measurment unit*/
+    var unit: String
+    
+    init(id: Int? = nil, _ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage, quantity: Double, unit: String) {
         self.id = id
         self.name = name
         self.kind = kind
         self.image = image
         self.outline = outline
+        self.quantity = quantity
+        self.unit = unit
     }
     
     // MARK: - Hashable implementation

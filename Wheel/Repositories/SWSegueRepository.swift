@@ -13,4 +13,8 @@ protocol SWSegueRepository {
     func getAfterlaunchToWheels() -> SWSegue
     
     func getOnboardingToWheels() -> SWSegue
+    
+    func getWheelsToRecipy() -> SWSegue
+    
+    func getWheelsToFilter() -> SWSegue
 }

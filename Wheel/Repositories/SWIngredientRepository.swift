@@ -13,4 +13,6 @@ protocol SWIngredientRepository {
     
     func getAll(by kind: SWIngredientKinds) -> [SWIngredient]
     
+    func get(by name: String) -> SWIngredient?
+    
 }

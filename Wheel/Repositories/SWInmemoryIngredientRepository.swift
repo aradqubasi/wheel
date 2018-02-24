@@ -73,7 +73,7 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
     
     func get(by name: String) -> SWIngredient? {
         
-        return self.getAll().first(where: { $0.name == name })
+        return self.getAll().first(where: { $0.name.uppercased() == name.uppercased() })
         
     }
 }

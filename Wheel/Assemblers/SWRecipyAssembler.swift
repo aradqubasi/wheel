@@ -13,4 +13,8 @@ protocol SWRecipyAssembler {
     
     func resolve() -> SWComponentRepository
     
+    func resolve() -> SWNameGenerator
+    
+    func resolve() -> SWSegueRepository
+    
 }

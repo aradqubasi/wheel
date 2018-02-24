@@ -29,4 +29,8 @@ class SWInmemorySegueRepository: SWSegueRepository {
         return SWSegue(identifier: "WheelsToFilter")
     }
     
+    func getRecipyToWheels() -> SWSegue {
+        return SWSegue(identifier: "RecipyToWheels")
+    }
+    
 }

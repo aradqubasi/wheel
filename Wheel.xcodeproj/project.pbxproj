@@ -105,6 +105,9 @@
 		15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */; };
 		15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803620414E8F00596CC8 /* SWComponentRepository.swift */; };
 		15BA803920414EFF00596CC8 /* SWInmemoryComponentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */; };
+		15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803B2041F23800596CC8 /* SWNameGenerator.swift */; };
+		15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */; };
+		15BA80402041F5B200596CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803F2041F5B200596CC8 /* Int.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
@@ -257,6 +260,9 @@
 		15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryRecipyRepository.swift; sourceTree = "<group>"; };
 		15BA803620414E8F00596CC8 /* SWComponentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWComponentRepository.swift; sourceTree = "<group>"; };
 		15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryComponentRepository.swift; sourceTree = "<group>"; };
+		15BA803B2041F23800596CC8 /* SWNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNameGenerator.swift; sourceTree = "<group>"; };
+		15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNameGenerator.swift; sourceTree = "<group>"; };
+		15BA803F2041F5B200596CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
@@ -398,6 +404,7 @@
 				1583878B202ACFD7001E4008 /* UIBarButtonItem.swift */,
 				158387AC203554A7001E4008 /* String.swift */,
 				15BA801B203A9BE800596CC8 /* CGFloat.swift */,
+				15BA803F2041F5B200596CC8 /* Int.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -567,6 +574,15 @@
 			path = Recipy;
 			sourceTree = "<group>";
 		};
+		15BA803A2041F1D800596CC8 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				15BA803B2041F23800596CC8 /* SWNameGenerator.swift */,
+				15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		15F0BB271F404FCC006F646E = {
 			isa = PBXGroup;
 			children = (
@@ -590,6 +606,7 @@
 		15F0BB321F404FCC006F646E /* Wheel */ = {
 			isa = PBXGroup;
 			children = (
+				15BA803A2041F1D800596CC8 /* Utilities */,
 				158387A5203408A2001E4008 /* Assemblers */,
 				158387A020340321001E4008 /* Repositories */,
 				1583879B2033FE32001E4008 /* Model */,
@@ -797,6 +814,7 @@
 				15456D6C1FCB0DA10018A1CD /* SWIngredient.swift in Sources */,
 				158387A220340371001E4008 /* SWOptionRepository.swift in Sources */,
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
+				15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				151AFE431F8A031C00CC5357 /* RVSettings.swift in Sources */,
 				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
@@ -818,6 +836,7 @@
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
+				15BA80402041F5B200596CC8 /* Int.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
 				15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */,
@@ -858,6 +877,7 @@
 				15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */,
 				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
+				15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,

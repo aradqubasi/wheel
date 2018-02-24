@@ -22,6 +22,10 @@ class RecipyViewController: UIViewController {
         super.viewDidLoad()
 
         selection?.forEach({ print($0.name) })
+        
+        navigationItem.titleView = UILabel.getRecipyTitle(assembler.resolve().getName(for: selection))
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem.back
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,6 +33,13 @@ class RecipyViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    // MARK: - Actions
+    
+    @IBAction func onBackButtonClick(_ sender: Any) {
+        
+        performSegue(withIdentifier: assembler.resolve().getRecipyToWheels(), sender: self)
+        
+    }
 
     /*
     // MARK: - Navigation

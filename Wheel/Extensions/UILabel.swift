@@ -174,4 +174,13 @@ extension UILabel {
             return label
         }
     }
+    
+    static func getRecipyTitle(_ name: String) -> UILabel {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.frame.size = CGSize(width: 300, height: 32)
+        label.attributedText = name.toRecipyTitle
+        label.textAlignment = .center
+        return label
+    }
 }

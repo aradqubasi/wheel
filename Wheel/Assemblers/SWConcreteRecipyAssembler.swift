@@ -17,4 +17,12 @@ class SWConcreteRecipyAssembler: SWRecipyAssembler {
         return SWInmemoryComponentRepository()
     }
     
+    func resolve() -> SWNameGenerator {
+        return SWConcreteNameGenerator()
+    }
+    
+    func resolve() -> SWSegueRepository {
+        return SWInmemorySegueRepository()
+    }
+    
 }

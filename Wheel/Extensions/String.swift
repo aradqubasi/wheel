@@ -23,5 +23,11 @@ extension String {
             return text
         }
     }
-    
+ 
+    var toRecipyHeader: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Black", size: 28) as Any])
+            return text
+        }
+    }
 }

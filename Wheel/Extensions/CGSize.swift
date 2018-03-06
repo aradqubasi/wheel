@@ -16,4 +16,10 @@ public extension CGSize {
         self.init(width: side, height: side)
     }
     
+    // MARK: - Helpers
+    
+    func wider(by margin: CGFloat) -> CGSize {
+        return CGSize(width: width + margin * 2, height: height)
+    }
+    
 }

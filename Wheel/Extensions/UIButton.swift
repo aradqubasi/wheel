@@ -78,5 +78,35 @@ extension UIButton {
             return button
         }
     }
+
+    class var increase: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 44, height: 32)))
+            button.backgroundColor = .white
+            button.setImage(.increase, for: .normal)
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.shamrock.cgColor
+            let path = UIBezierPath(roundedRect:button.bounds, byRoundingCorners:[.topRight, .bottomRight], cornerRadii: CGSize(width: 3, height:  3))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            button.layer.mask = maskLayer
+            return button
+        }
+    }
+    
+    class var decrease: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 44, height: 32)))
+            button.backgroundColor = .white
+            button.setImage(.decrease, for: .normal)
+            button.layer.borderWidth = 1
+            button.layer.borderColor = UIColor.shamrock.cgColor
+            let path = UIBezierPath(roundedRect:button.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 3, height:  3))
+            let maskLayer = CAShapeLayer()
+            maskLayer.path = path.cgPath
+            button.layer.mask = maskLayer
+            return button
+        }
+    }
     
 }

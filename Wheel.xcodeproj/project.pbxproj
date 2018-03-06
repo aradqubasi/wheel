@@ -118,6 +118,15 @@
 		15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17020087E110050878B /* SWVeggiesWheelView.swift */; };
 		15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17220087E590050878B /* SWProteinsWheelView.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
+		15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D29204E79B400D44923 /* SWMeasuresment.swift */; };
+		15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */; };
+		15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */; };
+		15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2F204E7BA100D44923 /* SWIngredientStats.swift */; };
+		15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D31204E88D400D44923 /* SWIngredientStatsRepository.swift */; };
+		15D13D34204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */; };
+		15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */; };
+		15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */; };
+		15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -276,6 +285,15 @@
 		15BBE17020087E110050878B /* SWVeggiesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWVeggiesWheelView.swift; sourceTree = "<group>"; };
 		15BBE17220087E590050878B /* SWProteinsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProteinsWheelView.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
+		15D13D29204E79B400D44923 /* SWMeasuresment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresment.swift; sourceTree = "<group>"; };
+		15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresmentRepository.swift; sourceTree = "<group>"; };
+		15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryMeasuresmentRepository.swift; sourceTree = "<group>"; };
+		15D13D2F204E7BA100D44923 /* SWIngredientStats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientStats.swift; sourceTree = "<group>"; };
+		15D13D31204E88D400D44923 /* SWIngredientStatsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientStatsRepository.swift; sourceTree = "<group>"; };
+		15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryIngredientStatsRepository.swift; sourceTree = "<group>"; };
+		15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyServingsCounter.swift; sourceTree = "<group>"; };
+		15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWServingsGenerator.swift; sourceTree = "<group>"; };
+		15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteServingsGenerator.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -491,6 +509,8 @@
 				15BA801D203BF46400596CC8 /* SWBlocking.swift */,
 				15BA802E204146A900596CC8 /* SWRecipy.swift */,
 				15BA8030204147C700596CC8 /* SWComponent.swift */,
+				15D13D29204E79B400D44923 /* SWMeasuresment.swift */,
+				15D13D2F204E7BA100D44923 /* SWIngredientStats.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -512,6 +532,10 @@
 				15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */,
 				15BA803620414E8F00596CC8 /* SWComponentRepository.swift */,
 				15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */,
+				15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */,
+				15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */,
+				15D13D31204E88D400D44923 /* SWIngredientStatsRepository.swift */,
+				15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -578,6 +602,7 @@
 				15BA8045204BEF4000596CC8 /* Header */,
 				15BA80282041445100596CC8 /* RecipyViewController.swift */,
 				15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */,
+				15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */,
 			);
 			path = Recipy;
 			sourceTree = "<group>";
@@ -587,6 +612,8 @@
 			children = (
 				15BA803B2041F23800596CC8 /* SWNameGenerator.swift */,
 				15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */,
+				15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */,
+				15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -861,15 +888,18 @@
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
 				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,
+				15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */,
 				156B0BD5203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift in Sources */,
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
 				15BA802D2041450D00596CC8 /* SWConcreteRecipyAssembler.swift in Sources */,
+				15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */,
 				15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
 				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				15BA8048204BEF6300596CC8 /* RecipyHeaderViewController.swift in Sources */,
+				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
 				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
 				151AFE411F88C7AE00CC5357 /* RVOrientation.swift in Sources */,
@@ -884,6 +914,8 @@
 				156B0BEA2039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift in Sources */,
 				156B0BE62039709000CFEEA4 /* SWWheelsAssembler.swift in Sources */,
 				1583879D2033FEA7001E4008 /* SWOptionType.swift in Sources */,
+				15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */,
+				15D13D34204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
@@ -911,6 +943,7 @@
 				156B0BE82039717500CFEEA4 /* SWConcreteWheelsAssembler.swift in Sources */,
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				159038261FE39639004A7FB8 /* DressingController.swift in Sources */,
+				15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */,
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
@@ -920,11 +953,13 @@
 				158387AD203554A7001E4008 /* String.swift in Sources */,
 				15F788001FB827B4001C32B1 /* FatsController.swift in Sources */,
 				15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */,
+				15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */,
 				15A73C9F1FB5BEED00E3BB01 /* RadialController.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
 				154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */,
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
+				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
 				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,
@@ -942,6 +977,7 @@
 				154DF0B5201C5CBE00B8391A /* UILabel.swift in Sources */,
 				1583879620303F51001E4008 /* SWHeaderOptionView.swift in Sources */,
 				15838798203043B8001E4008 /* SWAlignableProtocol.swift in Sources */,
+				15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
 				1583879F2033FEE8001E4008 /* SWOption.swift in Sources */,
 				156B0BD9203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift in Sources */,

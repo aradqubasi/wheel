@@ -23,4 +23,10 @@ extension CGRect {
         self.init(origin: origin, size: size)
     }
     
+    // MARK: - Helpers
+    
+    func shrinkify(by margin: CGFloat) -> CGRect {
+        return CGRect(origin: CGPoint(x: origin.x + margin, y: origin.y + margin), size: CGSize(width: size.width - margin * 2, height: size.height - margin * 2))
+    }
+    
 }

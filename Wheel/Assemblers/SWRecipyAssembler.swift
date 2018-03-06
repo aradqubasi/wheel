@@ -17,4 +17,10 @@ protocol SWRecipyAssembler {
     
     func resolve() -> SWSegueRepository
     
+    func resolve() -> SWMeasuresmentRepository
+    
+    func resolve() -> SWIngredientStatsRepository
+    
+    func resolve() -> SWServingsGenerator
+    
 }

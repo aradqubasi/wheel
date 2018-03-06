@@ -32,7 +32,7 @@ class SWRecipyIngridientView: UIView {
     // MARK: - Public Methods
     
     func alignSubviews() {
-        image.frame = self.bounds
+        image.frame = self.bounds.shrinkify(by: 16)
         image.image = ingredient.image
         image.layer.cornerRadius = 4
         layer.cornerRadius = 4

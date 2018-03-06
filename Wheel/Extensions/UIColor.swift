@@ -119,4 +119,10 @@ public extension UIColor {
             return UIColor(red: 142 / 255, green: 154 / 255, blue: 163 / 255, alpha: 1)
         }
     }
+    
+    class var scorpion: UIColor {
+        get {
+            return UIColor(red: 94 / 255, green: 94 / 255, blue: 94 / 255, alpha: 1)
+        }
+    }
 }

@@ -81,7 +81,7 @@ class PinView: UIView, Floatable {
     
     var asIngridient: SWIngredient {
         get {
-            return SWIngredient(name, of: kind, as: original, original, quantity: -1, unit: "void")
+            return SWIngredient(name, of: kind, as: original, original, quantity: -1, unit: -1)
         }
     }
     

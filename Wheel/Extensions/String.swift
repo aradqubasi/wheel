@@ -30,4 +30,18 @@ extension String {
             return text
         }
     }
+    
+    var toRecipySubheader: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.regentgrey, .font: UIFont(name: "Avenir-Book", size: 12) as Any])
+            return text
+        }
+    }
+    
+    var toRecipyServingsCount: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.regentgrey, .font: UIFont(name: "Avenir-Heavy", size: 16) as Any])
+            return text
+        }
+    }
 }

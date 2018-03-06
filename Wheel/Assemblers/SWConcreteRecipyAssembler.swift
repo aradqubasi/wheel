@@ -25,4 +25,16 @@ class SWConcreteRecipyAssembler: SWRecipyAssembler {
         return SWInmemorySegueRepository()
     }
     
+    func resolve() -> SWMeasuresmentRepository {
+        return SWInmemoryMeasuresmentRepository()
+    }
+    
+    func resolve() -> SWIngredientStatsRepository {
+        return SWInmemoryIngredientStatsRepository()
+    }
+    
+    func resolve() -> SWServingsGenerator {
+        return SWConcreteServingsGenerator()
+    }
+    
 }

@@ -25,10 +25,10 @@ struct SWIngredient: Hashable {
     /**quantity per serving*/
     var quantity: Double
     
-    /**measurment unit*/
-    var unit: String
+    /**serving measuresment id*/
+    var unit: Int
     
-    init(id: Int? = nil, _ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage, quantity: Double, unit: String) {
+    init(id: Int? = nil, _ name: String, of kind: SWIngredientKinds, as image: UIImage, _ outline: UIImage, quantity: Double, unit: Int) {
         self.id = id
         self.name = name
         self.kind = kind

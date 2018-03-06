@@ -722,6 +722,26 @@ public extension UIImage {
             return UIImage(named: "filter/back")!
         }
     }
+
+    // MARK: - Recipy
+    
+    class var increase: UIImage {
+        get {
+            return UIImage(named: "recipy/increase")!
+        }
+    }
+    
+    class var decrease: UIImage {
+        get {
+            return UIImage(named: "recipy/decrease")!
+        }
+    }
+    
+    class var dash_pattern: UIImage {
+        get {
+            return UIImage(named: "recipy/dash_pattern")!
+        }
+    }
     
     // MARK: - Custom Initializer
     

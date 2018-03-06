@@ -90,4 +90,19 @@ extension UIView {
         }
     }
     
+    class var recipySubtitleOval: UIView {
+        get {
+            let oval = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 3)))
+            oval.backgroundColor = .porcelain
+            oval.layer.cornerRadius = 1.5
+            return oval
+        }
+    }
+    
+    func getRecipySeparatorLine(for width: CGFloat) -> UIView {
+        let line = UIView(frame: CGRect(origin: .zero, size: CGSize(width: width, height: 2)))
+//        line.layer.borderColor = UIColor(patternImage: UIImage.dash_pattern).cgColor
+        line.backgroundColor = UIColor(patternImage: UIImage.dash_pattern)
+        return line
+    }
 }

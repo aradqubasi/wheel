@@ -192,4 +192,15 @@ extension UILabel {
         label.textAlignment = .left
         return label
     }
+    
+    static func getRecipySubheader(_ name: String) -> UILabel {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.attributedText = name.toRecipySubheader
+//        label.frame.size = CGSize(width: 70, height: 16)
+        label.frame.size = name.toRecipySubheader.size().wider(by: 1)
+        label.textAlignment = .center
+        return label
+    }
+    
 }

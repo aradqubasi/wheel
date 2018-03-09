@@ -44,4 +44,25 @@ extension String {
             return text
         }
     }
+    
+    var toRecipyListQuantity: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.mineshaft, .font: UIFont(name: "Avenir-Light", size: 14) as Any])
+            return text
+        }
+    }
+    
+    var toRecipyListName: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.mineshaft, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            return text
+        }
+    }
+    
+    var toRecipyListKind: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.tiara, .font: UIFont(name: "Avenir-Roman", size: 12) as Any])
+            return text
+        }
+    }
 }

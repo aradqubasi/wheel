@@ -193,14 +193,76 @@ extension UILabel {
         return label
     }
     
-    static func getRecipySubheader(_ name: String) -> UILabel {
+//    static func getRecipySubheader(_ name: String) -> UILabel {
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.attributedText = name.toRecipySubheader
+//        label.frame.size = name.toRecipySubheader.size().wider(by: 1)
+//        label.textAlignment = .center
+//        return label
+//    }
+    
+    func setRecipySubheader(_ name: String) {
+        self.numberOfLines = 0
+        self.attributedText = name.toRecipySubheader
+        self.frame.size = name.toRecipySubheader.size().wider(by: 1)
+        self.textAlignment = .center
+    }
+    
+    class var recipyListTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 271, height: 19)
+            label.attributedText = NSAttributedString.recipyListTitle
+            label.textAlignment = .left
+            return label
+        }
+    }
+    
+    static func newRecipyListQuantity(_ text: String) -> UILabel {
         let label = UILabel()
-        label.numberOfLines = 0
-        label.attributedText = name.toRecipySubheader
-//        label.frame.size = CGSize(width: 70, height: 16)
-        label.frame.size = name.toRecipySubheader.size().wider(by: 1)
-        label.textAlignment = .center
+        let text = text.toRecipyListQuantity
+        label.attributedText = text
+        label.frame.size = text.size().wider(by: 2)
+        label.textAlignment = .left
         return label
+    }
+    
+    func setRecipyListQuantity(_ text: String) {
+        let text = text.toRecipyListQuantity
+        attributedText = text
+        frame.size = text.size().wider(by: 2)
+        textAlignment = .left
+    }
+    
+    static func newRecipyListName(_ text: String) -> UILabel {
+        let label = UILabel()
+        let text = text.toRecipyListName
+        label.attributedText = text
+        label.frame.size = text.size().wider(by: 2)
+        label.textAlignment = .left
+        return label
+    }
+    
+    static func newRecipyListKind(_ text: String) -> UILabel {
+        let label = UILabel()
+        let text = text.toRecipyListKind
+        label.attributedText = text
+        label.frame.size = text.size().wider(by: 2)
+        label.textAlignment = .right
+        return label
+    }
+    
+    class var happyCooking: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 112, height: 22)
+            label.attributedText = NSAttributedString.happyCooking
+            label.textAlignment = .center
+            return label
+        }
     }
     
 }

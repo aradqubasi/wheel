@@ -127,6 +127,10 @@
 		15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */; };
 		15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */; };
 		15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */; };
+		15D13D3C20529BED00D44923 /* SWRecipyStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3B20529BED00D44923 /* SWRecipyStatsView.swift */; };
+		15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */; };
+		15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */; };
+		15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D412052CF4500D44923 /* SWRecipyListView.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -294,6 +298,10 @@
 		15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyServingsCounter.swift; sourceTree = "<group>"; };
 		15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWServingsGenerator.swift; sourceTree = "<group>"; };
 		15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteServingsGenerator.swift; sourceTree = "<group>"; };
+		15D13D3B20529BED00D44923 /* SWRecipyStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyStatsView.swift; sourceTree = "<group>"; };
+		15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListGenerator.swift; sourceTree = "<group>"; };
+		15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRecipyListGenerator.swift; sourceTree = "<group>"; };
+		15D13D412052CF4500D44923 /* SWRecipyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListView.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -603,6 +611,8 @@
 				15BA80282041445100596CC8 /* RecipyViewController.swift */,
 				15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */,
 				15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */,
+				15D13D3B20529BED00D44923 /* SWRecipyStatsView.swift */,
+				15D13D412052CF4500D44923 /* SWRecipyListView.swift */,
 			);
 			path = Recipy;
 			sourceTree = "<group>";
@@ -614,6 +624,8 @@
 				15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */,
 				15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */,
 				15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */,
+				15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */,
+				15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -896,6 +908,7 @@
 				15BA802D2041450D00596CC8 /* SWConcreteRecipyAssembler.swift in Sources */,
 				15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */,
 				15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */,
+				15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
 				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				15BA8048204BEF6300596CC8 /* RecipyHeaderViewController.swift in Sources */,
@@ -922,6 +935,7 @@
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
 				15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
+				15D13D3C20529BED00D44923 /* SWRecipyStatsView.swift in Sources */,
 				1583878F202ED62A001E4008 /* HamburgerController.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
 				15BA802F204146A900596CC8 /* SWRecipy.swift in Sources */,
@@ -930,6 +944,7 @@
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
+				15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */,
 				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
 				159F18831F63D4920079C545 /* SpokeView.swift in Sources */,
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
@@ -990,6 +1005,7 @@
 				15F788021FB82A1A001C32B1 /* VeggiesController.swift in Sources */,
 				15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
+				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,

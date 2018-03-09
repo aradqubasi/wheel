@@ -125,4 +125,10 @@ public extension UIColor {
             return UIColor(red: 94 / 255, green: 94 / 255, blue: 94 / 255, alpha: 1)
         }
     }
+    
+    class var mineshaft: UIColor {
+        get {
+            return UIColor(red: 48 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
+        }
+    }
 }

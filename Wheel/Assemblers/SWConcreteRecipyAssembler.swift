@@ -34,7 +34,10 @@ class SWConcreteRecipyAssembler: SWRecipyAssembler {
     }
     
     func resolve() -> SWServingsGenerator {
-        return SWConcreteServingsGenerator()
+        return SWConcreteServingsGenerator(measuresment: self.resolve(), stats: self.resolve())
     }
     
+    func resolve() -> SWRecipyListGenerator {
+        return SWConcreteRecipyListGenerator()
+    }
 }

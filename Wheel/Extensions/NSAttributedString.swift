@@ -269,4 +269,18 @@ extension NSAttributedString {
 //            return text
 //        }
 //    }
+    
+    class var recipyListTitle: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "INGREDIENTS", attributes: [.foregroundColor: UIColor.regentgrey, .font: UIFont(name: "Avenir-Medium", size: 14) as Any])
+            return text
+        }
+    }
+    
+    class var happyCooking: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "Happy Cooking", attributes: [.foregroundColor: UIColor.shamrock, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            return text
+        }
+    }
 }

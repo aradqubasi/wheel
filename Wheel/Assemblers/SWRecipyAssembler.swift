@@ -23,4 +23,6 @@ protocol SWRecipyAssembler {
     
     func resolve() -> SWServingsGenerator
     
+    func resolve() -> SWRecipyListGenerator
+    
 }

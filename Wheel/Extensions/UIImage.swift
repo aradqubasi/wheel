@@ -743,6 +743,12 @@ public extension UIImage {
         }
     }
     
+    class var happy_broccoli: UIImage {
+        get {
+            return UIImage(named: "recipy/happy_broccoli")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

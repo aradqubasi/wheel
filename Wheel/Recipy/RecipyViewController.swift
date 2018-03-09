@@ -29,14 +29,22 @@ class RecipyViewController: UIViewController {
     private var _recipyHeaderContainer: UIView!
     
     private var _name: String!
-    
-//    private var _ingredientRepository: SWIngredientRepository!
-    
+
     private var _measuresmentRepository: SWMeasuresmentRepository!
     
     private var _ingredientStatsRepository: SWIngredientStatsRepository!
     
     private var _servingsGenerator: SWServingsGenerator!
+    
+    private var _counter: SWRecipyServingsCounter!
+    
+    private var _subheader: SWRecipyStatsView!
+    
+    private var _listGenerator: SWRecipyListGenerator!
+    
+    private var _list: SWRecipyListView!
+    
+    private var _scroller: UIScrollView!
     
     // MARK: - Initialization
 
@@ -46,14 +54,14 @@ class RecipyViewController: UIViewController {
         _name = assembler.resolve().getName(for: selection)
         
         _segues = assembler.resolve()
-        
-//        _ingredientRepository = assembler.resolve()
-        
+
         _measuresmentRepository = assembler.resolve()
         
         _ingredientStatsRepository = assembler.resolve()
         
         _servingsGenerator = assembler.resolve()
+        
+        _listGenerator = assembler.resolve()
         
         // selection container
         do {
@@ -93,125 +101,163 @@ class RecipyViewController: UIViewController {
         
         _servings = 2
         
-        // recipy header
+        //white background for botom
         do {
-            _recipyHeaderContainer = UIView()
-            
-            let recipyHeader = UILabel.getRecipyHeader(_name)
-            _recipyHeaderContainer.addSubview(recipyHeader)
-            recipyHeader.translatesAutoresizingMaskIntoConstraints = false
-            recipyHeader.addSizeConstraints()
-            recipyHeader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-            recipyHeader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
-            recipyHeader.topAnchor.constraint(equalTo: _recipyHeaderContainer.topAnchor, constant: 24).isActive = true
-            
-            var subheader: UIStackView!
+            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.66), size: view.bounds.size))
+            back.backgroundColor = .white
+            view.addSubview(back)
+        }
+        
+        // scroll
+        do {
+            _scroller = UIScrollView()
+            // recipy header
             do {
-                let spacing: CGFloat = 4
+                _recipyHeaderContainer = UIView()
                 
-//                let stats = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 247, height: 16)))
+                let recipyHeader = UILabel.getRecipyHeader(_name)
+                _recipyHeaderContainer.addSubview(recipyHeader)
+                recipyHeader.translatesAutoresizingMaskIntoConstraints = false
+                recipyHeader.addHeightConstraints()
+                recipyHeader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                recipyHeader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
+                recipyHeader.topAnchor.constraint(equalTo: _recipyHeaderContainer.topAnchor, constant: 24).isActive = true
                 
-                var energy: Double = 0
-                var proteins: Double = 0
-                var fats: Double = 0
-                var carbohydrates: Double = 0
                 do {
-                    for ingredient in selection {
-                        let unit = _measuresmentRepository.get(by: ingredient.unit)
-                        let stats = _ingredientStatsRepository.get(by: ingredient, and: unit)
-                        energy += stats.calories * Double(_servings)
-                        proteins += stats.proteins * Double(_servings)
-                        fats += stats.fats * Double(_servings)
-                        carbohydrates += stats.carbohydrates * Double(_servings)
-                    }
+                    
+                    let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servings)
+                    let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servings)
+                    let fats: Double = _servingsGenerator.getFats(for: selection, per: _servings)
+                    let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servings)
+                    
+                    let gram = _measuresmentRepository.getGram()
+                    let calories = _measuresmentRepository.getCalories()
+                    
+                    _subheader = SWRecipyStatsView(energyUnit: calories.short, weightUnit: gram.short)
+                    
+                    _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+                    
+                }
+                _recipyHeaderContainer.addSubview(_subheader)
+                _subheader.translatesAutoresizingMaskIntoConstraints = false
+                _subheader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                _subheader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
+                _subheader.topAnchor.constraint(equalTo: recipyHeader.bottomAnchor, constant: 8).isActive = true
+                _subheader.heightAnchor.constraint(equalToConstant: 17).isActive = true
+                
+                var line1: UIView!
+                do {
+                    line1 = UIView().getRecipySeparatorLine(for: view.bounds.width - 16 * 2)
+                    _recipyHeaderContainer.addSubview(line1)
+                    line1.translatesAutoresizingMaskIntoConstraints = false
+                    line1.addSizeConstraints()
+                    line1.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                    line1.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    line1.topAnchor.constraint(equalTo: _subheader.bottomAnchor, constant: 24).isActive = true
                 }
                 
-                let gram = _measuresmentRepository.getGram()
-                let calories = _measuresmentRepository.getCalories()
+                //            var servings: SWRecipyServingsCounter!
+                do {
+                    
+                    _counter = SWRecipyServingsCounter.usual(with: _servingsGenerator)
+                    _counter.servings = _servings
+                    _recipyHeaderContainer.addSubview(_counter)
+                    _counter.translatesAutoresizingMaskIntoConstraints = false
+                    _counter.addSizeConstraints()
+                    _counter.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 30).isActive = true
+                    _counter.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                }
                 
-                let enegryLabel = UILabel.getRecipySubheader("\(Int(energy)) \(calories.short)")
-                let oval1 = UIView.recipySubtitleOval
-                let carbohydratesLabel = UILabel.getRecipySubheader("\(Int(carbohydrates)) \(gram.short) Carbs")
-                let oval2 = UIView.recipySubtitleOval
-                let fatsLabel = UILabel.getRecipySubheader("\(Int(fats)) \(gram.short) Fat")
-                let oval3 = UIView.recipySubtitleOval
-                let proteinsLabel = UILabel.getRecipySubheader("\(Int(proteins)) \(gram.short) Proteins")
-                let filler = UIView()
+                var increase: UIButton!
+                do {
+                    increase = UIButton.increase
+                    _recipyHeaderContainer.addSubview(increase)
+                    increase.translatesAutoresizingMaskIntoConstraints = false
+                    increase.addSizeConstraints()
+                    increase.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 24).isActive = true
+                    increase.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    increase.addTarget(self, action: #selector(onMore(_:)), for: .touchUpInside)
+                }
                 
-                enegryLabel.translatesAutoresizingMaskIntoConstraints = false
-                oval1.translatesAutoresizingMaskIntoConstraints = false
-                carbohydratesLabel.translatesAutoresizingMaskIntoConstraints = false
-                oval2.translatesAutoresizingMaskIntoConstraints = false
-                fatsLabel.translatesAutoresizingMaskIntoConstraints = false
-                oval3.translatesAutoresizingMaskIntoConstraints = false
-                proteinsLabel.translatesAutoresizingMaskIntoConstraints = false
+                var decrease: UIButton!
+                do {
+                    decrease = UIButton.decrease
+                    _recipyHeaderContainer.addSubview(decrease)
+                    decrease.translatesAutoresizingMaskIntoConstraints = false
+                    decrease.addSizeConstraints()
+                    decrease.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 24).isActive = true
+                    decrease.trailingAnchor.constraint(equalTo: increase.leadingAnchor, constant: 1).isActive = true
+                    decrease.addTarget(self, action: #selector(onLess(_:)), for: .touchUpInside)
+                }
                 
-                enegryLabel.addSizeConstraints()
-                oval1.addSizeConstraints()
-                carbohydratesLabel.addSizeConstraints()
-                oval2.addSizeConstraints()
-                fatsLabel.addSizeConstraints()
-                oval3.addSizeConstraints()
-                proteinsLabel.addSizeConstraints()
+                var line2: UIView!
+                do {
+                    line2 = UIView().getRecipySeparatorLine(for: view.bounds.width - 16 * 2)
+                    _recipyHeaderContainer.addSubview(line2)
+                    line2.translatesAutoresizingMaskIntoConstraints = false
+                    line2.addSizeConstraints()
+                    line2.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                    line2.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    line2.topAnchor.constraint(equalTo: decrease.bottomAnchor, constant: 24).isActive = true
+                }
                 
-                subheader = UIStackView(arrangedSubviews: [enegryLabel, oval1, carbohydratesLabel, oval2, fatsLabel, oval3, proteinsLabel, filler])
-                subheader.alignment = .center
-                subheader.axis = .horizontal
-                subheader.spacing = spacing
-            }
-            _recipyHeaderContainer.addSubview(subheader)
-            subheader.translatesAutoresizingMaskIntoConstraints = false
-            subheader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-            subheader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
-            subheader.topAnchor.constraint(equalTo: recipyHeader.bottomAnchor, constant: 8).isActive = true
-            subheader.heightAnchor.constraint(equalToConstant: 16).isActive = true
-            
-            var line1: UIView!
-            do {
-                line1 = UIView().getRecipySeparatorLine(for: view.bounds.width - 16 * 2)
-                _recipyHeaderContainer.addSubview(line1)
-                line1.translatesAutoresizingMaskIntoConstraints = false
-                line1.addSizeConstraints()
-                line1.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-                line1.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
-                line1.topAnchor.constraint(equalTo: subheader.bottomAnchor, constant: 24).isActive = true
-            }
-            
-            var servings: SWRecipyServingsCounter!
-            do {
-
-                servings = SWRecipyServingsCounter.usual(with: _servingsGenerator)
-                servings.servings = _servings
-                _recipyHeaderContainer.addSubview(servings)
-                servings.translatesAutoresizingMaskIntoConstraints = false
-                servings.addSizeConstraints()
-                servings.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 30).isActive = true
-                servings.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-            }
-            
-            var increase: UIButton!
-            do {
-                increase = UIButton.increase
-                _recipyHeaderContainer.addSubview(increase)
-                increase.translatesAutoresizingMaskIntoConstraints = false
-                increase.addSizeConstraints()
-                increase.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 24).isActive = true
-                increase.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
-            }
-            
-            var decrease: UIButton!
-            do {
-                decrease = UIButton.decrease
-                _recipyHeaderContainer.addSubview(decrease)
-                decrease.translatesAutoresizingMaskIntoConstraints = false
-                decrease.addSizeConstraints()
-                decrease.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 24).isActive = true
-                decrease.trailingAnchor.constraint(equalTo: increase.leadingAnchor, constant: 1).isActive = true
+                var listTitle: UILabel!
+                do {
+                    listTitle = UILabel.recipyListTitle
+                    _recipyHeaderContainer.addSubview(listTitle)
+                    listTitle.translatesAutoresizingMaskIntoConstraints = false
+                    listTitle.addSizeConstraints()
+                    listTitle.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                    listTitle.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    listTitle.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 24).isActive = true
+                }
+                
+                do {
+                    _list = SWRecipyListView(for: selection, with: _listGenerator)
+                    _recipyHeaderContainer.addSubview(_list)
+                    _list.translatesAutoresizingMaskIntoConstraints = false
+                    _list.topAnchor.constraint(equalTo: listTitle.bottomAnchor, constant: 8).isActive = true
+                    _list.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                    _list.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    _list.servings = _servings
+                }
+                
+                var line3: UIView!
+                do {
+                    line3 = UIView().getRecipySeparatorLine(for: view.bounds.width - 16 * 2)
+                    _recipyHeaderContainer.addSubview(line3)
+                    line3.translatesAutoresizingMaskIntoConstraints = false
+                    line3.addSizeConstraints()
+                    line3.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
+                    line3.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    line3.topAnchor.constraint(equalTo: _list.bottomAnchor, constant: 24).isActive = true
+                }
+                
+                var happyCooking: UILabel!
+                do {
+                    happyCooking = UILabel.happyCooking
+                    _recipyHeaderContainer.addSubview(happyCooking)
+                    happyCooking.translatesAutoresizingMaskIntoConstraints = false
+                    happyCooking.addSizeConstraints()
+                    happyCooking.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
+                    happyCooking.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 32).isActive = true
+                }
+                
+                _recipyHeaderContainer.backgroundColor = .white
+//                let listHeight = _list.frame.height
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22))
+//                view.addSubview(_recipyHeaderContainer)
             }
             
-            _recipyHeaderContainer.backgroundColor = .white
-            _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 80 + 8 + 16 + 600))
-            view.addSubview(_recipyHeaderContainer)
+            view.addSubview(_scroller)
+            _scroller.translatesAutoresizingMaskIntoConstraints = false
+            
+            _scroller.addSubview(_recipyHeaderContainer)
+            _recipyHeaderContainer.addSizeConstraints()
+            _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
+            _recipyHeaderContainer.topAnchor.constraint(equalTo: _scroller.topAnchor).isActive = true
+            _recipyHeaderContainer.leadingAnchor.constraint(equalTo: _scroller.leadingAnchor).isActive = true
+            _scroller.contentSize = _recipyHeaderContainer.frame.size
         }
         
         do {
@@ -237,11 +283,18 @@ class RecipyViewController: UIViewController {
         _selectionContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length + outerSpacing.y).isActive = true
         _selectionContainer.addSizeConstraints()
         
-        _recipyHeaderContainer.addSizeConstraints()
-        _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
-        _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: outerSpacing.y).isActive = true
-        _recipyHeaderContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-                
+//        _recipyHeaderContainer.addSizeConstraints()
+//        _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
+//        _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: outerSpacing.y).isActive = true
+//        _recipyHeaderContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        _scroller.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        _scroller.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        _scroller.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
+        _scroller.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+
+        print("intrinsicContentSize \(_scroller.intrinsicContentSize)")
+        
         print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
         super.viewWillLayoutSubviews()
         print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
@@ -253,6 +306,28 @@ class RecipyViewController: UIViewController {
         
         performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
         
+    }
+    
+    @IBAction func onMore(_ sender: Any) {
+        _servings = _servings + 1
+        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servings)
+        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servings)
+        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servings)
+        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servings)
+        _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+        _list.servings = _servings
+        _counter.servings = _servings
+    }
+    
+    @IBAction func onLess(_ sender: Any) {
+        _servings = _servings - 1
+        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servings)
+        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servings)
+        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servings)
+        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servings)
+        _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+        _list.servings = _servings
+        _counter.servings = _servings
     }
 
     /*

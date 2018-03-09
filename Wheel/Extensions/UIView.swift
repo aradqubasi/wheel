@@ -35,7 +35,24 @@ extension UIView {
     
     func addSizeConstraints() {
 //        translatesAutoresizingMaskIntoConstraints = false
+        if let widthConstraint = self.constraints.first(where: { $0.firstAttribute == NSLayoutAttribute.width }) {
+            self.removeConstraint(widthConstraint)
+        }
+        
+        if let heightConstraint = self.constraints.first(where: { $0.firstAttribute == NSLayoutAttribute.height }) {
+            self.removeConstraint(heightConstraint)
+        }
+        
         widthAnchor.constraint(equalToConstant: frame.width).isActive = true
+        heightAnchor.constraint(equalToConstant: frame.height).isActive = true
+    }
+    
+    func addHeightConstraints() {
+
+        if let heightConstraint = self.constraints.first(where: { $0.firstAttribute == NSLayoutAttribute.height }) {
+            self.removeConstraint(heightConstraint)
+        }
+        
         heightAnchor.constraint(equalToConstant: frame.height).isActive = true
     }
 

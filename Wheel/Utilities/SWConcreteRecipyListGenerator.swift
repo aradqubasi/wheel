@@ -9,8 +9,15 @@
 import Foundation
 class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
     
+    private var _measuresment: SWMeasuresmentRepository!
+    
+    init(measuresment: SWMeasuresmentRepository) {
+        _measuresment = measuresment
+    }
+    
     func getQuantity(for ingredient: SWIngredient, per servings: Int) -> String {
-        return "\(50 * servings) g"
+        let unit = _measuresment.get(by: ingredient.unit).short
+        return "\(Int(ingredient.quantity) * servings) \(unit)"
     }
     
     func getName(for ingredient: SWIngredient) -> String {

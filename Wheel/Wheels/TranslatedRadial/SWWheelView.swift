@@ -307,8 +307,13 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     func moveToRandomPin() {
         if _spokes.count != 0 {
-            let random = Int(arc4random_uniform(UInt32(_spokes.count)))
-            move(to: random)
+            if let locked = _spokes.first(where: { $0.pin.state == .locked }) {
+                move(to: locked.index)
+            }
+            else {
+                let random = Int(arc4random_uniform(UInt32(_spokes.count)))
+                move(to: random)
+            }
         }
     }
     

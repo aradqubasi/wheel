@@ -118,7 +118,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
-        print("onPinClick")
+        /*
         if sender.focused == pin {
             self.add([pin])
         }
@@ -131,6 +131,15 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
         }
+        */
+        let moveto = { () -> Void in
+            sender.move(to: index)
+        }
+        let showend = { (_: Bool) -> Void in
+            self.add([pin])
+        }
+        
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
     }
     
     func onPinPress(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) {
@@ -208,6 +217,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         
         selected = selectionController.selected.map({ $0.asIngridient })
         
+        /*
         if selectionController.state == .visible {
             let shrinkdown = { () in
                 self.selectionController.shrinkdown()
@@ -217,6 +227,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             }
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
         }
+        */
         
         performSegue(withIdentifier: _segues.getWheelsToRecipy().identifier, sender: self)
         

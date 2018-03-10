@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipyViewController: UIViewController {
+class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Public Properties
     
@@ -45,6 +45,8 @@ class RecipyViewController: UIViewController {
     private var _list: SWRecipyListView!
     
     private var _scroller: UIScrollView!
+    
+    private var _broccoli: SWRecipyBroccoliView!
     
     // MARK: - Initialization
 
@@ -245,19 +247,30 @@ class RecipyViewController: UIViewController {
                 
                 _recipyHeaderContainer.backgroundColor = .white
 //                let listHeight = _list.frame.height
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 64))
 //                view.addSubview(_recipyHeaderContainer)
             }
             
             view.addSubview(_scroller)
             _scroller.translatesAutoresizingMaskIntoConstraints = false
-            
+            _scroller.delegate = self
+            _scroller.showsHorizontalScrollIndicator = false
             _scroller.addSubview(_recipyHeaderContainer)
             _recipyHeaderContainer.addSizeConstraints()
             _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
             _recipyHeaderContainer.topAnchor.constraint(equalTo: _scroller.topAnchor).isActive = true
             _recipyHeaderContainer.leadingAnchor.constraint(equalTo: _scroller.leadingAnchor).isActive = true
             _scroller.contentSize = _recipyHeaderContainer.frame.size
+        }
+        
+        do {
+            _broccoli = SWRecipyBroccoliView()
+            view.addSubview(_broccoli)
+            _broccoli.translatesAutoresizingMaskIntoConstraints = false
+            _broccoli.addSizeConstraints()
+            _broccoli.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            _broccoli.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//            UIView.animate(withDuration: 0.5, delay: 2, options: [.curveEaseInOut], animations: { broccoli.showed = 1 }, completion: nil)
         }
         
         do {
@@ -268,6 +281,7 @@ class RecipyViewController: UIViewController {
             back.action = #selector(onBackButtonClick(_:))
             back.target = self
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -282,11 +296,6 @@ class RecipyViewController: UIViewController {
         _selectionContainer.translatesAutoresizingMaskIntoConstraints = false
         _selectionContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length + outerSpacing.y).isActive = true
         _selectionContainer.addSizeConstraints()
-        
-//        _recipyHeaderContainer.addSizeConstraints()
-//        _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
-//        _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: outerSpacing.y).isActive = true
-//        _recipyHeaderContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         
         _scroller.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         _scroller.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
@@ -340,4 +349,18 @@ class RecipyViewController: UIViewController {
     }
     */
 
+    // MARK: - UIScrollViewDelegate Methods
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        print("scrollView.contentOffset -> \(scrollView.contentOffset)")
+//        print("scrollView.frame.size -> \(scrollView.frame.size)")
+//        print("contentSize -> \(scrollView.contentSize)")
+        if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - scrollView.frame.size.height)) < 5 {
+            UIView.animate(withDuration: 0.5, delay: 2, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.beginFromCurrentState], animations: { self._broccoli.showed = 0 }, completion: nil)
+    }
 }

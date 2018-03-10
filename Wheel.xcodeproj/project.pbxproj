@@ -131,6 +131,7 @@
 		15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */; };
 		15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */; };
 		15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D412052CF4500D44923 /* SWRecipyListView.swift */; };
+		15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -302,6 +303,7 @@
 		15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListGenerator.swift; sourceTree = "<group>"; };
 		15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRecipyListGenerator.swift; sourceTree = "<group>"; };
 		15D13D412052CF4500D44923 /* SWRecipyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListView.swift; sourceTree = "<group>"; };
+		15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyBroccoliView.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -613,6 +615,7 @@
 				15D13D35204EEBA300D44923 /* SWRecipyServingsCounter.swift */,
 				15D13D3B20529BED00D44923 /* SWRecipyStatsView.swift */,
 				15D13D412052CF4500D44923 /* SWRecipyListView.swift */,
+				15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */,
 			);
 			path = Recipy;
 			sourceTree = "<group>";
@@ -883,6 +886,7 @@
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
 				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
+				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				155BEC3A1FF15A8200E749B5 /* BackgroundView.swift in Sources */,

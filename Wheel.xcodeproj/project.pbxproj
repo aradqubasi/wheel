@@ -132,6 +132,8 @@
 		15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */; };
 		15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D412052CF4500D44923 /* SWRecipyListView.swift */; };
 		15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */; };
+		15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D452054128700D44923 /* SWWheelsAligner.swift */; };
+		15D13D482054135600D44923 /* SWConcreteWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -304,6 +306,8 @@
 		15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRecipyListGenerator.swift; sourceTree = "<group>"; };
 		15D13D412052CF4500D44923 /* SWRecipyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListView.swift; sourceTree = "<group>"; };
 		15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyBroccoliView.swift; sourceTree = "<group>"; };
+		15D13D452054128700D44923 /* SWWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelsAligner.swift; sourceTree = "<group>"; };
+		15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteWheelsAligner.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -629,6 +633,8 @@
 				15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */,
 				15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */,
 				15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */,
+				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
+				15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -884,6 +890,7 @@
 				1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */,
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
+				15D13D482054135600D44923 /* SWConcreteWheelsAligner.swift in Sources */,
 				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
@@ -900,6 +907,7 @@
 				15BA80402041F5B200596CC8 /* Int.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
 				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
+				15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */,
 				15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */,
 				151AFE471FA114AA00CC5357 /* SVDelegate.swift in Sources */,
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,

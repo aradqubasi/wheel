@@ -21,4 +21,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWRecipyAssembler
     
+    func resolve() -> SWWheelsAligner
+    
 }

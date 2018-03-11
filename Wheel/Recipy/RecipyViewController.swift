@@ -64,40 +64,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         _servingsGenerator = assembler.resolve()
         
         _listGenerator = assembler.resolve()
-        
-        // selection container
-        do {
-            _selectionContainer = UIView()
-            view.addSubview(_selectionContainer)
-            
-            let box = CGSize(width: 88, height: 88)
-            let innerSpacing = CGPoint(x: 8, y: 24)
-            let outerSpacing = CGPoint(x: 16, y: 24)
-            let perLine = Int((view.bounds.width + innerSpacing.x - outerSpacing.x * 2) / (box.width + innerSpacing.x))
-            var line: Int = 0
-            var position: Int = 0
-            
-            selection?.forEach({
-                if position >= perLine && position != 0 {
-                    position = 0
-                    line = line + 1
-                }
-                print($0.name)
-                let left = /*outerSpacing.x + */CGFloat(position) * (box.width + innerSpacing.x)
-                let top = /*outerSpacing.y + */CGFloat(line) * (box.height + innerSpacing.y)
-                let next = SWRecipyIngridientView(frame: CGRect(origin: CGPoint(x: left, y: top), size: box), for: $0)
-                next.alignSubviews()
-                //            view.addSubview(next)
-                _selectionContainer.addSubview(next)
-                position = position + 1
-            })
-            
-            let lines = line + 1
-            let width = CGFloat(perLine) * box.width + CGFloat(perLine - 1) * innerSpacing.x
-            let height = CGFloat(lines) * box.height + CGFloat(lines - 1) * innerSpacing.y
-            _selectionContainer.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
-            
-        }
 
         view.backgroundColor = UIColor.aquaHaze
         
@@ -113,6 +79,40 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         // scroll
         do {
             _scroller = UIScrollView()
+            
+            //selection
+            do {
+                _selectionContainer = UIView()
+                view.addSubview(_selectionContainer)
+                
+                let box = CGSize(width: 88, height: 88)
+                let innerSpacing = CGPoint(x: 8, y: 24)
+                let outerSpacing = CGPoint(x: 16, y: 24)
+                let perLine = Int((view.bounds.width + innerSpacing.x - outerSpacing.x * 2) / (box.width + innerSpacing.x))
+                var line: Int = 0
+                var position: Int = 0
+                
+                selection?.forEach({
+                    if position >= perLine && position != 0 {
+                        position = 0
+                        line = line + 1
+                    }
+                    print($0.name)
+                    let left = CGFloat(position) * (box.width + innerSpacing.x)
+                    let top = CGFloat(line) * (box.height + innerSpacing.y)
+                    let next = SWRecipyIngridientView(frame: CGRect(origin: CGPoint(x: left, y: top), size: box), for: $0)
+                    next.alignSubviews()
+                    _selectionContainer.addSubview(next)
+                    position = position + 1
+                })
+                
+                let lines = line + 1
+                let width = CGFloat(perLine) * box.width + CGFloat(perLine - 1) * innerSpacing.x
+                let height = CGFloat(lines) * box.height + CGFloat(lines - 1) * innerSpacing.y
+                _selectionContainer.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+                
+            }
+            
             // recipy header
             do {
                 _recipyHeaderContainer = UIView()
@@ -246,21 +246,28 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 }
                 
                 _recipyHeaderContainer.backgroundColor = .white
-//                let listHeight = _list.frame.height
                 _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 64))
-//                view.addSubview(_recipyHeaderContainer)
             }
             
             view.addSubview(_scroller)
             _scroller.translatesAutoresizingMaskIntoConstraints = false
             _scroller.delegate = self
             _scroller.showsHorizontalScrollIndicator = false
+            
+            _scroller.addSubview(_selectionContainer)
+            _selectionContainer.centerXAnchor.constraint(equalTo: _scroller.centerXAnchor).isActive = true
+            _selectionContainer.translatesAutoresizingMaskIntoConstraints = false
+            _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor, constant: 24).isActive = true
+            _selectionContainer.addSizeConstraints()
+            
             _scroller.addSubview(_recipyHeaderContainer)
             _recipyHeaderContainer.addSizeConstraints()
             _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
-            _recipyHeaderContainer.topAnchor.constraint(equalTo: _scroller.topAnchor).isActive = true
+            _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
             _recipyHeaderContainer.leadingAnchor.constraint(equalTo: _scroller.leadingAnchor).isActive = true
-            _scroller.contentSize = _recipyHeaderContainer.frame.size
+            
+            _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: 24 + _recipyHeaderContainer.frame.size.height +
+                24 + _selectionContainer.frame.size.height)
         }
         
         do {
@@ -270,7 +277,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             _broccoli.addSizeConstraints()
             _broccoli.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
             _broccoli.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//            UIView.animate(withDuration: 0.5, delay: 2, options: [.curveEaseInOut], animations: { broccoli.showed = 1 }, completion: nil)
         }
         
         do {
@@ -290,23 +296,23 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     }
     
     override func viewWillLayoutSubviews() {
-
-        let outerSpacing = CGPoint(x: 16, y: 24)
-        _selectionContainer.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        _selectionContainer.translatesAutoresizingMaskIntoConstraints = false
-        _selectionContainer.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length + outerSpacing.y).isActive = true
-        _selectionContainer.addSizeConstraints()
         
         _scroller.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
         _scroller.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        _scroller.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
+        _scroller.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length).isActive = true
         _scroller.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-
+        
         print("intrinsicContentSize \(_scroller.intrinsicContentSize)")
         
         print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
         super.viewWillLayoutSubviews()
         print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
+    }
+    
+    override func viewDidLayoutSubviews() {
+        if abs(view.bounds.height - _scroller.contentSize.height - topLayoutGuide.length) < 20 {
+            popUpBroccoli()
+        }
     }
     
     // MARK: - Actions
@@ -339,28 +345,21 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         _counter.servings = _servings
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
     // MARK: - UIScrollViewDelegate Methods
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-//        print("scrollView.contentOffset -> \(scrollView.contentOffset)")
-//        print("scrollView.frame.size -> \(scrollView.frame.size)")
-//        print("contentSize -> \(scrollView.contentSize)")
         if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - scrollView.frame.size.height)) < 5 {
-            UIView.animate(withDuration: 0.5, delay: 2, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
+            popUpBroccoli()
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         UIView.animate(withDuration: 0.5, delay: 0, options: [.beginFromCurrentState], animations: { self._broccoli.showed = 0 }, completion: nil)
+    }
+    
+    // MARK: - Animations
+    
+    func popUpBroccoli() {
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
     }
 }

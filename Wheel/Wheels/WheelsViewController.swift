@@ -187,8 +187,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     // MARK: - SelectionDelegate
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
-        print("onRemove")
-        
         if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
             
             let shrinkdown = { () in
@@ -510,13 +508,18 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onDebug(_ sender: UIButton) {
-        guard let text = input.text, let number = NumberFormatter().number(from: text) else {
+//        guard let text = input.text, let number = NumberFormatter().number(from: text) else {
+//            print("invalid cgfloat value")
+//            return
+//        }
+//        let k = CGFloat(number.floatValue)
+//        print(k)
+//        rotate(by: CGFloat.pi * k, in: 1, afterwards: nil)
+        guard let texts = input.text?.split(separator: ";"), let x = NumberFormatter().number(from: String(texts.first!)), let y = NumberFormatter().number(from: String(texts.last!)) else {
             print("invalid cgfloat value")
             return
         }
-        let k = CGFloat(number.floatValue)
-        print(k)
-        rotate(by: CGFloat.pi * k, in: 1, afterwards: nil)
+        print("new point is \(CGPoint(x: CGFloat(x), y: CGFloat(y)))")
     }
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {

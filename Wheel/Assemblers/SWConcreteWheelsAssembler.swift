@@ -33,4 +33,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteRecipyAssembler()
     }
     
+    func resolve() -> SWWheelsAligner {
+        return SWConcreteWheelsAligner()
+    }
+    
 }

@@ -190,6 +190,7 @@ extension UILabel {
         label.frame.size = CGSize(width: 382, height: 80)
         label.attributedText = name.toRecipyHeader
         label.textAlignment = .left
+        label.lineBreakMode = .byWordWrapping
         return label
     }
     

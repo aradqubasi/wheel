@@ -135,12 +135,13 @@ class PinView: UIView, Floatable {
     
     private func setState(to state: PinState) {
         _state = state
-        if state == .locked {
-            _lock.alpha = 1
-        }
-        else {
-            _lock.alpha = 0
-        }
+        _lock.alpha = 0
+//        if state == .locked {
+//            _lock.alpha = 1
+//        }
+//        else {
+//            _lock.alpha = 0
+//        }
         
     }
     

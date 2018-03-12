@@ -104,6 +104,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             _view.addSubview(_background)
             _container.addSubview(_view)
             
+            _lock = UIButton.lock
+            _container.addSubview(_lock)
+            _lock.center = _container.getBoundsCenter()
+            _lock.addTarget(self, action: #selector(onUnlock(_:)), for: .touchUpInside)
+            
             let maxPinFactor = _settings.mapValues({ return $0.scale }).max(by: { return $1.value > $0.value })!.value
             let offset = (maxPinFactor - 1) * 0.5
             
@@ -156,6 +161,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         
         flush()
         move(to: spokes.count / 2)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -163,6 +170,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
     
     // MARK: - Private Properties
+    
+    private var _isLocked: Bool = false
     
     private var fixedOrientation = false
     
@@ -217,6 +226,17 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     /**pins inset from the edge of the wheel*/
     private var _inset: CGFloat!
     
+    /**lock icon*/
+    private var _lock: UIButton!
+    
+    // MARK: - Actions
+    
+    @IBAction private func onUnlock(_ sender: UIButton) {
+        if let locked = _spokes.first(where: { $0.pin.state == .locked }) {
+            delegate?.onUnlockClick(self, of: locked.pin, at: locked.index)
+        }
+    }
+    
     // MARK: - Private Methods
     
     private func resize(to state: WState) {
@@ -225,12 +245,14 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             fatalError("no settings for wheel \(name) @ \(state)")
         }
         
+        let radius = settings.radius - _pin * 0.5 * settings.scale - _inset
         for spoke in _spokes {
-            let radius = settings.radius - _pin * 0.5 * settings.scale - _inset
             let a = spoke.angle
             spoke.socket.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(a), y: radius * sin(a))
             spoke.pin.transform = CGAffineTransform.identity.rotated(by: fixedOrientation ? 0 : a - CGFloat.pi)
         }
+        
+        _lock.transform = CGAffineTransform.identity.scaledBy(x: _isLocked ? 1 : 0, y: _isLocked ? 1 : 0).translatedBy(x: settings.radius * cos(_face), y: settings.radius * sin(_face) - _pin * 0.5 * settings.scale)
         
     }
     
@@ -295,6 +317,14 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
 
     // MARK: - SWAbstractWheelController
+    
+    var isLocked: Bool {
+        
+        get {
+            return _isLocked
+        }
+
+    }
     
     var focused: PinView {
         get {
@@ -442,6 +472,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         printMark(for: _state)
     }
 
+    
     // MARK: - SWRingMaskDelegate Methods
     
     func onHit(_ sender: SWRingMaskView, with event: UIEvent?) {
@@ -465,5 +496,21 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         }
 //        delegate?.radialController(preesing: pin,?in: self, at: index)
         delegate?.onPinPress(self, of: pin, at: index)
+    }
+    
+    func lock(on pin: PinView) -> Void {
+        guard let locked = _spokes.first(where: { $0.pin == pin }) else {
+            fatalError("locking: pin \(pin.name) is not found @ wheel \(name)")
+        }
+        _isLocked = true
+        locked.pin.state = .locked
+        move(to: locked.index)
+        flush()
+    }
+    
+    func unlock() -> Void {
+        _isLocked = false
+        _spokes.forEach({ $0.pin.state = .free })
+        flush()
     }
 }

@@ -132,6 +132,7 @@
 		15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */; };
 		15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D452054128700D44923 /* SWWheelsAligner.swift */; };
 		15D13D482054135600D44923 /* SWConcreteWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */; };
+		15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D4920564A8B00D44923 /* SWLocksController.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -304,6 +305,7 @@
 		15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyBroccoliView.swift; sourceTree = "<group>"; };
 		15D13D452054128700D44923 /* SWWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelsAligner.swift; sourceTree = "<group>"; };
 		15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteWheelsAligner.swift; sourceTree = "<group>"; };
+		15D13D4920564A8B00D44923 /* SWLocksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLocksController.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -587,6 +589,7 @@
 				1508EEC11FF4B990003CF526 /* TranslatedRadial */,
 				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
 				15BA8025203FDAF900596CC8 /* SWWheelPositionCalculator.swift */,
+				15D13D4920564A8B00D44923 /* SWLocksController.swift */,
 			);
 			path = Wheels;
 			sourceTree = "<group>";
@@ -1004,6 +1007,7 @@
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,
 				15F43C471FAF6DA600732CED /* SocketView.swift in Sources */,
+				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,
 				15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */,
 				156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */,

@@ -122,4 +122,8 @@ extension UIView {
         line.backgroundColor = UIColor(patternImage: UIImage.dash_pattern)
         return line
     }
+    
+    func getBoundsCenter() -> CGPoint {
+        return CGPoint(x: self.bounds.width * 0.5, y: self.bounds.height * 0.5)
+    }
 }

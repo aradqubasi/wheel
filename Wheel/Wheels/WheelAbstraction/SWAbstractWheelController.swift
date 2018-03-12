@@ -24,6 +24,8 @@ protocol SWAbstractWheelController {
     
     var label: UILabel { get set }
     
+    var isLocked: Bool { get }
+    
     func move(to index: Int) -> Void
     
     func move(by angle: CGFloat) -> Void
@@ -33,4 +35,8 @@ protocol SWAbstractWheelController {
     func refill(with pool: [SWIngredient]) -> Void
     
     func flush() -> Void
+    
+    func lock(on pin: PinView) -> Void
+    
+    func unlock() -> Void
 }

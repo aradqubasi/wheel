@@ -59,21 +59,6 @@ class PointerController {
     // MARK: - Private Methods
     
     private func apply(state: WState) {
-//        guard var y = view.superview?.bounds.height else {
-//            fatalError("pointer view is not attached to superview")
-//        }
-//        y /= 2
-//        y -= view.frame.height / 2
-//        guard var x = view.superview?.bounds.width else {
-//            fatalError("pointer view is not attached to superview")
-//        }
-//        guard let offset = _offsets[state] else {
-//            fatalError("state \(state) is not implemented")
-//        }
-//        x -= offset
-//        x -= view.frame.height / 2
-//        view.frame.origin = CGPoint(x: x, y: y)
-    
         guard let new = _positioner.getPointerPositions(from: _origin, toward: .zero)[state] else {
             fatalError("no point position for \(state)")
         }

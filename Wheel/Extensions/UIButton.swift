@@ -109,4 +109,14 @@ extension UIButton {
         }
     }
     
+    class var lock: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 32)))
+            button.backgroundColor = UIColor.azureradiance
+            button.layer.cornerRadius = 16
+            button.clipsToBounds = false
+            button.setImage(UIImage.lock, for: .normal)
+            return button
+        }
+    }
 }

@@ -137,7 +137,7 @@ class OnboardingViewController: UIViewController {
         let toInbetween = { () -> Void in
             self._bowlController.play(to: self._state.next(), at: .inbetween)
         }
-        let toInbetweenTime: TimeInterval = 0.35
+        let toInbetweenTime: TimeInterval = 0.5
         UIView.animate(withDuration: toInbetweenTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toInbetween, completion: nil)
         let toAfter = { () -> Void in
             self._bowlController.play(to: self._state.next(), at: .after)
@@ -146,7 +146,7 @@ class OnboardingViewController: UIViewController {
             self._state = finished ? self._state.next() : self._state
             self.pagerController.state = self._state
         }
-        let toAfterTime: TimeInterval = 0.35
+        let toAfterTime: TimeInterval = 0.5
         UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toAfter, completion: finalize)
     }
     

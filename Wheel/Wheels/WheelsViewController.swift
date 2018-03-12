@@ -156,6 +156,13 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: show, completion: showend)
     }
     
+    func onUnlockClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
+        let unlocking = { () -> Void in
+            sender.unlock()
+        }
+        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: unlocking, completion: nil)
+    }
+    
     // MARK: - OverlayContollerDelegate
     
     func onClose(of controller: OverlayController) -> Void {
@@ -265,7 +272,33 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             let hide = { () -> Void in
                 controller.hide()
                 if let pin = self.options.pin {
-                    pin.state = pin.state == .locked ? .free : .locked
+                    
+                    let unlocking = pin.state == .locked
+                    var wheel: SWAbstractWheelController!
+                    
+                    switch pin.kind {
+                    case .base:
+                        wheel = self.bases
+                    case .fat:
+                        wheel = self.fats
+                    case .veggy:
+                        wheel = self.veggies
+                    case .protein:
+                        wheel = self.proteins
+                    default: break
+                    }
+                    
+                    if wheel.isLocked && unlocking {
+                        wheel.unlock()
+                    }
+                    else if wheel.isLocked && !unlocking {
+                        wheel.unlock()
+                        wheel.lock(on: pin)
+                    }
+                    else if !wheel.isLocked && !unlocking {
+                        wheel.lock(on: pin)
+                    }
+                    
                 }
             }
             let reset = { (_: Bool) -> Void in
@@ -604,11 +637,27 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             var deltaTime = newTime.timeIntervalSince(scrollLastTime)
             scrollAngleCollector = scrollAngleCollector + deltaAngle
             scrollTimeCollector = scrollTimeCollector + deltaTime
+//            if current.isLocked {
+//                sender.isEnabled = false
+//                sender.isEnabled = true
+//                print("nope")
+//                shake(of: current, thoward: deltaAngle)
+//            }
+//            else
+//
             if scrollTimeCollector >= 0.1 || scrollAngleCollector >= 0.1 {
                 deltaTime = scrollTimeCollector
                 scrollTimeCollector = 0
                 deltaAngle = scrollAngleCollector
                 scrollAngleCollector = 0
+                
+                if current.isLocked {
+                    sender.isEnabled = false
+                    sender.isEnabled = true
+                    print("nope")
+                    shake(of: current, thoward: deltaAngle)
+                    return
+                }
                 
                 let follow = { () -> Void in
                     self.current.move(by: deltaAngle)
@@ -622,12 +671,36 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             scrollvelocity = deltaAngle / CGFloat(deltaTime)
         case .ended:
             deceleration(of: current, with: scrollvelocity)
+        case .cancelled:
+            print("cancelled")
         default:
             print("\(sender.state)")
         }
     }
     
     // MARK: - Private Methods
+    
+    private func shake(of wheel: SWAbstractWheelController, thoward direction: CGFloat) {
+        let direction: CGFloat = direction.sign == .minus ? -1 : 1
+        let rate: CGFloat = 0.5
+        self.adding = true
+        let shakingUp = { () -> Void in
+            wheel.move(by: CGFloat.pi * 0.04 * direction)
+        }
+        let finish = { (_: Bool) -> Void in
+            let shakingDown = { () -> Void in
+                wheel.move(by: -CGFloat.pi * 0.08 * direction)
+            }
+            let finish = { (_: Bool) -> Void in
+                let finish = { (_: Bool) -> Void in
+                    self.adding = false
+                }
+                UIView.animate(withDuration: TimeInterval(0.112 * rate), animations: shakingUp, completion: finish)
+            }
+            UIView.animate(withDuration: TimeInterval(0.225 * rate), animations: shakingDown, completion: finish)
+        }
+        UIView.animate(withDuration: TimeInterval(0.112 * rate), animations: shakingUp, completion: finish)
+    }
     
     private func rotate(by angle: CGFloat, in time: TimeInterval, afterwards: ((_:Bool) -> Void)?) {
         let step: CGFloat = angle < 0 ? -0.5 : 0.5

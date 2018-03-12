@@ -94,6 +94,7 @@ class OptionsController {
         _more.layer.cornerRadius = 28
         _more.clipsToBounds = true
         _more.backgroundColor = .white
+        _more.alpha = 0
         
         _close = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 56)))
         _close.addTarget(self, action: #selector(onClose(_:)), for: .touchUpInside)

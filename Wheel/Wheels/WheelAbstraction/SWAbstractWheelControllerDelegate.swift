@@ -15,4 +15,6 @@ protocol SWAbstractWheelControllerDelegate {
     
     func onPinPress(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void
     
+    func onUnlockClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void
+    
 }

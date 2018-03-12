@@ -122,15 +122,9 @@ class SelectionController {
         cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         cook.setImage(UIImage.nextpressed, for: .normal)
         cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
-//        cook.layer.cornerRadius = 16
-//        cook.layer.shadowColor = UIColor.white.cgColor
-//        cook.layer.shadowOpacity = 0.5
-//        cook.layer.shadowRadius = 24
-//        cook.layer.shadowPath = UIBezierPath(roundedRect: cook.bounds, cornerRadius: 16).cgPath
-        
-        _shroud = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 94)))
+
+        _shroud = TransparentView(frame: CGRect(origin: .zero, size: CGSize(side: 94)))
         let gradient = CAGradientLayer()
-//        gradient.colors = [UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
         gradient.colors = [UIColor.init(red: 1, green: 1, blue: 1, alpha: 0).cgColor, UIColor.white.cgColor]
         gradient.frame = _shroud.bounds
         gradient.startPoint = CGPoint(x: 0, y: 0.5)
@@ -148,8 +142,7 @@ class SelectionController {
             FloatingSelectedView(frame: icon),
             FloatingSelectedView(frame: icon)
         ]
-//        floatings.forEach({(next) -> Void in holder.addSubview(next)})
-//        floatings.forEach({(next) -> Void in next.menu = holder})
+
         floatings.forEach({(next) -> Void in
             next.menu = holder
             next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
@@ -283,106 +276,7 @@ class SelectionController {
         }
         
         readyCheck()
-//        if let spot = floatings.first(where: { return $0.food == pin.asIngridient }) {
-//            spot.discharge()
-//            var offset = CGPoint(x: 8, y: 16)
-//            floatings.filter({
-//                return $0.state == .inmenu
-//            }).forEach({
-//                $0.frame.origin = offset
-//                offset.x += 64
-//            })
-//            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
-//        }
-        
-        
-//        if let spot = statics.first(where: { return $0.food == pin.asIngridient }) {
-//            spot.close()
-//            var offset = CGPoint(x: 8, y: 16)
-//            statics.filter({
-//                return $0.state == .full
-//            }).forEach({
-//                $0.frame.origin = offset
-//                offset.x += 64
-//            })
-//            holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
-//        }
     }
-    
-    /**instant - make a copies of selected pins*/
-//    func copy(_ pins: [Floatable]) {
-//        let copies = floatings.filter({(next) in return next.state == .free})
-//        for i in 0..<min(copies.count, pins.count) {
-//            copies[i].take(for: pins[i])
-//        }
-//    }
-    
-    /**old, animatable - open spots for selection*/
-//    func open(_ count: Int) {
-//        let openings = statics.filter({(next) in return next.state == .closed}).suffix(count)
-//
-//        var offset = CGPoint(x: 8, y: 16)
-//
-//        for spot in statics {
-//            if openings.contains(spot) {
-//                spot.open(to: offset)
-//                offset.x += 64
-//            }
-//            else if spot.state == .full {
-//                spot.frame.origin = offset
-//                offset.x += 64
-//            }
-//        }
-//
-//        holder.contentSize = CGSize(width: offset.x - 64 + 8 + 96, height: 96)
-//    }
-    
-    /**animatable - move floatings to open spots*/
-//    func move() {
-//
-//        let taken = floatings.filter({(next) in return next.state == .taken})
-//
-//        for i in 0..<taken.count {
-//            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
-//            taken[i].deliver(to: destanation)
-//        }
-//
-//    }
-    
-    /**animatable - move floatings to open spots*/
-//    func movings() -> [() -> Void] {
-//
-//        var movings: [() -> Void] = []
-//
-//        let taken = floatings.filter({(next) in return next.state == .taken})
-//
-//        for i in 0..<taken.count {
-//
-////            let destanation = holder.convert(CGPoint(x: 8 + i * 64, y: 16), to: _scene)
-//            let destanation = holder.convert(CGPoint(x: 8 + 0, y: 16), to: _scene)
-//
-//            let moving = { () -> Void in
-//                taken[i].deliver(to: destanation)
-//            }
-//
-//            movings.append(moving)
-//        }
-//
-//        return movings
-//    }
-    
-    /**instant - finish movement*/
-//    func merge() {
-//
-//        let opened = statics.filter({(next) in return next.state == .opened})
-//        let delivered = floatings.filter({(next) in return next.state == .delivered})
-//
-//        for i in 0..<min(opened.count, delivered.count) {
-//            opened[i].fill(with: delivered[i].food!)
-//            delivered[i].discharge()
-//        }
-//
-//    }
     
     /**animatable - shrink to nothing*/
     func shrinkdown() {

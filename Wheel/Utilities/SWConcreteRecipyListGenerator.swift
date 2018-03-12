@@ -16,8 +16,17 @@ class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
     }
     
     func getQuantity(for ingredient: SWIngredient, per servings: Int) -> String {
-        let unit = _measuresment.get(by: ingredient.unit).short
-        return "\(Int(ingredient.quantity) * servings) \(unit)"
+        let unit = _measuresment.get(by: ingredient.unit)
+        // leafs
+        if unit.id == 6 {
+            return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "leaves")"
+        }
+        if unit.id == 7 {
+            return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : unit.short + "s")"
+        }
+        else {
+            return "\(Int(ingredient.quantity) * servings) \(unit.short)"
+        }
     }
     
     func getName(for ingredient: SWIngredient) -> String {

@@ -117,12 +117,13 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             do {
                 _recipyHeaderContainer = UIView()
                 
-                let recipyHeader = UILabel.getRecipyHeader(_name)
+                let recipyHeader = UILabel.getRecipyHeader(_name, width: view.bounds.width)
                 _recipyHeaderContainer.addSubview(recipyHeader)
                 recipyHeader.translatesAutoresizingMaskIntoConstraints = false
-                recipyHeader.addHeightConstraints()
+//                recipyHeader.addHeightConstraints()
+                recipyHeader.addSizeConstraints()
                 recipyHeader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-                recipyHeader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
+//                recipyHeader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
                 recipyHeader.topAnchor.constraint(equalTo: _recipyHeaderContainer.topAnchor, constant: 24).isActive = true
                 
                 do {
@@ -210,7 +211,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     listTitle.translatesAutoresizingMaskIntoConstraints = false
                     listTitle.addSizeConstraints()
                     listTitle.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-                    listTitle.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+//                    listTitle.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
                     listTitle.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 24).isActive = true
                 }
                 
@@ -246,7 +247,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 }
                 
                 _recipyHeaderContainer.backgroundColor = .white
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 64))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 16 + 64))
             }
             
             view.addSubview(_scroller)

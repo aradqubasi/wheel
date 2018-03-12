@@ -14,8 +14,8 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
     func getAll() -> [SWIngredient] {
         
         return [
-            SWIngredient(id: 1, "romainelettuce", of: .base, as: UIImage.Romainelettuce, UIImage.romainelettuce, quantity: 100, unit: 1),
-            SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad, quantity: 100, unit: 1),
+            SWIngredient(id: 1, "Romaine Lettuce", of: .base, as: UIImage.Romainelettuce, UIImage.romainelettuce, quantity: 3, unit: 6),
+            SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad, quantity: 1, unit: 7),
             SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage, quantity: 100, unit: 1),
             SWIngredient(id: 4, "lettuce", of: .base, as: UIImage.Lettuce, UIImage.lettuce, quantity: 100, unit: 1),
             SWIngredient(id: 5, "spinach", of: .base, as: UIImage.Spinach, UIImage.spinach, quantity: 100, unit: 1),

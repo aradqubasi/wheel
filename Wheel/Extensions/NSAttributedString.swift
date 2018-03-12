@@ -262,14 +262,7 @@ extension NSAttributedString {
             return text
         }
     }
-    
-//    class var grayok: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "OK", attributes: [.foregroundColor: UIColor.gray, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
-//            return text
-//        }
-//    }
-    
+        
     class var recipyListTitle: NSAttributedString {
         get {
             let text = NSAttributedString(string: "INGREDIENTS", attributes: [.foregroundColor: UIColor.regentgrey, .font: UIFont(name: "Avenir-Medium", size: 14) as Any])
@@ -282,5 +275,11 @@ extension NSAttributedString {
             let text = NSAttributedString(string: "Happy Cooking", attributes: [.foregroundColor: UIColor.shamrock, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
             return text
         }
+    }
+    
+    func height(in width: CGFloat) -> CGFloat {
+        let estimated = self.size().wider(by: 2)
+        let lines = Int(estimated.width / width) + 1
+        return CGFloat(lines) * estimated.height * 1.1
     }
 }

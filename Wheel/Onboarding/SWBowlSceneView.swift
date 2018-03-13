@@ -68,8 +68,21 @@ class SWBowlSceneView {
             }
         }
         
-        let offset = actual.offset
-        let scale = actual.scale
+        let size = UIScreen.main.bounds.size
+//        let offset = actual.offset
+        var offset: CGPoint!
+        do {
+            offset = actual.offset
+            offset.x *= size.width / 414
+            offset.y *= size.height / 736
+        }
+//        let scale = actual.scale
+        var scale: CGPoint!
+        do {
+            scale = actual.scale
+            scale.x *= size.width / 414
+            scale.y *= size.height / 736
+        }
         let alpha = actual.alpha
         let angle = actual.angle
         guard let scene = _image.superview else {

@@ -10,7 +10,7 @@ import Foundation
 class SWInmemoryAppStateRepository: SWAppStateRepository {
     
     func get() -> SWAppState {
-        return SWAppState(showOnboarding: false)
+        return SWAppState(showOnboarding: true)
     }
     
 }

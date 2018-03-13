@@ -16,4 +16,6 @@ protocol SWWheelsAligner {
     
     func align(dressing: UIView)
     
+    func align(subwheel: UIView, with button: UIView)
+    
 }

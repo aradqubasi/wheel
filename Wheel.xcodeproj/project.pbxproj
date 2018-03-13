@@ -131,8 +131,9 @@
 		15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D412052CF4500D44923 /* SWRecipyListView.swift */; };
 		15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */; };
 		15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D452054128700D44923 /* SWWheelsAligner.swift */; };
-		15D13D482054135600D44923 /* SWConcreteWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */; };
+		15D13D482054135600D44923 /* SWWideWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D472054135600D44923 /* SWWideWheelsAligner.swift */; };
 		15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D4920564A8B00D44923 /* SWLocksController.swift */; };
+		15D13D4C2057A03700D44923 /* SWNarrowWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */; };
 		15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */; };
 		15DF42081FDE4D5E00B6CC62 /* UnexpectedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
@@ -304,8 +305,9 @@
 		15D13D412052CF4500D44923 /* SWRecipyListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyListView.swift; sourceTree = "<group>"; };
 		15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyBroccoliView.swift; sourceTree = "<group>"; };
 		15D13D452054128700D44923 /* SWWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelsAligner.swift; sourceTree = "<group>"; };
-		15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteWheelsAligner.swift; sourceTree = "<group>"; };
+		15D13D472054135600D44923 /* SWWideWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWideWheelsAligner.swift; sourceTree = "<group>"; };
 		15D13D4920564A8B00D44923 /* SWLocksController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLocksController.swift; sourceTree = "<group>"; };
+		15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNarrowWheelsAligner.swift; sourceTree = "<group>"; };
 		15DF42051FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayControllerDelegate.swift; sourceTree = "<group>"; };
 		15DF42071FDE4D5E00B6CC62 /* UnexpectedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnexpectedController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
@@ -632,7 +634,8 @@
 				15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */,
 				15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */,
 				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
-				15D13D472054135600D44923 /* SWConcreteWheelsAligner.swift */,
+				15D13D472054135600D44923 /* SWWideWheelsAligner.swift */,
+				15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -878,7 +881,7 @@
 				1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */,
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15F010A21FB830C40002A917 /* ProteinsController.swift in Sources */,
-				15D13D482054135600D44923 /* SWConcreteWheelsAligner.swift in Sources */,
+				15D13D482054135600D44923 /* SWWideWheelsAligner.swift in Sources */,
 				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
@@ -910,6 +913,7 @@
 				15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */,
 				15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */,
 				15F0BB641F40522C006F646E /* RVDelegate.swift in Sources */,
+				15D13D4C2057A03700D44923 /* SWNarrowWheelsAligner.swift in Sources */,
 				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,

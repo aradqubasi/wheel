@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 class SWConcreteWheelsAssembler: SWWheelsAssembler {
     
     func resolve() -> SWIngredientRepository {
@@ -34,7 +35,15 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWWheelsAligner {
-        return SWConcreteWheelsAligner()
+        let size = UIScreen.main.bounds.size
+        switch size.width {
+        case 0..<414:
+            return SWNarrowWheelsAligner()
+        case 414..<1000:
+            return SWWideWheelsAligner()
+        default:
+            fatalError("can not choose aligner for device \(size)")
+        }
     }
     
 }

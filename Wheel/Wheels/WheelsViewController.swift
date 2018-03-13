@@ -19,6 +19,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - Private Properties
     
+    private var _aligner: SWWheelsAligner!
+    
     private var _ingredients: SWIngredientRepository!
     
     private var _blockings: SWBlockingRepository!
@@ -327,6 +329,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         _blockings = assembler.resolve()
         _options = assembler.resolve()
         _segues = assembler.resolve()
+        _aligner = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -444,6 +447,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         pointer = PointerController(view: hand, in: .bases, at: assembler.resolve(), origin: leftMiddle)
         
         //left side menu initialization
+        /*
         var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
         let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
         toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
@@ -459,6 +463,22 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         toFruits = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
         toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
         wheels.addSubview(toFruits)
+        */
+        
+        toUnexpected = ToOverlayButton(frame: .zero)
+        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
+        wheels.addSubview(toUnexpected)
+        _aligner.align(unexpected: toUnexpected)
+        
+        toDressing = ToOverlayButton(frame: .zero)
+        toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
+        wheels.addSubview(toDressing)
+        _aligner.align(dressing: toDressing)
+        
+        toFruits = ToOverlayButton(frame: .zero)
+        toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
+        wheels.addSubview(toFruits)
+        _aligner.align(fruits: toFruits)
         
         overlay = TransparentView(frame: self.view.bounds)
         navigationController?.view.addSubview(overlay)
@@ -470,16 +490,19 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         selectionController.view = selection
         
         unexpected = UnexpectedController()
+        unexpected.aligner = _aligner
         unexpected.delegate = self
         unexpected.view = overlay
         toUnexpected.overlay = unexpected
         
         dressing = DressingController()
+        dressing.aligner = _aligner
         dressing.delegate = self
         dressing.view = overlay
         toDressing.overlay = dressing
         
         fruits = FruitsController()
+        fruits.aligner = _aligner
         fruits.delegate = self
         toFruits.overlay = fruits
         fruits.view = overlay

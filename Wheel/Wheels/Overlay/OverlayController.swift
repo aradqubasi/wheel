@@ -12,6 +12,8 @@ class OverlayController: SWAbstractWheelDelegate /*RVDelegate*/ {
     
     // MARK: - Public Properties
     
+    var aligner: SWWheelsAligner!
+    
     var opened: Bool {
         get {
             return _opened
@@ -171,20 +173,9 @@ class OverlayController: SWAbstractWheelDelegate /*RVDelegate*/ {
             _background.frame.origin = scene.bounds.origin
             _background.alpha = 0
             
-            _close.frame = button.convert(button.bounds, to: scene)
+            aligner.align(subwheel: _wheel, with: button)
             
-            var anchor: CGPoint = .zero
-            anchor.x = _close.frame.origin.x + _close.bounds.width * 0.5
-            if _close.frame.origin.y <= scene.bounds.height * 0.5 {
-                anchor.y = _close.frame.origin.y
-                anchor.y += _close.bounds.height * 0.5 - 72
-            }
-            else {
-                anchor.y = _close.frame.origin.y
-                anchor.y += _close.bounds.height * 0.5 - _wheel.frame.size.height + 72
-            }
-            _wheel.frame.origin = anchor
-
+            _close.frame = button.convert(button.bounds, to: scene)
             
             _wheel.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
             

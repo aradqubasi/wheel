@@ -33,7 +33,6 @@ class FruitsController: OverlayController {
         watermelon.name = "WATERMELON"
         watermelon.image = UIImage.pickledveggies
         
-        
         let pins = [apple, blueberry, orange, grapefruit, grapes, watermelon]
         super.init(pins)
     }

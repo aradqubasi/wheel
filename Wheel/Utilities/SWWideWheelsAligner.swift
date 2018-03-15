@@ -32,8 +32,7 @@ class SWWideWheelsAligner: SWWheelsAligner {
     }
     
     func align(subwheel: UIView, with button: UIView) {
-        let size = UIScreen.main.bounds.size
-        
+
         if let scene = subwheel.superview {
             let projection = button.convert(button.bounds, to: scene)
             
@@ -49,5 +48,9 @@ class SWWideWheelsAligner: SWWheelsAligner {
             }
             subwheel.frame.origin = anchor
         }
+    }
+    
+    func getOverlayMargin() -> CGFloat {
+        return 40
     }
 }

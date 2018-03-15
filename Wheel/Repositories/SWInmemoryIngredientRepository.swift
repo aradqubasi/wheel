@@ -55,14 +55,14 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
             SWIngredient(id: 39, "olives", of: .unexpected, as: UIImage.olives, UIImage.olives, quantity: 100, unit: 1),
             SWIngredient(id: 40, "onion", of: .unexpected, as: UIImage.onion, UIImage.onion, quantity: 100, unit: 1),
             SWIngredient(id: 41, "pickled veggies", of: .unexpected, as: UIImage.pickledveggies, UIImage.pickledveggies, quantity: 100, unit: 1),
-            SWIngredient(id: 42, "cooked grains", of: .fruits, as: UIImage.cookedgrains, UIImage.cookedgrains, quantity: 100, unit: 1),
-            SWIngredient(id: 43, "cottage cheese", of: .fruits, as: UIImage.cottagecheese, UIImage.cottagecheese, quantity: 100, unit: 1),
-            SWIngredient(id: 44, "hot pepper", of: .fruits, as: UIImage.hotpepper, UIImage.hotpepper, quantity: 100, unit: 1),
-            SWIngredient(id: 45, "olives", of: .fruits, as: UIImage.olives, UIImage.olives, quantity: 100, unit: 1),
-            SWIngredient(id: 46, "onion", of: .fruits, as: UIImage.onion, UIImage.onion, quantity: 100, unit: 1),
-            SWIngredient(id: 47, "pickled veggies", of: .fruits, as: UIImage.pickledveggies, UIImage.pickledveggies, quantity: 100, unit: 1)
+            SWIngredient(id: 42, "apple", of: .fruits, as: UIImage.cookedgrains, UIImage.cookedgrains, quantity: 100, unit: 1),
+            SWIngredient(id: 43, "blueberry", of: .fruits, as: UIImage.cottagecheese, UIImage.cottagecheese, quantity: 100, unit: 1),
+            SWIngredient(id: 44, "orange", of: .fruits, as: UIImage.hotpepper, UIImage.hotpepper, quantity: 100, unit: 1),
+            SWIngredient(id: 45, "grapefruit", of: .fruits, as: UIImage.olives, UIImage.olives, quantity: 100, unit: 1),
+            SWIngredient(id: 46, "grapes", of: .fruits, as: UIImage.onion, UIImage.onion, quantity: 100, unit: 1),
+            SWIngredient(id: 47, "watermelon", of: .fruits, as: UIImage.pickledveggies, UIImage.pickledveggies, quantity: 100, unit: 1)
         ]
-        
+
     }
     
     func getAll(by kind: SWIngredientKinds) -> [SWIngredient] {

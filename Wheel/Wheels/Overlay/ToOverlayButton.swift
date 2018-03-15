@@ -10,7 +10,7 @@ import UIKit
 
 class ToOverlayButton: UIButton, Floatable {
     
-    var overlay: OverlayController?
+    var overlay: SWOverlayController?
     
     var asIngridient: SWIngredient {
         get {

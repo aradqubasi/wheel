@@ -8,7 +8,7 @@
 
 import Foundation
 protocol OverlayControllerDelegate {
-    func onClose(of controller: OverlayController) -> Void
+    func onClose(of controller: SWOverlayController) -> Void
     
-    func onSelect(in controller: OverlayController) -> Void
+    func onSelect(in controller: SWOverlayController) -> Void
 }

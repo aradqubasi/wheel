@@ -55,6 +55,8 @@ class NamedPinView: UIView, Floatable {
     var _selector: Selector?
     
     var _state: NamedPinState!
+    
+    var _ingredient: SWIngredient!
 
     
     // MARK: - Subviews
@@ -64,6 +66,13 @@ class NamedPinView: UIView, Floatable {
     private let _label = UILabel()
 
     // MARK: - Initialization
+    
+    convenience init(for ingredient: SWIngredient) {
+        self.init()
+        _ingredient = ingredient
+        self.name = _ingredient.name.uppercased()
+        self.image = _ingredient.image
+    }
     
     init() {
         let frame = CGRect(origin: .zero, size: CGSize(side: 72))
@@ -104,7 +113,12 @@ class NamedPinView: UIView, Floatable {
     
     var asIngridient: SWIngredient {
         get {
-            return SWIngredient(name, of: .unexpected, as: _button.image(for: .normal)!, _button.image(for: .normal)!, quantity: -1, unit: -1)
+            if _ingredient == nil {
+                return SWIngredient(name, of: .unexpected, as: _button.image(for: .normal)!, _button.image(for: .normal)!, quantity: -1, unit: -1)
+            }
+            else {
+                return _ingredient
+            }
         }
     }
     

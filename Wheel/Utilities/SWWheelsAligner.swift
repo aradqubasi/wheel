@@ -18,4 +18,6 @@ protocol SWWheelsAligner {
     
     func align(subwheel: UIView, with button: UIView)
     
+    func getOverlayMargin() -> CGFloat
+    
 }

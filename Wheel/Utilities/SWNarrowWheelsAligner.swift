@@ -50,4 +50,8 @@ class SWNarrowWheelsAligner: SWWheelsAligner {
             subwheel.frame.origin = anchor
         }
     }
+    
+    func getOverlayMargin() -> CGFloat {
+        return 8
+    }
 }

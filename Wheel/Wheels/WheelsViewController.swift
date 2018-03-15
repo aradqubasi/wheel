@@ -47,7 +47,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     var dressing: OverlayController!
     
-    var fruits: OverlayController!
+    var fruits: SWOverlayController!
     
     var options: OptionsController!
     
@@ -167,7 +167,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - OverlayContollerDelegate
     
-    func onClose(of controller: OverlayController) -> Void {
+    func onClose(of controller: SWOverlayController) -> Void {
         print("onClose")
         let close = { () in
             controller.close()
@@ -178,7 +178,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
-    func onSelect(in controller: OverlayController) -> Void {
+    func onSelect(in controller: SWOverlayController) -> Void {
         print("onSelect")
         
         let close = { () in
@@ -501,11 +501,19 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         dressing.view = overlay
         toDressing.overlay = dressing
         
-        fruits = FruitsController()
-        fruits.aligner = _aligner
+//        fruits = FruitsController()
+        
+//        fruits = OverlayController(_ingredients.getAll(by: .fruits))
+//        fruits.aligner = _aligner
+//        fruits.delegate = self
+//        toFruits.overlay = fruits
+//        fruits.view = overlay
+        
+        fruits = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .fruits), aligner: _aligner, scene: overlay)
+//        fruits.aligner = _aligner
         fruits.delegate = self
         toFruits.overlay = fruits
-        fruits.view = overlay
+//        fruits.view = overlay
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -874,7 +882,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             .base: [],
             .fat: [],
             .veggy: [],
-            .protein: []
+            .protein: [],
+            .fruits: []
         ]
         _ingredients.getAll().forEach({ (ingredient) in
             var match = true
@@ -908,6 +917,18 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         veggies.flush()
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
+        
+        var f = ingredients[.fruits]!
+        var index = Int(arc4random_uniform(UInt32(f.count)))
+        let first = f[index]
+        f.remove(at: index)
+        index = Int(arc4random_uniform(UInt32(f.count)))
+        let second = f[index]
+        f.remove(at: index)
+        index = Int(arc4random_uniform(UInt32(f.count)))
+        let third = f[index]
+        f.remove(at: index)
+        (fruits as! SWTranslatedOverlayController).flushIngredients(with: [first, second, third])
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

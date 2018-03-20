@@ -126,13 +126,55 @@ class SWTranslatedOverlayController : SWOverlayController {
     }
     
     func flushIngredients(with updated: [SWIngredient]) {
-        for pin in _pins {
-            if updated.first(where: { $0 == pin.asIngridient }) == nil {
-                pin.alpha = 0
+        
+        _pins.forEach({ $0.alpha = 0 })
+        
+        var visible: [NamedPinView] = []
+        //add mising
+        updated.forEach({ (new: SWIngredient) -> Void in
+            var listed = self._pins.first(where: {
+                (existing: NamedPinView) -> Bool in
+                return existing.asIngridient.id == new.id
+            })
+            if listed == nil {
+                let additional = NamedPinView(for: new)
+                _pins.append(additional)
+                _wheel.addSubview(additional)
+                listed = additional
             }
-            else {
-                pin.alpha = 1
+            visible.append(listed!)
+            listed!.alpha = 1
+        })
+        
+        print("updated count \(updated.count)")
+        switch updated.count {
+        case 0:
+            break
+        case 1:
+            let pin = visible[0]
+            let central = _wheel.getBoundsCenter()
+            pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
+            pin.center = central
+            pin.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0)
+            break
+        case 2:
+            let central = _wheel.getBoundsCenter()
+            let offset: CGFloat = visible[0].frame.size.width
+            visible[0].center = CGPoint(x: central.x - offset, y: central.y)
+            visible[1].center = CGPoint(x: central.x + offset, y: central.y)
+            visible.forEach({ $0.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0) })
+            break
+        //3..<Inf+
+        default:
+            for i in 0..<visible.count {
+                let step = CGFloat.pi * 2 / CGFloat(visible.count)
+                let pin = visible[i]
+                pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
+                pin.center = _wheel.getBoundsCenter()
+                let radius = _wheel.bounds.width * 0.5 - pin.frame.width * 0.5
+                pin.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(step * CGFloat(i)), y: radius * sin(step * CGFloat(i)))
             }
+            _focused = visible.first!
         }
     }
     

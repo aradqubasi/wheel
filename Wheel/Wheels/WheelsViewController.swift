@@ -606,7 +606,18 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
+    var qty: Int = 7
     @IBAction func onToFruitsClick(_ sender: UIButton) {
+        do {
+            qty = qty - 1
+            let allFruits = _ingredients.getAll(by: .fruits)
+            var subFruits: [SWIngredient] = []
+            for i in 0..<qty {
+                subFruits.append(allFruits[i])
+            }
+            (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+        }
+        
         print("onToFruitsClick")
         fruits.set(for: sender)
         let open = { () in
@@ -918,18 +929,35 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
         
-        var f = ingredients[.fruits]!
-        var index = Int(arc4random_uniform(UInt32(f.count)))
-        let first = f[index]
-        f.remove(at: index)
-        index = Int(arc4random_uniform(UInt32(f.count)))
-        let second = f[index]
-        f.remove(at: index)
-        index = Int(arc4random_uniform(UInt32(f.count)))
-        let third = f[index]
-        f.remove(at: index)
-        (fruits as! SWTranslatedOverlayController).flushIngredients(with: [first, second, third])
+//        var f = ingredients[.fruits]!
+//        var index = Int(arc4random_uniform(UInt32(f.count)))
+//        let first = f[index]
+//        f.remove(at: index)
+//        index = Int(arc4random_uniform(UInt32(f.count)))
+//        let second = f[index]
+//        f.remove(at: index)
+//        index = Int(arc4random_uniform(UInt32(f.count)))
+//        let third = f[index]
+//        f.remove(at: index)
+//        (fruits as! SWTranslatedOverlayController).flushIngredients(with: [first, second, third])
+        
+        let allFruits = ingredients[.fruits]!
+        var subFruits: [SWIngredient] = []
+        for i in 0..<Int(arc4random_uniform(6)) {
+            subFruits.append(allFruits[i])
+        }
+        (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+        
+//        let allFruits = ingredients[.fruits]!
+//        var subFruits: [SWIngredient] = []
+//        for i in 0..<qty {
+//            subFruits.append(allFruits[i])
+//        }
+//        (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+//        qty = qty - 1
     }
+    
+//    var qty: Int = 6
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {

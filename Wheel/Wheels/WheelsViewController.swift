@@ -199,13 +199,13 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
         if pin.asIngridient.kind == .dressing {
-            
+            dressing.unfocus()
         }
         else if pin.asIngridient.kind == .unexpected {
-            
+            unexpected.unfocus()
         }
         else if pin.asIngridient.kind == .fruits {
-            
+            fruits.unfocus()
         }
         
         if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
@@ -581,7 +581,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             print("invalid cgfloat value")
             return
         }
-        print("new point is \(CGPoint(x: CGFloat(x), y: CGFloat(y)))")
+//        print("new point is \(CGPoint(x: CGFloat(x), y: CGFloat(y)))")
     }
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {
@@ -606,15 +606,15 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     var qty: Int = 7
     @IBAction func onToFruitsClick(_ sender: UIButton) {
-        do {
-            qty = qty - 1
-            let allFruits = _ingredients.getAll(by: .fruits)
-            var subFruits: [SWIngredient] = []
-            for i in 0..<qty {
-                subFruits.append(allFruits[i])
-            }
-            (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
-        }
+//        do {
+//            qty = qty - 1
+//            let allFruits = _ingredients.getAll(by: .fruits)
+//            var subFruits: [SWIngredient] = []
+//            for i in 0..<qty {
+//                subFruits.append(allFruits[i])
+//            }
+//            (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+//        }
         
         print("onToFruitsClick")
         fruits.set(for: sender)
@@ -627,32 +627,33 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onNextMenu(_ sender: Any) {
 
-        let shuffle = { () -> Void in
+        if !adding {
+            let shuffle = { () -> Void in
+                
+                self.bases.moveToRandomPin()
+                self.fats.moveToRandomPin()
+                self.veggies.moveToRandomPin()
+                self.proteins.moveToRandomPin()
+                self.unexpected.random()
+                self.dressing.random()
+                self.fruits.random()
+                
+                self.selectionController.erase()
+            }
             
-            self.bases.moveToRandomPin()
-            self.fats.moveToRandomPin()
-            self.veggies.moveToRandomPin()
-            self.proteins.moveToRandomPin()
-            self.unexpected.random()
-            self.dressing.random()
-            self.fruits.random()
+            let select = { (_: Bool) -> Void in
+                var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
+                [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
+                    if button.haveSelection {
+                        focus.append(button)
+                    }
+                })
+                self.add(focus)
+                
+            }
             
-            self.selectionController.erase()
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
         }
-        
-        let select = { (_: Bool) -> Void in
-            var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-            [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
-                if button.haveSelection {
-                    focus.append(button)
-                }
-            })
-            self.add(focus)
-            
-        }
-        
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
-        
     }
     
     private var scrollLastAngle: CGFloat!
@@ -726,6 +727,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     // MARK: - Private Methods
     
     private func shake(of wheel: SWAbstractWheelController, thoward direction: CGFloat) {
+        print("shake(of wheel: SWAbstractWheelController, thoward direction: \(direction)")
+        
         let direction: CGFloat = direction.sign == .minus ? -1 : 1
         let rate: CGFloat = 0.5
         self.adding = true
@@ -748,6 +751,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     private func rotate(by angle: CGFloat, in time: TimeInterval, afterwards: ((_:Bool) -> Void)?) {
+        print("rotate(by angle: \(angle), in time: \(time), afterwards: \(afterwards == nil ? "something" : "nothing")")
+        
         let step: CGFloat = angle < 0 ? -0.5 : 0.5
         
         let rotation = {() -> Void in
@@ -770,8 +775,10 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     private var _decelerating: Bool!
     
     private func deceleration(of wheel: SWAbstractWheelController, with velocity: CGFloat) {
+        print("deceleration(with velocity: \(velocity)")
+        
         var path: CGFloat = 0
-        if velocity != 0 {
+        if abs(velocity) > 0.25 {
             let step = CGFloat.pi * 2 / CGFloat(wheel.count)
             path = abs(velocity) * 0.5
             let steps = (path / step).rounded()
@@ -897,7 +904,9 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             .fat: [],
             .veggy: [],
             .protein: [],
-            .fruits: []
+            .fruits: [],
+            .unexpected: [],
+            .dressing: []
         ]
         _ingredients.getAll().forEach({ (ingredient) in
             var match = true
@@ -931,14 +940,15 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         veggies.flush()
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
-        
-        
-        let allFruits = ingredients[.fruits]!
-        var subFruits: [SWIngredient] = []
-        for i in 0..<Int(arc4random_uniform(6)) {
-            subFruits.append(allFruits[i])
-        }
-        fruits.flushIngredients(with: subFruits)
+        fruits.flushIngredients(with: ingredients[.fruits]!)
+        unexpected.flushIngredients(with: ingredients[.unexpected]!)
+        dressing.flushIngredients(with: ingredients[.dressing]!)
+//        let allFruits = ingredients[.fruits]!
+//        var subFruits: [SWIngredient] = []
+//        for i in 0..<Int(arc4random_uniform(6)) {
+//            subFruits.append(allFruits[i])
+//        }
+//        fruits.flushIngredients(with: subFruits)
         
     }
     

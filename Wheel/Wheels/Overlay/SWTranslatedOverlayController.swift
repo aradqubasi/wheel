@@ -72,21 +72,8 @@ class SWTranslatedOverlayController : SWOverlayController {
             _scene.addSubview(_wheel)
         }
         
-        let pins = ingredients.map({ NamedPinView(for: $0) })
-        if pins.count == 0 {
-            fatalError("set of pins for overlay controller is empty")
-        }
-        _pins = pins
-        for i in 0..<_pins.count {
-            let step = CGFloat.pi * 2 / CGFloat(_pins.count)
-            let pin = _pins[i]
-            pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
-            _wheel.addSubview(pin)
-            pin.center = _wheel.getBoundsCenter()
-            let radius = _wheel.bounds.width * 0.5 - pin.frame.width * 0.5
-            pin.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(step * CGFloat(i)), y: radius * sin(step * CGFloat(i)))
-        }
-        _focused = _pins.first!
+        _pins = []
+        flushIngredients(with: ingredients)
         
         _close = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 64)))
         _close.setImage(UIImage.close, for: .normal)

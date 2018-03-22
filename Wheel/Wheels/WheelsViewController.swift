@@ -43,9 +43,9 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     var selected: [SWIngredient]!
     
-    var unexpected: OverlayController!
+    var unexpected: SWOverlayController!
     
-    var dressing: OverlayController!
+    var dressing: SWOverlayController!
     
     var fruits: SWOverlayController!
     
@@ -179,7 +179,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onSelect(in controller: SWOverlayController) -> Void {
-        print("onSelect")
         
         let close = { () in
             controller.close()
@@ -189,13 +188,26 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             controller.discharge()
         }
 
-        add([controller.focused])
+        if let focused = controller.focused {
+            add([focused])
+        }
+        
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
     // MARK: - SelectionDelegate
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
+        if pin.asIngridient.kind == .dressing {
+            
+        }
+        else if pin.asIngridient.kind == .unexpected {
+            
+        }
+        else if pin.asIngridient.kind == .fruits {
+            
+        }
+        
         if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
             
             let shrinkdown = { () in
@@ -489,31 +501,17 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         wheels.addSubview(selection)
         selectionController.view = selection
         
-        unexpected = UnexpectedController()
-        unexpected.aligner = _aligner
+        unexpected = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .unexpected), aligner: _aligner, scene: overlay)
         unexpected.delegate = self
-        unexpected.view = overlay
         toUnexpected.overlay = unexpected
         
-        dressing = DressingController()
-        dressing.aligner = _aligner
+        dressing = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .dressing), aligner: _aligner, scene: overlay)
         dressing.delegate = self
-        dressing.view = overlay
         toDressing.overlay = dressing
         
-//        fruits = FruitsController()
-        
-//        fruits = OverlayController(_ingredients.getAll(by: .fruits))
-//        fruits.aligner = _aligner
-//        fruits.delegate = self
-//        toFruits.overlay = fruits
-//        fruits.view = overlay
-        
         fruits = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .fruits), aligner: _aligner, scene: overlay)
-//        fruits.aligner = _aligner
         fruits.delegate = self
         toFruits.overlay = fruits
-//        fruits.view = overlay
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -643,7 +641,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         }
         
         let select = { (_: Bool) -> Void in
-            let focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused, self.toFruits, self.toDressing, self.toUnexpected]
+            var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
+            [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
+                if button.haveSelection {
+                    focus.append(button)
+                }
+            })
             self.add(focus)
             
         }
@@ -929,32 +932,14 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
         
-//        var f = ingredients[.fruits]!
-//        var index = Int(arc4random_uniform(UInt32(f.count)))
-//        let first = f[index]
-//        f.remove(at: index)
-//        index = Int(arc4random_uniform(UInt32(f.count)))
-//        let second = f[index]
-//        f.remove(at: index)
-//        index = Int(arc4random_uniform(UInt32(f.count)))
-//        let third = f[index]
-//        f.remove(at: index)
-//        (fruits as! SWTranslatedOverlayController).flushIngredients(with: [first, second, third])
         
         let allFruits = ingredients[.fruits]!
         var subFruits: [SWIngredient] = []
         for i in 0..<Int(arc4random_uniform(6)) {
             subFruits.append(allFruits[i])
         }
-        (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+        fruits.flushIngredients(with: subFruits)
         
-//        let allFruits = ingredients[.fruits]!
-//        var subFruits: [SWIngredient] = []
-//        for i in 0..<qty {
-//            subFruits.append(allFruits[i])
-//        }
-//        (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
-//        qty = qty - 1
     }
     
 //    var qty: Int = 6

@@ -27,7 +27,7 @@ class SWTranslatedOverlayController : SWOverlayController {
         }
     }
     
-    var focused: NamedPinView {
+    var focused: NamedPinView? {
         get {
             return _focused
         }
@@ -43,7 +43,7 @@ class SWTranslatedOverlayController : SWOverlayController {
     
     private var _pins: [NamedPinView]!
     
-    private var _focused: NamedPinView!
+    private var _focused: NamedPinView?
     
     private var _opened: Bool!
     
@@ -108,6 +108,11 @@ class SWTranslatedOverlayController : SWOverlayController {
         _pins.forEach({ (next) in next.state = next === pin ? .highlight : .regular })
     }
     
+    func unfocus() {
+        _focused = nil
+        _pins.forEach({ (next) in next.state = .regular })
+    }
+    
     @IBAction private func onCloseClick(_ sender: UIButton) {
         delegate?.onClose(of: self)
     }
@@ -120,9 +125,15 @@ class SWTranslatedOverlayController : SWOverlayController {
     // MARK: - Public Methods
     
     func random() {
-        let index = Int(arc4random_uniform(UInt32(_pins.count)))
-        let new = _pins[index]
-        focusing(new)
+        let visible = _pins.filter({ $0.alpha != 0 })
+        if (visible.count != 0){
+            let index = Int(arc4random_uniform(UInt32(visible.count)))
+            let new = visible[index]
+            focusing(new)
+        }
+        else {
+            unfocus()
+        }
     }
     
     func flushIngredients(with updated: [SWIngredient]) {
@@ -146,7 +157,10 @@ class SWTranslatedOverlayController : SWOverlayController {
             listed!.alpha = 1
         })
         
-        print("updated count \(updated.count)")
+        if let focused = _focused {
+            _focused = visible.contains(focused) ? focused : nil
+        }
+        
         switch updated.count {
         case 0:
             break
@@ -157,24 +171,21 @@ class SWTranslatedOverlayController : SWOverlayController {
             pin.center = central
             pin.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0)
             break
-        case 2:
-            let central = _wheel.getBoundsCenter()
-            let offset: CGFloat = visible[0].frame.size.width
-            visible[0].center = CGPoint(x: central.x - offset, y: central.y)
-            visible[1].center = CGPoint(x: central.x + offset, y: central.y)
-            visible.forEach({ $0.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0) })
+//        case 2:
+//            let central = _wheel.getBoundsCenter()
+//            let offset: CGFloat = visible[0].frame.size.width
+//            visible[0].center = CGPoint(x: central.x - offset, y: central.y)
+//            visible[1].center = CGPoint(x: central.x + offset, y: central.y)
+//            visible.forEach({ $0.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0) })
+//            break
+        case 3:
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: CGFloat.pi * 0.5)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
             break
-        //3..<Inf+
+        //2,4..<Inf+
         default:
-            for i in 0..<visible.count {
-                let step = CGFloat.pi * 2 / CGFloat(visible.count)
-                let pin = visible[i]
-                pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
-                pin.center = _wheel.getBoundsCenter()
-                let radius = _wheel.bounds.width * 0.5 - pin.frame.width * 0.5
-                pin.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(step * CGFloat(i)), y: radius * sin(step * CGFloat(i)))
-            }
-            _focused = visible.first!
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: 0)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
         }
     }
     
@@ -186,7 +197,13 @@ class SWTranslatedOverlayController : SWOverlayController {
             _background.frame.origin = scene.bounds.origin
             _background.alpha = 0
             
-            aligner.align(subwheel: _wheel, with: button)
+            let visible = _pins.filter({ $0.alpha != 0 }).count
+            if (visible < 3) {
+                aligner.alignToCenter(subwheel: _wheel)
+            }
+            else {
+                aligner.align(subwheel: _wheel, with: button)
+            }
             
             _close.frame = button.convert(button.bounds, to: scene)
             

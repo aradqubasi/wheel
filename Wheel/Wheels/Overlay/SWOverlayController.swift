@@ -15,13 +15,17 @@ protocol SWOverlayController {
     
     var opened: Bool { get }
     
-    var focused: NamedPinView { get }
+    var focused: NamedPinView? { get }
     
     var delegate: OverlayControllerDelegate? { get set }
     
     var view: UIView? { get set }
     
     func random()
+    
+    func unfocus()
+    
+    func flushIngredients(with updated: [SWIngredient])
 
     /**instant - move subs into position, alignment based on open overlay button */
     func set(for button: UIButton)

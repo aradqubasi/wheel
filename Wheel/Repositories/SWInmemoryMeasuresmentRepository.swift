@@ -16,7 +16,8 @@ class SWInmemoryMeasuresmentRepository: SWMeasuresmentRepository {
         SWMeasuresment(id: 4, name: "100 grams", short: "100g"),
         SWMeasuresment(id: 5, name: "kilocalories", short: "kcals"),
         SWMeasuresment(id: 6, name: "leaf", short: "leaf"),
-        SWMeasuresment(id: 7, name: "cup", short: "cup")
+        SWMeasuresment(id: 7, name: "cup", short: "cup"),
+        SWMeasuresment(id: 8, name: "piece", short: "piece")
     ]
     
     func get(by id: Int) -> SWMeasuresment {

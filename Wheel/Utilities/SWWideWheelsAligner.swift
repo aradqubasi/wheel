@@ -53,4 +53,25 @@ class SWWideWheelsAligner: SWWheelsAligner {
     func getOverlayMargin() -> CGFloat {
         return 40
     }
+    
+    func alignCircle(views: [UIView], center: CGPoint, radius: CGFloat, rotation: CGFloat) {
+        
+        let radius = radius * CGFloat(views.count) / 6.0
+        
+        for i in 0..<views.count {
+            let step = CGFloat.pi * 2 / CGFloat(views.count)
+            let pin = views[i]
+            pin.center = center
+            pin.transform = CGAffineTransform.identity.translatedBy(x: radius * cos(step * CGFloat(i) + rotation), y: radius * sin(step * CGFloat(i) + rotation))
+        }
+    }
+    
+    func alignToCenter(subwheel: UIView) {
+        if let scene = subwheel.superview {
+            var anchor: CGPoint = scene.getBoundsCenter()
+            anchor.x = scene.bounds.width * 0.5 - subwheel.frame.width * 0.5
+            anchor.y = scene.bounds.height * 0.5 - subwheel.frame.height * 0.5
+            subwheel.frame.origin = anchor
+        }
+    }
 }

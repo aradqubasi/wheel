@@ -18,6 +18,10 @@ protocol SWWheelsAligner {
     
     func align(subwheel: UIView, with button: UIView)
     
+    func alignToCenter(subwheel: UIView)
+    
     func getOverlayMargin() -> CGFloat
+    
+    func alignCircle(views: [UIView], center: CGPoint, radius: CGFloat, rotation: CGFloat)
     
 }

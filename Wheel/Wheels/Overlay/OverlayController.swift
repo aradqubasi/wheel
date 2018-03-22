@@ -27,7 +27,7 @@ class OverlayController: SWAbstractWheelDelegate, SWOverlayController /*RVDelega
         }
     }
     
-    var focused: NamedPinView {
+    var focused: NamedPinView? {
         get {
             return _focused
         }
@@ -72,7 +72,7 @@ class OverlayController: SWAbstractWheelDelegate, SWOverlayController /*RVDelega
     
     private var _pins: [NamedPinView]!
     
-    private var _focused: NamedPinView!
+    private var _focused: NamedPinView?
     
     private var _opened: Bool!
     
@@ -177,6 +177,14 @@ class OverlayController: SWAbstractWheelDelegate, SWOverlayController /*RVDelega
         let new = _pins[index]
         focusing(new)
 //        return new
+    }
+    
+    func unfocus() {
+        
+    }
+    
+    func flushIngredients(with updated: [SWIngredient]) {
+        
     }
     
     // MARK: - Animation Methods

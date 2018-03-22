@@ -28,13 +28,6 @@ struct WSettings {
     var scale: CGFloat
     
     /**Convert to RVSettings*/
-    var asRvSettings: RVSettings {
-        get {
-            return RVSettings(radius, distance)
-        }
-    }
-    
-    /**Convert to RVSettings*/
     var asSwWheelSettings: SWWheelSettings {
         get {
             return SWWheelSettings(radius, distance, offset, scale)

@@ -390,7 +390,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 800))
             wheels.addSubview(container)
-            let wheel = SWProteinsWheelView(in: container)
+            let wheel = SWWheelView.init(_ingredients.getAll(by: .protein), with: 20, as: .proteins, in: container, facing: .leftward)
             wheel.delegate = self
             proteins = wheel
             
@@ -405,7 +405,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
             wheels.addSubview(container)
-            let wheel = SWVeggiesWheelView(in: container)
+            let wheel = SWWheelView.init(_ingredients.getAll(by: .veggy), with: 20, as: .veggies, in: container, facing: .leftward)
             wheel.delegate = self
             veggies = wheel
             
@@ -420,7 +420,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
             wheels.addSubview(container)
-            let wheel = SWFatsWheelView(in: container)
+            let wheel = SWWheelView.init(_ingredients.getAll(by: .fat), with: 20, as: .fats, in: container, facing: .leftward)
             wheel.delegate = self
             fats = wheel
             
@@ -527,10 +527,10 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         do {
             navigationItem.titleView = UILabel.wheelTitle
             
-            let hamburger = UIBarButtonItem.hamburger
-            hamburger.target = self
-            hamburger.action = #selector(onHamburgerButtonClick(_:))
-            navigationItem.leftBarButtonItem = hamburger
+//            let hamburger = UIBarButtonItem.hamburger
+//            hamburger.target = self
+//            hamburger.action = #selector(onHamburgerButtonClick(_:))
+//            navigationItem.leftBarButtonItem = hamburger
             
             let filter = UIBarButtonItem.filter
             filter.target = self
@@ -934,12 +934,16 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         })
         bases.refill(with: ingredients[.base]!)
         bases.flush()
+//        bases.state = current.state
         fats.refill(with: ingredients[.fat]!)
         fats.flush()
+//        fats.state = current.state
         veggies.refill(with: ingredients[.veggy]!)
         veggies.flush()
+//        veggies.state = current.state
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
+//        proteins.state = current.state
         fruits.flushIngredients(with: ingredients[.fruits]!)
         unexpected.flushIngredients(with: ingredients[.unexpected]!)
         dressing.flushIngredients(with: ingredients[.dressing]!)

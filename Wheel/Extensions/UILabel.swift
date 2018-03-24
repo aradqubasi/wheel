@@ -185,15 +185,26 @@ extension UILabel {
     }
     
     static func getRecipyHeader(_ name: String, width estimated: CGFloat) -> UILabel {
+//        let text = name.toRecipyHeader
+//        let calculated = text.height(in: estimated)
+//        let label = UILabel()
+//        label.numberOfLines = 0
+//        label.frame.size = CGSize(width: estimated, height: calculated)
+//        print("calculated \(calculated)")
+//        label.attributedText = text
+//        label.textAlignment = .left
+//        label.lineBreakMode = .byWordWrapping
+//        return label
+        
         let text = name.toRecipyHeader
-        let calculated = text.height(in: estimated)
         let label = UILabel()
         label.numberOfLines = 0
-        label.frame.size = CGSize(width: estimated, height: calculated)
-        print("calculated \(calculated)")
         label.attributedText = text
         label.textAlignment = .left
         label.lineBreakMode = .byWordWrapping
+        
+        label.frame.size = text.boundingRect(with: CGSize(width: estimated, height: CGFloat(MAXFLOAT)), options: [.usesFontLeading, .usesLineFragmentOrigin], context: nil).size.raise()
+
         return label
     }
     

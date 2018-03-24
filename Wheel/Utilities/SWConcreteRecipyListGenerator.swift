@@ -21,8 +21,11 @@ class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
         if unit.id == 6 {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "leaves")"
         }
-        if unit.id == 7 {
+        else if unit.id == 7 {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : unit.short + "s")"
+        }
+        else if unit.id == 8 {
+            return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "pieces")"
         }
         else {
             return "\(Int(ingredient.quantity) * servings) \(unit.short)"

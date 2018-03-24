@@ -278,8 +278,38 @@ extension NSAttributedString {
     }
     
     func height(in width: CGFloat) -> CGFloat {
-        let estimated = self.size().wider(by: 2)
-        let lines = Int(estimated.width / width) + 1
-        return CGFloat(lines) * estimated.height * 1.1
+//        let estimated = self.size().wider(by: 2)
+//        let lines = Int(estimated.width / width) + 1
+//        return CGFloat(lines) * estimated.height * 1.1
+        
+//        let height = self.boundingRect(with: CGSize(width: width, height: 100), options: [.usesFontLeading, .usesLineFragmentOrigin], context: nil).height
+//        return height
+        
+        let storage = NSTextStorage(attributedString: self)
+        let container = NSTextContainer(size: CGSize(width: width, height: CGFloat(MAXFLOAT)))
+        let manager = NSLayoutManager()
+        
+        manager.addTextContainer(container)
+        storage.addLayoutManager(manager)
+        
+        manager.glyphRange(for: container)
+        
+        var lines: Int = 0
+        var index: Int = 0
+        let glyphs: Int = manager.numberOfGlyphs
+        
+        var range: NSRange = NSRange()
+        
+        while (index < glyphs) {
+            manager.lineFragmentUsedRect(forGlyphAt: index, effectiveRange: &range)
+            index = NSMaxRange(range)
+            lines = lines + 1
+        }
+        
+        let baseHeight = manager.usedRect(for: container).size.height
+        
+        let height = CGFloat(lines) * baseHeight
+        
+        return height
     }
 }

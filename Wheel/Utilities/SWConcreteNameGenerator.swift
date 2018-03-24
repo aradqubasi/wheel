@@ -24,7 +24,13 @@ class SWConcreteNameGenerator: SWNameGenerator {
         index = extra.count.random()
         let third = extra[index]
         
-        return "\(first.name.capitalized) and \(second.name.capitalized) with \(third.name.capitalized)"
+        let full = "\(first.name.capitalized) and \(second.name.capitalized) with \(third.name.capitalized)"
+//
+//        print(full)
+        
+//        let full = "Avocado and Radish with Tahini"
+        
+        return full
     }
     
 }

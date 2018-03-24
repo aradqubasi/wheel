@@ -97,10 +97,6 @@
 		15BA8044204813CC00596CC8 /* SWRecipyIngridientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
-		15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16C2005351B0050878B /* SWBasesWheelView.swift */; };
-		15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */; };
-		15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17020087E110050878B /* SWVeggiesWheelView.swift */; };
-		15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE17220087E590050878B /* SWProteinsWheelView.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
 		15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D29204E79B400D44923 /* SWMeasuresment.swift */; };
 		15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */; };
@@ -251,10 +247,6 @@
 		15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyIngridientView.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
-		15BBE16C2005351B0050878B /* SWBasesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBasesWheelView.swift; sourceTree = "<group>"; };
-		15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFatsWheelView.swift; sourceTree = "<group>"; };
-		15BBE17020087E110050878B /* SWVeggiesWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWVeggiesWheelView.swift; sourceTree = "<group>"; };
-		15BBE17220087E590050878B /* SWProteinsWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProteinsWheelView.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
 		15D13D29204E79B400D44923 /* SWMeasuresment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresment.swift; sourceTree = "<group>"; };
 		15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresmentRepository.swift; sourceTree = "<group>"; };
@@ -337,10 +329,6 @@
 				154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */,
 				15A77A10200019150030304F /* SWRingMaskView.swift */,
 				154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */,
-				15BBE16C2005351B0050878B /* SWBasesWheelView.swift */,
-				15BBE16E20087DEA0050878B /* SWFatsWheelView.swift */,
-				15BBE17020087E110050878B /* SWVeggiesWheelView.swift */,
-				15BBE17220087E590050878B /* SWProteinsWheelView.swift */,
 			);
 			path = TranslatedRadial;
 			sourceTree = "<group>";
@@ -785,8 +773,6 @@
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
-				15BBE17320087E590050878B /* SWProteinsWheelView.swift in Sources */,
-				15BBE16D2005351B0050878B /* SWBasesWheelView.swift in Sources */,
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
@@ -815,7 +801,6 @@
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
-				15BBE17120087E110050878B /* SWVeggiesWheelView.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
 				156B0BEA2039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift in Sources */,
@@ -831,7 +816,6 @@
 				15D13D3C20529BED00D44923 /* SWRecipyStatsView.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
 				15BA802F204146A900596CC8 /* SWRecipy.swift in Sources */,
-				15BBE16F20087DEA0050878B /* SWFatsWheelView.swift in Sources */,
 				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */,

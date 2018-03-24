@@ -13,7 +13,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     // MARK: - Initializers
     
     convenience init(_ ingredients: [SWIngredient], with spacing: CGFloat, as active: WState, in container: UIView, facing angle: CGFloat) {
-        
+
         // calculate geometry
         let basePinWidth: CGFloat = 42
         let inset: CGFloat = 5
@@ -66,13 +66,14 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 
                 i = i == ingredients.count - 1 ? 0 : i + 1
             }
-            
         }
         
-        self.init(in: container, with: spokes, use: settings, facing: angle, as: active.rawValue, basePinWidth, inset)
+        self.init(in: container, with: spokes, use: settings, facing: angle, as: active.rawValue, basePinWidth, inset, active: active)
     }
     
-    init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String, _ basePinWidth: CGFloat, _ inset: CGFloat) {
+    init(in container: UIView, with spokes: [SWSpoke], use settings: [WState : WSettings], facing angle: CGFloat, as name: String, _ basePinWidth: CGFloat, _ inset: CGFloat, active: WState) {
+        
+        _active = active
         
         _container = container
         
@@ -171,6 +172,8 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - Private Properties
     
+    private var _active: WState!
+    
     private var _isLocked: Bool = false
     
     private var fixedOrientation = false
@@ -258,7 +261,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     private func printMark(for state: WState) {
         if let label = _label {
-            let text = state == active ? focused.asIngridient.name : name
+            let text = state == _active ? focused.asIngridient.name : name
             label.text = text.uppercased()
             label.font = UIFont.markunselected
         }
@@ -279,12 +282,6 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     }
     
     // MARK: - Public Properties
-    
-    var active: WState {
-        get {
-            return .bases
-        }
-    }
     
     var initial: WState {
         get {
@@ -309,10 +306,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 
                 let ingredient = pool[i]
                 let pin = _spokes[j].pin
-                _ = pin.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: active).icon(selected: ingredient.image).kind(of: ingredient.kind)
+//                let state = pin.state
+                _ = pin.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: _active).icon(selected: ingredient.image).kind(of: ingredient.kind)
+//                pin.
                 i = i == pool.count - 1 ? 0 : i + 1
             }
-            
         }
     }
 
@@ -477,7 +475,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     func onHit(_ sender: SWRingMaskView, with event: UIEvent?) {
 //        delegate?.onStateChange(to: active, of: self.asSWAbstractWheelView())
-        delegate?.onStateChange(self, to: active)
+        delegate?.onStateChange(self, to: _active)
     }
     
     // MARK: - PVDelegate Methods

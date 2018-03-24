@@ -102,6 +102,6 @@ class SWRecipyStatsView: UIStackView {
         _fatsLabel.addSizeConstraints()
         _oval3.addSizeConstraints()
         _proteinsLabel.addSizeConstraints()
-        print("constraints.count \(_proteinsLabel.constraints.count)")
+//        print("constraints.count \(_proteinsLabel.constraints.count)")
     }
 }

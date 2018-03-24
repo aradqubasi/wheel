@@ -71,7 +71,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         
         //white background for botom
         do {
-            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.66), size: view.bounds.size))
+            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.80), size: view.bounds.size))
             back.backgroundColor = .white
             view.addSubview(back)
         }
@@ -97,7 +97,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                         position = 0
                         line = line + 1
                     }
-                    print($0.name)
+//                    print($0.name)
                     let left = CGFloat(position) * (box.width + innerSpacing.x)
                     let top = CGFloat(line) * (box.height + innerSpacing.y)
                     let next = SWRecipyIngridientView(frame: CGRect(origin: CGPoint(x: left, y: top), size: box), for: $0)
@@ -117,13 +117,11 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             do {
                 _recipyHeaderContainer = UIView()
                 
-                let recipyHeader = UILabel.getRecipyHeader(_name, width: view.bounds.width)
+                let recipyHeader = UILabel.getRecipyHeader(_name, width: view.bounds.width - 16 * 2)
                 _recipyHeaderContainer.addSubview(recipyHeader)
                 recipyHeader.translatesAutoresizingMaskIntoConstraints = false
-//                recipyHeader.addHeightConstraints()
                 recipyHeader.addSizeConstraints()
                 recipyHeader.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-//                recipyHeader.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: 16).isActive = true
                 recipyHeader.topAnchor.constraint(equalTo: _recipyHeaderContainer.topAnchor, constant: 24).isActive = true
                 
                 do {
@@ -159,9 +157,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     line1.topAnchor.constraint(equalTo: _subheader.bottomAnchor, constant: 24).isActive = true
                 }
                 
-                //            var servings: SWRecipyServingsCounter!
                 do {
-                    
                     _counter = SWRecipyServingsCounter.usual(with: _servingsGenerator)
                     _counter.servings = _servings
                     _recipyHeaderContainer.addSubview(_counter)
@@ -211,7 +207,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     listTitle.translatesAutoresizingMaskIntoConstraints = false
                     listTitle.addSizeConstraints()
                     listTitle.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
-//                    listTitle.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
                     listTitle.topAnchor.constraint(equalTo: line2.bottomAnchor, constant: 24).isActive = true
                 }
                 
@@ -303,11 +298,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         _scroller.topAnchor.constraint(equalTo: view.topAnchor, constant: topLayoutGuide.length).isActive = true
         _scroller.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         
-        print("intrinsicContentSize \(_scroller.intrinsicContentSize)")
-        
-        print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
         super.viewWillLayoutSubviews()
-        print("self.topLayoutGuide.length \(self.topLayoutGuide.length)")
     }
     
     override func viewDidLayoutSubviews() {

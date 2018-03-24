@@ -25,7 +25,19 @@ class SWInmemoryIngredientStatsRepository : SWIngredientStatsRepository {
         SWIngredientStats(id: 9, ingredientId: 7, measuresmentId: 1 /*g*/, proteins: 0.17, carbohydrates: 0.17, fats: 0.55, calories: 5.88),
         //seeds (flaxseed)
         SWIngredientStats(id: 10, ingredientId: 8, measuresmentId: 3 /*table spoon*/, proteins: 1.88, carbohydrates: 2.97, fats: 4.34, calories: 55),
-        SWIngredientStats(id: 11, ingredientId: 8, measuresmentId: 4 /*100g*/, proteins: 18.29, carbohydrates: 28.88, fats: 42.16, calories: 534)
+        SWIngredientStats(id: 11, ingredientId: 8, measuresmentId: 4 /*100g*/, proteins: 18.29, carbohydrates: 28.88, fats: 42.16, calories: 534),
+        //brazilnut
+        SWIngredientStats(id: 12, ingredientId: 9, measuresmentId: 8 /*pieces*/, proteins: 0.66, carbohydrates: 0.5, fats: 2.33, calories: 33.33),
+        SWIngredientStats(id: 13, ingredientId: 9, measuresmentId: 4 /*100g*/, proteins: 14.28, carbohydrates: 10.71, fats: 50, calories: 714),
+        //cashewnut
+        SWIngredientStats(id: 14, ingredientId: 10, measuresmentId: 9 /*ounce*/, proteins: 5.17, carbohydrates: 8.56, fats: 12.43, calories: 157),
+        SWIngredientStats(id: 15, ingredientId: 10, measuresmentId: 4 /*100g*/, proteins: 18.22, carbohydrates: 30.19, fats: 43.85, calories: 553),
+        //avocado
+        SWIngredientStats(id: 16, ingredientId: 11, measuresmentId: 8 /*pieces*/, proteins: 4.02, carbohydrates: 17.15, fats: 29.47, calories: 322),
+        SWIngredientStats(id: 17, ingredientId: 11, measuresmentId: 4 /*100g*/, proteins: 2, carbohydrates: 8.53, fats: 14.66, calories: 160),
+        //peanut
+        SWIngredientStats(id: 18, ingredientId: 12, measuresmentId: 9 /*ounce*/, proteins: 7.848, carbohydrates: 4.272, fats: 14.704, calories: 168),
+        SWIngredientStats(id: 19, ingredientId: 12, measuresmentId: 4 /*100g*/, proteins: 28.03, carbohydrates: 15.26, fats: 52.5, calories: 599)
     ]
 
     func get(by ingredient: SWIngredient, and measuresment: SWMeasuresment) -> SWIngredientStats {

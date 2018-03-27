@@ -137,6 +137,7 @@
 		15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF33201344B200C486FF /* SWBowlActParams.swift */; };
 		15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F4AF38201702E000C486FF /* SWBowlActStory.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
+		15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -293,6 +294,7 @@
 		15F4AF33201344B200C486FF /* SWBowlActParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActParams.swift; sourceTree = "<group>"; };
 		15F4AF38201702E000C486FF /* SWBowlActStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActStory.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
+		15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActOffsetAnchor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -520,6 +522,7 @@
 				15F4AF312013426F00C486FF /* SWBowlActSteps.swift */,
 				15F4AF33201344B200C486FF /* SWBowlActParams.swift */,
 				15F4AF38201702E000C486FF /* SWBowlActStory.swift */,
+				15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */,
 			);
 			path = Onboarding;
 			sourceTree = "<group>";
@@ -865,6 +868,7 @@
 				1583879620303F51001E4008 /* SWHeaderOptionView.swift in Sources */,
 				15838798203043B8001E4008 /* SWAlignableProtocol.swift in Sources */,
 				15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */,
+				15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
 				1583879F2033FEE8001E4008 /* SWOption.swift in Sources */,
 				156B0BD9203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift in Sources */,

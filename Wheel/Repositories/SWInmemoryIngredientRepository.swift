@@ -45,11 +45,11 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
             SWIngredient(id: 28, "mushrooms", of: .protein, as: UIImage.Mushrooms, UIImage.mushrooms, quantity: 100, unit: 1),
             SWIngredient(id: 29, "shrimp", of: .protein, as: UIImage.Shrimp, UIImage.shrimp, quantity: 100, unit: 1),
             
-            SWIngredient(id: 30, "mustard", of: .dressing, as: UIImage.cookedgrains, UIImage.cookedgrains, quantity: 100, unit: 1),
+            SWIngredient(id: 30, "mustard", of: .dressing, as: UIImage.mustard, UIImage.mustard, quantity: 100, unit: 1),
             SWIngredient(id: 31, "tahini", of: .dressing, as: UIImage.cottagecheese, UIImage.cottagecheese, quantity: 100, unit: 1),
             SWIngredient(id: 32, "yogurt", of: .dressing, as: UIImage.hotpepper, UIImage.hotpepper, quantity: 100, unit: 1),
             SWIngredient(id: 33, "vinaigrette", of: .dressing, as: UIImage.olives, UIImage.olives, quantity: 100, unit: 1),
-            SWIngredient(id: 34, "pesto", of: .dressing, as: UIImage.onion, UIImage.onion, quantity: 100, unit: 1),
+            SWIngredient(id: 34, "honey", of: .dressing, as: UIImage.honey, UIImage.honey, quantity: 100, unit: 1),
             SWIngredient(id: 35, "olive oil", of: .dressing, as: UIImage.pickledveggies, UIImage.pickledveggies, quantity: 100, unit: 1),
             
             SWIngredient(id: 36, "cooked grains", of: .unexpected, as: UIImage.cookedgrains, UIImage.cookedgrains, quantity: 100, unit: 1),

@@ -417,6 +417,20 @@ public extension UIImage {
         }
     }
     
+    // MARK: - Dressing
+    
+    class var honey: UIImage {
+        get {
+            return UIImage(named: "wheels/dressing/honey")!
+        }
+    }
+    
+    class var mustard: UIImage {
+        get {
+            return UIImage(named: "wheels/dressing/mustard")!
+        }
+    }
+    
     // MARK: - Wheel GUI
     
     static var dice: UIImage {

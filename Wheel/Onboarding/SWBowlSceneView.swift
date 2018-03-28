@@ -69,26 +69,42 @@ class SWBowlSceneView {
         }
         
         let size = UIScreen.main.bounds.size
-//        let offset = actual.offset
         var offset: CGPoint!
         do {
             offset = actual.offset
-            offset.x *= size.width / 414
-            offset.y *= size.height / 736
+            if actual.autooffset ?? SWBowlActParams.defaultAutooffset {
+                offset.x *= size.width / 414
+                offset.y *= size.height / 736
+            }
         }
-//        let scale = actual.scale
         var scale: CGPoint!
         do {
             scale = actual.scale
-            scale.x *= size.width / 414
-            scale.y *= size.height / 736
+            if actual.autoscale ?? SWBowlActParams.defaultAutoscale {
+                scale.x *= size.width / 414
+                scale.y *= size.height / 736
+            }
         }
         let alpha = actual.alpha
         let angle = actual.angle
         guard let scene = _image.superview else {
             fatalError("image without superview")
         }
-        let center = CGPoint(x: scene.bounds.width * 0.5, y: scene.bounds.height * 0.5)
+//        let center = CGPoint(x: scene.bounds.width * 0.5, y: scene.bounds.height * 0.5)
+        var center: CGPoint!
+        do {
+            let anchor = actual.anchor ?? SWBowlActOffsetAnchor.fallback
+            switch anchor {
+            case .center:
+                center = CGPoint(x: scene.bounds.width * 0.5, y: scene.bounds.height * 0.5)
+                break;
+            case .bottom:
+                center = CGPoint(x: scene.bounds.width * 0.5, y: scene.bounds.height)
+                break;
+//            default:
+//                fatalError("uimplemented SWBowlActOffsetAnchor - \(anchor)")
+            }
+        }
         _image.center = CGPoint(x: center.x + offset.x, y: center.y + offset.y)
         _image.alpha = alpha
         _image.transform = CGAffineTransform.identity.scaledBy(x: scale.x, y: scale.y).rotated(by: angle)

@@ -1,9 +1,11 @@
 {
   "initial": {
     "alpha": 1,
+    "autoscale": false,
+    "anchor": "bottom",
     "offset": [
       0,
-      310
+      -58
     ],
     "angle": 0,
     "scale": [
@@ -19,9 +21,11 @@
         "alpha": 1,
         "offset": [
           -1000,
-          310
+          -58
         ],
         "angle": 0,
+        "autoscale": false,
+        "anchor": "bottom",
         "scale": [
           1,
           1

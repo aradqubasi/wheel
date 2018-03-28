@@ -26,9 +26,9 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
             SWIngredient(id: 10, "cashewnut", of: .fat, as: UIImage.Cashewnut, UIImage.cashewnut, quantity: 1, unit: 9),
             SWIngredient(id: 11, "avocado", of: .fat, as: UIImage.Avocado, UIImage.avocado, quantity: 1, unit: 8),
             SWIngredient(id: 12, "peanut", of: .fat, as: UIImage.Peanut, UIImage.peanut, quantity: 1, unit: 9),
+            SWIngredient(id: 13, "aubergine", of: .veggy, as: UIImage.Aubergine, UIImage.aubergine, quantity: 1, unit: 7),
+            SWIngredient(id: 14, "tomato", of: .veggy, as: UIImage.Tomato, UIImage.tomato, quantity: 1, unit: 8),
             //
-            SWIngredient(id: 13, "aubergine", of: .veggy, as: UIImage.Aubergine, UIImage.aubergine, quantity: 100, unit: 1),
-            SWIngredient(id: 14, "tomato", of: .veggy, as: UIImage.Tomato, UIImage.tomato, quantity: 100, unit: 1),
             SWIngredient(id: 15, "radish", of: .veggy, as: UIImage.Radish, UIImage.radish, quantity: 100, unit: 1),
             SWIngredient(id: 16, "pepper", of: .veggy, as: UIImage.Pepper, UIImage.pepper, quantity: 100, unit: 1),
             SWIngredient(id: 17, "broccoli", of: .veggy, as: UIImage.Broccoli, UIImage.broccoli, quantity: 100, unit: 1),

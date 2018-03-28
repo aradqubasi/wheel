@@ -37,7 +37,13 @@ class SWInmemoryIngredientStatsRepository : SWIngredientStatsRepository {
         SWIngredientStats(id: 17, ingredientId: 11, measuresmentId: 4 /*100g*/, proteins: 2, carbohydrates: 8.53, fats: 14.66, calories: 160),
         //peanut
         SWIngredientStats(id: 18, ingredientId: 12, measuresmentId: 9 /*ounce*/, proteins: 7.848, carbohydrates: 4.272, fats: 14.704, calories: 168),
-        SWIngredientStats(id: 19, ingredientId: 12, measuresmentId: 4 /*100g*/, proteins: 28.03, carbohydrates: 15.26, fats: 52.5, calories: 599)
+        SWIngredientStats(id: 19, ingredientId: 12, measuresmentId: 4 /*100g*/, proteins: 28.03, carbohydrates: 15.26, fats: 52.5, calories: 599),
+        //aubergine(eggplant)
+        SWIngredientStats(id: 20, ingredientId: 13, measuresmentId: 7 /*cup*/, proteins: 0.83, carbohydrates: 4.67, fats: 0.16, calories: 20),
+        SWIngredientStats(id: 21, ingredientId: 13, measuresmentId: 4 /*100g*/, proteins: 1.01, carbohydrates: 5.7, fats: 0.19, calories: 24),
+        //tomato
+        SWIngredientStats(id: 21, ingredientId: 14, measuresmentId: 8 /*piece 1 medium 2-3/5"*/, proteins: 1.08, carbohydrates: 4.82, fats: 0.25, calories: 22),
+        SWIngredientStats(id: 22, ingredientId: 14, measuresmentId: 4 /*100g*/, proteins: 0.88, carbohydrates: 3.92, fats: 0.2, calories: 18)
     ]
 
     func get(by ingredient: SWIngredient, and measuresment: SWMeasuresment) -> SWIngredientStats {

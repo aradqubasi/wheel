@@ -39,4 +39,6 @@ protocol SWOverlayController {
     /**instant - remove subs from screen*/
     func discharge()
     
+    func focus(on ingredient: SWIngredient)
+    
 }

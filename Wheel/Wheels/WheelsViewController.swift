@@ -178,7 +178,9 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
     }
     
-    func onSelect(in controller: SWOverlayController) -> Void {
+    func onSelect(of pin: NamedPinView, in controller: SWOverlayController) -> Void {
+        
+        controller.focus(on: pin.asIngridient)
         
         let close = { () in
             controller.close()
@@ -193,6 +195,15 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
+    }
+    
+    func onFocus(of pin: SWIngredient, in controller: SWOverlayController) {
+        if let selected = selectionController.selected.map({ $0.asIngridient }).first(where: { $0.kind == pin.kind }) {
+            controller.focus(on: selected)
+        }
+        else {
+            controller.focus(on: pin)
+        }
     }
     
     // MARK: - SelectionDelegate

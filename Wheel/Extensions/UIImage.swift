@@ -431,6 +431,18 @@ public extension UIImage {
         }
     }
     
+    class var yogurt: UIImage {
+        get {
+            return UIImage(named: "wheels/dressing/yogurt")!
+        }
+    }
+    
+    class var tahini: UIImage {
+        get {
+            return UIImage(named: "wheels/dressing/tahini")!
+        }
+    }
+    
     // MARK: - Wheel GUI
     
     static var dice: UIImage {

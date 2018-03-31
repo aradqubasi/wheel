@@ -10,5 +10,7 @@ import Foundation
 protocol OverlayControllerDelegate {
     func onClose(of controller: SWOverlayController) -> Void
     
-    func onSelect(in controller: SWOverlayController) -> Void
+    func onSelect(of pin: NamedPinView, in controller: SWOverlayController) -> Void
+    
+    func onFocus(of pin: SWIngredient, in controller: SWOverlayController) -> Void
 }

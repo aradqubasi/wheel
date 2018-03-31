@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 class SWTranslatedOverlayController : SWOverlayController {
-    
+  
     // MARK: - Public Properties
     
     var aligner: SWWheelsAligner {
@@ -105,18 +105,27 @@ class SWTranslatedOverlayController : SWOverlayController {
     }
     
     @IBAction private func onIngridientClick(_ sender: NamedPinView) {
-        focusing(sender)
-        delegate?.onSelect(in: self)
+        //focusing(sender)
+        delegate?.onSelect(of: sender, in: self)
     }
     
     // MARK: - Public Methods
+    
+    func focus(on pin: SWIngredient) {
+        unfocus()
+        guard let pin = _pins?.first(where: { $0._ingredient?.name == pin.name }) else {
+            fatalError("can n ot focus on non-existant ingredient")
+        }
+        focusing(pin)
+    }
     
     func random() {
         let visible = _pins.filter({ $0.alpha != 0 })
         if (visible.count != 0){
             let index = Int(arc4random_uniform(UInt32(visible.count)))
             let new = visible[index]
-            focusing(new)
+            delegate?.onFocus(of: new.asIngridient, in: self)
+            //focusing(new)
         }
         else {
             unfocus()

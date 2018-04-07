@@ -47,7 +47,7 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
             SWIngredient(id: 30, "mustard", of: .dressing, as: UIImage.mustard, UIImage.mustard, quantity: 1, unit: 3),
             SWIngredient(id: 31, "tahini", of: .dressing, as: UIImage.tahini, UIImage.tahini, quantity: 2, unit: 3),
             SWIngredient(id: 32, "yogurt", of: .dressing, as: UIImage.yogurt, UIImage.yogurt, quantity: 2, unit: 9),
-            SWIngredient(id: 33, "vinaigrette", of: .dressing, as: UIImage.olives, UIImage.olives, quantity: 1, unit: 3),
+            SWIngredient(id: 33, "vinegar", of: .dressing, as: UIImage.vinegar, UIImage.vinegar, quantity: 1, unit: 3),
             SWIngredient(id: 34, "honey", of: .dressing, as: UIImage.honey, UIImage.honey, quantity: 1, unit: 3),
             SWIngredient(id: 35, "olive oil", of: .dressing, as: UIImage.pickledveggies, UIImage.pickledveggies, quantity: 1, unit: 3),
             

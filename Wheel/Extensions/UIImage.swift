@@ -443,6 +443,12 @@ public extension UIImage {
         }
     }
     
+    class var vinegar: UIImage {
+        get {
+            return UIImage(named: "wheels/dressing/vinegar")!
+        }
+    }
+    
     // MARK: - Wheel GUI
     
     static var dice: UIImage {

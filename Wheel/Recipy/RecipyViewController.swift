@@ -231,6 +231,17 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     line3.topAnchor.constraint(equalTo: _list.bottomAnchor, constant: 24).isActive = true
                 }
                 
+                var showSteps: UIButton!
+                do {
+                    showSteps = UIButton.showSteps
+                    _recipyHeaderContainer.addSubview(showSteps)
+                    showSteps.translatesAutoresizingMaskIntoConstraints = false
+                    showSteps.addSizeConstraints()
+                    showSteps.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+                    showSteps.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
+                    showSteps.addTarget(self, action: #selector(onShowStepsClick(_:)), for: .touchUpInside)
+                }
+                
                 var happyCooking: UILabel!
                 do {
                     happyCooking = UILabel.happyCooking
@@ -238,11 +249,12 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     happyCooking.translatesAutoresizingMaskIntoConstraints = false
                     happyCooking.addSizeConstraints()
                     happyCooking.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-                    happyCooking.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 32).isActive = true
+//                    happyCooking.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 32).isActive = true
+                    happyCooking.topAnchor.constraint(equalTo: showSteps.bottomAnchor, constant: 32).isActive = true
                 }
                 
                 _recipyHeaderContainer.backgroundColor = .white
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 16 + 64))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + showSteps.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 16 + 64))
             }
             
             view.addSubview(_scroller)
@@ -310,9 +322,12 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Actions
     
     @IBAction func onBackButtonClick(_ sender: Any) {
-        
         performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
         
+    }
+    
+    @IBAction func onShowStepsClick(_ sender: Any) {
+        performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
     }
     
     @IBAction func onMore(_ sender: Any) {
@@ -353,5 +368,20 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     func popUpBroccoli() {
         UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier {
+        case _segues.getRecipyToSteps().identifier?:
+            (segue.destination as? StepsViewController)?.assembler = self.assembler.resolve()
+        default:
+            fatalError("Unrecognized segue \(segue.identifier ?? "empty")")
+        }
+    }
+    
+    @IBAction func unwindToRecipy(segue: UIStoryboardSegue) {
+        print("unwindToRecipy")
     }
 }

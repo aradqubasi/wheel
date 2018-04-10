@@ -907,9 +907,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
         SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
-//        (bases as! SWWheelView).refill(with: [SWIngredient(id: 2, "salad", of: .base, as: UIImage.Salad, UIImage.salad), SWIngredient(id: 3, "cabbage", of: .base, as: UIImage.Cabbage, UIImage.cabbage)])
-//        (bases as! SWWheelView).flush()
-        
         var ingredients: [SWIngredientKinds:[SWIngredient]] = [
             .base: [],
             .fat: [],
@@ -967,8 +964,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         
     }
     
-//    var qty: Int = 6
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         // TODO: - pass assembler
@@ -987,9 +982,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         default:
             fatalError("Unrecognized segue")
         }
-//        if segue.identifier == "WheelsToFilter" {
-//            (segue.destination as? FilterViewController)?.repository = SWContext.root.resolve()
-//        }
         
     }
     

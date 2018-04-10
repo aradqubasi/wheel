@@ -33,4 +33,11 @@ class SWInmemorySegueRepository: SWSegueRepository {
         return SWSegue(identifier: "RecipyToWheels")
     }
     
+    func getRecipyToSteps() -> SWSegue {
+        return SWSegue(identifier: "RecipyToSteps")
+    }
+    
+    func getStepsToRecipy() -> SWSegue {
+        return SWSegue(identifier: "StepsToRecipy")
+    }
 }

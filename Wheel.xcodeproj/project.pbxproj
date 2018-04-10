@@ -11,6 +11,9 @@
 		1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1508EEC81FF4E995003CF526 /* SWSpoke.swift */; };
 		150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */; };
 		150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */; };
+		15119298207B67D200D93751 /* StepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15119297207B67D200D93751 /* StepsViewController.swift */; };
+		1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15119299207C748400D93751 /* SWStepsAssembler.swift */; };
+		1511929C207C74C900D93751 /* SWConcreteStepsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */; };
 		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE451F8A858200CC5357 /* WSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WSettings.swift */; };
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
@@ -162,6 +165,9 @@
 		1508EEC81FF4E995003CF526 /* SWSpoke.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSpoke.swift; sourceTree = "<group>"; };
 		150FB1C61FF8CA65003F2601 /* SWAbstractWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelView.swift; sourceTree = "<group>"; };
 		150FB1C91FFA2C05003F2601 /* SWAbstractWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelDelegate.swift; sourceTree = "<group>"; };
+		15119297207B67D200D93751 /* StepsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsViewController.swift; sourceTree = "<group>"; };
+		15119299207C748400D93751 /* SWStepsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWStepsAssembler.swift; sourceTree = "<group>"; };
+		1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteStepsAssembler.swift; sourceTree = "<group>"; };
 		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE441F8A858200CC5357 /* WSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSettings.swift; sourceTree = "<group>"; };
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -346,6 +352,14 @@
 			path = WheelAbstraction;
 			sourceTree = "<group>";
 		};
+		15119296207B679100D93751 /* Steps */ = {
+			isa = PBXGroup;
+			children = (
+				15119297207B67D200D93751 /* StepsViewController.swift */,
+			);
+			path = Steps;
+			sourceTree = "<group>";
+		};
 		1525FE641FDC6477001CABF6 /* Overlay */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,6 +500,8 @@
 				156B0BE72039717500CFEEA4 /* SWConcreteWheelsAssembler.swift */,
 				15BA802A204144C200596CC8 /* SWRecipyAssembler.swift */,
 				15BA802C2041450D00596CC8 /* SWConcreteRecipyAssembler.swift */,
+				15119299207C748400D93751 /* SWStepsAssembler.swift */,
+				1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */,
 			);
 			path = Assemblers;
 			sourceTree = "<group>";
@@ -587,6 +603,7 @@
 				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15BA80272041435F00596CC8 /* Recipy */,
 				15838790202ED774001E4008 /* Filter */,
+				15119296207B679100D93751 /* Steps */,
 				15B00C3D200B3E5D002B93A8 /* Onboarding */,
 				15B00C3A200B3AA3002B93A8 /* Wheels */,
 				15F0BB331F404FCC006F646E /* AppDelegate.swift */,
@@ -687,7 +704,7 @@
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = C6HVJ64EDS;
 						LastSwiftMigration = 0920;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 					15F0BB431F404FCC006F646E = {
 						CreatedOnToolsVersion = 8.3.3;
@@ -793,6 +810,7 @@
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
 				15BA802D2041450D00596CC8 /* SWConcreteRecipyAssembler.swift in Sources */,
 				15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */,
+				15119298207B67D200D93751 /* StepsViewController.swift in Sources */,
 				15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */,
 				15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */,
 				15D13D4C2057A03700D44923 /* SWNarrowWheelsAligner.swift in Sources */,
@@ -828,6 +846,7 @@
 				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
+				1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */,
@@ -844,6 +863,7 @@
 				158387AD203554A7001E4008 /* String.swift in Sources */,
 				15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */,
 				15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */,
+				1511929C207C74C900D93751 /* SWConcreteStepsAssembler.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
 				154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */,
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,
@@ -1048,11 +1068,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C6HVJ64EDS;
 				INFOPLIST_FILE = Wheel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = olegtests.Wheel;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wheel-inventors.saladwheel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "5af5e86f-a9fb-4677-8543-6001d354cadb";
+				PROVISIONING_PROFILE_SPECIFIER = "salad-wheel-dev";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};
@@ -1062,11 +1086,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = C6HVJ64EDS;
 				INFOPLIST_FILE = Wheel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = olegtests.Wheel;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.wheel-inventors.saladwheel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "4e3f3a4d-caff-47cd-8799-65258a52a4a0";
+				PROVISIONING_PROFILE_SPECIFIER = "app-store salad-wheel distribution";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 4.0;
 			};

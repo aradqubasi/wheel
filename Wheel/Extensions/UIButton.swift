@@ -119,4 +119,26 @@ extension UIButton {
             return button
         }
     }
+    
+    class var showSteps: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 176, height: 56)))
+            button.backgroundColor = UIColor.shamrock
+            button.layer.cornerRadius = 28
+            button.clipsToBounds = false
+            button.setAttributedTitle(.showSteps, for: .normal)
+            button.setAttributedTitle((NSAttributedString.showSteps).invert(), for: .highlighted)
+            return button
+        }
+    }
+    
+    class var iwant: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 414, height: 63)))
+            button.backgroundColor = .shamrock
+            button.setAttributedTitle(NSAttributedString.ok, for: .normal)
+            button.setAttributedTitle(NSAttributedString.ok.invert(), for: .highlighted)
+            return button
+        }
+    }
 }

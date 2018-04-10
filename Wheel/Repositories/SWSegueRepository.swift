@@ -19,4 +19,8 @@ protocol SWSegueRepository {
     func getWheelsToFilter() -> SWSegue
     
     func getRecipyToWheels() -> SWSegue
+    
+    func getRecipyToSteps() -> SWSegue
+    
+    func getStepsToRecipy() -> SWSegue
 }

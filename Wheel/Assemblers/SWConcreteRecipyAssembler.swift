@@ -40,4 +40,8 @@ class SWConcreteRecipyAssembler: SWRecipyAssembler {
     func resolve() -> SWRecipyListGenerator {
         return SWConcreteRecipyListGenerator(measuresment: self.resolve())
     }
+    
+    func resolve() -> SWStepsAssembler {
+        return SWConcreteStepsAssembler()
+    }
 }

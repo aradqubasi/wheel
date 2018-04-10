@@ -312,4 +312,11 @@ extension NSAttributedString {
         
         return height
     }
+    
+    class var showSteps: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "SHOW STEPS", attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            return text
+        }
+    }
 }

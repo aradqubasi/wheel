@@ -25,4 +25,6 @@ protocol SWRecipyAssembler {
     
     func resolve() -> SWRecipyListGenerator
     
+    func resolve() -> SWStepsAssembler
+    
 }

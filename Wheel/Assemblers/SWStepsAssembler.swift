@@ -11,4 +11,6 @@ protocol SWStepsAssembler {
     
     func resolve() -> SWSegueRepository
     
+    func resolve() -> SWFeedbackService
+    
 }

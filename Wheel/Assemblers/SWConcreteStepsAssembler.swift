@@ -13,4 +13,8 @@ class SWConcreteStepsAssembler: SWStepsAssembler {
         return SWInmemorySegueRepository()
     }
     
+    func resolve() -> SWFeedbackService {
+        return SWFeedbackOverHttpService()
+    }
+    
 }

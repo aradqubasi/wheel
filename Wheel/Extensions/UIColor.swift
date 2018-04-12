@@ -136,4 +136,16 @@ public extension UIColor {
             return UIColor(red: 48 / 255, green: 48 / 255, blue: 48 / 255, alpha: 1)
         }
     }
+    
+    class var geyser: UIColor {
+        get {
+            return UIColor(red: 217 / 255, green: 225 / 255, blue: 228 / 255, alpha: 1)
+        }
+    }
+    
+    class var shuttlegray: UIColor {
+        get {
+            return UIColor(red: 93 / 255, green: 111 / 255, blue: 127 / 255, alpha: 1)
+        }
+    }
 }

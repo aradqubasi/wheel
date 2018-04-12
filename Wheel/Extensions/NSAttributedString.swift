@@ -278,13 +278,7 @@ extension NSAttributedString {
     }
     
     func height(in width: CGFloat) -> CGFloat {
-//        let estimated = self.size().wider(by: 2)
-//        let lines = Int(estimated.width / width) + 1
-//        return CGFloat(lines) * estimated.height * 1.1
-        
-//        let height = self.boundingRect(with: CGSize(width: width, height: 100), options: [.usesFontLeading, .usesLineFragmentOrigin], context: nil).height
-//        return height
-        
+
         let storage = NSTextStorage(attributedString: self)
         let container = NSTextContainer(size: CGSize(width: width, height: CGFloat(MAXFLOAT)))
         let manager = NSLayoutManager()
@@ -316,6 +310,27 @@ extension NSAttributedString {
     class var showSteps: NSAttributedString {
         get {
             let text = NSAttributedString(string: "SHOW STEPS", attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            return text
+        }
+    }
+    
+    class var emailPlaceholder: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "Email", attributes: [.foregroundColor: UIColor.geyser, .font: UIFont(name: "Avenir-Light", size: 24) as Any])
+            return text
+        }
+    }
+    
+    class var isAnonymous: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "I want to stay anonymous", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            return text
+        }
+    }
+    
+    class var stepsExplanation: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "Tell us if you would like to have this feature", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 24) as Any])
             return text
         }
     }

@@ -14,6 +14,9 @@
 		15119298207B67D200D93751 /* StepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15119297207B67D200D93751 /* StepsViewController.swift */; };
 		1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15119299207C748400D93751 /* SWStepsAssembler.swift */; };
 		1511929C207C74C900D93751 /* SWConcreteStepsAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */; };
+		1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511929D207CC6E400D93751 /* SWFeedbackService.swift */; };
+		151192A0207CC79700D93751 /* SWFeedbackOverHttpService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1511929F207CC79700D93751 /* SWFeedbackOverHttpService.swift */; };
+		151192A2207DC67000D93751 /* UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151192A1207DC67000D93751 /* UITextField.swift */; };
 		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE451F8A858200CC5357 /* WSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WSettings.swift */; };
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
@@ -168,6 +171,9 @@
 		15119297207B67D200D93751 /* StepsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsViewController.swift; sourceTree = "<group>"; };
 		15119299207C748400D93751 /* SWStepsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWStepsAssembler.swift; sourceTree = "<group>"; };
 		1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteStepsAssembler.swift; sourceTree = "<group>"; };
+		1511929D207CC6E400D93751 /* SWFeedbackService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFeedbackService.swift; sourceTree = "<group>"; };
+		1511929F207CC79700D93751 /* SWFeedbackOverHttpService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFeedbackOverHttpService.swift; sourceTree = "<group>"; };
+		151192A1207DC67000D93751 /* UITextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextField.swift; sourceTree = "<group>"; };
 		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE441F8A858200CC5357 /* WSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSettings.swift; sourceTree = "<group>"; };
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -392,6 +398,7 @@
 				158387AC203554A7001E4008 /* String.swift */,
 				15BA801B203A9BE800596CC8 /* CGFloat.swift */,
 				15BA803F2041F5B200596CC8 /* Int.swift */,
+				151192A1207DC67000D93751 /* UITextField.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -568,6 +575,8 @@
 				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
 				15D13D472054135600D44923 /* SWWideWheelsAligner.swift */,
 				15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */,
+				1511929D207CC6E400D93751 /* SWFeedbackService.swift */,
+				1511929F207CC79700D93751 /* SWFeedbackOverHttpService.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -821,6 +830,7 @@
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
+				151192A2207DC67000D93751 /* UITextField.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
@@ -875,6 +885,7 @@
 				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,
 				15BA8044204813CC00596CC8 /* SWRecipyIngridientView.swift in Sources */,
 				156B0BE020396DE100CFEEA4 /* SWSegue.swift in Sources */,
+				151192A0207CC79700D93751 /* SWFeedbackOverHttpService.swift in Sources */,
 				15D13D5020581EA600D44923 /* SWTranslatedOverlayController.swift in Sources */,
 				15DF42061FDD3BCC00B6CC62 /* OverlayControllerDelegate.swift in Sources */,
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
@@ -900,6 +911,7 @@
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
+				1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,
 				15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */,
 				156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */,

@@ -185,17 +185,6 @@ extension UILabel {
     }
     
     static func getRecipyHeader(_ name: String, width estimated: CGFloat) -> UILabel {
-//        let text = name.toRecipyHeader
-//        let calculated = text.height(in: estimated)
-//        let label = UILabel()
-//        label.numberOfLines = 0
-//        label.frame.size = CGSize(width: estimated, height: calculated)
-//        print("calculated \(calculated)")
-//        label.attributedText = text
-//        label.textAlignment = .left
-//        label.lineBreakMode = .byWordWrapping
-//        return label
-        
         let text = name.toRecipyHeader
         let label = UILabel()
         label.numberOfLines = 0
@@ -269,6 +258,27 @@ extension UILabel {
             label.textAlignment = .center
             return label
         }
+    }
+    
+    class var isAnonymousLabel: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 300, height: 22)
+            label.attributedText = .isAnonymous
+            label.textAlignment = .left
+            return label
+        }
+    }
+    
+    static func stepsExplanation(estimated width: CGFloat) -> UILabel {
+        let label = UILabel()
+        label.numberOfLines = 0
+        let text = NSAttributedString.stepsExplanation
+        label.frame.size = CGSize(width: width, height: text.height(in: width))
+        label.attributedText = text
+        label.textAlignment = .left
+        return label
     }
     
 }

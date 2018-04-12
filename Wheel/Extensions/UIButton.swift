@@ -127,7 +127,7 @@ extension UIButton {
             button.layer.cornerRadius = 28
             button.clipsToBounds = false
             button.setAttributedTitle(.showSteps, for: .normal)
-            button.setAttributedTitle((NSAttributedString.showSteps).invert(), for: .highlighted)
+            button.setAttributedTitle(NSAttributedString.showSteps.invert(), for: .highlighted)
             return button
         }
     }

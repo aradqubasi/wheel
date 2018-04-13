@@ -28,6 +28,8 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
     
     private var email: UITextField!
     
+    private var line: SWValidationLine!
+    
     private var isAnonymous: UISwitch!
 
     // MARK: - Initialization
@@ -95,23 +97,21 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
             email.trailingAnchor.constraint(equalTo: _container.trailingAnchor, constant: -24).isActive = true
         }
         
-        var line: UIView!
         do {
-            line = UIView()
-            line.backgroundColor = .shamrock
+            line = SWValidationLine(width: view.bounds.width - 24 * 2)
             _container.addSubview(line)
-            
+            line.frame.origin = CGPoint(x: 24, y: email.frame.origin.y + email.frame.height)
             line.translatesAutoresizingMaskIntoConstraints = false
-            line.heightAnchor.constraint(equalToConstant: 1).isActive = true
-            line.widthAnchor.constraint(equalTo: _container.widthAnchor, constant: -24 * 2).isActive = true
+            line.addSizeConstraints()
             line.topAnchor.constraint(equalTo: email.bottomAnchor, constant: 1).isActive = true
-            line.leadingAnchor.constraint(equalTo: _container.leadingAnchor, constant: 24).isActive = true
-            line.trailingAnchor.constraint(equalTo: _container.trailingAnchor, constant: -24).isActive = true
+            line.centerXAnchor.constraint(equalTo: _container.centerXAnchor).isActive = true
+            line.finalize(.valid)
         }
         
 //        var isAnonymous: UISwitch!
         do {
             isAnonymous = UISwitch()
+            isAnonymous.addTarget(self, action: #selector(onAnonymousClick(_:)), for: .allTouchEvents)
             _container.addSubview(isAnonymous)
             
             isAnonymous.translatesAutoresizingMaskIntoConstraints = false
@@ -175,11 +175,56 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
         }
         performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
     }
+    
+    @IBAction func onAnonymousClick(_ sender: UISwitch) {
+        if sender.isOn {
+            let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+            let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+            if email.text == nil {
+                valid()
+            }
+            else if emailTest.evaluate(with: email.text) {
+                valid()
+            }
+            else {
+                invalid()
+            }
+        }
+        else {
+            inactivate()
+        }
+    }
 
     // MARK: - UITextFieldDelegate methods
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    // MARK: - Animations
+
+    func valid() {
+        line.prepare(.valid)
+        self.email.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .valid)
+        }, completion: { (error) in self.line.finalize(.valid) })
+    }
+    
+    func invalid() {
+        line.prepare(.invalid)
+        self.email.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .invalid)
+        }, completion: { (error) in self.line.finalize(.invalid) })
+    }
+    
+    func inactivate() {
+        line.prepare(.inactive)
+        self.email.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .inactive)
+        }, completion: { (error) in self.line.finalize(.inactive) })
     }
 }

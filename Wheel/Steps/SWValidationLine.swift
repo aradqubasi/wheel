@@ -15,9 +15,9 @@ class SWValidationLine: UIView {
     private var new: UIView!
     
     private let colors: [SWValidatedInputStates:UIColor] = [
-        .invalid : .red,
-        .valid : .green,
-        .inactive : .gray
+        .invalid : .salmon,
+        .valid : .shamrock,
+        .inactive : .tiara
     ]
     
     // MARK: - Initialization

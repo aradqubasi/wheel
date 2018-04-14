@@ -376,6 +376,8 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         switch segue.identifier {
         case _segues.getRecipyToSteps().identifier?:
             (segue.destination as? StepsViewController)?.assembler = self.assembler.resolve()
+        case _segues.getRecipyToWheels().identifier?:
+            break
         default:
             fatalError("Unrecognized segue \(segue.identifier ?? "empty")")
         }

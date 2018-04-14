@@ -17,6 +17,7 @@ extension UITextField {
             input.attributedPlaceholder = .emailPlaceholder
             input.textAlignment = .center
             input.frame.size = CGSize(width: 200, height: 33)
+            input.font = UIFont(name: "Avenir-Light", size: 24)
             return input
         }
     }

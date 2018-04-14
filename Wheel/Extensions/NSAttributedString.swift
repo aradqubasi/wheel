@@ -300,11 +300,12 @@ extension NSAttributedString {
             lines = lines + 1
         }
         
-        let baseHeight = manager.usedRect(for: container).size.height
-        
-        let height = CGFloat(lines) * baseHeight
-        
-        return height
+//        let baseHeight = manager.usedRect(for: container).size.height
+//
+//        let height = CGFloat(lines) * baseHeight
+//
+//        return height
+        return manager.usedRect(for: container).size.height.rounded(.up)
     }
     
     class var showSteps: NSAttributedString {
@@ -323,14 +324,21 @@ extension NSAttributedString {
     
     class var isAnonymous: NSAttributedString {
         get {
-            let text = NSAttributedString(string: "I want to stay anonymous", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
+            let text = NSAttributedString(string: "Stay anonymous", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
             return text
         }
     }
     
     class var stepsExplanation: NSAttributedString {
         get {
-            let text = NSAttributedString(string: "Tell us if you would like to have this feature", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 24) as Any])
+            let text = NSAttributedString(string: "This page is reserved for a step by step cooking recipy. Tell us if you think you would need it.", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Light", size: 24) as Any])
+            return text
+        }
+    }
+    
+    class var iWantIt: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "I want it", attributes: [.foregroundColor: UIColor.shuttlegray, .font: UIFont(name: "Avenir-Medium", size: 18) as Any])
             return text
         }
     }

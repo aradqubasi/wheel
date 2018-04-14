@@ -148,4 +148,10 @@ public extension UIColor {
             return UIColor(red: 93 / 255, green: 111 / 255, blue: 127 / 255, alpha: 1)
         }
     }
+    
+    class var salmon: UIColor {
+        get {
+            return UIColor(red: 255 / 255, green: 147 / 255, blue: 108 / 255, alpha: 1)
+        }
+    }
 }

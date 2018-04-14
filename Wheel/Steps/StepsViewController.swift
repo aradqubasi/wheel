@@ -144,6 +144,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
             button.widthAnchor.constraint(equalTo: _container.widthAnchor).isActive = true
         }
         
+        validateForm()
     }
     
     override func viewWillLayoutSubviews() {
@@ -177,10 +178,55 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func onAnonymousClick(_ sender: UISwitch) {
-        if sender.isOn {
+        validateForm()
+    }
+
+    // MARK: - UITextFieldDelegate methods
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        validateForm()
+        return true
+    }
+    
+    // MARK: - Animations
+
+    private func valid() {
+        line.prepare(.valid)
+        self.email.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .valid)
+        }, completion: { (error) in self.line.finalize(.valid) })
+    }
+    
+    private func invalid() {
+        line.prepare(.invalid)
+        email.isUserInteractionEnabled = true
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .invalid)
+        }, completion: { (error) in self.line.finalize(.invalid) })
+    }
+    
+    private func inactivate() {
+        line.prepare(.inactive)
+        self.email.isUserInteractionEnabled = false
+        email.text = ""
+        UIView.animate(withDuration: 0.5, animations: {
+            self.line.transition(to: .inactive)
+        }, completion: { (error) in self.line.finalize(.inactive) })
+    }
+    
+    // MARK: - Private Methods
+    
+    private func validateForm() {
+        print(isAnonymous.isOn)
+        if !isAnonymous.isOn {
             let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
             let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
             if email.text == nil {
+                valid()
+            }
+            else if email.text == "" {
                 valid()
             }
             else if emailTest.evaluate(with: email.text) {
@@ -193,38 +239,5 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
         else {
             inactivate()
         }
-    }
-
-    // MARK: - UITextFieldDelegate methods
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    // MARK: - Animations
-
-    func valid() {
-        line.prepare(.valid)
-        self.email.isUserInteractionEnabled = true
-        UIView.animate(withDuration: 0.5, animations: {
-            self.line.transition(to: .valid)
-        }, completion: { (error) in self.line.finalize(.valid) })
-    }
-    
-    func invalid() {
-        line.prepare(.invalid)
-        self.email.isUserInteractionEnabled = true
-        UIView.animate(withDuration: 0.5, animations: {
-            self.line.transition(to: .invalid)
-        }, completion: { (error) in self.line.finalize(.invalid) })
-    }
-    
-    func inactivate() {
-        line.prepare(.inactive)
-        self.email.isUserInteractionEnabled = true
-        UIView.animate(withDuration: 0.5, animations: {
-            self.line.transition(to: .inactive)
-        }, completion: { (error) in self.line.finalize(.inactive) })
     }
 }

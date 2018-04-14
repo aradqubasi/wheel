@@ -101,7 +101,9 @@ class OnboardingViewController: UIViewController {
     @IBAction private func onSwipeLeft(_ sender: UISwipeGestureRecognizer) {
         switch sender.state {
         case .ended:
-            next()
+            if (_state != SWPagerStates.proceed) {
+                next()
+            }
         default:
             print("\(sender.state)")
         }
@@ -110,7 +112,9 @@ class OnboardingViewController: UIViewController {
     @IBAction private func onSwipeRight(_ sender: UISwipeGestureRecognizer) {
         switch sender.state {
         case .ended:
-            prev()
+            if (_state != SWPagerStates.inital) {
+                prev()
+            }
         default:
             print("\(sender.state)")
         }

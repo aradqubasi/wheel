@@ -120,22 +120,11 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
-        /*
-        if sender.focused == pin {
-            self.add([pin])
-        }
-        else {
-            let moveto = { () -> Void in
-                sender.move(to: index)
-            }
-            
-            let showend = { (_: Bool) -> Void in }
-            
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
-        }
-        */
         let moveto = { () -> Void in
             sender.move(to: index)
+            if let selection = self.selectionController.selected.filter({ $0.asIngridient.kind == pin.asIngridient.kind }).first {
+                self.selectionController.erase(selection)
+            }
         }
         let showend = { (_: Bool) -> Void in
             self.add([pin])
@@ -942,25 +931,15 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         })
         bases.refill(with: ingredients[.base]!)
         bases.flush()
-//        bases.state = current.state
         fats.refill(with: ingredients[.fat]!)
         fats.flush()
-//        fats.state = current.state
         veggies.refill(with: ingredients[.veggy]!)
         veggies.flush()
-//        veggies.state = current.state
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
-//        proteins.state = current.state
         fruits.flushIngredients(with: ingredients[.fruits]!)
         unexpected.flushIngredients(with: ingredients[.unexpected]!)
         dressing.flushIngredients(with: ingredients[.dressing]!)
-//        let allFruits = ingredients[.fruits]!
-//        var subFruits: [SWIngredient] = []
-//        for i in 0..<Int(arc4random_uniform(6)) {
-//            subFruits.append(allFruits[i])
-//        }
-//        fruits.flushIngredients(with: subFruits)
         
     }
     

@@ -119,6 +119,7 @@ class PinView: UIView, Floatable {
         
         alignSubviews()
         setState(to: _state)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -165,6 +166,17 @@ class PinView: UIView, Floatable {
         self.frame.size = size
         _pin.frame.size = size
         alignSubviews()
+//        do {
+//            let colors: [UIColor] = [.red, .blue, .green, .black, .orange]
+//            let color = colors[Int(arc4random_uniform(UInt32(colors.count)))]
+//            for x in stride(from: 0, to: bounds.width, by: 8) {
+//                for y in stride(from: 0, to: bounds.height, by: 8) {
+//                    let dot = UIView(frame: CGRect(origin: CGPoint(x: x, y: y), size: CGSize(width: 4, height: 4)))
+//                    dot.backgroundColor = color
+//                    addSubview(dot)
+//                }
+//            }
+//        }
     }
     
     // MARK: - Helpers
@@ -201,56 +213,6 @@ class PinView: UIView, Floatable {
     static var create: PinView {
         get {
             return PinView()
-        }
-    }
-    
-    // MARK: - Premadees
-    
-    class var romainelettuce: PinView {
-        get {
-            return PinView.create.name("romainelettuce").icon(default: UIImage.romainelettuce).icon(UIImage.Romainelettuce, for: .bases).icon(selected: UIImage.Romainelettuce).kind(of: .base)
-        }
-    }
-    
-    class var salad: PinView {
-        get {
-            return PinView.create.name("salad").icon(default: UIImage.salad).icon(UIImage.Salad, for: .bases).icon(selected: UIImage.Salad).kind(of: .base)
-        }
-    }
-    
-    class var cabbage: PinView {
-        get {
-            return PinView.create.name("cabbage").icon(default: UIImage.cabbage).icon(UIImage.Cabbage, for: .bases).icon(selected: UIImage.Cabbage).kind(of: .base)
-        }
-    }
-    
-    class var lettuce: PinView {
-        get {
-            return PinView.create.name("lettuce").icon(default: UIImage.lettuce).icon(UIImage.Lettuce, for: .bases).icon(selected: UIImage.Lettuce).kind(of: .base)
-        }
-    }
-    
-    class var spinach: PinView {
-        get {
-            return PinView.create.name("spinach").icon(default: UIImage.spinach).icon(UIImage.Spinach, for: .bases).icon(selected: UIImage.Spinach).kind(of: .base)
-        }
-    }
-    
-    class var brusselssprouts: PinView {
-        get {
-            return PinView.create.name("brusselssprouts").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-        }
-    }
-    
-    class var zoodles: PinView {
-        get {
-            return PinView.create.name("zoodles").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
-        }
-    }
-    
-    class var shavedfennel: PinView {
-        get {
-            return PinView.create.name("shavedfennel").icon(default: UIImage.corn).icon(UIImage.Corn, for: .bases).icon(selected: UIImage.Corn).kind(of: .base)
         }
     }
     

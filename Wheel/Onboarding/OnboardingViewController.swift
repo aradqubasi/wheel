@@ -30,6 +30,8 @@ class OnboardingViewController: UIViewController {
     
     private var _segues: SWSegueRepository!
     
+    private var _transitioning: Bool!
+    
     // MARK: - Initalization
 
     override func viewDidLoad() {
@@ -37,6 +39,8 @@ class OnboardingViewController: UIViewController {
         
         let initial: SWPagerStates = .obey
         _state = initial
+        
+        _transitioning = false
 
         //setup gradient on background
         do {
@@ -101,7 +105,8 @@ class OnboardingViewController: UIViewController {
     @IBAction private func onSwipeLeft(_ sender: UISwipeGestureRecognizer) {
         switch sender.state {
         case .ended:
-            if (_state != SWPagerStates.proceed) {
+            if (_state != SWPagerStates.proceed && !_transitioning) {
+                _transitioning = true
                 next()
             }
         default:
@@ -112,7 +117,8 @@ class OnboardingViewController: UIViewController {
     @IBAction private func onSwipeRight(_ sender: UISwipeGestureRecognizer) {
         switch sender.state {
         case .ended:
-            if (_state != SWPagerStates.inital) {
+            if (_state != SWPagerStates.inital && !_transitioning) {
+                _transitioning = true
                 prev()
             }
         default:
@@ -131,6 +137,7 @@ class OnboardingViewController: UIViewController {
         let finalize = { (finished: Bool) -> Void in
             self._state = finished ? self._state.prev() : self._state
             self.pagerController.state = self._state
+            self._transitioning = false
         }
         let toBeforeTime: TimeInterval = 0.35
         UIView.animate(withDuration: toBeforeTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toBefore, completion: finalize)
@@ -150,6 +157,7 @@ class OnboardingViewController: UIViewController {
         let finalize = { (finished: Bool) -> Void in
             self._state = finished ? self._state.next() : self._state
 //            self.pagerController.state = self._state
+            self._transitioning = false
         }
         let toAfterTime: TimeInterval = 0.5
         UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toAfter, completion: finalize)

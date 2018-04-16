@@ -17,4 +17,8 @@ class SWConcreteOnboardingAssembler: SWOnboardingAssembler {
         return SWInmemorySegueRepository()
     }
     
+    func resolve() -> SWBowlTimelineRepository {
+        return SWInmemoryBowlTimelineRepository()
+    }
+    
 }

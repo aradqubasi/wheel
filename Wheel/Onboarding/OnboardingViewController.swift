@@ -32,10 +32,14 @@ class OnboardingViewController: UIViewController {
     
     private var _transitioning: Bool!
     
+    private var _timelines: SWBowlTimelineRepository!
+    
     // MARK: - Initalization
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _timelines = assembler.resolve()
         
         let initial: SWPagerStates = .obey
         _state = initial
@@ -139,7 +143,7 @@ class OnboardingViewController: UIViewController {
             self.pagerController.state = self._state
             self._transitioning = false
         }
-        let toBeforeTime: TimeInterval = 0.35
+        let toBeforeTime: TimeInterval = _timelines.get(by: _state.next()).toBack
         UIView.animate(withDuration: toBeforeTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toBefore, completion: finalize)
     }
     
@@ -149,7 +153,7 @@ class OnboardingViewController: UIViewController {
             self._bowlController.play(to: self._state.next(), at: .inbetween)
             self.pagerController.state = self._state
         }
-        let toInbetweenTime: TimeInterval = 0.5
+        let toInbetweenTime: TimeInterval = _timelines.get(by: _state.next()).toInbetween
         UIView.animate(withDuration: toInbetweenTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toInbetween, completion: nil)
         let toAfter = { () -> Void in
             self._bowlController.play(to: self._state.next(), at: .after)
@@ -159,7 +163,7 @@ class OnboardingViewController: UIViewController {
 //            self.pagerController.state = self._state
             self._transitioning = false
         }
-        let toAfterTime: TimeInterval = 0.5
+        let toAfterTime: TimeInterval = _timelines.get(by: _state.next()).toAfter
         UIView.animate(withDuration: toAfterTime, delay: toInbetweenTime, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toAfter, completion: finalize)
     }
     

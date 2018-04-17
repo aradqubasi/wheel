@@ -9,5 +9,5 @@
 import Foundation
 protocol SelectionDelegate {
     func onRemove(of pin: Floatable, in controller: SelectionController)
-    func onCook(of pins: [Floatable], in controller: SelectionController)
+    func onCook(in controller: SelectionController)
 }

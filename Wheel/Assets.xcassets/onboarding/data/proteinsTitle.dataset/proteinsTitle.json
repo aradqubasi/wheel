@@ -14,7 +14,7 @@
   "differential": [
     "proteins",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [
@@ -30,7 +30,7 @@
     ],
     "veggies",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [

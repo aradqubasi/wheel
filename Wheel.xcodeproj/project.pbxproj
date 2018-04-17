@@ -33,9 +33,7 @@
 		15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D741FD692C10018A1CD /* UIScrollView.swift */; };
 		15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */; };
 		15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D781FD7E0880018A1CD /* CGPoint.swift */; };
-		15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7A1FD98E2B0018A1CD /* StaticSeletedViewStates.swift */; };
 		15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */; };
-		15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
 		154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */; };
 		154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */; };
@@ -195,9 +193,7 @@
 		15456D741FD692C10018A1CD /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHolderView.swift; sourceTree = "<group>"; };
 		15456D781FD7E0880018A1CD /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
-		15456D7A1FD98E2B0018A1CD /* StaticSeletedViewStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSeletedViewStates.swift; sourceTree = "<group>"; };
 		15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedViewStates.swift; sourceTree = "<group>"; };
-		15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticSelectedView.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskDelegate.swift; sourceTree = "<group>"; };
 		154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelViewAbstracted.swift; sourceTree = "<group>"; };
@@ -422,8 +418,6 @@
 				15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */,
 				15456D721FD2862B0018A1CD /* TransparentView.swift */,
 				15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */,
-				15456D7A1FD98E2B0018A1CD /* StaticSeletedViewStates.swift */,
-				15456D7E1FD9E0BA0018A1CD /* StaticSelectedView.swift */,
 				15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */,
 				1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */,
 				15DF420B1FE1352B00B6CC62 /* Floatable.swift */,
@@ -818,7 +812,6 @@
 				1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */,
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15D13D482054135600D44923 /* SWWideWheelsAligner.swift in Sources */,
-				15456D7F1FD9E0BA0018A1CD /* StaticSelectedView.swift in Sources */,
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
@@ -937,7 +930,6 @@
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
-				15456D7B1FD98E2B0018A1CD /* StaticSeletedViewStates.swift in Sources */,
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
 				1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,

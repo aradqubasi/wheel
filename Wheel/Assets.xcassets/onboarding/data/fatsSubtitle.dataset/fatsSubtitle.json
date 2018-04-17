@@ -14,7 +14,7 @@
   "differential": [
     "fats",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [
@@ -30,7 +30,7 @@
     ],
     "ehancers",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [

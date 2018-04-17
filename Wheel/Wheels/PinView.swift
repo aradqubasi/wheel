@@ -25,7 +25,7 @@ class _PinView: UIButton {
         delegate?.onTouchesMoved(superview! as! PinView, touches, with: event)
         super.touchesMoved(touches, with: event)
     }
-    
+
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         delegate?.onTouchesEnded(superview! as! PinView, touches, with: event)
         super.touchesEnded(touches, with: event)

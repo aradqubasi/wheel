@@ -14,7 +14,7 @@
   "differential": [
     "veggies",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [
@@ -30,7 +30,7 @@
     ],
     "fats",
     [
-      "inbetween",
+      "after",
       {
         "alpha": 1,
         "offset": [

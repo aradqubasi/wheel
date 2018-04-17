@@ -151,7 +151,7 @@ class OnboardingViewController: UIViewController {
         _bowlController.play(to: _state.next(), at: .before)
         let toInbetween = { () -> Void in
             self._bowlController.play(to: self._state.next(), at: .inbetween)
-            self.pagerController.state = self._state
+            self.pagerController.state = self._state.next()
         }
         let toInbetweenTime: TimeInterval = _timelines.get(by: _state.next()).toInbetween
         UIView.animate(withDuration: toInbetweenTime, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [.preferredFramesPerSecond60], animations: toInbetween, completion: nil)

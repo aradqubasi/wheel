@@ -120,17 +120,46 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
-        let moveto = { () -> Void in
-            sender.move(to: index)
-            if let selection = self.selectionController.selected.filter({ $0.asIngridient.kind == pin.asIngridient.kind }).first {
-                self.selectionController.erase(selection)
+//        let moveto = { () -> Void in
+//            sender.move(to: index)
+//            if let selection = self.selectionController.selected.filter({ $0.asIngridient.kind == pin.asIngridient.kind }).first {
+//                self.selectionController.erase(selection)
+//            }
+//        }
+//        let showend = { (_: Bool) -> Void in
+//            self.add([pin])
+//        }
+//
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
+        
+//        if selectionController.state == .hidden {
+//            openSelectionBar()
+//        }
+//        let moveto = { () -> Void in
+//            sender.move(to: index)
+//            self.selectionController.upreplace(with: pin.asIngridient)
+//        }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
+        
+        
+        if self.selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
+            let moveto = { () -> Void in
+                sender.move(to: index)
+                self.selectionController.upreplace(with: pin.asIngridient)
             }
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
         }
-        let showend = { (_: Bool) -> Void in
-            self.add([pin])
+        else {
+            let moveto = { () -> Void in
+                sender.move(to: index)
+            }
+            let showend = { (_: Bool) -> Void in
+                self.add([pin])
+            }
+
+            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
         }
         
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
     }
     
     func onPinPress(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) {
@@ -232,22 +261,9 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         }
     }
     
-    func onCook(of pins: [Floatable], in controller: SelectionController) {
+    func onCook(in controller: SelectionController) {
         
         selected = selectionController.selected.map({ $0.asIngridient })
-        
-        /*
-        if selectionController.state == .visible {
-            let shrinkdown = { () in
-                self.selectionController.shrinkdown()
-            }
-            let discharge = { (_:Bool) in
-                self.selectionController.discharge()
-            }
-            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
-        }
-        */
-        
         performSegue(withIdentifier: _segues.getWheelsToRecipy().identifier, sender: self)
         
     }
@@ -683,14 +699,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             var deltaTime = newTime.timeIntervalSince(scrollLastTime)
             scrollAngleCollector = scrollAngleCollector + deltaAngle
             scrollTimeCollector = scrollTimeCollector + deltaTime
-//            if current.isLocked {
-//                sender.isEnabled = false
-//                sender.isEnabled = true
-//                print("nope")
-//                shake(of: current, thoward: deltaAngle)
-//            }
-//            else
-//
+
             if scrollTimeCollector >= 0.1 || scrollAngleCollector >= 0.1 {
                 deltaTime = scrollTimeCollector
                 scrollTimeCollector = 0
@@ -708,8 +717,13 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
                 let follow = { () -> Void in
                     self.current.move(by: deltaAngle)
                 }
-                let check = { (_: Bool) -> Void in  }
-                UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: check)
+                let updateSelection = { (_: Bool) -> Void in
+                    if self.selectionController.state == .hidden {
+                        self.openSelectionBar()
+                    }
+                    self.selectionController.upreplace(with: self.current.focused.asIngridient)
+                }
+                UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: updateSelection)
             }
             scrollLastAngle = newAngle
             scrollLastTime = newTime
@@ -751,7 +765,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     private func rotate(by angle: CGFloat, in time: TimeInterval, afterwards: ((_:Bool) -> Void)?) {
-        print("rotate(by angle: \(angle), in time: \(time), afterwards: \(afterwards == nil ? "something" : "nothing")")
+        print("rotate(by angle: \(angle), in time: \(time), afterwards: \(afterwards != nil ? "something" : "nothing")")
         
         let step: CGFloat = angle < 0 ? -0.5 : 0.5
         
@@ -791,7 +805,13 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
                 let toSocket = { () -> Void in
                     wheel.move(to: self.current.index)
                 }
-                UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: nil)
+                let updateSelection = { (_: Bool) -> Void in
+                    if self.selectionController.state == .hidden {
+                        self.openSelectionBar()
+                    }
+                    self.selectionController.upreplace(with: self.current.focused.asIngridient)
+                }
+                UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: updateSelection)
             }
         }
 
@@ -838,9 +858,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         if pins.count > 0 {
             
             if selectionController.state == .hidden {
-                self.selectionController.set()
-                let shrink = { () in self.selectionController.shrink() }
-                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
+                openSelectionBar()
             }
             
             var delay: TimeInterval = 0
@@ -889,6 +907,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         else {
             adding = false
         }
+    }
+    
+    func openSelectionBar() {
+        selectionController.set()
+        let shrink = { () in self.selectionController.shrink() }
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
     }
     
     // MARK: - Navigation

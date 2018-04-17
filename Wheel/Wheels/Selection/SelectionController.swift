@@ -32,22 +32,17 @@ class SelectionController {
             holder.frame.origin = CGPoint(x: (new.bounds.width - 32) * 0.25, y: 96 * 0.25)
             _socket.addSubview(holder)
             
-//            new.addSubview(holder)
             holder.toSelectedHolderView()
 
             _shroud.frame.origin = CGPoint(x: new.bounds.width - 95 - 16, y: new.bounds.height - 95 - 16)
             new.addSubview(_shroud)
             
             cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 32, y: new.frame.height - 80 - 12 + 16)
-//            gradient.colors =
             new.addSubview(cook)
             
-            
-//            floatings.forEach({(next) in new.addSubview(next)})
             floatings.forEach({(next) in next.scene = new})
             
             discharge()
-//            show()
         }
     }
     
@@ -63,29 +58,15 @@ class SelectionController {
         }
     }
     
-//    var full: Bool {
-//        get {
-//            let
-//        }
-//    }
-    
-    // MARK: - Private Properties
-    
-
-    
     // MARK: - Subviews
     
     private var _scene: UIView?
     
     private var cook: UIButton!
     
-    private var statics: [StaticSelectedView] = []
-    
     private var floatings: [FloatingSelectedView] = []
     
     private var _state: SelectionState!
-    
-//    private var holder: UIView!
     
     private var _socket: UIView!
     
@@ -99,26 +80,11 @@ class SelectionController {
         _socket = UIView()
         
         holder = SelectedHolderView()
-//        holder.contentSize = CGSize(width: 16, height: 96)
         holder.contentSize = CGSize(width: 16 + 96, height: 96)
 
         
         let icon = CGRect(origin: CGPoint(x: 8, y: 16), size: CGSize(width: 64, height: 64))
-        statics = [
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon),
-            StaticSelectedView(frame: icon)
-        ]
-//        statics.forEach({(next) -> Void in
-//            holder.addSubview(next)
-//            next.addTarget(self, action: #selector(onFoodClick(sender:)), for: .touchUpInside)
-//        })
-        
+
         cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
         cook.setImage(UIImage.nextpressed, for: .normal)
         cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
@@ -156,10 +122,7 @@ class SelectionController {
     // MARK: - Actions
     
     @IBAction private func onCookClick(sender: UIButton) -> Void {
-//        discharge()
-//        print("oncook")
-        let ingridients = statics.filter({ return $0.state == .full})
-        delegate?.onCook(of: ingridients, in: self)
+        delegate?.onCook(in: self)
     }
     
     @IBAction private func onFoodClick(sender: FloatingSelectedView) {
@@ -236,10 +199,6 @@ class SelectionController {
     
     /**animatable - erase selection*/
     func erase() {
-        for spot in statics {
-            spot.close()
-        }
-        
         for spot in floatings {
             spot.discharge()
         }
@@ -280,10 +239,7 @@ class SelectionController {
     
     /**animatable - shrink to nothing*/
     func shrinkdown() {
-        for spot in statics {
-            spot.close()
-        }
-        
+
         for spot in floatings {
             spot.discharge()
         }
@@ -340,11 +296,19 @@ class SelectionController {
     /**instant - finish movement*/
     func merging(of pin: Floatable) {
         if let delivered = floatings.first(where: { return $0.state == .delivered && $0.food == pin.asIngridient }) {
-//            print("deliver \(pin.asIngridient.name)")
             delivered.tomenu()
-            
-//            push()
         }
         readyCheck()
+    }
+    
+    /**instant - replace existing element of kind with new of same kind, will add new if there is none*/
+    func upreplace(with ingredient: SWIngredient) {
+        if let existing = floatings.first(where: { $0.food?.kind == ingredient.kind }) {
+            existing.replace(with: ingredient)
+        }
+        else if let spot = floatings.first(where: { $0.state == .free }) {
+            push(islast: false)
+            spot.place(with: ingredient)
+        }
     }
 }

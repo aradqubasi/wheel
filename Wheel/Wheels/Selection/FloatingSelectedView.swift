@@ -147,35 +147,29 @@ class FloatingSelectedView: UIView, Floatable {
         frame.origin = CGPoint(x: 8, y: 16)
     }
     
-    /**instant - copy pin*/
-//    func take(for pin: Floatable, to destanation: Floatable) {
-//        _state = .taken
-//        _food = pin.asIngridient
-//
-//        _destanation = destanation
-//
-//        frame.origin = pin.convert(.zero, to: self.superview!)
-//
-//        _item.setImage(pin.asIngridient.image, for: .normal)
-//        _item.isUserInteractionEnabled = false
-//        _item.alpha = 1
-//
-//        _shroud.alpha = 0
-//    }
+    func replace(with ingredient: SWIngredient) {
+        _state = .inmenu
+        _food = ingredient
+        
+        _item.setImage(ingredient.image, for: .normal)
+        _item.isUserInteractionEnabled = true
+        _item.alpha = 1
+        
+        _shroud.alpha = 0
+    }
     
-    /**animatable - move to destanation*/
-//    func deliver() {
-//        if let destanation = _destanation {
-//            let point = destanation.convert(.zero, to: self.superview!)
-//            _state = .delivered
-//
-//            frame.origin = point
-//
-//            _item.isUserInteractionEnabled = false
-//            _item.alpha = 1
-//
-//            _shroud.alpha = 0
-//        }
-//    }
+    func place(with ingredient: SWIngredient) {
+        _state = .inmenu
+        _food = ingredient
+        
+        _item.setImage(ingredient.image, for: .normal)
+        _item.isUserInteractionEnabled = true
+        _item.alpha = 1
+        
+        _shroud.alpha = 0
+        
+        menu!.addSubview(self)
+        frame.origin = CGPoint(x: 8, y: 16)
+    }
     
 }

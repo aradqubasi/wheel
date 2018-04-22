@@ -28,19 +28,21 @@ class SWRingMaskView: UIView {
     
     // MARK: - Overrriden Methods
     
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hitted = super.hitTest(point, with: event)
-//        if hitted == self {
-//            print("hitTest(_:,with:)->self \(point)")
-//        }
-//        else {
-//            print("hitTest(_:,with:)->something \(point)")
-//        }
-        if event?.type == .touches && hitted != nil {
-            delegate?.onHit(self, with: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if event?.type == .touches {
+            delegate?.onHit(self, with: event, on: nil)
         }
-        return hitted
+        super.touchesBegan(touches, with: event)
     }
+    
+//    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
+//        
+//        let hitted = super.hitTest(point, with: event)
+//        if event?.type == .touches && hitted != nil {
+//            delegate?.onHit(self, with: event, on: hitted)
+//        }
+//        return hitted
+//    }
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         let x2 = (point.x - _center.x) * (point.x - _center.x)

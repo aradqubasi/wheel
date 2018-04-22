@@ -473,18 +473,20 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - SWRingMaskDelegate Methods
     
-    func onHit(_ sender: SWRingMaskView, with event: UIEvent?) {
-//        delegate?.onStateChange(to: active, of: self.asSWAbstractWheelView())
+    func onHit(_ sender: SWRingMaskView, with event: UIEvent?, on receiver: UIView?) {
+        print("onHit")
+        
         delegate?.onStateChange(self, to: _active)
     }
     
     // MARK: - PVDelegate Methods
     
     func onClick(_ pin: PinView, with event: UIEvent?) {
+        print("onPin")
         guard let index = _spokes.map({ return $0.pin }).index(of: pin) else {
             fatalError("onPinClick invoked not by PinView")
         }
-//        delegate?.onPinClick(in: self, of: pin, at: index)
+        delegate?.onStateChange(self, to: _active)
         delegate?.onPinClick(self, of: pin, at: index)
     }
     

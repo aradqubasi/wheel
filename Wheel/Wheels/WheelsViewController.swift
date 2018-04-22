@@ -616,10 +616,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
 //        let k = CGFloat(number.floatValue)
 //        print(k)
 //        rotate(by: CGFloat.pi * k, in: 1, afterwards: nil)
-        guard let texts = input.text?.split(separator: ";"), let x = NumberFormatter().number(from: String(texts.first!)), let y = NumberFormatter().number(from: String(texts.last!)) else {
-            print("invalid cgfloat value")
-            return
-        }
+        
+        
+//        guard let texts = input.text?.split(separator: ";"), let x = NumberFormatter().number(from: String(texts.first!)), let y = NumberFormatter().number(from: String(texts.last!)) else {
+//            print("invalid cgfloat value")
+//            return
+//        }
 //        print("new point is \(CGPoint(x: CGFloat(x), y: CGFloat(y)))")
     }
     

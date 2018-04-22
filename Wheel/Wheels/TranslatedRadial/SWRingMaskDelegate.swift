@@ -9,5 +9,5 @@
 import Foundation
 import UIKit
 protocol SWRingMaskDelegate {
-    func onHit(_ sender: SWRingMaskView, with event: UIEvent?) -> Void
+    func onHit(_ sender: SWRingMaskView, with event: UIEvent?, on receiver: UIView?) -> Void
 }

@@ -25,4 +25,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWTipGenerator
     
+    func resolve() -> SWFilterAssembler
+    
 }

@@ -76,6 +76,9 @@
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
 		15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */; };
+		15A2581B208CA9D200F738B5 /* SWProtebaseNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2581A208CA9D200F738B5 /* SWProtebaseNameGenerator.swift */; };
+		15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */; };
+		15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2581E208CAD3400F738B5 /* SWConcreteFilterAssembler.swift */; };
 		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
@@ -240,6 +243,9 @@
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
 		15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTransparentViewDelegate.swift; sourceTree = "<group>"; };
+		15A2581A208CA9D200F738B5 /* SWProtebaseNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWProtebaseNameGenerator.swift; sourceTree = "<group>"; };
+		15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFilterAssembler.swift; sourceTree = "<group>"; };
+		15A2581E208CAD3400F738B5 /* SWConcreteFilterAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteFilterAssembler.swift; sourceTree = "<group>"; };
 		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
@@ -523,6 +529,8 @@
 				15BA802C2041450D00596CC8 /* SWConcreteRecipyAssembler.swift */,
 				15119299207C748400D93751 /* SWStepsAssembler.swift */,
 				1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */,
+				15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */,
+				15A2581E208CAD3400F738B5 /* SWConcreteFilterAssembler.swift */,
 			);
 			path = Assemblers;
 			sourceTree = "<group>";
@@ -593,6 +601,7 @@
 			children = (
 				15BA803B2041F23800596CC8 /* SWNameGenerator.swift */,
 				15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */,
+				15A2581A208CA9D200F738B5 /* SWProtebaseNameGenerator.swift */,
 				15D13D37204EEC0100D44923 /* SWServingsGenerator.swift */,
 				15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */,
 				15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */,
@@ -843,6 +852,7 @@
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
+				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
@@ -875,6 +885,7 @@
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
 				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
+				15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
 				151192A2207DC67000D93751 /* UITextField.swift in Sources */,
@@ -920,6 +931,7 @@
 				156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */,
 				15BA8031204147C700596CC8 /* SWComponent.swift in Sources */,
 				15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */,
+				15A2581B208CA9D200F738B5 /* SWProtebaseNameGenerator.swift in Sources */,
 				158387AD203554A7001E4008 /* String.swift in Sources */,
 				15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */,
 				15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */,

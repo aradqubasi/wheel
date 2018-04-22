@@ -37,11 +37,11 @@ class SWRecipyIngridientView: UIView {
         image.layer.cornerRadius = 4
         layer.cornerRadius = 4
         backgroundColor = .white
-        layer.shadowColor = UIColor.aztec.cgColor
-        layer.shadowOpacity = 1
-        layer.shadowOffset = CGSize(width: 0, height: 4)
-        layer.shadowRadius = 4
-        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
+//        layer.shadowColor = UIColor.aztec.cgColor
+//        layer.shadowOpacity = 1
+//        layer.shadowOffset = CGSize(width: 0, height: 4)
+//        layer.shadowRadius = 4
+//        layer.shadowPath = UIBezierPath(roundedRect: bounds, cornerRadius: 4).cgPath
     }
     
 }

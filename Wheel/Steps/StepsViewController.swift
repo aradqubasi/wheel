@@ -16,6 +16,8 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Private Properties
     
+    private var _swiper: UISwipeGestureRecognizer!
+    
     private var _name: String!
     
     private var _segues: SWSegueRepository!
@@ -42,6 +44,14 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
         _segues = assembler.resolve()
         
         _feedback = assembler.resolve()
+        
+        //swipe to recipy
+        do {
+            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _swiper.direction = .right
+            view.addGestureRecognizer(_swiper)
+        }
+        
         
         //Navigation bar decoration
         do {
@@ -162,6 +172,10 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
     }
     
     // MARK: - Actions
+    
+    @IBAction func onSwipeBack(_ sender: Any) {
+        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
+    }
     
     @IBAction func onBackButtonClick(_ sender: Any) {
         performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)

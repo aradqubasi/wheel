@@ -28,23 +28,32 @@ class FilterViewController: UIViewController {
     
     private var _ok: UIButton!
     
+    private var _swiper: UISwipeGestureRecognizer!
+    
     // MARK: - Dependencies
     
-    var repository: SWOptionRepository!
+    var assembler: SWFilterAssembler!
+    
+    private var _options: SWOptionRepository!
 
+    private var _segues: SWSegueRepository!
     
     // MARK: - Initialization
     
     override func viewDidLoad() {
         print("on FilterViewController viewDidLoad()")
         super.viewDidLoad()
-//        options.translatesAutoresizingMaskIntoConstraints = false
-//        options.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-//        options.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        options.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-//        options.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-//
-//        options.dataSource = self
+        
+        _options = assembler.resolve()
+        
+        _segues = assembler.resolve()
+
+        do {
+            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _swiper.direction = .right
+            view.addGestureRecognizer(_swiper)
+            
+        }
         
         let headerRectangle = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 35))
         
@@ -53,7 +62,7 @@ class FilterViewController: UIViewController {
         let ingredientsHeader = SWHeaderOptionView(frame: headerRectangle)
         ingredientsHeader.title = .ingredientsHeader
         
-        _ingredients = repository.getAll(by: .ingredient).reduce([SWIngrigientsOptionView : SWOption](), { (result, next) -> [SWIngrigientsOptionView : SWOption] in
+        _ingredients = _options.getAll(by: .ingredient).reduce([SWIngrigientsOptionView : SWOption](), { (result, next) -> [SWIngrigientsOptionView : SWOption] in
             var result = result
             let view = SWIngrigientsOptionView(frame: lineRectangle)
             view.title = next.name.toFilterOptionCaption
@@ -73,7 +82,7 @@ class FilterViewController: UIViewController {
         let allergiesHeader = SWHeaderOptionView(frame: headerRectangle)
         allergiesHeader.title = .allergiesHeader
         
-        _allergies = repository.getAll(by: .allergy).reduce([SWAllergiesOptionView : SWOption](), { (result, next) -> [SWAllergiesOptionView : SWOption] in
+        _allergies = _options.getAll(by: .allergy).reduce([SWAllergiesOptionView : SWOption](), { (result, next) -> [SWAllergiesOptionView : SWOption] in
             var result = result
             let view = SWAllergiesOptionView(frame: lineRectangle)
             view.title = next.name.toFilterOptionCaption
@@ -181,9 +190,11 @@ class FilterViewController: UIViewController {
     }
     
     @IBAction private func onBackButtonClick(_ sender: UIBarButtonItem) {
-        
-        performSegue(withIdentifier: "FilterToWheels", sender: self)
-        
+        performSegue(withIdentifier: _segues.getFilterToWheels().identifier, sender: self)
+    }
+    
+    @IBAction private func onSwipeBack(_ sender: Any) {
+        performSegue(withIdentifier: _segues.getFilterToWheels().identifier, sender: self)
     }
     
     @IBAction private func onOkButtonClick(_ sender: UIButton) {
@@ -192,15 +203,15 @@ class FilterViewController: UIViewController {
             let view = $0.key
             var model = $0.value
             model.checked = view.checked
-            repository.save(model)
+            _options.save(model)
         })
         _allergies.forEach({
             let view = $0.key
             var model = $0.value
             model.checked = view.checked
-            repository.save(model)
+            _options.save(model)
         })
-        performSegue(withIdentifier: "FilterToWheels", sender: self)
+        performSegue(withIdentifier: _segues.getFilterToWheels().identifier, sender: self)
         
     }
 }

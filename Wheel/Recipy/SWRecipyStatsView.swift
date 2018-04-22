@@ -91,9 +91,9 @@ class SWRecipyStatsView: UIStackView {
         let energyUnit = _energyUnit ?? ""
         let weightUnit = _weightUnit ?? ""
         _enegryLabel.setRecipySubheader("\(Int(_energy)) \(energyUnit)")
-        _carbohydratesLabel.setRecipySubheader("\(Int(_carbohydrates)) \(weightUnit) Carbs")
-        _fatsLabel.setRecipySubheader("\(Int(_fats)) \(weightUnit) Fat")
-        _proteinsLabel.setRecipySubheader("\(Int(_proteins)) \(weightUnit) Proteins")
+        _carbohydratesLabel.setRecipySubheader("\(Int(_carbohydrates))\(weightUnit) Carbs")
+        _fatsLabel.setRecipySubheader("\(Int(_fats))\(weightUnit) Fat")
+        _proteinsLabel.setRecipySubheader("\(Int(_proteins))\(weightUnit) Proteins")
         
         _enegryLabel.addSizeConstraints()
         _oval1.addSizeConstraints()

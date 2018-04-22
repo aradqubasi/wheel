@@ -994,7 +994,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         switch segue.identifier {
         // TODO: - pass assembler
         case _segues.getWheelsToFilter().identifier?:
-            (segue.destination as? FilterViewController)?.repository = SWContext.root.resolve()
+            (segue.destination as? FilterViewController)?.assembler = assembler.resolve()
         case _segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()

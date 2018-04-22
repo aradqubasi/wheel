@@ -50,4 +50,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteTipGenerator()
     }
     
+    func resolve() -> SWFilterAssembler {
+        return SWConcreteFilterAssembler()
+    }
 }

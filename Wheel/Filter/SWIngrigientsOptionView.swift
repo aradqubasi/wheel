@@ -57,6 +57,7 @@ class SWIngrigientsOptionView: UIView, SWAlignableProtocol {
         set (new) {
             _checkfront.transform = CGAffineTransform.identity.scaledBy(x: new ? 0.1 : 1, y: new ? 0.1 : 1)
             _checkfront.alpha = new ? 0 : 1
+            _checkbox.layer.borderColor = new ? UIColor.mountainmeadow.cgColor : UIColor.tiara.cgColor
         }
     }
     
@@ -138,14 +139,8 @@ class SWIngrigientsOptionView: UIView, SWAlignableProtocol {
         _checkbox.frame = CGRect(origin: CGPoint(x: bounds.width - radius * 2 - trailing, y: trailing), size: CGSize(side: radius * 2))
         _checkbox.layer.cornerRadius = radius
         _checkbox.layer.borderWidth = 1
-        _checkbox.layer.borderColor = UIColor.tiara.cgColor
-        _checkbox.setImage(.isCheckedMark, for: .normal)
-        
-//        _checkbox.frame = CGRect(origin: CGPoint(x: bounds.width - radius * 2 - trailing, y: trailing), size: CGSize(side: radius * 2))
-//        _checkbox.layer.cornerRadius = radius
-//        _checkbox.layer.borderWidth = 1
 //        _checkbox.layer.borderColor = UIColor.tiara.cgColor
-//        _checkbox.setImage(.isCheckedMark, for: .normal)
+        _checkbox.setImage(.isCheckedMark, for: .normal)
         
         _line.frame = CGRect(origin: CGPoint(x: 0, y: bounds.height - border), size: CGSize(width: bounds.width, height: border))
         _line.alpha = 0.34

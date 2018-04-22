@@ -18,6 +18,8 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Private Properties
     
+    private var _swiper: UISwipeGestureRecognizer!
+    
     private var _servings: Int!
     
     private var _selectionViews: [SWRecipyIngridientView]!
@@ -68,6 +70,13 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         view.backgroundColor = UIColor.aquaHaze
         
         _servings = 2
+        
+        //swipe to wheels
+        do {
+            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _swiper.direction = .right
+            view.addGestureRecognizer(_swiper)
+        }
         
         //white background for botom
         do {
@@ -321,6 +330,10 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Actions
     
+    @IBAction func onSwipeBack(_ sender: Any) {
+        performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
+    }
+    
     @IBAction func onBackButtonClick(_ sender: Any) {
         performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
         
@@ -367,7 +380,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Animations
     
     func popUpBroccoli() {
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
+        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseInOut], animations: { self._broccoli.showed = 1 }, completion: nil)
     }
     
     // MARK: - Navigation

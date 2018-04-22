@@ -72,4 +72,11 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
+    
+    var toTipText: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Book", size: 14) as Any])
+            return text
+        }
+    }
 }

@@ -342,4 +342,30 @@ extension NSAttributedString {
             return text
         }
     }
+
+    func size(in width: CGFloat) -> CGSize {
+        
+        let storage = NSTextStorage(attributedString: self)
+        let container = NSTextContainer(size: CGSize(width: width, height: CGFloat(MAXFLOAT)))
+        let manager = NSLayoutManager()
+        
+        manager.addTextContainer(container)
+        storage.addLayoutManager(manager)
+        
+        manager.glyphRange(for: container)
+        
+        var lines: Int = 0
+        var index: Int = 0
+        let glyphs: Int = manager.numberOfGlyphs
+        
+        var range: NSRange = NSRange()
+        
+        while (index < glyphs) {
+            manager.lineFragmentUsedRect(forGlyphAt: index, effectiveRange: &range)
+            index = NSMaxRange(range)
+            lines = lines + 1
+        }
+        
+        return manager.usedRect(for: container).size.raise()
+    }
 }

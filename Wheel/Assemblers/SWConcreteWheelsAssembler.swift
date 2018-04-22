@@ -46,4 +46,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         }
     }
     
+    func resolve() -> SWTipGenerator {
+        return SWConcreteTipGenerator()
+    }
+    
 }

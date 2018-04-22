@@ -60,6 +60,8 @@ class SelectionController {
     
     // MARK: - Subviews
     
+    private var _tips: SWTipController!
+    
     private var _scene: UIView?
     
     private var cook: UIButton!
@@ -116,6 +118,8 @@ class SelectionController {
         
         _state = .hidden
         
+        _tips = SWTipController()
+        
         readyCheck()
     }
     
@@ -123,6 +127,10 @@ class SelectionController {
     
     @IBAction private func onCookClick(sender: UIButton) -> Void {
         delegate?.onCook(in: self)
+    }
+    
+    @IBAction private func onCookTryClick(sender: UIButton) -> Void {
+        delegate?.onCookTry(in: self)
     }
     
     @IBAction private func onFoodClick(sender: FloatingSelectedView) {
@@ -154,12 +162,16 @@ class SelectionController {
         }).count >= 1
         
         if basefull && fatmost && veggitized && proteinum && decorated {
+            cook.removeTarget(self, action: #selector(onCookTryClick(sender:)), for: .touchUpInside)
             cook.setImage(UIImage.nextpressed, for: .normal)
-            cook.isUserInteractionEnabled = true
+            cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
+//            cook.isUserInteractionEnabled = true
         }
         else {
+            cook.removeTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
             cook.setImage(UIImage.next, for: .normal)
-            cook.isUserInteractionEnabled = false
+            cook.addTarget(self, action: #selector(onCookTryClick(sender:)), for: .touchUpInside)
+//            cook.isUserInteractionEnabled = false
         }
     }
     
@@ -310,5 +322,20 @@ class SelectionController {
             push(islast: false)
             spot.place(with: ingredient)
         }
+    }
+    
+    func show(tip: String) {
+        _tips.show(tip: tip, at: CGPoint(x: cook.center.x, y: _socket.frame.origin.y + 24), in: view)
+        
+        _tips.shrink()
+        let grow = { () -> Void in self._tips.grow() }
+        UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: grow, completion: nil)
+        
+        let fade = { () -> Void in self._tips.fade() }
+        UIView.animate(withDuration: 0.5, delay: 4, options: [.curveEaseOut], animations: fade, completion: nil)
+    }
+    
+    func hideTip() {
+        _tips.unanimate()
     }
 }

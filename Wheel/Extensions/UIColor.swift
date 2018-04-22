@@ -154,4 +154,10 @@ public extension UIColor {
             return UIColor(red: 255 / 255, green: 147 / 255, blue: 108 / 255, alpha: 1)
         }
     }
+    
+    class var casablanca: UIColor {
+        get {
+            return UIColor(red: 248 / 255, green: 189 / 255, blue: 65 / 255, alpha: 1)
+        }
+    }
 }

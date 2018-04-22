@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate//, SWAbstractWheelDelegate
+class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate
 {
     
     // MARK: - Outlets
@@ -18,6 +18,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     var assembler: SWWheelsAssembler!
     
     // MARK: - Private Properties
+    
+    private var _tipster: SWTipGenerator!
     
     private var _aligner: SWWheelsAligner!
     
@@ -51,6 +53,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     var options: OptionsController!
     
+//    var tips: SWTipController!
+    
     // MARK: - Subs
     
     var current: SWAbstractWheelController!
@@ -65,7 +69,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     var rollButton: UIButton!
     
-    var selection: UIView!
+    var selection: TransparentView!
     
     var overlay: UIView!
     
@@ -96,6 +100,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     var input: UITextField!
     
     var roll: UIButton!
+    
+    // MARK: - TransparentView delegate
+    
+    func onClickThrough(at view: TransparentView) -> Void {
+        selectionController.hideTip()
+    }
     
     // MARK: - SWAbstractWheelControllerDelegate
     
@@ -268,6 +278,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         
     }
     
+    func onCookTry(in controller: SelectionController) {
+        let text = _tipster.getTip(for: controller.selected.map({ $0.asIngridient }))
+        controller.show(tip: text)
+//        tips.show(tip: "cook try bal bla bla", at: CGPoint(x: 354, y: 607), in: selection)
+    }
+    
     // MARK: - UIGestureRegocnizerDelegate Methods
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
@@ -353,6 +369,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        _tipster = assembler.resolve()
         _ingredients = assembler.resolve()
         _blockings = assembler.resolve()
         _options = assembler.resolve()
@@ -516,6 +533,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         selection = TransparentView(frame: self.view.bounds)
         wheels.addSubview(selection)
         selectionController.view = selection
+        selection.delegate = self
         
         unexpected = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .unexpected), aligner: _aligner, scene: overlay)
         unexpected.delegate = self
@@ -566,6 +584,11 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
 //            roll.setTitle("*", for: .normal)
 //            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
 //            view.addSubview(roll)
+//        }
+        
+        //tip
+//        do {
+//            tips = SWTipController()
 //        }
     }
 

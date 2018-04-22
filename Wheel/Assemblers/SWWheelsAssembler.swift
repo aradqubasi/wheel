@@ -23,4 +23,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWWheelsAligner
     
+    func resolve() -> SWTipGenerator
+    
 }

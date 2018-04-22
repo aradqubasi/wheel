@@ -276,7 +276,6 @@ extension UILabel {
         label.numberOfLines = 0
         let text = NSAttributedString.stepsExplanation
         label.frame.size = CGSize(width: width, height: text.height(in: width))
-//        label.frame.size = CGSize(width: width, height: 99)
         label.attributedText = text
         label.textAlignment = .left
         return label

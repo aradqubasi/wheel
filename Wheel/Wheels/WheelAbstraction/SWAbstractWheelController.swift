@@ -10,6 +10,8 @@ import Foundation
 import UIKit
 protocol SWAbstractWheelController {
     
+    var radius: CGFloat { get }
+    
     var count: Int { get }
     
     var focused: PinView { get }

@@ -37,7 +37,8 @@ class SelectionController {
             _shroud.frame.origin = CGPoint(x: new.bounds.width - 95 - 16, y: new.bounds.height - 95 - 16)
             new.addSubview(_shroud)
             
-            cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 32, y: new.frame.height - 80 - 12 + 16)
+//            cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 32, y: new.frame.height - 80 - 12 + 16)
+            cook.frame.origin = CGPoint(x: new.frame.width - 8 - 24 - 64, y: new.frame.height - 96 - 12)
             new.addSubview(cook)
             
             floatings.forEach({(next) in next.scene = new})
@@ -87,8 +88,7 @@ class SelectionController {
         
         let icon = CGRect(origin: CGPoint(x: 8, y: 16), size: CGSize(width: 64, height: 64))
 
-        cook = UIButton(frame: CGRect(x: 0, y: 0, width: 32, height: 32))
-        cook.setImage(UIImage.nextpressed, for: .normal)
+        cook = UIButton.cook
         cook.addTarget(self, action: #selector(onCookClick(sender:)), for: .touchUpInside)
 
         _shroud = TransparentView(frame: CGRect(origin: .zero, size: CGSize(side: 94)))

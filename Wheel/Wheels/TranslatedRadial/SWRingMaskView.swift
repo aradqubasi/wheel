@@ -36,7 +36,7 @@ class SWRingMaskView: UIView {
     }
     
 //    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-//        
+//
 //        let hitted = super.hitTest(point, with: event)
 //        if event?.type == .touches && hitted != nil {
 //            delegate?.onHit(self, with: event, on: hitted)

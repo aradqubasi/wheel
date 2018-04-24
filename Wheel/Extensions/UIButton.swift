@@ -141,4 +141,14 @@ extension UIButton {
             return button
         }
     }
+    
+    class var cook: UIButton {
+        get {
+            let cook = UIButton(frame: CGRect(x: 0, y: 0, width: 80, height: 96))
+            cook.setImage(UIImage.nextpressed, for: .normal)
+//            cook.layer.borderColor = UIColor.red.cgColor
+//            cook.layer.borderWidth = 1
+            return cook
+        }
+    }
 }

@@ -151,8 +151,10 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
 //        }
 //        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
         
-        
-        if self.selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
+        if current.isLocked && current.focused.kind == pin.kind && current.index != index {
+            shake(of: current, thoward: index > current.index ? 1 : -1)
+        }
+        else if self.selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
             let moveto = { () -> Void in
                 sender.move(to: index)
                 self.selectionController.upreplace(with: pin.asIngridient)
@@ -767,16 +769,16 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     private func shake(of wheel: SWAbstractWheelController, thoward direction: CGFloat) {
         print("shake(of wheel: SWAbstractWheelController, thoward direction: \(direction)")
-        
+        let step = CGFloat.pi * 0.04 * (100 / wheel.radius)
         let direction: CGFloat = direction.sign == .minus ? -1 : 1
         let rate: CGFloat = 0.5
         self.adding = true
         let shakingUp = { () -> Void in
-            wheel.move(by: CGFloat.pi * 0.04 * direction)
+            wheel.move(by: step * direction)
         }
         let finish = { (_: Bool) -> Void in
             let shakingDown = { () -> Void in
-                wheel.move(by: -CGFloat.pi * 0.08 * direction)
+                wheel.move(by: -step * 2 * direction)
             }
             let finish = { (_: Bool) -> Void in
                 let finish = { (_: Bool) -> Void in

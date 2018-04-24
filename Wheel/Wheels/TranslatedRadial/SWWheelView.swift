@@ -316,6 +316,15 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
 
     // MARK: - SWAbstractWheelController
     
+    var radius: CGFloat {
+        get {
+            guard let radius = _settings[_state]?.radius else {
+                fatalError("Could not find settings for state \(_state)")
+            }
+            return radius
+        }
+    }
+    
     var isLocked: Bool {
         
         get {

@@ -736,7 +736,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
                 if current.isLocked {
                     sender.isEnabled = false
                     sender.isEnabled = true
-                    print("nope")
+                    print("nope from changed")
                     shake(of: current, thoward: deltaAngle)
                     return
                 }
@@ -757,7 +757,16 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
             scrollLastDeltaAngle = deltaAngle
             scrollvelocity = deltaAngle / CGFloat(deltaTime)
         case .ended:
-            deceleration(of: current, with: scrollvelocity)
+            if current.isLocked {
+                sender.isEnabled = false
+                sender.isEnabled = true
+                print("nope from end")
+                shake(of: current, thoward: scrollAngleCollector)
+                return
+            }
+            else {
+                deceleration(of: current, with: scrollvelocity)
+            }
         case .cancelled:
             print("cancelled")
         default:

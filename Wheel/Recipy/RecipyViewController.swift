@@ -246,8 +246,9 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     _recipyHeaderContainer.addSubview(showSteps)
                     showSteps.translatesAutoresizingMaskIntoConstraints = false
                     showSteps.addSizeConstraints()
-                    showSteps.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
+//                    showSteps.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
                     showSteps.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
+                    showSteps.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
                     showSteps.addTarget(self, action: #selector(onShowStepsClick(_:)), for: .touchUpInside)
                 }
                 

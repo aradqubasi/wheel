@@ -178,7 +178,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 
                 var increase: UIButton!
                 do {
-                    increase = UIButton.increase
+                    increase = SWMoreButton()//UIButton.increase
                     _recipyHeaderContainer.addSubview(increase)
                     increase.translatesAutoresizingMaskIntoConstraints = false
                     increase.addSizeConstraints()
@@ -189,12 +189,13 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 
                 var decrease: UIButton!
                 do {
-                    decrease = UIButton.decrease
+//                    decrease = UIButton.decrease
+                    decrease = SWLessButton()
                     _recipyHeaderContainer.addSubview(decrease)
                     decrease.translatesAutoresizingMaskIntoConstraints = false
                     decrease.addSizeConstraints()
                     decrease.topAnchor.constraint(equalTo: line1.bottomAnchor, constant: 24).isActive = true
-                    decrease.trailingAnchor.constraint(equalTo: increase.leadingAnchor, constant: 1).isActive = true
+                    decrease.trailingAnchor.constraint(equalTo: increase.leadingAnchor, constant: 2).isActive = true
                     decrease.addTarget(self, action: #selector(onLess(_:)), for: .touchUpInside)
                 }
                 

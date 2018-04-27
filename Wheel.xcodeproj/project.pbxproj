@@ -80,6 +80,8 @@
 		15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */; };
 		15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2581E208CAD3400F738B5 /* SWConcreteFilterAssembler.swift */; };
 		15A25821208CBA6D00F738B5 /* SWDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25820208CBA6D00F738B5 /* SWDebugger.swift */; };
+		15A258992093835000F738B5 /* SWMoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A258982093835000F738B5 /* SWMoreButton.swift */; };
+		15A2589B20938DB200F738B5 /* SWLessButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2589A20938DB200F738B5 /* SWLessButton.swift */; };
 		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
@@ -248,6 +250,8 @@
 		15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFilterAssembler.swift; sourceTree = "<group>"; };
 		15A2581E208CAD3400F738B5 /* SWConcreteFilterAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteFilterAssembler.swift; sourceTree = "<group>"; };
 		15A25820208CBA6D00F738B5 /* SWDebugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDebugger.swift; sourceTree = "<group>"; };
+		15A258982093835000F738B5 /* SWMoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMoreButton.swift; sourceTree = "<group>"; };
+		15A2589A20938DB200F738B5 /* SWLessButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLessButton.swift; sourceTree = "<group>"; };
 		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
@@ -594,6 +598,8 @@
 				15D13D3B20529BED00D44923 /* SWRecipyStatsView.swift */,
 				15D13D412052CF4500D44923 /* SWRecipyListView.swift */,
 				15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */,
+				15A258982093835000F738B5 /* SWMoreButton.swift */,
+				15A2589A20938DB200F738B5 /* SWLessButton.swift */,
 			);
 			path = Recipy;
 			sourceTree = "<group>";
@@ -862,6 +868,7 @@
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */,
+				15A258992093835000F738B5 /* SWMoreButton.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
 				15BA80402041F5B200596CC8 /* Int.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
@@ -874,6 +881,7 @@
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */,
 				156B0BD5203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift in Sources */,
+				15A2589B20938DB200F738B5 /* SWLessButton.swift in Sources */,
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
 				15BA802D2041450D00596CC8 /* SWConcreteRecipyAssembler.swift in Sources */,
 				15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */,

@@ -24,6 +24,8 @@ protocol SWAbstractWheelController {
     
     var state: WState { get set }
     
+    var active: WState { get }
+    
     var label: UILabel { get set }
     
     var isLocked: Bool { get }

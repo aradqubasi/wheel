@@ -130,26 +130,6 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
-//        let moveto = { () -> Void in
-//            sender.move(to: index)
-//            if let selection = self.selectionController.selected.filter({ $0.asIngridient.kind == pin.asIngridient.kind }).first {
-//                self.selectionController.erase(selection)
-//            }
-//        }
-//        let showend = { (_: Bool) -> Void in
-//            self.add([pin])
-//        }
-//
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
-        
-//        if selectionController.state == .hidden {
-//            openSelectionBar()
-//        }
-//        let moveto = { () -> Void in
-//            sender.move(to: index)
-//            self.selectionController.upreplace(with: pin.asIngridient)
-//        }
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
         
         if current.isLocked && current.focused.kind == pin.kind && current.index != index {
             shake(of: current, thoward: index > current.index ? 1 : -1)
@@ -175,7 +155,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     }
     
     func onPinPress(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) {
-        print("radialController")
+        
+        onStateChange(sender, to: sender.active)
         
         options.set(for: pin)
         

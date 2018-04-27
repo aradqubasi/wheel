@@ -148,13 +148,10 @@ class OptionsController {
             _background.frame = scene.bounds
             _background.alpha = 0
             let point: CGPoint = pin.convert(.zero, to: scene)
-//            print(point)
-//            let point: CGPoint = CGPoint(x: 150, y: 150)
             let buttons = [_add, _lock, _more, _close]
             buttons.forEach({
                 $0?.frame.origin = point
                 $0?.transform = CGAffineTransform.identity.scaledBy(x: 0.001, y: 0.001)
-//                $0?.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
             })
         }
     }
@@ -164,19 +161,27 @@ class OptionsController {
         _background.alpha = 0.8
         
         let angle: CGFloat = 0.33 * CGFloat.pi
-//        _add.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -cos(angle) * 80, y: -sin(angle) * 80)
-//        _lock.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -80, y: 0)
-//        _more.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1).translatedBy(x: -cos(angle) * 80, y: sin(angle) * 80)
-        
+
         _add.transform = CGAffineTransform.identity
-        _add.frame.origin.x += -cos(angle) * 80
-        _add.frame.origin.y += -sin(angle) * 80
         _lock.transform = CGAffineTransform.identity
-        _lock.frame.origin.x += -80
-        _lock.frame.origin.y += 0
         _more.transform = CGAffineTransform.identity
-        _more.frame.origin.x += -cos(angle) * 80
-        _more.frame.origin.y += sin(angle) * 80
+        
+        if _lock.frame.origin.x - 80 >= 0 {
+            _add.frame.origin.x += -cos(angle) * 80
+            _add.frame.origin.y += -sin(angle) * 80
+            _lock.frame.origin.x += -80
+            _lock.frame.origin.y += 0
+            _more.frame.origin.x += -cos(angle) * 80
+            _more.frame.origin.y += sin(angle) * 80
+        }
+        else {
+            _add.frame.origin.x += cos(angle) * 80
+            _add.frame.origin.y += -sin(angle) * 80
+            _lock.frame.origin.x += 80
+            _lock.frame.origin.y += 0
+            _more.frame.origin.x += cos(angle) * 80
+            _more.frame.origin.y += sin(angle) * 80
+        }
 
         _close.transform = CGAffineTransform.identity
     }
@@ -185,10 +190,6 @@ class OptionsController {
     func hide() {
         _background.alpha = 0
         
-//        _add.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
-//        _lock.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
-//        _more.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
-//        _close.transform = CGAffineTransform.identity.scaledBy(x: 0.01, y: 0.01)
         _add.frame.origin = _close.frame.origin
         _add.transform = CGAffineTransform(scaleX: 0.001, y: 0.001)
         _lock.frame.origin = _close.frame.origin

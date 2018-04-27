@@ -82,6 +82,8 @@
 		15A25821208CBA6D00F738B5 /* SWDebugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25820208CBA6D00F738B5 /* SWDebugger.swift */; };
 		15A258992093835000F738B5 /* SWMoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A258982093835000F738B5 /* SWMoreButton.swift */; };
 		15A2589B20938DB200F738B5 /* SWLessButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2589A20938DB200F738B5 /* SWLessButton.swift */; };
+		15A2589D2093933E00F738B5 /* SWOptionAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2589C2093933E00F738B5 /* SWOptionAligner.swift */; };
+		15A2589F2093942500F738B5 /* SWConcreteOptionAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A2589E2093942500F738B5 /* SWConcreteOptionAligner.swift */; };
 		15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A73CA01FB62B0800E3BB01 /* WState.swift */; };
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
@@ -252,6 +254,8 @@
 		15A25820208CBA6D00F738B5 /* SWDebugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDebugger.swift; sourceTree = "<group>"; };
 		15A258982093835000F738B5 /* SWMoreButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMoreButton.swift; sourceTree = "<group>"; };
 		15A2589A20938DB200F738B5 /* SWLessButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLessButton.swift; sourceTree = "<group>"; };
+		15A2589C2093933E00F738B5 /* SWOptionAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOptionAligner.swift; sourceTree = "<group>"; };
+		15A2589E2093942500F738B5 /* SWConcreteOptionAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteOptionAligner.swift; sourceTree = "<group>"; };
 		15A73CA01FB62B0800E3BB01 /* WState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WState.swift; sourceTree = "<group>"; };
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
@@ -622,6 +626,8 @@
 				15A25811208B133200F738B5 /* SWTipGenerator.swift */,
 				15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */,
 				15A25820208CBA6D00F738B5 /* SWDebugger.swift */,
+				15A2589C2093933E00F738B5 /* SWOptionAligner.swift */,
+				15A2589E2093942500F738B5 /* SWConcreteOptionAligner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -876,6 +882,7 @@
 				15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */,
 				15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */,
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
+				15A2589F2093942500F738B5 /* SWConcreteOptionAligner.swift in Sources */,
 				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,
 				15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
@@ -911,6 +918,7 @@
 				15D13D34204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
+				15A2589D2093933E00F738B5 /* SWOptionAligner.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,

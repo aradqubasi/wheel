@@ -12,7 +12,8 @@ extension UIButton {
     
     var toRollButton: UIButton {
         get {
-            self.backgroundColor = UIColor.shamrock
+//            self.backgroundColor = UIColor.shamrock
+            self.backgroundColor = UIColor.casablanca
             self.layer.cornerRadius = self.frame.size.width / 2
             self.setImage(UIImage.dice, for: .normal)
             self.imageEdgeInsets.left = -40
@@ -95,33 +96,6 @@ extension UIButton {
     }
     
     class var decrease: UIButton {
-        get {
-            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 44, height: 32)))
-            button.backgroundColor = .white
-            button.setImage(.decrease, for: .normal)
-            button.layer.borderWidth = 1
-            button.layer.borderColor = UIColor.shamrock.cgColor
-            
-                    let path = UIBezierPath()
-//                    path.move(to: CGPoint(x: 1, y: 4))
-                    path.addArc(withCenter: CGPoint(x: 3, y: 3), radius: 3, startAngle: CGFloat.pi, endAngle: CGFloat.pi * 1.5, clockwise: true)
-//                    path.addLine(to: CGPoint(x: 4, y: 1))
-                    path.addLine(to: CGPoint(x: 43, y: 3))
-                    path.addLine(to: CGPoint(x: 43, y: 31))
-                    path.addLine(to: CGPoint(x: 4, y: 31))
-                    path.addArc(withCenter: CGPoint(x: 4, y: 28), radius: 3, startAngle: CGFloat.pi * 0.5, endAngle: CGFloat.pi, clockwise: true)
-//                    path.addLine(to: CGPoint(x: 1, y: 28))
-                    path.close()
-
-//            let path = UIBezierPath(roundedRect:button.bounds, byRoundingCorners:[.topLeft, .bottomLeft], cornerRadii: CGSize(width: 3, height:  3))
-            let maskLayer = CAShapeLayer()
-            maskLayer.path = path.cgPath
-            button.layer.mask = maskLayer
-            return button
-        }
-    }
-    
-    class var decreaseNotBordered: UIButton {
         get {
             let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 44, height: 32)))
             button.backgroundColor = .white

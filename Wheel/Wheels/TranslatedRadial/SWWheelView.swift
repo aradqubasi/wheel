@@ -496,6 +496,12 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     // MARK: - PVDelegate Methods
     
+    func onTouchesBegan(_ pin: PinView, _ touches: Set<UITouch>, with event: UIEvent?) -> Void {
+        if _state != _active {
+            delegate?.onStateChange(self, to: _active)
+        }
+    }
+    
     func onClick(_ pin: PinView, with event: UIEvent?) {
         print("onPin")
         guard let index = _spokes.map({ return $0.pin }).index(of: pin) else {

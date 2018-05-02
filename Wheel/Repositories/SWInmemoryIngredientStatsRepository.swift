@@ -130,14 +130,29 @@ class SWInmemoryIngredientStatsRepository : SWIngredientStatsRepository {
         SWIngredientStats(id: 76, ingredientId: 44, measuresmentId: 10 /*2-5/8"*/, proteins: 1.23, carbohydrates: 15.39, fats: 0.16, calories: 62),
         SWIngredientStats(id: 77, ingredientId: 44, measuresmentId: 4 /*100g*/, proteins: 0.94, carbohydrates: 11.75, fats: 0.12, calories: 47),
         //grapefruit
-        SWIngredientStats(id: 78, ingredientId: 45, measuresmentId: 10 /*4"*/, proteins: 0.81, carbohydrates: 10.34, fats: 0.13, calories: 41),
-        SWIngredientStats(id: 79, ingredientId: 45, measuresmentId: 4 /*100g*/, proteins: 0.63, carbohydrates: 8.08, fats: 0.1, calories: 32),
+        //SWIngredientStats(id: 78, ingredientId: 45, measuresmentId: 10 /*4"*/, proteins: 0.81, carbohydrates: 10.34, fats: 0.13, calories: 41),
+        //SWIngredientStats(id: 79, ingredientId: 45, measuresmentId: 4 /*100g*/, proteins: 0.63, carbohydrates: 8.08, fats: 0.1, calories: 32),
         //grapes
         SWIngredientStats(id: 80, ingredientId: 46, measuresmentId: 9 /*ounce*/, proteins: 0.19, carbohydrates: 4.89, fats: 0.04, calories: 19),
         SWIngredientStats(id: 81, ingredientId: 46, measuresmentId: 4 /*100g*/, proteins: 0.72, carbohydrates: 18.1, fats: 0.16, calories: 69),
         //watermelon
-        SWIngredientStats(id: 82, ingredientId: 47, measuresmentId: 12 /*cubes*/, proteins: 0.74, carbohydrates: 9.21, fats: 0.18, calories: 37),
-        SWIngredientStats(id: 83, ingredientId: 47, measuresmentId: 4 /*100g*/, proteins: 0.61, carbohydrates: 7.55, fats: 0.15, calories: 30)
+        //SWIngredientStats(id: 82, ingredientId: 47, measuresmentId: 12 /*cubes*/, proteins: 0.74, carbohydrates: 9.21, fats: 0.18, calories: 37),
+        //SWIngredientStats(id: 83, ingredientId: 47, measuresmentId: 4 /*100g*/, proteins: 0.61, carbohydrates: 7.55, fats: 0.15, calories: 30),
+        //pistachio
+        SWIngredientStats(id: 84, ingredientId: 48, measuresmentId: 9 /*ounce*/, proteins: 5.84, carbohydrates: 7.93, fats: 12.6, calories: 158),
+        SWIngredientStats(id: 85, ingredientId: 48, measuresmentId: 4 /*100g*/, proteins: 20.61, carbohydrates: 27.97, fats: 44.44, calories: 557),
+        //pomegranate
+        SWIngredientStats(id: 86, ingredientId: 49, measuresmentId: 10 /*medium*/, proteins: 1.46, carbohydrates: 26.44, fats: 0.46, calories: 105),
+        SWIngredientStats(id: 87, ingredientId: 49, measuresmentId: 4 /*100g*/, proteins: 0.95, carbohydrates: 17.17, fats: 0.3, calories: 68),
+        //lemon juice
+        SWIngredientStats(id: 88, ingredientId: 50, measuresmentId: 10 /*medium lemon yields*/, proteins: 0.18, carbohydrates: 4.06, fats: 0, calories: 12),
+        SWIngredientStats(id: 89, ingredientId: 50, measuresmentId: 4 /*100g*/, proteins: 0.38, carbohydrates: 8.63, fats: 0, calories: 25),
+        //meat
+        SWIngredientStats(id: 90, ingredientId: 51, measuresmentId: 1 /*gram*/, proteins: 0.2641, carbohydrates: 0, fats: 0.1929, calories: 2.87),
+        SWIngredientStats(id: 91, ingredientId: 51, measuresmentId: 4 /*100g*/, proteins: 26.41, carbohydrates: 0, fats: 19.29, calories: 287),
+        //salmon
+        SWIngredientStats(id: 92, ingredientId: 52, measuresmentId: 1 /*gram*/, proteins: 0.2162, carbohydrates: 0, fats: 0.0593, calories: 1.46),
+        SWIngredientStats(id: 93, ingredientId: 52, measuresmentId: 4 /*100g*/, proteins: 21.62, carbohydrates: 0, fats: 5.93, calories: 146)
     ]
 
     func get(by ingredient: SWIngredient, and measuresment: SWMeasuresment) -> SWIngredientStats {

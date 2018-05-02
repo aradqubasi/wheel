@@ -317,6 +317,18 @@ public extension UIImage {
         }
     }
     
+    static var pistachio: UIImage {
+        get {
+            return UIImage(named: "wheels/fats/inactive/pistachio")!
+        }
+    }
+    
+    static var Pistachio: UIImage {
+        get {
+            return UIImage(named: "wheels/fats/active/pistachio")!
+        }
+    }
+    
     // MARK: - Bases
     
     static var cabbage: UIImage {

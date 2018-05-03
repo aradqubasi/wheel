@@ -58,7 +58,7 @@ class SWNarrowWheelsAligner: SWWheelsAligner {
     
     func alignCircle(views: [UIView], center: CGPoint, radius: CGFloat, rotation: CGFloat) {
         
-        let radius = max(radius * CGFloat(views.count) / 6.0, 64.0)
+        let radius = max(radius * min(CGFloat(views.count), 6) / 6.0, 64.0)
         
         for i in 0..<views.count {
             let step = CGFloat.pi * 2 / CGFloat(views.count)

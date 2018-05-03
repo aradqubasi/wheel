@@ -202,7 +202,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         }
 
         if let focused = controller.focused {
-            add([focused])
+            if selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
+                selectionController.upreplace(with: focused.asIngridient)
+            }
+            else {
+                add([focused])
+            }
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)

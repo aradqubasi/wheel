@@ -167,18 +167,15 @@ class SWTranslatedOverlayController : SWOverlayController {
             pin.center = central
             pin.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0)
             break
-//        case 2:
-//            let central = _wheel.getBoundsCenter()
-//            let offset: CGFloat = visible[0].frame.size.width
-//            visible[0].center = CGPoint(x: central.x - offset, y: central.y)
-//            visible[1].center = CGPoint(x: central.x + offset, y: central.y)
-//            visible.forEach({ $0.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0) })
-//            break
         case 3:
             _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: CGFloat.pi * 0.5)
             visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
             break
-        //2,4..<Inf+
+        case 5:
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: -CGFloat.pi * 0.1)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
+            break
+        //2,4,6..<Inf+
         default:
             _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: 0)
             visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })

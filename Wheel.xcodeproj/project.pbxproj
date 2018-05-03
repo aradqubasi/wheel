@@ -73,6 +73,7 @@
 		158387A920340DBC001E4008 /* SWContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A820340DBC001E4008 /* SWContext.swift */; };
 		158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */; };
 		158387AD203554A7001E4008 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AC203554A7001E4008 /* String.swift */; };
+		159C87E1209ACD6B004436FE /* SWSwipeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
 		15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */; };
@@ -245,6 +246,7 @@
 		158387A820340DBC001E4008 /* SWContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWContext.swift; sourceTree = "<group>"; };
 		158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRootAssembler.swift; sourceTree = "<group>"; };
 		158387AC203554A7001E4008 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeGestureRecognizer.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
 		15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTransparentViewDelegate.swift; sourceTree = "<group>"; };
@@ -545,6 +547,14 @@
 			path = Assemblers;
 			sourceTree = "<group>";
 		};
+		159C87DF209ACD33004436FE /* GestureRecognizers */ = {
+			isa = PBXGroup;
+			children = (
+				159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */,
+			);
+			path = GestureRecognizers;
+			sourceTree = "<group>";
+		};
 		15A25815208B2AFC00F738B5 /* TransparentView */ = {
 			isa = PBXGroup;
 			children = (
@@ -659,6 +669,7 @@
 				158387A5203408A2001E4008 /* Assemblers */,
 				158387A020340321001E4008 /* Repositories */,
 				1583879B2033FE32001E4008 /* Model */,
+				159C87DF209ACD33004436FE /* GestureRecognizers */,
 				156B0BDA203966FF00CFEEA4 /* Afterlaunch */,
 				15456D5C1FC028AD0018A1CD /* Extensions */,
 				15BA80272041435F00596CC8 /* Recipy */,
@@ -946,6 +957,7 @@
 				15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */,
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
+				159C87E1209ACD6B004436FE /* SWSwipeGestureRecognizer.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
 				15BA802B204144C200596CC8 /* SWRecipyAssembler.swift in Sources */,
 				156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */,

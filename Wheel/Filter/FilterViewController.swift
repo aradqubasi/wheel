@@ -28,7 +28,9 @@ class FilterViewController: UIViewController {
     
     private var _ok: UIButton!
     
-    private var _swiper: UISwipeGestureRecognizer!
+//    private var _swiper: UISwipeGestureRecognizer!
+    
+    private var _swiper: SWSwipeGestureRecognizer!
     
     // MARK: - Dependencies
     
@@ -49,10 +51,9 @@ class FilterViewController: UIViewController {
         _segues = assembler.resolve()
 
         do {
-            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-            _swiper.direction = .right
-            view.addGestureRecognizer(_swiper)
-            
+//            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+//            _swiper.direction = .right
+//            view.addGestureRecognizer(_swiper)
         }
         
         let headerRectangle = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 35))
@@ -119,6 +120,7 @@ class FilterViewController: UIViewController {
         
         _scroll = UIScrollView()
         view.addSubview(_scroll)
+//        _scroll.delegate = self
         _scroll.addSubview(_stack)
         _scroll.translatesAutoresizingMaskIntoConstraints = false
         _stack.leadingAnchor.constraint(equalTo: _scroll.leadingAnchor).isActive = true
@@ -151,6 +153,17 @@ class FilterViewController: UIViewController {
 //        repository.getAll().forEach({ print($0.name) })
         _ingredients.forEach({ $0.key.checked = $0.value.checked })
         noPreferences.checked = _ingredients.first(where: { $0.key.checked }) == nil
+        
+        do {
+            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _scroll.addGestureRecognizer(_swiper)
+            _scroll.gestureRecognizers?.forEach({
+                if $0 !== _swiper {
+                    $0.require(toFail: _swiper)
+                }
+            })
+//            view.addGestureRecognizer(_swiper)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -214,4 +227,5 @@ class FilterViewController: UIViewController {
         performSegue(withIdentifier: _segues.getFilterToWheels().identifier, sender: self)
         
     }
+
 }

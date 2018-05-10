@@ -29,7 +29,12 @@ class SWInmemoryBlockingRepoitory: SWBlockingRepository {
             SWBlocking(id: 16, ingredientId: 31, optionId: 4),
             SWBlocking(id: 16, ingredientId: 30, optionId: 5),
             SWBlocking(id: 17, ingredientId: 31, optionId: 5),
-            SWBlocking(id: 18, ingredientId: 32, optionId: 6)
+            SWBlocking(id: 18, ingredientId: 32, optionId: 6),
+            SWBlocking(id: 18, ingredientId: 51, optionId: 1),
+            SWBlocking(id: 18, ingredientId: 52, optionId: 1),
+            SWBlocking(id: 18, ingredientId: 51, optionId: 2),
+            SWBlocking(id: 18, ingredientId: 52, optionId: 2),
+            SWBlocking(id: 18, ingredientId: 51, optionId: 3)
         ]
     }
     

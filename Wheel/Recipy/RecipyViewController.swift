@@ -18,7 +18,9 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Private Properties
     
-    private var _swiper: UISwipeGestureRecognizer!
+//    private var _swiper: UISwipeGestureRecognizer!
+    
+    private var _swiper: SWSwipeGestureRecognizer!
     
     private var _servings: Int!
     
@@ -71,12 +73,12 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         
         _servings = 2
         
-        //swipe to wheels
-        do {
-            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-            _swiper.direction = .right
-            view.addGestureRecognizer(_swiper)
-        }
+//        //swipe to wheels
+//        do {
+//            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+//            _swiper.direction = .right
+//            view.addGestureRecognizer(_swiper)
+//        }
         
         //white background for botom
         do {
@@ -305,6 +307,13 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             navigationItem.leftBarButtonItem = back
             back.action = #selector(onBackButtonClick(_:))
             back.target = self
+        }
+        
+        //swipe to wheels
+        do {
+            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
+            _scroller.addGestureRecognizer(_swiper)
         }
         
     }

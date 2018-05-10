@@ -16,7 +16,9 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
     
     // MARK: - Private Properties
     
-    private var _swiper: UISwipeGestureRecognizer!
+//    private var _swiper: UISwipeGestureRecognizer!
+    
+    private var _swiper: SWSwipeGestureRecognizer!
     
     private var _name: String!
     
@@ -46,9 +48,13 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
         _feedback = assembler.resolve()
         
         //swipe to recipy
+//        do {
+//            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+//            _swiper.direction = .right
+//            view.addGestureRecognizer(_swiper)
+//        }
         do {
-            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-            _swiper.direction = .right
+            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
             view.addGestureRecognizer(_swiper)
         }
         

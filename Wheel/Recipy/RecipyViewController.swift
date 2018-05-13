@@ -69,23 +69,16 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         
         _listGenerator = assembler.resolve()
 
-        view.backgroundColor = UIColor.aquaHaze
+//        view.backgroundColor = UIColor.aquaHaze
         
         _servings = 2
         
-//        //swipe to wheels
-//        do {
-//            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-//            _swiper.direction = .right
-//            view.addGestureRecognizer(_swiper)
-//        }
-        
         //white background for botom
-        do {
-            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.80), size: view.bounds.size))
-            back.backgroundColor = .white
-            view.addSubview(back)
-        }
+//        do {
+//            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.80), size: view.bounds.size))
+//            back.backgroundColor = .white
+//            view.addSubview(back)
+//        }
         
         // scroll
         do {
@@ -99,7 +92,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 let box = CGSize(width: 88, height: 88)
                 let innerSpacing = CGPoint(x: 8, y: 24)
                 let outerSpacing = CGPoint(x: 16, y: 24)
-                let perLine = Int((view.bounds.width + innerSpacing.x - outerSpacing.x * 2) / (box.width + innerSpacing.x))
+                let perLine = Int((view.bounds.width /*+ innerSpacing.x*/ - outerSpacing.x * 2) / (box.width + innerSpacing.x))
                 var line: Int = 0
                 var position: Int = 0
                 
@@ -109,8 +102,8 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                         line = line + 1
                     }
 //                    print($0.name)
-                    let left = CGFloat(position) * (box.width + innerSpacing.x)
-                    let top = CGFloat(line) * (box.height + innerSpacing.y)
+                    let left = CGFloat(position) * (box.width + innerSpacing.x) + outerSpacing.x + (view.bounds.width - box.width * CGFloat(perLine) - innerSpacing.x * (CGFloat(perLine) - 1) - outerSpacing.x * 2) * 0.5
+                    let top = CGFloat(line) * (box.height + innerSpacing.y) + outerSpacing.y
                     let next = SWRecipyIngridientView(frame: CGRect(origin: CGPoint(x: left, y: top), size: box), for: $0)
                     next.alignSubviews()
                     _selectionContainer.addSubview(next)
@@ -118,9 +111,12 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 })
                 
                 let lines = line + 1
-                let width = CGFloat(perLine) * box.width + CGFloat(perLine - 1) * innerSpacing.x
-                let height = CGFloat(lines) * box.height + CGFloat(lines - 1) * innerSpacing.y
+//                let width = 16 + CGFloat(perLine) * box.width + CGFloat(perLine - 1) * innerSpacing.x + 16
+                let width = view.bounds.width
+                let height = 24 + CGFloat(lines) * box.height + CGFloat(lines - 1) * innerSpacing.y + 24
                 _selectionContainer.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
+                
+                _selectionContainer.backgroundColor = .aquaHaze
                 
             }
             
@@ -266,8 +262,17 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     happyCooking.topAnchor.constraint(equalTo: showSteps.bottomAnchor, constant: 32).isActive = true
                 }
                 
+                do {
+                    _broccoli = SWRecipyBroccoliView()
+                    _recipyHeaderContainer.addSubview(_broccoli)
+                    _broccoli.translatesAutoresizingMaskIntoConstraints = false
+                    _broccoli.addSizeConstraints()
+                    _broccoli.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
+                    _broccoli.topAnchor.constraint(equalTo: happyCooking.bottomAnchor, constant: 19).isActive = true
+                }
+                
                 _recipyHeaderContainer.backgroundColor = .white
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + 80 /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + showSteps.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 16 + 64))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + /*recipy header*/ recipyHeader.frame.height /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + showSteps.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 18 + 64))
             }
             
             view.addSubview(_scroller)
@@ -278,27 +283,30 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             _scroller.addSubview(_selectionContainer)
             _selectionContainer.centerXAnchor.constraint(equalTo: _scroller.centerXAnchor).isActive = true
             _selectionContainer.translatesAutoresizingMaskIntoConstraints = false
-            _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor, constant: 24).isActive = true
+//            _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor, constant: 24).isActive = true
+            _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor).isActive = true
             _selectionContainer.addSizeConstraints()
             
             _scroller.addSubview(_recipyHeaderContainer)
             _recipyHeaderContainer.addSizeConstraints()
             _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
-            _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
+//            _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
+            _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor).isActive = true
             _recipyHeaderContainer.leadingAnchor.constraint(equalTo: _scroller.leadingAnchor).isActive = true
             
-            _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: 24 + _recipyHeaderContainer.frame.size.height +
-                24 + _selectionContainer.frame.size.height)
+//            _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: 24 + _recipyHeaderContainer.frame.size.height +
+//                24 + _selectionContainer.frame.size.height)
+            _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: _recipyHeaderContainer.frame.size.height + _selectionContainer.frame.size.height)
         }
         
-        do {
-            _broccoli = SWRecipyBroccoliView()
-            view.addSubview(_broccoli)
-            _broccoli.translatesAutoresizingMaskIntoConstraints = false
-            _broccoli.addSizeConstraints()
-            _broccoli.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            _broccoli.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        }
+//        do {
+//            _broccoli = SWRecipyBroccoliView()
+//            view.addSubview(_broccoli)
+//            _broccoli.translatesAutoresizingMaskIntoConstraints = false
+//            _broccoli.addSizeConstraints()
+//            _broccoli.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//            _broccoli.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        }
         
         do {
             navigationItem.titleView = UILabel.getRecipyTitle(_name)
@@ -385,7 +393,9 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.beginFromCurrentState], animations: { self._broccoli.showed = 0 }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.beginFromCurrentState], animations: {
+//            self._broccoli.showed = 0
+        }, completion: nil)
     }
     
     // MARK: - Animations

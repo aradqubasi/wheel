@@ -16,6 +16,8 @@ class SWRecipyBroccoliView: UIView {
     
     private var _showed: CGFloat = 0
     
+    private var _shroud: UIView!
+    
     // MARK: - Public Properties
     
     /**animatable - partion of happy broccoli visible in frame - [0;1]*/
@@ -26,6 +28,7 @@ class SWRecipyBroccoliView: UIView {
         set(new) {
             _showed = max(0, min(1, new))
             _image.frame.origin = CGPoint(x: 0, y: bounds.height * (1 - _showed))
+            _shroud.alpha = 1 - _showed
         }
     }
 
@@ -33,9 +36,16 @@ class SWRecipyBroccoliView: UIView {
     
     init() {
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: 83, height: 64)))
-        clipsToBounds = true
+//        clipsToBounds = true
+        
         _image = UIImageView(image: .happy_broccoli)
         addSubview(_image)
+        
+        _shroud = UIView(frame: CGRect(origin: CGPoint(x: 0, y: 64), size: CGSize(width: 83, height: 100)))
+        _shroud.backgroundColor = .white
+        _shroud.alpha = 1
+        addSubview(_shroud)
+        
         showed = 0
     }
     

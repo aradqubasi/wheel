@@ -44,4 +44,8 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getFilterToWheels() -> SWSegue {
         return SWSegue(identifier: "FilterToWheels")
     }
+    
+    func getFilterToWheelsWithAnimation() -> SWSegue {
+        return SWSegue(identifier: "FilterToWheelsWithAnimation")
+    }
 }

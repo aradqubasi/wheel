@@ -84,7 +84,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="bpf-Zz-Dna"/>
                     <connections>
-                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" animates="NO" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheelsWithAnimation" unwindAction="unwindToWheelsWithSegue:" id="KVp-if-Ukm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-sm-Iju" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -140,7 +141,7 @@
         <!--Navigation Controller-->
         <scene sceneID="7PR-xV-cVs">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nwf-Rb-0fH" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Nwf-Rb-0fH" customClass="SWNavigationController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="WDH-YJ-Bpg">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>

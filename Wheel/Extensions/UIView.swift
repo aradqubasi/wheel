@@ -68,10 +68,10 @@ extension UIView {
         guard let superview = superview else {
             fatalError("view is not attached to superview")
         }
-        topAnchor.constraint(equalTo: superview.topAnchor).isActive = true
-        bottomAnchor.constraint(equalTo: superview.bottomAnchor).isActive = true
-        leadingAnchor.constraint(equalTo: superview.leadingAnchor).isActive = true
-        trailingAnchor.constraint(equalTo: superview.trailingAnchor).isActive = true
+        topAnchor.constraint(equalTo: superview.topAnchor, constant: 0).isActive = true
+        bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: 0).isActive = true
+        leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: 0).isActive = true
+        trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: 0).isActive = true
     }
     
     // MARK: - Properties
@@ -125,5 +125,15 @@ extension UIView {
     
     func getBoundsCenter() -> CGPoint {
         return CGPoint(x: self.bounds.width * 0.5, y: self.bounds.height * 0.5)
+    }
+    
+    func toImage() -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(bounds.size, false, UIScreen.main.scale)
+        
+        drawHierarchy(in: self.bounds, afterScreenUpdates: true)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }

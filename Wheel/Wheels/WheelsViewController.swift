@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate
+class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
 {
     
     // MARK: - Outlets
@@ -352,6 +352,17 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         }
     }
     
+    // MARK: - UINavigationControllerDelegate Methods
+    
+//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        if fromVC is StepsViewController && toVC is RecipyViewController {
+//            return SWDismissAnimationContorller()
+//        }
+//        else {
+//            return nil
+//        }
+//    }
+    
     // MARK: - Initialize
     
     override func viewDidLoad() {
@@ -578,6 +589,11 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
 //        do {
 //            tips = SWTipController()
 //        }
+        
+//        guard let nav = navigationController else {
+//            fatalError("wheel do not have navigation controller")
+//        }
+//        nav.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -993,7 +1009,10 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         switch segue.identifier {
         // TODO: - pass assembler
         case _segues.getWheelsToFilter().identifier?:
-            (segue.destination as? FilterViewController)?.assembler = assembler.resolve()
+            let filter = segue.destination as? FilterViewController
+            filter?.assembler = assembler.resolve()
+            filter?.ancestor = view.toImage()
+            filter?.ancestorNavigationBar = navigationController?.navigationBar.toImage()
         case _segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()

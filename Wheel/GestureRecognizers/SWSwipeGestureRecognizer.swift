@@ -14,7 +14,23 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     
     private var initial: CGPoint = .zero
     
+    var Initial: CGPoint {
+        get {
+            return initial
+        }
+    }
+    
     private var current: CGPoint = .zero
+    
+    var Current: CGPoint {
+        get {
+            return current
+        }
+    }
+    
+    var Delegate: SWSwipeDelegate?
+    
+    // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
@@ -25,23 +41,32 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         //super.touchesMoved(touches, with: event)
         let current = location(ofTouch: 0, in: view!)
-        let direction = CGPoint(x: current.x - initial.x, y: current.y - initial.y)
-        if direction.x < 0 {
-            state = .failed
-            print("SWSwipe cancelled from \(initial) to \(current)")
-        }
-        else if direction.y < 0 {
-            state = .failed
-            print("SWSwipe cancelled from \(initial) to \(current)")
-        }
-        else if direction.y / direction.x > tan(CGFloat.pi * 0.33) {
-            state = .failed
-            print("SWSwipe cancelled from \(initial) to \(current) at angle \(atan(direction.y / direction.x) / CGFloat.pi) * pi")
+        if self.initial == self.current {
+            let direction = CGPoint(x: current.x - initial.x, y: current.y - initial.y)
+            if direction.x < 0 {
+                state = .failed
+                Delegate?.onCancel(self)
+                print("SWSwipe cancelled from \(initial) to \(current)")
+            }
+            else if direction.y < 0 {
+                state = .failed
+                Delegate?.onCancel(self)
+                print("SWSwipe cancelled from \(initial) to \(current)")
+            }
+            else if direction.y / direction.x > tan(CGFloat.pi * 0.33) {
+                state = .failed
+                Delegate?.onCancel(self)
+                print("SWSwipe cancelled from \(initial) to \(current) at angle \(atan(direction.y / direction.x) / CGFloat.pi) * pi")
+            }
+            else {
+                print("SWSwipe ok from \(initial) to \(current)")
+                Delegate?.onMove(self)
+            }
         }
         else {
-            print("SWSwipe ok from \(initial) to \(current)")
-            self.current = current
+            Delegate?.onMove(self)
         }
+        self.current = current
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
@@ -49,13 +74,22 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
         if current != initial && state == .possible {
             print("SWSwipe from \(initial) to \(current)")
             state = .recognized
+            Delegate?.onFinish(self)
         }
         else {
             state = .failed
+            Delegate?.onCancel(self)
         }
     }
     
-//    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent) {
-//        <#code#>
-//    }
+    // MARK: - Public Methods
+    
+    func forceCompletion() {
+        state = .recognized
+    }
+    
+    func forceCancel() {
+        state = .failed
+    }
+    
 }

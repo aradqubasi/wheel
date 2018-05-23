@@ -26,4 +26,6 @@ protocol SWSegueRepository {
     
     func getFilterToWheels() -> SWSegue
     
+    func getFilterToWheelsWithAnimation() -> SWSegue
+    
 }

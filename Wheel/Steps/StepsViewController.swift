@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepsViewController: UIViewController, UITextFieldDelegate {
+class StepsViewController: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
     
     // MARK: - Public properties
     
@@ -161,6 +161,8 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
         }
         
         validateForm()
+        
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -260,4 +262,31 @@ class StepsViewController: UIViewController, UITextFieldDelegate {
             inactivate()
         }
     }
+    
+    // MARK: - UIViewControllerTransitioningDelegate Methods
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SWDismissAnimationContorller()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return SWDismissAnimationContorller()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if navigationController?.presentedViewController is StepsViewController {
+            print("presentedViewController is StepsViewController")
+        }
+        return nil
+    }
+    
+    // MARK: - Navigation
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == _segues.getStepsToRecipy().identifier {
+//            let destination = segue.destination
+////            destination.transitioningDelegate = self
+//            segue.source.transitioningDelegate = self
+//        }
+//    }
 }

@@ -74,6 +74,7 @@
 		158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */; };
 		158387AD203554A7001E4008 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AC203554A7001E4008 /* String.swift */; };
 		159C87E1209ACD6B004436FE /* SWSwipeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */; };
+		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
 		15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */; };
@@ -114,6 +115,9 @@
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
+		15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */; };
+		15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */; };
+		15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */; };
 		15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D29204E79B400D44923 /* SWMeasuresment.swift */; };
 		15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */; };
 		15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */; };
@@ -247,6 +251,7 @@
 		158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRootAssembler.swift; sourceTree = "<group>"; };
 		158387AC203554A7001E4008 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeGestureRecognizer.swift; sourceTree = "<group>"; };
+		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
 		15A25816208B2B2A00F738B5 /* SWTransparentViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTransparentViewDelegate.swift; sourceTree = "<group>"; };
@@ -287,6 +292,9 @@
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
+		15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissAnimationController.swift; sourceTree = "<group>"; };
+		15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationController.swift; sourceTree = "<group>"; };
+		15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
 		15D13D29204E79B400D44923 /* SWMeasuresment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresment.swift; sourceTree = "<group>"; };
 		15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresmentRepository.swift; sourceTree = "<group>"; };
 		15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryMeasuresmentRepository.swift; sourceTree = "<group>"; };
@@ -551,6 +559,7 @@
 			isa = PBXGroup;
 			children = (
 				159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */,
+				159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */,
 			);
 			path = GestureRecognizers;
 			sourceTree = "<group>";
@@ -642,6 +651,16 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		15C91AE620AFEC30003AD754 /* Transitions */ = {
+			isa = PBXGroup;
+			children = (
+				15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */,
+				15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */,
+				15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */,
+			);
+			path = Transitions;
+			sourceTree = "<group>";
+		};
 		15F0BB271F404FCC006F646E = {
 			isa = PBXGroup;
 			children = (
@@ -669,6 +688,7 @@
 				158387A5203408A2001E4008 /* Assemblers */,
 				158387A020340321001E4008 /* Repositories */,
 				1583879B2033FE32001E4008 /* Model */,
+				15C91AE620AFEC30003AD754 /* Transitions */,
 				159C87DF209ACD33004436FE /* GestureRecognizers */,
 				156B0BDA203966FF00CFEEA4 /* Afterlaunch */,
 				15456D5C1FC028AD0018A1CD /* Extensions */,
@@ -914,10 +934,12 @@
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
 				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
+				15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
+				15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */,
 				151192A2207DC67000D93751 /* UITextField.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
@@ -957,6 +979,7 @@
 				15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */,
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
+				159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */,
 				159C87E1209ACD6B004436FE /* SWSwipeGestureRecognizer.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
 				15BA802B204144C200596CC8 /* SWRecipyAssembler.swift in Sources */,
@@ -977,6 +1000,7 @@
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
 				15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */,
+				15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */,
 				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,
 				15BA8044204813CC00596CC8 /* SWRecipyIngridientView.swift in Sources */,
 				156B0BE020396DE100CFEEA4 /* SWSegue.swift in Sources */,

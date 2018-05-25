@@ -9,6 +9,8 @@
 import Foundation
 protocol SWSwipeDelegate {
     
+    func onBegin(_ sender: SWSwipeGestureRecognizer) -> Void
+    
     func onMove(_ sender: SWSwipeGestureRecognizer) -> Void
     
     func onFinish(_ sender: SWSwipeGestureRecognizer) -> Void

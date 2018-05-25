@@ -284,6 +284,10 @@ class FilterViewController: UIViewController, SWSwipeDelegate {
     
     // MARK: - SWSwipeDelegate
     
+    func onBegin(_ sender: SWSwipeGestureRecognizer) {
+        
+    }
+    
     func onMove(_ sender: SWSwipeGestureRecognizer) {
         print("onMove")
         let distance = sender.Current.x - sender.Initial.x

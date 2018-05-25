@@ -10,6 +10,10 @@ import UIKit
 
 class SWNavigationController: UINavigationController, UINavigationControllerDelegate {
     
+    // MARK: - Public Properties
+    
+    var interactionController: UIViewControllerInteractiveTransitioning!
+    
     // MARK: - Initialization
     
     override func viewDidLoad() {
@@ -32,11 +36,18 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
     }
     
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if navigationController. is StepsViewController {
+        if navigationController.topViewController is StepsViewController {
             print("presentedViewController is StepsViewController")
+        }
+        else if navigationController.topViewController is RecipyViewController {
+            print("presentedViewController is RecipyViewController")
         }
         else {
             print("presentedViewController is something")
+        }
+        
+        if navigationController.topViewController is RecipyViewController && animationController is SWDismissAnimationContorller {
+            return interactionController
         }
         return nil
     }

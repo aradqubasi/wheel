@@ -36,6 +36,7 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
         super.touchesBegan(touches, with: event)
         initial = location(ofTouch: 0, in: view!)
         current = initial
+        Delegate?.onBegin(self)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {

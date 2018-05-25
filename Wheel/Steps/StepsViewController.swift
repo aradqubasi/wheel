@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepsViewController: UIViewController, UITextFieldDelegate, UIViewControllerTransitioningDelegate {
+class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewControllerTransitioningDelegate */{
     
     // MARK: - Public properties
     
@@ -54,7 +54,12 @@ class StepsViewController: UIViewController, UITextFieldDelegate, UIViewControll
 //            view.addGestureRecognizer(_swiper)
 //        }
         do {
+            let dismisser = SWSwipeInteractiveTransition({() -> Void in
+                self.performSegue(withIdentifier: self._segues.getStepsToRecipy().identifier, sender: self)
+            })
+            (navigationController as? SWNavigationController)?.interactionController = dismisser
             _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _swiper.Delegate = dismisser
             view.addGestureRecognizer(_swiper)
         }
         
@@ -182,7 +187,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate, UIViewControll
     // MARK: - Actions
     
     @IBAction func onSwipeBack(_ sender: Any) {
-        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
+//        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
     }
     
     @IBAction func onBackButtonClick(_ sender: Any) {
@@ -265,20 +270,20 @@ class StepsViewController: UIViewController, UITextFieldDelegate, UIViewControll
     
     // MARK: - UIViewControllerTransitioningDelegate Methods
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return SWDismissAnimationContorller()
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return SWDismissAnimationContorller()
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if navigationController?.presentedViewController is StepsViewController {
-            print("presentedViewController is StepsViewController")
-        }
-        return nil
-    }
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return SWDismissAnimationContorller()
+//    }
+//
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return SWDismissAnimationContorller()
+//    }
+//
+//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+//        if navigationController?.presentedViewController is StepsViewController {
+//            print("presentedViewController is StepsViewController")
+//        }
+//        return nil
+//    }
     
     // MARK: - Navigation
     

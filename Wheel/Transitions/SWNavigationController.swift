@@ -12,7 +12,7 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
     
     // MARK: - Public Properties
     
-    var interactionController: UIViewControllerInteractiveTransitioning!
+    var interactionController: UIViewControllerInteractiveTransitioning?
     
     // MARK: - Initialization
     
@@ -28,7 +28,7 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         if fromVC is StepsViewController && toVC is RecipyViewController {
             print("from StepsViewController to RecipyViewController")
-            return SWDismissAnimationContorller()
+            return SWDismissAnimationContorller(from: fromVC, to: toVC)
         }
         else {
             return nil
@@ -47,7 +47,7 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
         }
         
         if navigationController.topViewController is RecipyViewController && animationController is SWDismissAnimationContorller {
-            return interactionController
+            return (animationController as! SWDismissAnimationContorller).interactionController()
         }
         return nil
     }

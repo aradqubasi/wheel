@@ -28,22 +28,16 @@ class SWSwipeInteractiveTransition: UIPercentDrivenInteractiveTransition, SWSwip
     }
     
     func onMove(_ sender: SWSwipeGestureRecognizer) {
-        update(min(abs(sender.Current.x - sender.Initial.x) / pathToComplete, 1))
+//        update(min(abs(sender.Current.x - sender.Initial.x) / pathToComplete, 1))
+        update(sender.Progress)
     }
     
     func onFinish(_ sender: SWSwipeGestureRecognizer) {
-        if abs(sender.Current.x - sender.Initial.x) < pathToComplete {
-            cancel()
-        }
-        else {
-            finish()
-        }
+        finish()
     }
     
     func onCancel(_ sender: SWSwipeGestureRecognizer) {
         cancel()
     }
-    
-    let pathToComplete: CGFloat = 200
         
 }

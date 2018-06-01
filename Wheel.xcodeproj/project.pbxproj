@@ -654,9 +654,9 @@
 		15C91AE620AFEC30003AD754 /* Transitions */ = {
 			isa = PBXGroup;
 			children = (
+				15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */,
 				15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */,
 				15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */,
-				15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";

@@ -10,6 +10,16 @@ import Foundation
 import UIKit
 class SWDismissAnimationContorller: NSObject, UIViewControllerAnimatedTransitioning {
     
+    let dismissed: UIViewController!
+    
+    let appearing: UIViewController!
+    
+    init(from: UIViewController, to: UIViewController) {
+        dismissed = from
+        appearing = to
+        super.init()
+    }
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
     }
@@ -71,4 +81,7 @@ class SWDismissAnimationContorller: NSObject, UIViewControllerAnimatedTransition
         })
     }
     
+    func interactionController() -> UIViewControllerInteractiveTransitioning? {
+        return (dismissed as? StepsViewController)?.interactionControllerForDismissal()
+    }
 }

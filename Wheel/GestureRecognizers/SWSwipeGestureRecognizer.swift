@@ -12,6 +12,8 @@ import UIKit.UIGestureRecognizerSubclass
 
 class SWSwipeGestureRecognizer: UIGestureRecognizer {
     
+    private let pathToRecognize: CGFloat = 100
+    
     private var initial: CGPoint = .zero
     
     var Initial: CGPoint {
@@ -25,6 +27,12 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     var Current: CGPoint {
         get {
             return current
+        }
+    }
+    
+    var Progress: CGFloat {
+        get {
+            return abs(current.x - initial.x > 0 ? current.x - initial.x : 0) / pathToRecognize
         }
     }
     
@@ -61,18 +69,38 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
             }
             else {
                 print("SWSwipe ok from \(initial) to \(current)")
-                Delegate?.onMove(self)
+                self.current = current
+                if Progress < 0 {
+                    state = .failed
+                    Delegate?.onCancel(self)
+                }
+                else if Progress < 1 {
+                    Delegate?.onMove(self)
+                }
+                else if Progress >= 1 {
+                    Delegate?.onFinish(self)
+                }
             }
         }
         else {
-            Delegate?.onMove(self)
+            self.current = current
+            if Progress < 0 {
+                state = .failed
+                Delegate?.onCancel(self)
+            }
+            else if Progress < 1 {
+                Delegate?.onMove(self)
+            }
+            else if Progress >= 1 {
+                Delegate?.onFinish(self)
+            }
         }
-        self.current = current
+        
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
         //super.touchesEnded(touches, with: event)
-        if current != initial && state == .possible {
+        if current != initial && state == .possible && Progress >= 1 {
             print("SWSwipe from \(initial) to \(current)")
             state = .recognized
             Delegate?.onFinish(self)
@@ -86,6 +114,7 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     // MARK: - Public Methods
     
     func forceCompletion() {
+        
         state = .recognized
     }
     

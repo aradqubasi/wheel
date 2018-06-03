@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewControllerTransitioningDelegate */{
+class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableViewController/*, UIViewControllerTransitioningDelegate */{
     
     // MARK: - Public properties
     
@@ -50,16 +50,10 @@ class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewContro
         _feedback = assembler.resolve()
         
         //swipe to recipy
-//        do {
-//            _swiper = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-//            _swiper.direction = .right
-//            view.addGestureRecognizer(_swiper)
-//        }
         do {
             let dismisser = SWSwipeInteractiveTransition({() -> Void in
-                self.performSegue(withIdentifier: self._segues.getStepsToRecipy().identifier, sender: self)
+                self.performSegue(withIdentifier: self._segues.getStepsToRecipyWithSwipe().identifier, sender: self)
             })
-//            (navigationController as? SWNavigationController)?.interactionController = dismisser
             self._dismisser = dismisser
             _swiper = SWSwipeGestureRecognizer()
             _swiper.Delegate = dismisser
@@ -189,14 +183,14 @@ class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewContro
     
     // MARK: - Actions
     
-    @IBAction func onSwipeBack(_ sender: Any) {
-//        _swiper.forceCompletion()
-        (navigationController as? SWNavigationController)?.interactionController = nil
-        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
-    }
+//    @IBAction func onSwipeBack(_ sender: Any) {
+////        _swiper.forceCompletion()
+////        (navigationController as? SWNavigationController)?.interactionController = nil
+//        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
+//    }
     
     @IBAction func onBackButtonClick(_ sender: Any) {
-        (navigationController as? SWNavigationController)?.interactionController = nil
+//        (navigationController as? SWNavigationController)?.interactionController = nil
         performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
     }
     
@@ -207,7 +201,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewContro
         else {
             _feedback.requestStepsFunctionality()
         }
-        (navigationController as? SWNavigationController)?.interactionController = nil
+//        (navigationController as? SWNavigationController)?.interactionController = nil
         performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
     }
     
@@ -294,13 +288,19 @@ class StepsViewController: UIViewController, UITextFieldDelegate/*, UIViewContro
     
     // MARK: - Navigation
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == _segues.getStepsToRecipy().identifier {
-//            let destination = segue.destination
-////            destination.transitioningDelegate = self
-//            segue.source.transitioningDelegate = self
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        switch segue.identifier ?? "" {
+        case _segues.getStepsToRecipy().identifier:
+            print("StepsToRecipy")
+            _dismisser = nil
+        case _segues.getStepsToRecipyWithSwipe().identifier:
+            print("StepsToRecipyWithSwipe")
+        default:
+            print("\(segue.identifier ?? "")")
+        }
+    }
+    
+    // MARK: - SWDismissableViewController Methods
     
     func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
         return _dismisser

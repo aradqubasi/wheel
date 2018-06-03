@@ -42,7 +42,7 @@ class SWDismissAnimationContorller: NSObject, UIViewControllerAnimatedTransition
         containerView.insertSubview(toVC.view, at: 0)
         containerView.addSubview(shroud)
         containerView.addSubview(snapshotFromVC)
-        fromVC.view.isHidden = true
+        fromVC.view.isHidden = false
 
         let duration = transitionDuration(using: transitionContext)
         
@@ -82,6 +82,6 @@ class SWDismissAnimationContorller: NSObject, UIViewControllerAnimatedTransition
     }
     
     func interactionController() -> UIViewControllerInteractiveTransitioning? {
-        return (dismissed as? StepsViewController)?.interactionControllerForDismissal()
+        return (dismissed as? SWDismissableViewController)?.interactionControllerForDismissal()
     }
 }

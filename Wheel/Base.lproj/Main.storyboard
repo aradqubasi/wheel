@@ -84,8 +84,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="bpf-Zz-Dna"/>
                     <connections>
-                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" animates="NO" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
-                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheelsWithAnimation" unwindAction="unwindToWheelsWithSegue:" id="KVp-if-Ukm"/>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="KVp-if-Ukm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-sm-Iju" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -109,6 +109,7 @@
                     <connections>
                         <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToWheels" unwindAction="unwindToWheelsWithSegue:" id="cTB-Z4-Gw6"/>
                         <segue destination="Ji8-3L-Gmx" kind="show" identifier="RecipyToSteps" id="bzS-Ls-CUF"/>
+                        <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="jGD-Io-7DJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="60i-sn-fiS" userLabel="First Responder" sceneMemberID="firstResponder"/>

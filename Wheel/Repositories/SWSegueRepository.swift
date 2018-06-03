@@ -20,12 +20,16 @@ protocol SWSegueRepository {
     
     func getRecipyToWheels() -> SWSegue
     
+    func getRecipyToWheelsWithSwipe() -> SWSegue
+    
     func getRecipyToSteps() -> SWSegue
     
     func getStepsToRecipy() -> SWSegue
     
+    func getStepsToRecipyWithSwipe() -> SWSegue
+    
     func getFilterToWheels() -> SWSegue
     
-    func getFilterToWheelsWithAnimation() -> SWSegue
+    func getFilterToWheelsWithSwipe() -> SWSegue
     
 }

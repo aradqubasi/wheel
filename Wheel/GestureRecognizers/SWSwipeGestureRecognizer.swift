@@ -16,6 +16,8 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     
     private var initial: CGPoint = .zero
     
+    private var isIdle: Bool = true
+    
     var Initial: CGPoint {
         get {
             return initial
@@ -36,12 +38,19 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
         }
     }
     
+    var IsIdle: Bool {
+        get {
+            return isIdle
+        }
+    }
+    
     var Delegate: SWSwipeDelegate?
     
     // MARK: - Overriden Methods
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         super.touchesBegan(touches, with: event)
+        isIdle = false
         initial = location(ofTouch: 0, in: view!)
         current = initial
         Delegate?.onBegin(self)
@@ -108,6 +117,7 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
         else {
             state = .failed
             Delegate?.onCancel(self)
+            isIdle = true
         }
     }
     

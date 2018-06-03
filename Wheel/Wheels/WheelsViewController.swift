@@ -1011,8 +1011,8 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         case _segues.getWheelsToFilter().identifier?:
             let filter = segue.destination as? FilterViewController
             filter?.assembler = assembler.resolve()
-            filter?.ancestor = view.toImage()
-            filter?.ancestorNavigationBar = navigationController?.navigationBar.toImage()
+//            filter?.ancestor = view.toImage()
+//            filter?.ancestorNavigationBar = navigationController?.navigationBar.toImage()
         case _segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipyViewController: UIViewController, UIScrollViewDelegate {
+class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissableViewController {
     
     // MARK: - Public Properties
     
@@ -52,6 +52,8 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     private var _broccoli: SWRecipyBroccoliView!
     
+    private var _dismisser: SWSwipeInteractiveTransition?
+    
     // MARK: - Initialization
 
     override func viewDidLoad() {
@@ -72,13 +74,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
 //        view.backgroundColor = UIColor.aquaHaze
         
         _servings = 2
-        
-        //white background for botom
-//        do {
-//            let back = UIView(frame: CGRect(origin: CGPoint(x: 0, y: view.bounds.height * 0.80), size: view.bounds.size))
-//            back.backgroundColor = .white
-//            view.addSubview(back)
-//        }
         
         // scroll
         do {
@@ -101,7 +96,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                         position = 0
                         line = line + 1
                     }
-//                    print($0.name)
                     let left = CGFloat(position) * (box.width + innerSpacing.x) + outerSpacing.x + (view.bounds.width - box.width * CGFloat(perLine) - innerSpacing.x * (CGFloat(perLine) - 1) - outerSpacing.x * 2) * 0.5
                     let top = CGFloat(line) * (box.height + innerSpacing.y) + outerSpacing.y
                     let next = SWRecipyIngridientView(frame: CGRect(origin: CGPoint(x: left, y: top), size: box), for: $0)
@@ -111,7 +105,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 })
                 
                 let lines = line + 1
-//                let width = 16 + CGFloat(perLine) * box.width + CGFloat(perLine - 1) * innerSpacing.x + 16
                 let width = view.bounds.width
                 let height = 24 + CGFloat(lines) * box.height + CGFloat(lines - 1) * innerSpacing.y + 24
                 _selectionContainer.frame = CGRect(origin: .zero, size: CGSize(width: width, height: height))
@@ -176,7 +169,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 
                 var increase: UIButton!
                 do {
-                    increase = SWMoreButton()//UIButton.increase
+                    increase = SWMoreButton()
                     _recipyHeaderContainer.addSubview(increase)
                     increase.translatesAutoresizingMaskIntoConstraints = false
                     increase.addSizeConstraints()
@@ -187,7 +180,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                 
                 var decrease: UIButton!
                 do {
-//                    decrease = UIButton.decrease
                     decrease = SWLessButton()
                     _recipyHeaderContainer.addSubview(decrease)
                     decrease.translatesAutoresizingMaskIntoConstraints = false
@@ -245,7 +237,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     _recipyHeaderContainer.addSubview(showSteps)
                     showSteps.translatesAutoresizingMaskIntoConstraints = false
                     showSteps.addSizeConstraints()
-//                    showSteps.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
                     showSteps.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
                     showSteps.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
                     showSteps.addTarget(self, action: #selector(onShowStepsClick(_:)), for: .touchUpInside)
@@ -258,7 +249,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
                     happyCooking.translatesAutoresizingMaskIntoConstraints = false
                     happyCooking.addSizeConstraints()
                     happyCooking.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-//                    happyCooking.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 32).isActive = true
                     happyCooking.topAnchor.constraint(equalTo: showSteps.bottomAnchor, constant: 32).isActive = true
                 }
                 
@@ -283,30 +273,16 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
             _scroller.addSubview(_selectionContainer)
             _selectionContainer.centerXAnchor.constraint(equalTo: _scroller.centerXAnchor).isActive = true
             _selectionContainer.translatesAutoresizingMaskIntoConstraints = false
-//            _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor, constant: 24).isActive = true
             _selectionContainer.topAnchor.constraint(equalTo: _scroller.topAnchor).isActive = true
             _selectionContainer.addSizeConstraints()
             
             _scroller.addSubview(_recipyHeaderContainer)
             _recipyHeaderContainer.addSizeConstraints()
             _recipyHeaderContainer.translatesAutoresizingMaskIntoConstraints = false
-//            _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor, constant: 24).isActive = true
             _recipyHeaderContainer.topAnchor.constraint(equalTo: _selectionContainer.bottomAnchor).isActive = true
             _recipyHeaderContainer.leadingAnchor.constraint(equalTo: _scroller.leadingAnchor).isActive = true
-            
-//            _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: 24 + _recipyHeaderContainer.frame.size.height +
-//                24 + _selectionContainer.frame.size.height)
             _scroller.contentSize = CGSize(width: _recipyHeaderContainer.frame.size.width, height: _recipyHeaderContainer.frame.size.height + _selectionContainer.frame.size.height)
         }
-        
-//        do {
-//            _broccoli = SWRecipyBroccoliView()
-//            view.addSubview(_broccoli)
-//            _broccoli.translatesAutoresizingMaskIntoConstraints = false
-//            _broccoli.addSizeConstraints()
-//            _broccoli.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//            _broccoli.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//        }
         
         do {
             navigationItem.titleView = UILabel.getRecipyTitle(_name)
@@ -318,12 +294,20 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
         }
         
         //swipe to wheels
+//        do {
+//            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+//            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
+//            _scroller.addGestureRecognizer(_swiper)
+//        }
         do {
-            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
+            _dismisser = SWSwipeInteractiveTransition({() -> Void in
+                self.performSegue(withIdentifier: self._segues.getRecipyToWheelsWithSwipe().identifier, sender: self)
+            })
+            _swiper = SWSwipeGestureRecognizer()
+            _swiper.Delegate = _dismisser
             _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
             _scroller.addGestureRecognizer(_swiper)
         }
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -349,17 +333,24 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     // MARK: - Actions
     
-    @IBAction func onSwipeBack(_ sender: Any) {
-        performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
-    }
+//    @IBAction func onSwipeBack(_ sender: Any) {
+//        performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
+//    }
     
     @IBAction func onBackButtonClick(_ sender: Any) {
-        performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
-        
+        if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
+            performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
+        }
     }
     
     @IBAction func onShowStepsClick(_ sender: Any) {
-        performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
+        print("state is \(_swiper.state.rawValue)")
+//        if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
+//            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
+//        }
+        if _swiper.IsIdle {
+            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
+        }
     }
     
     @IBAction func onMore(_ sender: Any) {
@@ -407,10 +398,18 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
-        case _segues.getRecipyToSteps().identifier?:
+        switch segue.identifier ?? "" {
+        case _segues.getRecipyToSteps().identifier:
+            print("RecipyToSteps")
+            _dismisser = nil
             (segue.destination as? StepsViewController)?.assembler = self.assembler.resolve()
-        case _segues.getRecipyToWheels().identifier?:
+            break
+        case _segues.getRecipyToWheelsWithSwipe().identifier:
+            print("RecipyToWheelsWithSwipe")
+            break
+        case _segues.getRecipyToWheels().identifier:
+            print("RecipyToWheels")
+            _dismisser = nil
             break
         default:
             fatalError("Unrecognized segue \(segue.identifier ?? "empty")")
@@ -419,5 +418,11 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func unwindToRecipy(segue: UIStoryboardSegue) {
         print("unwindToRecipy")
+    }
+    
+    // MARK: - SWDismissableViewController Methods
+    
+    func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
+        return _dismisser
     }
 }

@@ -8,7 +8,7 @@
 
 import Foundation
 class SWInmemorySegueRepository: SWSegueRepository {
-    
+
     func getOnboardingToWheels() -> SWSegue {
         return SWSegue(identifier: "OnboardingToWheels")
     }
@@ -33,6 +33,10 @@ class SWInmemorySegueRepository: SWSegueRepository {
         return SWSegue(identifier: "RecipyToWheels")
     }
     
+    func getRecipyToWheelsWithSwipe() -> SWSegue {
+        return SWSegue(identifier: "RecipyToWheelsWithSwipe")
+    }
+    
     func getRecipyToSteps() -> SWSegue {
         return SWSegue(identifier: "RecipyToSteps")
     }
@@ -41,11 +45,16 @@ class SWInmemorySegueRepository: SWSegueRepository {
         return SWSegue(identifier: "StepsToRecipy")
     }
     
+    func getStepsToRecipyWithSwipe() -> SWSegue {
+        return SWSegue(identifier: "StepsToRecipyWithSwipe")
+    }
+    
     func getFilterToWheels() -> SWSegue {
         return SWSegue(identifier: "FilterToWheels")
     }
     
-    func getFilterToWheelsWithAnimation() -> SWSegue {
-        return SWSegue(identifier: "FilterToWheelsWithAnimation")
+    
+    func getFilterToWheelsWithSwipe() -> SWSegue {
+        return SWSegue(identifier: "FilterToWheelsWithSwipe")
     }
 }

@@ -118,6 +118,7 @@
 		15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */; };
 		15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */; };
 		15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */; };
+		15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */; };
 		15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D29204E79B400D44923 /* SWMeasuresment.swift */; };
 		15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */; };
 		15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */; };
@@ -295,6 +296,7 @@
 		15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissAnimationController.swift; sourceTree = "<group>"; };
 		15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationController.swift; sourceTree = "<group>"; };
 		15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
+		15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissableViewController.swift; sourceTree = "<group>"; };
 		15D13D29204E79B400D44923 /* SWMeasuresment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresment.swift; sourceTree = "<group>"; };
 		15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresmentRepository.swift; sourceTree = "<group>"; };
 		15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryMeasuresmentRepository.swift; sourceTree = "<group>"; };
@@ -657,6 +659,7 @@
 				15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */,
 				15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */,
 				15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */,
+				15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -899,6 +902,7 @@
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
+				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
 				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,

@@ -132,6 +132,7 @@
                     </view>
                     <connections>
                         <segue destination="jl1-El-seu" kind="unwind" identifier="StepsToRecipy" unwindAction="unwindToRecipyWithSegue:" id="lJU-zK-jo3"/>
+                        <segue destination="jl1-El-seu" kind="unwind" identifier="StepsToRecipyWithSwipe" unwindAction="unwindToRecipyWithSegue:" id="4k2-GX-JhW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sW7-4D-KOV" userLabel="First Responder" sceneMemberID="firstResponder"/>

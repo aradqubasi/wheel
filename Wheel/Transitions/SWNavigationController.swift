@@ -21,10 +21,37 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
         super.didReceiveMemoryWarning()
     }
     
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        print("shouldPerformSegue \(identifier)")
+        return super.shouldPerformSegue(withIdentifier: identifier, sender: sender)
+    }
+    
     //MARK: - UINavigationControllerDelegate Methods
     
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        print("willShow \(viewController)")
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
+        print("didShow \(viewController)")
+    }
+    
+    
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if fromVC is SWDismissableViewController && operation == .pop {
+//        print("\(operation == .pop ? "pop" : operation == .push ? "push" : "something")")
+//        if fromVC is SWDismissableViewController && operation == .pop {
+//            return SWDismissAnimationContorller(from: fromVC, to: toVC)
+//        }
+//        else {
+//            return nil
+//        }
+        if fromVC is StepsViewController && toVC is RecipyViewController {
+            return SWDismissAnimationContorller(from: fromVC, to: toVC)
+        }
+        else if fromVC is RecipyViewController && toVC is WheelsViewController {
+            return SWDismissAnimationContorller(from: fromVC, to: toVC)
+        }
+        else if fromVC is FilterViewController && toVC is WheelsViewController {
             return SWDismissAnimationContorller(from: fromVC, to: toVC)
         }
         else {

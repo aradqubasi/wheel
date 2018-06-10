@@ -42,7 +42,7 @@ class SWDismissAnimationContorller: NSObject, UIViewControllerAnimatedTransition
         containerView.insertSubview(toVC.view, at: 0)
         containerView.addSubview(shroud)
         containerView.addSubview(snapshotFromVC)
-        fromVC.view.isHidden = false
+        fromVC.view.isHidden = true
 
         let duration = transitionDuration(using: transitionContext)
         

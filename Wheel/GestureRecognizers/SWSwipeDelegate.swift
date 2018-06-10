@@ -13,7 +13,7 @@ protocol SWSwipeDelegate {
     
     func onMove(_ sender: SWSwipeGestureRecognizer) -> Void
     
-    func onFinish(_ sender: SWSwipeGestureRecognizer) -> Void
+    func onFinish(_ sender: SWSwipeGestureRecognizer, _ success: Bool) -> Void
     
     func onCancel(_ sender: SWSwipeGestureRecognizer) -> Void
     

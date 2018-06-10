@@ -32,8 +32,13 @@ class SWSwipeInteractiveTransition: UIPercentDrivenInteractiveTransition, SWSwip
         update(sender.Progress)
     }
     
-    func onFinish(_ sender: SWSwipeGestureRecognizer) {
-        finish()
+    func onFinish(_ sender: SWSwipeGestureRecognizer, _ success: Bool) {
+        if success {
+            finish()
+        }
+        else {
+            cancel()
+        }
     }
     
     func onCancel(_ sender: SWSwipeGestureRecognizer) {

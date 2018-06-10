@@ -348,9 +348,17 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
 //        if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
 //            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
 //        }
-        if _swiper.IsIdle {
-            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
-        }
+        
+//        if _swiper.IsIdle {
+//            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
+//        }
+        print("\(_dismisser?.percentComplete)")
+//        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(transit), userInfo: nil, repeats: false)
+        transit()
+    }
+    
+    @IBAction func transit() {
+        self.performSegue(withIdentifier: self._segues.getRecipyToSteps().identifier, sender: self)
     }
     
     @IBAction func onMore(_ sender: Any) {

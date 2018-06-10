@@ -20,6 +20,7 @@
 		151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE3E1F77B92E00CC5357 /* SVState.swift */; };
 		151AFE451F8A858200CC5357 /* WSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WSettings.swift */; };
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
+		151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer-2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer-2.swift */; };
 		1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */; };
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
 		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
@@ -198,6 +199,7 @@
 		151AFE3E1F77B92E00CC5357 /* SVState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVState.swift; sourceTree = "<group>"; };
 		151AFE441F8A858200CC5357 /* WSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSettings.swift; sourceTree = "<group>"; };
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer-2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SWSwipeGestureRecognizer-2.swift"; sourceTree = "<group>"; };
 		1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedView.swift; sourceTree = "<group>"; };
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
@@ -562,6 +564,7 @@
 			children = (
 				159C87E0209ACD6B004436FE /* SWSwipeGestureRecognizer.swift */,
 				159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */,
+				151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer-2.swift */,
 			);
 			path = GestureRecognizers;
 			sourceTree = "<group>";
@@ -1014,6 +1017,7 @@
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
+				151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer-2.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
 				15F5D62C208700A100462DE7 /* SWTipController.swift in Sources */,
 				15838794202EE724001E4008 /* SWIngrigientsOptionView.swift in Sources */,

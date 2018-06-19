@@ -181,14 +181,7 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
     
     // MARK: - Actions
     
-//    @IBAction func onSwipeBack(_ sender: Any) {
-////        _swiper.forceCompletion()
-////        (navigationController as? SWNavigationController)?.interactionController = nil
-//        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
-//    }
-    
     @IBAction func onBackButtonClick(_ sender: Any) {
-//        (navigationController as? SWNavigationController)?.interactionController = nil
         perform(segue: segues.getStepsToRecipy())
     }
     
@@ -199,8 +192,7 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
         else {
             _feedback.requestStepsFunctionality()
         }
-//        (navigationController as? SWNavigationController)?.interactionController = nil
-        perform(segue: segues.getStepsToRecipy())
+        perform(segue: segues.getStepsToRecipyWithConfirm())
     }
     
     @IBAction func onAnonymousClick(_ sender: UISwitch) {

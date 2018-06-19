@@ -10,16 +10,6 @@ import Foundation
 import UIKit
 class SWCompleteAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
-    let dismissed: UIViewController!
-    
-    let appearing: UIViewController!
-    
-    init(from: UIViewController, to: UIViewController) {
-        dismissed = from
-        appearing = to
-        super.init()
-    }
-    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.4
     }
@@ -66,9 +56,5 @@ class SWCompleteAnimationController: NSObject, UIViewControllerAnimatedTransitio
                 }
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
-    }
-    
-    func interactionController() -> UIViewControllerInteractiveTransitioning? {
-        return (dismissed as? SWDismissableViewController)?.interactionControllerForDismissal()
     }
 }

@@ -38,4 +38,6 @@ protocol SWSegueRepository {
     
     func getFilterToWheelsWithConfirm() -> SWSegue
     
+    func getStepsToRecipyWithConfirm() -> SWSegue
+    
 }

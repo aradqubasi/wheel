@@ -71,4 +71,8 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getFilterToWheelsWithConfirm() -> SWSegue {
         return SWSegue(identifier: "FilterToWheelsWithConfirm")
     }
+    
+    func getStepsToRecipyWithConfirm() -> SWSegue {
+        return SWSegue(identifier: "StepsToRecipyWithConfirm")
+    }
 }

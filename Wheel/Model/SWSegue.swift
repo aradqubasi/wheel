@@ -10,5 +10,17 @@ import Foundation
 struct SWSegue {
     
     let identifier: String
+//
+//    init(identifier: String) {
+//        identifier = identifier
+//    }
+    
+    static func ==(left: SWSegue, right: SWSegue) -> Bool {
+        return left.identifier == right.identifier
+    }
+    
+    static func ~=(pattern: () -> SWSegue, value: SWSegue) -> Bool {
+        return pattern() == value
+    }
     
 }

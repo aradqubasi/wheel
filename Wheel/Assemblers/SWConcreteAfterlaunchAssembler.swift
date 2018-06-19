@@ -25,4 +25,8 @@ class SWConcreteAfterlaunchAssembler: SWAfterlaunchAssembler {
         return SWConcreteOnboardingAssembler()
     }
     
+    func resolve() -> SWNavigationAssembler {
+        return SWConcreteNavigationAssembler()
+    }
+ 
 }

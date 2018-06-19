@@ -32,4 +32,10 @@ protocol SWSegueRepository {
     
     func getFilterToWheelsWithSwipe() -> SWSegue
     
+    func set(current segue: SWSegue) -> Void
+    
+    func getCurrent() -> SWSegue?
+    
+    func getFilterToWheelsWithConfirm() -> SWSegue
+    
 }

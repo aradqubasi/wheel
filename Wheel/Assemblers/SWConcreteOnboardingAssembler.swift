@@ -21,4 +21,8 @@ class SWConcreteOnboardingAssembler: SWOnboardingAssembler {
         return SWInmemoryBowlTimelineRepository()
     }
     
+    func resolve() -> SWNavigationAssembler {
+        return SWConcreteNavigationAssembler()
+    }
+    
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissableViewController {
+class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissableViewController {
     
     // MARK: - Public Properties
     
@@ -25,8 +25,6 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
     private var _servings: Int!
     
     private var _selectionViews: [SWRecipyIngridientView]!
-    
-    private var _segues: SWSegueRepository!
     
     private var _selectionContainer: UIView!
     
@@ -61,7 +59,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
         
         _name = assembler.resolve().getName(for: selection)
         
-        _segues = assembler.resolve()
+        segues = assembler.resolve()
 
         _measuresmentRepository = assembler.resolve()
         
@@ -301,7 +299,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
 //        }
         do {
             _dismisser = SWSwipeInteractiveTransition({() -> Void in
-                self.performSegue(withIdentifier: self._segues.getRecipyToWheelsWithSwipe().identifier, sender: self)
+                self.perform(segue: self.segues.getRecipyToWheelsWithSwipe())
             })
             _swiper = SWSwipeGestureRecognizer()
             _swiper.Delegate = _dismisser
@@ -339,7 +337,7 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
     
     @IBAction func onBackButtonClick(_ sender: Any) {
         if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
-            performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
+            perform(segue: segues.getRecipyToWheels())
         }
     }
     
@@ -352,13 +350,13 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
 //        if _swiper.IsIdle {
 //            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
 //        }
-        print("\(_dismisser?.percentComplete)")
+//        print("\(_dismisser?.percentComplete)")
 //        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(transit), userInfo: nil, repeats: false)
         transit()
     }
     
     @IBAction func transit() {
-        self.performSegue(withIdentifier: self._segues.getRecipyToSteps().identifier, sender: self)
+        perform(segue: segues.getRecipyToSteps())
     }
     
     @IBAction func onMore(_ sender: Any) {
@@ -407,15 +405,15 @@ class RecipyViewController: UIViewController, UIScrollViewDelegate, SWDismissabl
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
-        case _segues.getRecipyToSteps().identifier:
+        case segues.getRecipyToSteps().identifier:
             print("RecipyToSteps")
             _dismisser = nil
             (segue.destination as? StepsViewController)?.assembler = self.assembler.resolve()
             break
-        case _segues.getRecipyToWheelsWithSwipe().identifier:
+        case segues.getRecipyToWheelsWithSwipe().identifier:
             print("RecipyToWheelsWithSwipe")
             break
-        case _segues.getRecipyToWheels().identifier:
+        case segues.getRecipyToWheels().identifier:
             print("RecipyToWheels")
             _dismisser = nil
             break

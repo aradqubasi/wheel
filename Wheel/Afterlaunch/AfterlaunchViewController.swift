@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class AfterlaunchViewController: UIViewController {
+class AfterlaunchViewController: SWViewController {
     
     // MARK: - Public properties
     var assembler: SWAfterlaunchAssembler!
@@ -20,13 +20,13 @@ class AfterlaunchViewController: UIViewController {
         
         let appState: SWAppState = assembler.resolve().get()
         
-        let navigation: SWSegueRepository = assembler.resolve()
+        segues = assembler.resolve()
         
         if appState.showOnboarding {
-            performSegue(withIdentifier: navigation.getAfterlaunchToOnboarding().identifier, sender: self)
+            perform(segue: segues.getAfterlaunchToOnboarding())
         }
         else {
-            performSegue(withIdentifier: navigation.getAfterlaunchToWheels().identifier, sender: self)
+            perform(segue: segues.getAfterlaunchToWheels())
         }
         
     }
@@ -34,9 +34,11 @@ class AfterlaunchViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigator = segue.destination as? UINavigationController, let wheels = navigator.topViewController as? WheelsViewController {
+        if let navigator = segue.destination as? SWNavigationController, let wheels = navigator.topViewController as? WheelsViewController {
             let wheelsAssembler: SWWheelsAssembler = assembler.resolve()
             wheels.assembler = wheelsAssembler
+            let navigationAssembler: SWNavigationAssembler = assembler.resolve()
+            navigator.assembler = navigationAssembler
         }
         else if let onboardingController = segue.destination as? OnboardingViewController {
             let onboardingAssembler: SWOnboardingAssembler = assembler.resolve()

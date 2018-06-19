@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
+class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
 {
     
     // MARK: - Outlets
@@ -28,9 +28,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     private var _blockings: SWBlockingRepository!
     
     private var _options: SWOptionRepository!
-    
-    private var _segues: SWSegueRepository!
-    
+        
     var bases: SWAbstractWheelController!
     
     var fats: SWAbstractWheelController!
@@ -262,8 +260,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     func onCook(in controller: SelectionController) {
         
         selected = selectionController.selected.map({ $0.asIngridient })
-        performSegue(withIdentifier: _segues.getWheelsToRecipy().identifier, sender: self)
-        
+        perform(segue: segues.getWheelsToRecipy())
     }
     
     func onCookTry(in controller: SelectionController) {
@@ -372,7 +369,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
         _ingredients = assembler.resolve()
         _blockings = assembler.resolve()
         _options = assembler.resolve()
-        _segues = assembler.resolve()
+        segues = assembler.resolve()
         _aligner = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
@@ -604,8 +601,7 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onFilterButtonClick(_ sender: UIBarButtonItem) {
         print("onFilterButtonClick")
-        performSegue(withIdentifier: _segues.getWheelsToFilter().identifier, sender: self)
-        
+        perform(segue: segues.getWheelsToFilter())
     }
  
     @IBAction func onHamburgerButtonClick(_ sender: UIBarButtonItem) {
@@ -1008,12 +1004,12 @@ class WheelsViewController: UIViewController, SWAbstractWheelControllerDelegate,
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier {
         // TODO: - pass assembler
-        case _segues.getWheelsToFilter().identifier?:
+        case segues.getWheelsToFilter().identifier?:
             let filter = segue.destination as? FilterViewController
             filter?.assembler = assembler.resolve()
 //            filter?.ancestor = view.toImage()
 //            filter?.ancestorNavigationBar = navigationController?.navigationBar.toImage()
-        case _segues.getWheelsToRecipy().identifier?:
+        case segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
                 recipyViewController.selection = []

@@ -9,6 +9,8 @@
 import Foundation
 class SWInmemorySegueRepository: SWSegueRepository {
 
+    private static var current: SWSegue?
+    
     func getOnboardingToWheels() -> SWSegue {
         return SWSegue(identifier: "OnboardingToWheels")
     }
@@ -56,5 +58,17 @@ class SWInmemorySegueRepository: SWSegueRepository {
     
     func getFilterToWheelsWithSwipe() -> SWSegue {
         return SWSegue(identifier: "FilterToWheelsWithSwipe")
+    }
+    
+    func set(current segue: SWSegue) {
+        SWInmemorySegueRepository.current = segue
+    }
+    
+    func getCurrent() -> SWSegue? {
+        return SWInmemorySegueRepository.current
+    }
+    
+    func getFilterToWheelsWithConfirm() -> SWSegue {
+        return SWSegue(identifier: "FilterToWheelsWithConfirm")
     }
 }

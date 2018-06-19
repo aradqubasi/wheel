@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OnboardingViewController: UIViewController {
+class OnboardingViewController: SWViewController {
     
     // MARK: - Public Properties
     
@@ -27,9 +27,7 @@ class OnboardingViewController: UIViewController {
     private var _bowlController: SWBowlSceneController!
     
     private var _skip: UIButton!
-    
-    private var _segues: SWSegueRepository!
-    
+        
     private var _transitioning: Bool!
     
     private var _timelines: SWBowlTimelineRepository!
@@ -87,7 +85,7 @@ class OnboardingViewController: UIViewController {
             _bowlController.actors.append(proceed)
         }
         
-        _segues = assembler.resolve()
+        segues = assembler.resolve()
         
     }
 
@@ -99,11 +97,11 @@ class OnboardingViewController: UIViewController {
     // MARK: - Actions
     
     @IBAction private func onSkip(_ sender: UIButton) {
-        performSegue(withIdentifier: _segues.getOnboardingToWheels().identifier, sender: self)
+        perform(segue: segues.getOnboardingToWheels())
     }
     
     @IBAction private func onProceed(_ sender: UIButton) {
-        performSegue(withIdentifier: _segues.getOnboardingToWheels().identifier, sender: self)
+        perform(segue: segues.getOnboardingToWheels())
     }
     
     @IBAction private func onSwipeLeft(_ sender: UISwipeGestureRecognizer) {
@@ -171,9 +169,11 @@ class OnboardingViewController: UIViewController {
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigator = segue.destination as? UINavigationController, let wheels = navigator.topViewController as? WheelsViewController {
+        if let navigator = segue.destination as? SWNavigationController, let wheels = navigator.topViewController as? WheelsViewController {
             let wheelsAssembler: SWWheelsAssembler = assembler.resolve()
             wheels.assembler = wheelsAssembler
+            let navigationAssembler: SWNavigationAssembler = assembler.resolve()
+            navigator.assembler = navigationAssembler
         }
         else {
             fatalError("Segues does not directed to Wheels View Controller")

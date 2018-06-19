@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableViewController/*, UIViewControllerTransitioningDelegate */{
+class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableViewController/*, UIViewControllerTransitioningDelegate */{
     
     // MARK: - Public properties
     
@@ -23,9 +23,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableV
     private var _swiper: SWSwipeGestureRecognizer!
     
     private var _name: String!
-    
-    private var _segues: SWSegueRepository!
-    
+        
     private var _container: UIView!
     
     private var _feedback: SWFeedbackService!
@@ -45,14 +43,14 @@ class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableV
         
         _name = "Steps"
         
-        _segues = assembler.resolve()
+        segues = assembler.resolve()
         
         _feedback = assembler.resolve()
         
         //swipe to recipy
         do {
             let dismisser = SWSwipeInteractiveTransition({() -> Void in
-                self.performSegue(withIdentifier: self._segues.getStepsToRecipyWithSwipe().identifier, sender: self)
+                self.perform(segue: self.segues.getStepsToRecipyWithSwipe())
             })
             self._dismisser = dismisser
             _swiper = SWSwipeGestureRecognizer()
@@ -191,7 +189,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableV
     
     @IBAction func onBackButtonClick(_ sender: Any) {
 //        (navigationController as? SWNavigationController)?.interactionController = nil
-        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
+        perform(segue: segues.getStepsToRecipy())
     }
     
     @IBAction func onIWantButtonClick(_ sender: Any) {
@@ -202,7 +200,7 @@ class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableV
             _feedback.requestStepsFunctionality()
         }
 //        (navigationController as? SWNavigationController)?.interactionController = nil
-        performSegue(withIdentifier: _segues.getStepsToRecipy().identifier, sender: self)
+        perform(segue: segues.getStepsToRecipy())
     }
     
     @IBAction func onAnonymousClick(_ sender: UISwitch) {
@@ -290,10 +288,10 @@ class StepsViewController: UIViewController, UITextFieldDelegate, SWDismissableV
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
-        case _segues.getStepsToRecipy().identifier:
+        case segues.getStepsToRecipy().identifier:
             print("StepsToRecipy")
             _dismisser = nil
-        case _segues.getStepsToRecipyWithSwipe().identifier:
+        case segues.getStepsToRecipyWithSwipe().identifier:
             print("StepsToRecipyWithSwipe")
         default:
             print("\(segue.identifier ?? "")")

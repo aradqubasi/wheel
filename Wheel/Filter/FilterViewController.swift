@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FilterViewController: UIViewController, SWDismissableViewController {
+class FilterViewController: SWViewController, SWDismissableViewController {
     
     // MARK: - Subviews
     
@@ -43,8 +43,6 @@ class FilterViewController: UIViewController, SWDismissableViewController {
     var assembler: SWFilterAssembler!
     
     private var _options: SWOptionRepository!
-
-    private var _segues: SWSegueRepository!
     
 //    var ancestor: UIImage!
 //
@@ -58,7 +56,7 @@ class FilterViewController: UIViewController, SWDismissableViewController {
         
         _options = assembler.resolve()
         
-        _segues = assembler.resolve()
+        segues = assembler.resolve()
 
 //        do {
 //            let background = UIView(frame: view.bounds)
@@ -185,7 +183,7 @@ class FilterViewController: UIViewController, SWDismissableViewController {
         
         do {
             _dismisser = SWSwipeInteractiveTransition({() -> Void in
-                self.performSegue(withIdentifier: self._segues.getFilterToWheelsWithSwipe().identifier, sender: self)
+                self.perform(segue: self.segues.getFilterToWheelsWithSwipe())
             })
             _swiper = SWSwipeGestureRecognizer()
             _swiper.Delegate = _dismisser
@@ -242,7 +240,7 @@ class FilterViewController: UIViewController, SWDismissableViewController {
 //        }, completion: { (_:Bool) -> Void in
 //            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
 //        })
-        self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
+        perform(segue: segues.getFilterToWheels())
     }
     
     @IBAction private func onSwipeBack(_ sender: Any) {
@@ -253,7 +251,10 @@ class FilterViewController: UIViewController, SWDismissableViewController {
 //        }, completion: { (_:Bool) -> Void in
 //            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
 //        })
-        self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
+        
+//        self._segues.set(current: _segues.getFilterToWheelsWithConfirm())
+//        print("call segue")
+        perform(segue: segues.getFilterToWheels())
     }
     
     @IBAction private func onOkButtonClick(_ sender: UIButton) {
@@ -285,7 +286,7 @@ class FilterViewController: UIViewController, SWDismissableViewController {
 //            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
 //        })
 //        _swiper.forceCompletion()
-        self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
+        perform(segue: segues.getFilterToWheelsWithConfirm())
     }
     
     // MARK: - SWSwipeDelegate
@@ -318,11 +319,16 @@ class FilterViewController: UIViewController, SWDismissableViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier ?? "" {
-        case _segues.getFilterToWheelsWithSwipe().identifier:
+        case segues.getFilterToWheelsWithSwipe().identifier:
             print("FilterToWheelsWithSwipe")
-        case _segues.getFilterToWheels().identifier:
+        case segues.getFilterToWheels().identifier:
             print("FilterToWheels")
             _dismisser = nil
+        case segues.getFilterToWheelsWithConfirm().identifier:
+            print("FilterToWheelsWithConfirm")
+//            self._segues.set(current: segues.getFilterToWheelsWithConfirm())
+            _dismisser = nil
+            break
         default:
             print("\(segue.identifier ?? "")")
         }

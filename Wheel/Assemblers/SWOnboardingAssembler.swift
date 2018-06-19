@@ -15,4 +15,5 @@ protocol SWOnboardingAssembler {
     
     func resolve() -> SWBowlTimelineRepository
     
+    func resolve() -> SWNavigationAssembler 
 }

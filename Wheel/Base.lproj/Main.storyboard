@@ -86,6 +86,7 @@
                     <connections>
                         <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheels" unwindAction="unwindToWheelsWithSegue:" id="Azr-3a-2nV"/>
                         <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="KVp-if-Ukm"/>
+                        <segue destination="Tij-yj-lQg" kind="unwind" identifier="FilterToWheelsWithConfirm" unwindAction="unwindToWheelsWithSegue:" id="F9p-AI-Twv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zB1-sm-Iju" userLabel="First Responder" sceneMemberID="firstResponder"/>

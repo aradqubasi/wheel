@@ -17,4 +17,6 @@ protocol SWAfterlaunchAssembler {
     
     func resolve() -> SWOnboardingAssembler
     
+    func resolve() -> SWNavigationAssembler
+    
 }

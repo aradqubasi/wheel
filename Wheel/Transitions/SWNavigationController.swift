@@ -10,10 +10,19 @@ import UIKit
 
 class SWNavigationController: UINavigationController, UINavigationControllerDelegate {
     
+    // MARK: - Public Properties
+    
+    var assembler: SWNavigationAssembler!
+    
+    // MARK: - Private Properties
+    
+    private var segues: SWSegueRepository!
+    
     // MARK: - Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        segues = assembler.resolve()
         delegate = self
     }
 
@@ -38,6 +47,7 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
     
     
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        print("navigation")
 //        print("\(operation == .pop ? "pop" : operation == .push ? "push" : "something")")
 //        if fromVC is SWDismissableViewController && operation == .pop {
 //            return SWDismissAnimationContorller(from: fromVC, to: toVC)
@@ -45,7 +55,11 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
 //        else {
 //            return nil
 //        }
-        if fromVC is StepsViewController && toVC is RecipyViewController {
+        
+        if segues.getCurrent()?.identifier ?? "" == segues.getFilterToWheelsWithConfirm().identifier {
+            return SWCompleteAnimationController(from: fromVC, to: toVC)
+        }
+        else if fromVC is StepsViewController && toVC is RecipyViewController {
             return SWDismissAnimationContorller(from: fromVC, to: toVC)
         }
         else if fromVC is RecipyViewController && toVC is WheelsViewController {

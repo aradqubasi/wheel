@@ -14,10 +14,12 @@ class NamedPinView: UIView, Floatable {
     
     var name: String {
         get {
-            return _label.text ?? ""
+            return _label.attributedText?.string ?? ""
         }
         set(new) {
-           _label.text = new
+            let text = NSAttributedString(string: new, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 12) as Any])
+            _label.attributedText = text
+            _label.frame.size.height = text.size(in: _label.frame.width).raise().height
         }
     }
     
@@ -87,11 +89,10 @@ class NamedPinView: UIView, Floatable {
         _button.backgroundColor = UIColor.white
         _button.layer.borderColor = UIColor.shamrock.cgColor
         addSubview(_button)
-        
-        _label.frame = CGRect(x: 36 - 100, y: self.bounds.height + 8, width: 200, height: 16)
+
+        _label.frame = CGRect(x: 36 - 72 * 0.5, y: self.bounds.height + 8, width: 72, height: 16 * 2)
         _label.textAlignment = .center
-        _label.font = UIFont.namedpin
-        _label.textColor = UIColor.white
+        _label.numberOfLines = 0
         addSubview(_label)
         
         state = .regular

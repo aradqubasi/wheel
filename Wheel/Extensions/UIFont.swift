@@ -15,11 +15,5 @@ extension UIFont {
             return UIFont(name: "Avenir-Medium", size: 10)!
         }
     }
-
-    class var namedpin: UIFont {
-        get {
-            return UIFont(name: "Avenir-Medium", size: 12)!
-        }
-    }
     
 }

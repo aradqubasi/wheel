@@ -63,11 +63,34 @@
                     <connections>
                         <segue destination="xjE-g0-XdL" kind="show" identifier="WheelsToFilter" id="Xb9-Iq-PWI"/>
                         <segue destination="zk1-cU-Buj" kind="show" identifier="WheelsToRecipy" id="tTt-hq-gRy"/>
+                        <segue destination="yf6-AV-UG0" kind="show" identifier="WheelsToOverlay" id="Dpn-V9-dIP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="649" y="-111"/>
+        </scene>
+        <!--Overlay-->
+        <scene sceneID="Dly-db-N5K">
+            <objects>
+                <viewController id="yf6-AV-UG0" userLabel="Overlay" customClass="OverlayViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K3c-Sg-166"/>
+                        <viewControllerLayoutGuide type="bottom" id="bSN-c1-ep4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="yTJ-NM-MdL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="OvR-jY-lV1" kind="unwind" identifier="OverlayToWheels" unwindAction="unwindToWheelsWithSegue:" id="ydX-yq-lWH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OBQ-Xg-K0s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="OvR-jY-lV1" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1784" y="-107"/>
         </scene>
         <!--Filter-->
         <scene sceneID="de4-Ub-Gip">

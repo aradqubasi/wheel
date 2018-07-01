@@ -19,7 +19,7 @@ protocol SWOverlayController {
     
     var delegate: OverlayControllerDelegate? { get set }
     
-    var view: UIView? { get set }
+//    var view: UIView? { get set }
     
     func random()
     

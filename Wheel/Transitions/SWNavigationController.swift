@@ -56,6 +56,10 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWCompleteAnimationController()
         case segues.getStepsToRecipyWithConfirm:
             return SWCompleteAnimationController()
+        case segues.getWheelsToOverlay:
+            return SWShowOverlayAnimationController()
+        case segues.getOverlayToWheels:
+            return SWHideOverlayAnimationController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)

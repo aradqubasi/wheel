@@ -40,4 +40,8 @@ protocol SWSegueRepository {
     
     func getStepsToRecipyWithConfirm() -> SWSegue
     
+    func getWheelsToOverlay() -> SWSegue
+    
+    func getOverlayToWheels() -> SWSegue
+    
 }

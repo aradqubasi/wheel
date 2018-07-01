@@ -53,4 +53,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve() -> SWFilterAssembler {
         return SWConcreteFilterAssembler()
     }
+    
+    func resolve() -> SWOverlayAssembler {
+        return SWConcreteOverlayAssembler()
+    }
 }

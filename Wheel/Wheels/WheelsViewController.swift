@@ -51,6 +51,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     var options: OptionsController!
     
+    var overlayTransitionContext: SWIngredientKinds?
+    
 //    var tips: SWTipController!
     
     // MARK: - Subs
@@ -627,43 +629,38 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {
         print("onToUnexpectedClick")
-        unexpected.set(for: sender)
-        let open = { () in
-            self.unexpected.open()
-        }
-        let showend = { (_: Bool) -> Void in }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
+        overlayTransitionContext = .unexpected
+        perform(segue: segues.getWheelsToOverlay())
+//        unexpected.set(for: sender)
+//        let open = { () in
+//            self.unexpected.open()
+//        }
+//        let showend = { (_: Bool) -> Void in }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     @IBAction func onToDressingClick(_ sender: UIButton) {
         print("onToDressingClick")
-        dressing.set(for: sender)
-        let open = { () in
-            self.dressing.open()
-        }
-        let showend = { (_: Bool) -> Void in }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
-    }
-    
-    var qty: Int = 7
-    @IBAction func onToFruitsClick(_ sender: UIButton) {
-//        do {
-//            qty = qty - 1
-//            let allFruits = _ingredients.getAll(by: .fruits)
-//            var subFruits: [SWIngredient] = []
-//            for i in 0..<qty {
-//                subFruits.append(allFruits[i])
-//            }
-//            (fruits as! SWTranslatedOverlayController).flushIngredients(with: subFruits)
+        overlayTransitionContext = .dressing
+        perform(segue: segues.getWheelsToOverlay())
+//        dressing.set(for: sender)
+//        let open = { () in
+//            self.dressing.open()
 //        }
-        
+//        let showend = { (_: Bool) -> Void in }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
+    }
+
+    @IBAction func onToFruitsClick(_ sender: UIButton) {
         print("onToFruitsClick")
-        fruits.set(for: sender)
-        let open = { () in
-            self.fruits.open()
-        }
-        let showend = { (_: Bool) -> Void in }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
+        overlayTransitionContext = .fruits
+        perform(segue: segues.getWheelsToOverlay())
+//        fruits.set(for: sender)
+//        let open = { () in
+//            self.fruits.open()
+//        }
+//        let showend = { (_: Bool) -> Void in }
+//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
@@ -1018,6 +1015,14 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                         recipyViewController.selection.append(ingredient)
                     }
                 })
+            }
+        case segues.getWheelsToOverlay().identifier?:
+            print("to \(String(describing: overlayTransitionContext))")
+            if let overlayViewController = segue.destination as? OverlayViewController {
+                overlayViewController.assembler = assembler.resolve()
+                overlayViewController.background = view.snapshotView(afterScreenUpdates: true)
+                overlayViewController.kind = overlayTransitionContext!
+                overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
             }
         default:
             fatalError("Unrecognized segue")

@@ -75,4 +75,12 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getStepsToRecipyWithConfirm() -> SWSegue {
         return SWSegue(identifier: "StepsToRecipyWithConfirm")
     }
+    
+    func getWheelsToOverlay() -> SWSegue {
+        return SWSegue(identifier: "WheelsToOverlay")
+    }
+    
+    func getOverlayToWheels() -> SWSegue {
+        return SWSegue(identifier: "OverlayToWheels")
+    }
 }

@@ -19,6 +19,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - Private Properties
     
+    private var filter: SWIngredientsFilter!
+    
     private var _tipster: SWTipGenerator!
     
     private var _aligner: SWWheelsAligner!
@@ -373,6 +375,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         _options = assembler.resolve()
         segues = assembler.resolve()
         _aligner = assembler.resolve()
+        filter = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -535,15 +538,15 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         
         unexpected = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .unexpected), aligner: _aligner, scene: overlay)
         unexpected.delegate = self
-        toUnexpected.overlay = unexpected
+//        toUnexpected.overlay = unexpected
         
         dressing = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .dressing), aligner: _aligner, scene: overlay)
         dressing.delegate = self
-        toDressing.overlay = dressing
+//        toDressing.overlay = dressing
         
         fruits = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .fruits), aligner: _aligner, scene: overlay)
         fruits.delegate = self
-        toFruits.overlay = fruits
+//        toFruits.overlay = fruits
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -672,20 +675,32 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 self.fats.moveToRandomPin()
                 self.veggies.moveToRandomPin()
                 self.proteins.moveToRandomPin()
-                self.unexpected.random()
-                self.dressing.random()
-                self.fruits.random()
+//                self.unexpected.random()
+//                self.dressing.random()
+//                self.fruits.random()
                 
                 self.selectionController.erase()
             }
             
             let select = { (_: Bool) -> Void in
                 var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-                [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
-                    if button.haveSelection {
-                        focus.append(button)
-                    }
-                })
+//                [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
+//                    if button.haveSelection {
+//                        focus.append(button)
+//                    }
+//                })
+                if let fruit = self.filter.filterByOptionsAnd(by: .fruits).random() {
+                    self.toFruits.selection = fruit
+                    focus.append(self.toFruits)
+                }
+                if let unexpected = self.filter.filterByOptionsAnd(by: .unexpected).random() {
+                    self.toUnexpected.selection = unexpected
+                    focus.append(self.toUnexpected)
+                }
+                if let dressing = self.filter.filterByOptionsAnd(by: .dressing).random() {
+                    self.toDressing.selection = dressing
+                    focus.append(self.toDressing)
+                }
                 self.add(focus)
                 
             }
@@ -879,7 +894,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         }
     }
     
-    private func add(_ pins: [Floatable]) {
+//    private func add(_ pins: [Floatable]) {
+    func add(_ pins: [Floatable]) {
         if adding {
             return
         }
@@ -1023,6 +1039,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 overlayViewController.background = view.snapshotView(afterScreenUpdates: true)
                 overlayViewController.kind = overlayTransitionContext!
                 overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
+                overlayViewController.prefocused = selectionController.selected.map({ $0.asIngridient }).first(where: { $0.kind == self.overlayTransitionContext! })
             }
         default:
             fatalError("Unrecognized segue")

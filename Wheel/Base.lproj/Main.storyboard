@@ -85,6 +85,7 @@
                     </view>
                     <connections>
                         <segue destination="OvR-jY-lV1" kind="unwind" identifier="OverlayToWheels" unwindAction="unwindToWheelsWithSegue:" id="ydX-yq-lWH"/>
+                        <segue destination="OvR-jY-lV1" kind="unwind" identifier="OverlayToWheelsWithSelect" unwindAction="unwindToWheelsWithSegue:" id="2mw-cY-fSJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBQ-Xg-K0s" userLabel="First Responder" sceneMemberID="firstResponder"/>

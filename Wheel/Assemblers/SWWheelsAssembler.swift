@@ -29,4 +29,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWOverlayAssembler
     
+    func resolve() -> SWIngredientsFilter
+    
 }

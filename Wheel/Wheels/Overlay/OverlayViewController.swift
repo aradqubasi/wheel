@@ -18,6 +18,8 @@ class OverlayViewController: SWViewController {
     
     var background: UIView?
     
+    var prefocused: SWIngredient?
+    
     // MARK: - Private Properties
     
     private var filter: SWIngredientsFilter!
@@ -87,21 +89,38 @@ class OverlayViewController: SWViewController {
         discharge()
         
         navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        if let selected = prefocused {
+            focus(on: selected)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == segues.getOverlayToWheelsWithSelect().identifier {
+            if let wheels = segue.destination as? WheelsViewController, let kind = self.kind, let focused = self.focused {
+                switch kind {
+                case .fruits:
+                    wheels.toFruits.selection = focused.asIngridient
+                    break
+                case .dressing:
+                    wheels.toDressing.selection = focused.asIngridient
+                    break
+                case .unexpected:
+                    wheels.toUnexpected.selection = focused.asIngridient
+                    break
+                default:
+                    break
+                }
+            }
+        }
     }
-    */
 
 }
 
@@ -145,13 +164,12 @@ extension OverlayViewController: SWOverlayController {
     }
     
     @IBAction private func onCloseClick(_ sender: UIButton) {
-        delegate?.onClose(of: self)
         perform(segue: segues.getOverlayToWheels())
     }
     
     @IBAction private func onIngridientClick(_ sender: NamedPinView) {
-        //focusing(sender)
-        delegate?.onSelect(of: sender, in: self)
+        focusing(sender)
+        perform(segue: segues.getOverlayToWheelsWithSelect())
     }
     
     // MARK: - Public Methods

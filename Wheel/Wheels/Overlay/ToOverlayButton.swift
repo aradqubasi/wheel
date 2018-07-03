@@ -10,25 +10,36 @@ import UIKit
 
 class ToOverlayButton: UIButton, Floatable {
     
-    var haveSelection: Bool {
-        get {
-            if let overlay = overlay {
-                return overlay.focused != nil
-            }
-            else {
-                return false
-            }
-        }
-    }
+//    var haveSelection: Bool {
+//        get {
+//            if let overlay = overlay {
+//                return overlay.focused != nil
+//            }
+//            else {
+//                return false
+//            }
+//        }
+//    }
+//
+//    var overlay: SWOverlayController?
+//
+//    var asIngridient: SWIngredient {
+//        get {
+//            guard let focused = overlay?.focused else {
+//                fatalError("overlay is not assigned to ToOverlayButton")
+//            }
+//            return focused.asIngridient
+//        }
+//    }
     
-    var overlay: SWOverlayController?
+    var selection: SWIngredient?
     
     var asIngridient: SWIngredient {
         get {
-            guard let focused = overlay?.focused else {
+            guard let selection = self.selection else {
                 fatalError("overlay is not assigned to ToOverlayButton")
             }
-            return focused.asIngridient
+            return selection
         }
     }
     

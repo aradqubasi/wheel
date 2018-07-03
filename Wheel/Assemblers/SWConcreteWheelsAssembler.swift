@@ -57,4 +57,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve() -> SWOverlayAssembler {
         return SWConcreteOverlayAssembler()
     }
+    
+    func resolve() -> SWIngredientsFilter {
+        return SWConcreteIngredientsFilter(ingredients: resolve(), options: resolve(), blockings: resolve())
+    }
 }

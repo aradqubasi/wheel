@@ -60,6 +60,8 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWShowOverlayAnimationController()
         case segues.getOverlayToWheels:
             return SWHideOverlayAnimationController()
+        case segues.getOverlayToWheelsWithSelect:
+            return SWPickingOverlayAnimationController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)

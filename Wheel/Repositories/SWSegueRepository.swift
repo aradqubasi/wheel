@@ -44,4 +44,6 @@ protocol SWSegueRepository {
     
     func getOverlayToWheels() -> SWSegue
     
+    func getOverlayToWheelsWithSelect() -> SWSegue
+    
 }

@@ -23,6 +23,8 @@
 		151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer.swift */; };
 		1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */; };
 		152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */; };
+		152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */; };
+		152F66D820EB37070070BAA5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D720EB37070070BAA5 /* Array.swift */; };
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
 		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
 		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
@@ -212,6 +214,8 @@
 		151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeGestureRecognizer.swift; sourceTree = "<group>"; };
 		1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedView.swift; sourceTree = "<group>"; };
 		152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideOverlayAnimationController.swift; sourceTree = "<group>"; };
+		152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPickingOverlayAnimationController.swift; sourceTree = "<group>"; };
+		152F66D720EB37070070BAA5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				15BA801B203A9BE800596CC8 /* CGFloat.swift */,
 				15BA803F2041F5B200596CC8 /* Int.swift */,
 				151192A1207DC67000D93751 /* UITextField.swift */,
+				152F66D720EB37070070BAA5 /* Array.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -693,6 +698,7 @@
 				15FDD3A720D95D470077557B /* SWViewController.swift */,
 				15FA4E3320DEAAF400A345EC /* SWShowOverlayAnimationController.swift */,
 				152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */,
+				152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -1073,10 +1079,12 @@
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
 				15FA4E3220DE870200A345EC /* SWConcreteOverlayAssembler.swift in Sources */,
 				155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */,
+				152F66D820EB37070070BAA5 /* Array.swift in Sources */,
 				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,
 				15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */,
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
+				152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
 				1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */,

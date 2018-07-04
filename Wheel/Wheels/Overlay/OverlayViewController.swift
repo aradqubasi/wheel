@@ -23,9 +23,7 @@ class OverlayViewController: SWViewController {
     // MARK: - Private Properties
     
     private var filter: SWIngredientsFilter!
-    
-    var delegate: OverlayControllerDelegate?
-    
+
     private var _scene: UIView!
     
     private var _pins: [NamedPinView]!
@@ -121,7 +119,58 @@ class OverlayViewController: SWViewController {
             }
         }
     }
-
+    
+    // MARK: - Private Methods
+    
+    private func flushIngredients(with updated: [SWIngredient]) {
+        
+        _pins.forEach({ $0.alpha = 0 })
+        
+        var visible: [NamedPinView] = []
+        //add mising
+        updated.forEach({ (new: SWIngredient) -> Void in
+            var listed = self._pins.first(where: {
+                (existing: NamedPinView) -> Bool in
+                return existing.asIngridient.id == new.id
+            })
+            if listed == nil {
+                let additional = NamedPinView(for: new)
+                _pins.append(additional)
+                _wheel.addSubview(additional)
+                listed = additional
+            }
+            visible.append(listed!)
+            listed!.alpha = 1
+        })
+        
+        if let focused = _focused {
+            _focused = visible.contains(focused) ? focused : nil
+        }
+        
+        switch updated.count {
+        case 0:
+            break
+        case 1:
+            let pin = visible[0]
+            let central = _wheel.getBoundsCenter()
+            pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
+            pin.center = central
+            pin.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0)
+            break
+        case 3:
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: CGFloat.pi * 0.5)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
+            break
+        case 5:
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: -CGFloat.pi * 0.1)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
+            break
+        //2,4,6..<Inf+
+        default:
+            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: 0)
+            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
+        }
+    }
 }
 
 extension OverlayViewController: SWOverlayController {
@@ -180,69 +229,6 @@ extension OverlayViewController: SWOverlayController {
             fatalError("can n ot focus on non-existant ingredient")
         }
         focusing(pin)
-    }
-    
-    func random() {
-        let visible = _pins.filter({ $0.alpha != 0 })
-        if (visible.count != 0){
-            let index = Int(arc4random_uniform(UInt32(visible.count)))
-            let new = visible[index]
-            delegate?.onFocus(of: new.asIngridient, in: self)
-            //focusing(new)
-        }
-        else {
-            unfocus()
-        }
-    }
-    
-    func flushIngredients(with updated: [SWIngredient]) {
-        
-        _pins.forEach({ $0.alpha = 0 })
-        
-        var visible: [NamedPinView] = []
-        //add mising
-        updated.forEach({ (new: SWIngredient) -> Void in
-            var listed = self._pins.first(where: {
-                (existing: NamedPinView) -> Bool in
-                return existing.asIngridient.id == new.id
-            })
-            if listed == nil {
-                let additional = NamedPinView(for: new)
-                _pins.append(additional)
-                _wheel.addSubview(additional)
-                listed = additional
-            }
-            visible.append(listed!)
-            listed!.alpha = 1
-        })
-        
-        if let focused = _focused {
-            _focused = visible.contains(focused) ? focused : nil
-        }
-        
-        switch updated.count {
-        case 0:
-            break
-        case 1:
-            let pin = visible[0]
-            let central = _wheel.getBoundsCenter()
-            pin.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside)
-            pin.center = central
-            pin.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 0)
-            break
-        case 3:
-            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: CGFloat.pi * 0.5)
-            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
-            break
-        case 5:
-            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: -CGFloat.pi * 0.1)
-            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
-            break
-        //2,4,6..<Inf+
-        default:
-            _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: 0)
-            visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
-        }
     }
     
     // MARK: - Animation Methods

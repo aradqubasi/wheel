@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate, OverlayControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
+class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate, SelectionDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
 {
     
     // MARK: - Outlets
@@ -44,12 +44,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     var selectionController: SelectionController!
     
     var selected: [SWIngredient]!
-    
-    var unexpected: SWOverlayController!
-    
-    var dressing: SWOverlayController!
-    
-    var fruits: SWOverlayController!
     
     var options: OptionsController!
     
@@ -178,64 +172,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: unlocking, completion: nil)
     }
     
-    // MARK: - OverlayContollerDelegate
-    
-    func onClose(of controller: SWOverlayController) -> Void {
-        print("onClose")
-        let close = { () in
-            controller.close()
-        }
-        let discharge = { (_:Bool) in
-            controller.discharge()
-        }
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
-    }
-    
-    func onSelect(of pin: NamedPinView, in controller: SWOverlayController) -> Void {
-        
-        controller.focus(on: pin.asIngridient)
-        
-        let close = { () in
-            controller.close()
-        }
-        
-        let discharge = { (_:Bool) in
-            controller.discharge()
-        }
-
-        if let focused = controller.focused {
-            if selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
-                selectionController.upreplace(with: focused.asIngridient)
-            }
-            else {
-                add([focused])
-            }
-        }
-        
-        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: discharge)
-    }
-    
-    func onFocus(of pin: SWIngredient, in controller: SWOverlayController) {
-        if let selected = selectionController.selected.map({ $0.asIngridient }).first(where: { $0.kind == pin.kind }) {
-            controller.focus(on: selected)
-        }
-        else {
-            controller.focus(on: pin)
-        }
-    }
-    
     // MARK: - SelectionDelegate
     
     func onRemove(of pin: Floatable, in controller: SelectionController) {
-        if pin.asIngridient.kind == .dressing {
-            dressing.unfocus()
-        }
-        else if pin.asIngridient.kind == .unexpected {
-            unexpected.unfocus()
-        }
-        else if pin.asIngridient.kind == .fruits {
-            fruits.unfocus()
-        }
         
         if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
             
@@ -270,13 +209,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     func onCookTry(in controller: SelectionController) {
         let text = _tipster.getTip(for: controller.selected.map({ $0.asIngridient }))
         controller.show(tip: text)
-//        tips.show(tip: "cook try bal bla bla", at: CGPoint(x: 354, y: 607), in: selection)
     }
     
     // MARK: - UIGestureRegocnizerDelegate Methods
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        return !selectionController.contains(touch) && !unexpected.opened && !dressing.opened && !fruits.opened && !options.opened
+        return !selectionController.contains(touch) && !options.opened
     }
     
     // MARK: - OptionsDelegate Methods
@@ -352,17 +290,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: hide, completion: reset)
         }
     }
-    
-    // MARK: - UINavigationControllerDelegate Methods
-    
-//    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        if fromVC is StepsViewController && toVC is RecipyViewController {
-//            return SWDismissAnimationContorller()
-//        }
-//        else {
-//            return nil
-//        }
-//    }
     
     // MARK: - Initialize
     
@@ -492,25 +419,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         wheels.addSubview(hand)
         pointer = PointerController(view: hand, in: .bases, at: assembler.resolve(), origin: leftMiddle)
         
-        //left side menu initialization
-        /*
-        var nextLeftMenu = CGPoint(x: 16, y: view.bounds.height / 3)
-        let deltaLeftMenu = (view.bounds.height / 3 - 56 * 3) * 0.5
-        toUnexpected = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
-        wheels.addSubview(toUnexpected)
-        nextLeftMenu.y = toUnexpected.frame.origin.y + toUnexpected.frame.height + deltaLeftMenu
-        
-        toDressing = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toDressing.asToDressing.addTarget(self, action: #selector(onToDressingClick(_:)), for: .touchUpInside)
-        wheels.addSubview(toDressing)
-        nextLeftMenu.y = toDressing.frame.origin.y + toDressing.frame.height + deltaLeftMenu
-        
-        toFruits = ToOverlayButton(frame: CGRect(origin: nextLeftMenu, size: .zero))
-        toFruits.asToFruits.addTarget(self, action: #selector(onToFruitsClick(_:)), for: .touchUpInside)
-        wheels.addSubview(toFruits)
-        */
-        
         toUnexpected = ToOverlayButton(frame: .zero)
         toUnexpected.asToUnexpected.addTarget(self, action: #selector(onToUnexpectedClick(_:)), for: .touchUpInside)
         wheels.addSubview(toUnexpected)
@@ -535,18 +443,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         wheels.addSubview(selection)
         selectionController.view = selection
         selection.delegate = self
-        
-        unexpected = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .unexpected), aligner: _aligner, scene: overlay)
-        unexpected.delegate = self
-//        toUnexpected.overlay = unexpected
-        
-        dressing = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .dressing), aligner: _aligner, scene: overlay)
-        dressing.delegate = self
-//        toDressing.overlay = dressing
-        
-        fruits = SWTranslatedOverlayController(ingredients: _ingredients.getAll(by: .fruits), aligner: _aligner, scene: overlay)
-        fruits.delegate = self
-//        toFruits.overlay = fruits
         
         spinner = UIPanGestureRecognizer(target: self, action: #selector(onScroll(_:)))
         spinner.delegate = self
@@ -1008,9 +904,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         veggies.flush()
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
-        fruits.flushIngredients(with: ingredients[.fruits]!)
-        unexpected.flushIngredients(with: ingredients[.unexpected]!)
-        dressing.flushIngredients(with: ingredients[.dressing]!)
         
     }
     
@@ -1020,8 +913,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         case segues.getWheelsToFilter().identifier?:
             let filter = segue.destination as? FilterViewController
             filter?.assembler = assembler.resolve()
-//            filter?.ancestor = view.toImage()
-//            filter?.ancestorNavigationBar = navigationController?.navigationBar.toImage()
         case segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()

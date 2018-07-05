@@ -25,6 +25,10 @@
 		152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */; };
 		152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */; };
 		152F66D820EB37070070BAA5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D720EB37070070BAA5 /* Array.swift */; };
+		152F66DB20EDD7790070BAA5 /* SubwheelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66DA20EDD7790070BAA5 /* SubwheelViewController.swift */; };
+		152F66DD20EDD7B70070BAA5 /* SWSubwheelAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66DC20EDD7B70070BAA5 /* SWSubwheelAssembler.swift */; };
+		152F66DF20EDD89B0070BAA5 /* SWConcreteSubwheelAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66DE20EDD89B0070BAA5 /* SWConcreteSubwheelAssembler.swift */; };
+		152F66E120EDDCD20070BAA5 /* SWSelectionWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66E020EDDCD20070BAA5 /* SWSelectionWheelController.swift */; };
 		15456D581FC0116C0018A1CD /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D571FC0116C0018A1CD /* UIView.swift */; };
 		15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D591FC0263A0018A1CD /* CGRect.swift */; };
 		15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D5D1FC0292F0018A1CD /* UIButton.swift */; };
@@ -214,6 +218,10 @@
 		152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideOverlayAnimationController.swift; sourceTree = "<group>"; };
 		152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPickingOverlayAnimationController.swift; sourceTree = "<group>"; };
 		152F66D720EB37070070BAA5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
+		152F66DA20EDD7790070BAA5 /* SubwheelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubwheelViewController.swift; sourceTree = "<group>"; };
+		152F66DC20EDD7B70070BAA5 /* SWSubwheelAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSubwheelAssembler.swift; sourceTree = "<group>"; };
+		152F66DE20EDD89B0070BAA5 /* SWConcreteSubwheelAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteSubwheelAssembler.swift; sourceTree = "<group>"; };
+		152F66E020EDDCD20070BAA5 /* SWSelectionWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelController.swift; sourceTree = "<group>"; };
 		15456D571FC0116C0018A1CD /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		15456D591FC0263A0018A1CD /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		15456D5D1FC0292F0018A1CD /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
@@ -444,6 +452,14 @@
 			path = Overlay;
 			sourceTree = "<group>";
 		};
+		152F66D920EDD6E60070BAA5 /* Subwheel */ = {
+			isa = PBXGroup;
+			children = (
+				152F66DA20EDD7790070BAA5 /* SubwheelViewController.swift */,
+			);
+			path = Subwheel;
+			sourceTree = "<group>";
+		};
 		15456D5C1FC028AD0018A1CD /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -480,6 +496,7 @@
 				1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */,
 				15DF420B1FE1352B00B6CC62 /* Floatable.swift */,
 				15BB5A4A1FE6513A003816AF /* SelectionState.swift */,
+				152F66E020EDDCD20070BAA5 /* SWSelectionWheelController.swift */,
 			);
 			path = Selection;
 			sourceTree = "<group>";
@@ -579,6 +596,8 @@
 				15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */,
 				15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */,
 				15FA4E3120DE870200A345EC /* SWConcreteOverlayAssembler.swift */,
+				152F66DC20EDD7B70070BAA5 /* SWSubwheelAssembler.swift */,
+				152F66DE20EDD89B0070BAA5 /* SWConcreteSubwheelAssembler.swift */,
 			);
 			path = Assemblers;
 			sourceTree = "<group>";
@@ -604,6 +623,7 @@
 		15B00C3A200B3AA3002B93A8 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
+				152F66D920EDD6E60070BAA5 /* Subwheel */,
 				15A25815208B2AFC00F738B5 /* TransparentView */,
 				15F0BB351F404FCC006F646E /* WheelsViewController.swift */,
 				15456D631FC94B320018A1CD /* PointerController.swift */,
@@ -943,6 +963,7 @@
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
 				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */,
+				152F66E120EDDCD20070BAA5 /* SWSelectionWheelController.swift in Sources */,
 				15A258992093835000F738B5 /* SWMoreButton.swift in Sources */,
 				15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */,
 				15BA80402041F5B200596CC8 /* Int.swift in Sources */,
@@ -966,6 +987,7 @@
 				15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */,
 				15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */,
 				15D13D3E2052C68B00D44923 /* SWRecipyListGenerator.swift in Sources */,
+				152F66DB20EDD7790070BAA5 /* SubwheelViewController.swift in Sources */,
 				15D13D4C2057A03700D44923 /* SWNarrowWheelsAligner.swift in Sources */,
 				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */,
@@ -981,6 +1003,7 @@
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
 				15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */,
 				151192A2207DC67000D93751 /* UITextField.swift in Sources */,
+				152F66DF20EDD89B0070BAA5 /* SWConcreteSubwheelAssembler.swift in Sources */,
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
@@ -991,6 +1014,7 @@
 				15D13D34204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift in Sources */,
 				15456D5A1FC0263A0018A1CD /* CGRect.swift in Sources */,
 				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
+				152F66DD20EDD7B70070BAA5 /* SWSubwheelAssembler.swift in Sources */,
 				15A2589D2093933E00F738B5 /* SWOptionAligner.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,

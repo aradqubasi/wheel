@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 protocol SWWheelsAssembler {
     
     func resolve() -> SWIngredientRepository
@@ -30,5 +32,7 @@ protocol SWWheelsAssembler {
     func resolve() -> SWOverlayAssembler
     
     func resolve() -> SWIngredientsFilter
+    
+    func resolve(using background: UIView) -> SWSubwheelAssembler
     
 }

@@ -61,4 +61,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve() -> SWIngredientsFilter {
         return SWConcreteIngredientsFilter(ingredients: resolve(), options: resolve(), blockings: resolve())
     }
+    
+    func resolve(using background: UIView) -> SWSubwheelAssembler {
+        return SWConcreteSubwheelAssembler(background: background)
+    }
 }

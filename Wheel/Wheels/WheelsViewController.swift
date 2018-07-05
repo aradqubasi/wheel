@@ -470,18 +470,18 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         }
         
         
-//        do {
+        do {
 //            input = UITextField(frame: CGRect(origin: CGPoint(x: 0, y: 100), size: CGSize(width: 1000, height: 20)))
 //            input.layer.borderColor = UIColor.black.cgColor
 //            input.layer.borderWidth = 2
 //            view.addSubview(input)
-//
-//            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
-//            roll.setTitleColor(UIColor.black, for: .normal)
-//            roll.setTitle("*", for: .normal)
-//            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
-//            view.addSubview(roll)
-//        }
+
+            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
+            roll.setTitleColor(UIColor.black, for: .normal)
+            roll.setTitle("*", for: .normal)
+            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
+            view.addSubview(roll)
+        }
         
         //tip
 //        do {
@@ -510,6 +510,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onDebug(_ sender: UIButton) {
+        perform(segue: segues.getWheelsToSubwheel())
 //        guard let text = input.text, let number = NumberFormatter().number(from: text) else {
 //            print("invalid cgfloat value")
 //            return
@@ -931,6 +932,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 overlayViewController.kind = overlayTransitionContext!
                 overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
                 overlayViewController.prefocused = selectionController.selected.map({ $0.asIngridient }).first(where: { $0.kind == self.overlayTransitionContext! })
+            }
+        case segues.getWheelsToSubwheel().identifier?:
+            if let subwheel = segue.destination as? SubwheelViewController {
+                subwheel.assembler = assembler.resolve(using: self.view.snapshotView(afterScreenUpdates: true)!)
             }
         default:
             fatalError("Unrecognized segue")

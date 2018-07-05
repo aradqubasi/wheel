@@ -87,4 +87,8 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getOverlayToWheelsWithSelect() -> SWSegue {
         return SWSegue(identifier: "OverlayToWheelsWithSelect")
     }
+    
+    func getWheelsToSubwheel() -> SWSegue {
+        return SWSegue(identifier: "WheelsToSubwheel")
+    }
 }

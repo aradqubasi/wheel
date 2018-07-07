@@ -25,10 +25,13 @@ class SubwheelViewController: UIViewController {
         self.view.addSubview(assembler.resolve())
         
         selection = SWSelectionWheelController()
-        self.addChildViewController(selection)
-        selection.view.frame = CGRect(x: 0, y: view.frame.height - view.frame.width * 0.5, width: view.frame.width, height: view.frame.width)
+        let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
+        selection.view.frame = rectangle
+        selection.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 1.3)
         view.addSubview(selection.view)
+        self.addChildViewController(selection)
         selection.didMove(toParentViewController: self)
+        selection.alignSubviews()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +39,6 @@ class SubwheelViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
     /*
     // MARK: - Navigation
 

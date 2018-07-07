@@ -136,5 +136,17 @@ extension UIView {
         UIGraphicsEndImageContext()
         return image
     }
+    
+    func shapeAsLayerView() {
+        self.backgroundColor = UIColor.white
+        self.layer.cornerRadius = self.bounds.width / 2
+        self.layer.borderColor = UIColor.mystic.cgColor
+        self.layer.borderWidth = 1
+        self.layer.shadowColor = UIColor.aztec.cgColor
+        self.layer.shadowOpacity = 1
+        self.layer.shadowOffset = CGSize(width: -4, height: 0)
+        self.layer.shadowRadius = 12
+        self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.width / 2).cgPath
+    }
 
 }

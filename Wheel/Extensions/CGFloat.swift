@@ -34,4 +34,8 @@ extension CGFloat {
         }
     }
     
+    func square() -> CGFloat {
+        return self * self
+    }
+    
 }

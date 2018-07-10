@@ -12,6 +12,11 @@ class SWSelectionWheelController: UIViewController {
     
     // MARK: - Private Classes
     
+    private struct SWSpinerStats {
+        let point: CGPoint
+        let time: Date
+    }
+    
     private struct SWRadiuses {
         let wheel: CGFloat
         let pin: CGFloat
@@ -64,6 +69,7 @@ class SWSelectionWheelController: UIViewController {
     private var center: CGPoint {
         get {
             return CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0.5)
+//            return CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0)
         }
     }
     
@@ -75,82 +81,122 @@ class SWSelectionWheelController: UIViewController {
         enhancers: SWRange(min: 1, max: 2, current: 0)
     )
     
-    private var leafs: [Any] = []
-    private var leafsToFats: Any!
-    private var fats: [Any] = []
-    private var fatsToVeggies: Any!
-    private var veggies: [Any] = []
-    private var veggiesToProteins: Any!
-    private var proteins: [Any] = []
-    private var proteinsToEnhancers: Any!
-    private var enhancers: [Any] = []
+//    private var spots: [Any] {
+//        get {
+//            var spots: [Any] = []
+//            spots.append(contentsOf: leafs)
+//            spots.append(leafsToFats)
+//            spots.append(contentsOf: fats)
+//            spots.append(fatsToVeggies)
+//            spots.append(contentsOf: veggies)
+//            spots.append(veggiesToProteins)
+//            spots.append(contentsOf: proteins)
+//            spots.append(proteins)
+//            spots.append(contentsOf: enhancers)
+//            return spots
+//        }
+//    }
+    
+    private var spots: [Any] = []
+    
+//    private var leafs: [Any] = []
+//    private var leafsToFats: Any!
+//    private var fats: [Any] = []
+//    private var fatsToVeggies: Any!
+//    private var veggies: [Any] = []
+//    private var veggiesToProteins: Any!
+//    private var proteins: [Any] = []
+//    private var proteinsToEnhancers: Any!
+//    private var enhancers: [Any] = []
+    
+    private var spiner: UIPanGestureRecognizer!
+    
+    private var prev: SWSpinerStats?
 
     // MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let ingredients = SWInmemoryIngredientRepository()
+        
         //leafs
         for _ in 0..<count.leafs.max {
             let button = UIButton()
             view.addSubview(button)
-            let spot = SWHiddenSpot(icon: button)
-            leafs.append(spot)
+            let spot = SWHiddenSpot(icon: button, for: [.base])
+            spots.append(spot)
         }
         //leafs | fats
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
             view.addSubview(delimeter)
-            leafsToFats = SWDelimeterSpot(icon: delimeter)
+//            leafsToFats = SWDelimeterSpot(icon: delimeter)
+            spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //fats
         for _ in 0..<count.fats.max {
             let button = UIButton()
             view.addSubview(button)
-            let spot = SWHiddenSpot(icon: button)
-            fats.append(spot)
+            let spot = SWHiddenSpot(icon: button, for: [.fat])
+//            fats.append(spot)
+            spots.append(spot)
         }
         //fats | veggies
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
             view.addSubview(delimeter)
-            fatsToVeggies = SWDelimeterSpot(icon: delimeter)
+//            fatsToVeggies = SWDelimeterSpot(icon: delimeter)
+            spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //veggies
         for _ in 0..<count.veggies.max {
             let button = UIButton()
             view.addSubview(button)
-            let spot = SWHiddenSpot(icon: button)
-            veggies.append(spot)
+            let spot = SWHiddenSpot(icon: button, for: [.veggy])
+//            veggies.append(spot)
+            spots.append(spot)
         }
         //veggies | proteins
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
             view.addSubview(delimeter)
-            veggiesToProteins = SWDelimeterSpot(icon: delimeter)
+//            veggiesToProteins = SWDelimeterSpot(icon: delimeter)
+            spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //proteins
         for _ in 0..<count.proteins.max {
             let button = UIButton()
             view.addSubview(button)
-            let spot = SWHiddenSpot(icon: button)
-            proteins.append(spot)
+            let spot = SWHiddenSpot(icon: button, for: [.protein])
+//            proteins.append(spot)
+            spots.append(spot)
         }
         //proteins | enhancers
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
             view.addSubview(delimeter)
-            proteinsToEnhancers = SWDelimeterSpot(icon: delimeter)
+//            proteinsToEnhancers = SWDelimeterSpot(icon: delimeter)
+            spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //enhancers
         for _ in 0..<count.enhancers.max {
             let button = UIButton()
             view.addSubview(button)
-            let spot = SWHiddenSpot(icon: button)
-            enhancers.append(spot)
+            let spot = SWHiddenSpot(icon: button, for: [.fruits, .dressing, .unexpected])
+//            enhancers.append(spot)
+            spots.append(spot)
         }
         
-//        alignSubviews()
+        //gestures
+        do {
+            spiner = UIPanGestureRecognizer(target: self, action: #selector(onSpin(sender:)))
+            view.addGestureRecognizer(spiner)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -160,42 +206,113 @@ class SWSelectionWheelController: UIViewController {
     
     // MARK: - Private Methods
     
+    var rotation: CGFloat = -CGFloat.pi
+    
+    @IBAction func onSpin(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+//            print("begin")
+            prev = SWSpinerStats(point: sender.location(in: view), time: Date())
+        case .changed:
+//            print("changed")
+            let next = SWSpinerStats(point: sender.location(in: view), time: Date())
+            if let prev = self.prev {
+                let ux = prev.point.x - center.x
+                let uy = prev.point.y - center.y
+                let ulength = (ux.square() + uy.square()).squareRoot()
+                let vx = next.point.x - center.x
+                let vy = next.point.y - center.y
+                let vlength = (vx.square() + vy.square()).squareRoot()
+                let cos = (ux * vx + uy * vy) / (ulength * vlength)
+                let direction: CGFloat = (ux * vy - uy * vx).sign == .minus ? -1.0 : 1.0
+                let delta = acos(min(cos, 1.0)) * direction
+                
+                let time = next.time.timeIntervalSince(prev.time)
+                print("delta: \(delta)")
+                UIView.animate(withDuration: time, animations: {
+//                    self.spots.forEach({
+//                        if let spot = $0 as? SWOpenSpot {
+//                            self.rotation += delta
+//                            spot.move(angle: self.rotation, radius: self.radius.spoke)
+//                        }
+//                        else if let spot = $0 as? SWDelimeterSpot {
+//                            self.rotation += delta
+//                            spot.move(angle: self.rotation, radius: self.radius.spoke)
+//                        }
+//                    })
+                    self.rotateSubviews(by: delta)
+                })
+            }
+            prev = next
+        default:
+            prev = nil
+        }
+    }
+    
     func alignSubviews() {
         
         view.shapeAsLayerView()
         
         let step = radius.pin * 2 / radius.wheel
         
-        let separator = size.delimeter.width * 0.5 / radius.wheel
+        let separator = size.delimeter.height / radius.wheel
         
         let spacing = self.spacing / radius.wheel
-        
-        var subviews: [Any] = []
-        subviews.append(contentsOf: leafs)
-        subviews.append(leafsToFats)
-        subviews.append(contentsOf: fats)
-        subviews.append(fatsToVeggies)
-        subviews.append(contentsOf: veggies)
-        subviews.append(veggiesToProteins)
-        subviews.append(contentsOf: proteins)
-        subviews.append(proteins)
-        subviews.append(contentsOf: enhancers)
-        
+
         var current: CGFloat = 0
         
-        for i in 0..<subviews.count {
+        for i in 0..<spots.count {
             
-            if let spot = subviews[i] as? SWHiddenSpot {
+            if let spot = spots[i] as? SWHiddenSpot {
                 spot.alignView(to: self.center)
-                _ = spot.open(angle: -CGFloat.pi, radius: radius.spoke, rotation: current)
+                spots[i] = spot.open(angle: current + -CGFloat.pi, radius: radius.spoke).fill(with: getRandomIngredient())
                 current += step + spacing
             }
-            else if let delimeter = subviews[i] as? SWDelimeterSpot {
+            else if let delimeter = spots[i] as? SWDelimeterSpot {
                 delimeter.alignView(to: self.center)
-                delimeter.move(angle: -CGFloat.pi, radius: radius.spoke, rotation: current)
+                delimeter.move(angle: current + -CGFloat.pi, radius: radius.spoke)
                 current += separator + spacing
             }
         }
+    }
+    
+    func rotateSubviews(by delta: CGFloat) {
+        
+        let step = radius.pin * 2 / radius.wheel
+        
+        let separator = size.delimeter.height / radius.wheel
+        
+        let spacing = self.spacing / radius.wheel
+        
+        var current: CGFloat = 0
+        
+        rotation += delta
+        
+        for i in 0..<spots.count {
+            
+            if let spot = spots[i] as? SWHiddenSpot {
+                spot.alignView(to: self.center)
+                spots[i] = spot.open(angle: current + rotation, radius: radius.spoke).fill(with: getRandomIngredient())
+                current += step + spacing
+            }
+            else if let spot = spots[i] as? SWOpenSpot {
+                spot.move(angle: current + rotation, radius: radius.spoke)
+                current += step + spacing
+            }
+            else if let spot = spots[i] as? SWFilledSpot {
+                spot.move(angle: current + rotation, radius: radius.spoke)
+                current += step + spacing
+            }
+            else if let delimeter = spots[i] as? SWDelimeterSpot {
+                delimeter.alignView(to: self.center)
+                delimeter.move(angle: current + rotation, radius: radius.spoke)
+                current += separator + spacing
+            }
+        }
+    }
+    
+    func getRandomIngredient() -> SWIngredient {
+        return (SWInmemoryIngredientRepository()).getAll().random()!
     }
 
 }

@@ -73,6 +73,12 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
+    private var front: CGFloat {
+        get {
+            return CGFloat.top
+        }
+    }
+    
     private var count: SWCounts = SWCounts(
         leafs: SWRange(min: 1, max: 1, current: 0),
         fats: SWRange(min: 1, max: 1, current: 0),
@@ -97,7 +103,7 @@ class SWSelectionWheelController: UIViewController {
 //        }
 //    }
     
-    private var spots: [Any] = []
+    private var spots: [SWSelectionSpot] = []
     
 //    private var leafs: [Any] = []
 //    private var leafsToFats: Any!
@@ -118,8 +124,6 @@ class SWSelectionWheelController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let ingredients = SWInmemoryIngredientRepository()
-        
         //leafs
         for _ in 0..<count.leafs.max {
             let button = UIButton()
@@ -130,7 +134,7 @@ class SWSelectionWheelController: UIViewController {
         //leafs | fats
         do {
 //            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
 //            leafsToFats = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
@@ -146,7 +150,7 @@ class SWSelectionWheelController: UIViewController {
         //fats | veggies
         do {
 //            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
 //            fatsToVeggies = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
@@ -162,7 +166,7 @@ class SWSelectionWheelController: UIViewController {
         //veggies | proteins
         do {
 //            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
 //            veggiesToProteins = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
@@ -178,7 +182,7 @@ class SWSelectionWheelController: UIViewController {
         //proteins | enhancers
         do {
 //            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/more"))
+            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
 //            proteinsToEnhancers = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
@@ -211,10 +215,8 @@ class SWSelectionWheelController: UIViewController {
     @IBAction func onSpin(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-//            print("begin")
             prev = SWSpinerStats(point: sender.location(in: view), time: Date())
         case .changed:
-//            print("changed")
             let next = SWSpinerStats(point: sender.location(in: view), time: Date())
             if let prev = self.prev {
                 let ux = prev.point.x - center.x
@@ -228,18 +230,7 @@ class SWSelectionWheelController: UIViewController {
                 let delta = acos(min(cos, 1.0)) * direction
                 
                 let time = next.time.timeIntervalSince(prev.time)
-                print("delta: \(delta)")
                 UIView.animate(withDuration: time, animations: {
-//                    self.spots.forEach({
-//                        if let spot = $0 as? SWOpenSpot {
-//                            self.rotation += delta
-//                            spot.move(angle: self.rotation, radius: self.radius.spoke)
-//                        }
-//                        else if let spot = $0 as? SWDelimeterSpot {
-//                            self.rotation += delta
-//                            spot.move(angle: self.rotation, radius: self.radius.spoke)
-//                        }
-//                    })
                     self.rotateSubviews(by: delta)
                 })
             }
@@ -265,51 +256,93 @@ class SWSelectionWheelController: UIViewController {
             
             if let spot = spots[i] as? SWHiddenSpot {
                 spot.alignView(to: self.center)
-                spots[i] = spot.open(angle: current + -CGFloat.pi, radius: radius.spoke).fill(with: getRandomIngredient())
+                spots[i] = spot.open(angle: current + front, radius: radius.spoke).fill(with: getRandomIngredient())
                 current += step + spacing
             }
             else if let delimeter = spots[i] as? SWDelimeterSpot {
                 delimeter.alignView(to: self.center)
-                delimeter.move(angle: current + -CGFloat.pi, radius: radius.spoke)
+                delimeter.move(angle: current + front, radius: radius.spoke)
+                current += separator + spacing
+            }
+        }
+    }
+    
+    /** forEachSpot(do action: (spot: SWSelectionSpot, angle: CGFloat, index: Int) -> Void) */
+    private func forEachSpot(do action: (_ spot: SWSelectionSpot,_ angle: CGFloat,_ index: Int) -> Void) {
+        
+        let step = radius.pin * 2 / radius.wheel
+        
+        let separator = size.delimeter.width / radius.wheel
+        
+        let spacing = self.spacing / radius.wheel
+        
+        var current: CGFloat = 0
+        
+        for i in 0..<spots.count {
+            
+            let spot = spots[i]
+            
+            action(spot, current, i)
+            
+            if spot is SWHiddenSpot {
+                current += step + spacing
+            }
+            else if spot is SWOpenSpot {
+                current += step + spacing
+            }
+            else if spot is SWFilledSpot {
+                current += step + spacing
+            }
+            else if spot is SWDelimeterSpot {
                 current += separator + spacing
             }
         }
     }
     
     func rotateSubviews(by delta: CGFloat) {
-        
-        let step = radius.pin * 2 / radius.wheel
-        
-        let separator = size.delimeter.height / radius.wheel
-        
-        let spacing = self.spacing / radius.wheel
-        
-        var current: CGFloat = 0
-        
         rotation += delta
+        rotation = max(getMaxRotation(), min(getMaxRotation(), rotation))
         
-        for i in 0..<spots.count {
-            
-            if let spot = spots[i] as? SWHiddenSpot {
-                spot.alignView(to: self.center)
-                spots[i] = spot.open(angle: current + rotation, radius: radius.spoke).fill(with: getRandomIngredient())
-                current += step + spacing
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+            if let hidden = spot as? SWHiddenSpot {
+                hidden.alignView(to: self.center)
             }
-            else if let spot = spots[i] as? SWOpenSpot {
-                spot.move(angle: current + rotation, radius: radius.spoke)
-                current += step + spacing
+            else if let openned = spot as? SWOpenSpot {
+                openned.move(angle: current + rotation, radius: radius.spoke)
             }
-            else if let spot = spots[i] as? SWFilledSpot {
-                spot.move(angle: current + rotation, radius: radius.spoke)
-                current += step + spacing
+            else if let filled = spot as? SWFilledSpot {
+                filled.move(angle: current + rotation, radius: radius.spoke)
             }
-            else if let delimeter = spots[i] as? SWDelimeterSpot {
+            else if let delimeter = spot as? SWDelimeterSpot {
                 delimeter.alignView(to: self.center)
                 delimeter.move(angle: current + rotation, radius: radius.spoke)
-                current += separator + spacing
             }
-        }
+        })
+        
     }
+    
+    func getMinRotation() -> CGFloat {
+        var angles: [CGFloat] = []
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+            angles.append(front - current)
+        })
+        return angles.min() ?? 0
+    }
+    
+    func getMaxRotation() -> CGFloat {
+        var angles: [CGFloat] = []
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+            angles.append(front - current)
+        })
+        return angles.max() ?? 0
+    }
+    
+//    func getClosestSpot(to angle: CGFloat) -> [CGFloat] {
+//
+//    }
     
     func getRandomIngredient() -> SWIngredient {
         return (SWInmemoryIngredientRepository()).getAll().random()!

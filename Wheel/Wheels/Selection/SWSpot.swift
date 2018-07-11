@@ -11,35 +11,47 @@ import UIKit
 
 protocol SWSelectionSpot {
     
+    var icon: UIView { get }
+    
+    func move(angle: CGFloat, radius: CGFloat) -> Void
+    
 }
 
-class SWHiddenSpot {
+extension SWSelectionSpot {
+    func move(angle: CGFloat, radius: CGFloat) {
+        icon.transform = CGAffineTransform.identity.rotated(by: angle + CGFloat.pi * 0.5).translatedBy(x: 0, y: -radius)
+    }
+}
+
+class SWHiddenSpot: SWSelectionSpot {
+    
+    var icon: UIView {
+        get {
+            return _icon
+        }
+    }
     
     let kinds: [SWIngredientKinds]
     
     private let size = CGSize(width: 42, height: 42)
     
-    private let icon: UIButton
+    private let _icon: UIButton
     
     init(icon spot: UIButton, for kinds: [SWIngredientKinds]) {
-        icon = spot
+        _icon = spot
         self.kinds = kinds
     }
     
     func open(angle: CGFloat, radius: CGFloat) -> SWOpenSpot {
         icon.alpha = 1
-        icon.transform = CGAffineTransform.identity.rotated(by: angle).translatedBy(x: radius, y: 0)
-        return SWOpenSpot(icon: self.icon)
+        self.move(angle: angle, radius: radius)
+        return SWOpenSpot(icon: _icon)
     }
-    
-    func move(angle: CGFloat, radius: CGFloat) {
-        icon.transform = CGAffineTransform.identity.rotated(by: angle).translatedBy(x: radius, y: 0)
-    }
-    
+
     func alignView(to center: CGPoint) {
         icon.alpha = 0
         icon.frame.size = size
-        icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
+        _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
         icon.layer.cornerRadius = icon.bounds.width * 0.5
         icon.layer.borderWidth = 1
         icon.layer.borderColor = UIColor.tiara.cgColor
@@ -48,7 +60,7 @@ class SWHiddenSpot {
     
 }
 
-class SWOpenSpot {
+class SWOpenSpot: SWSelectionSpot {
 
     var angle: CGFloat {
         get {
@@ -56,44 +68,48 @@ class SWOpenSpot {
         }
     }
    
-    private let icon: UIButton
-    
-    init(icon spot: UIButton) {
-        icon = spot
+    var icon: UIView {
+        get {
+            return _icon
+        }
     }
     
-    func move(angle: CGFloat, radius: CGFloat) {
-        icon.transform = CGAffineTransform.identity.rotated(by: angle).translatedBy(x: radius, y: 0)
+    private let _icon: UIButton
+    
+    init(icon spot: UIButton) {
+        _icon = spot
     }
     
     func fill(with ingredient: SWIngredient) -> SWFilledSpot {
-        icon.setImage(ingredient.image, for: .normal)
-        icon.layer.borderWidth = 0
-        icon.layer.borderColor = UIColor.clear.cgColor
-        let filled = SWFilledSpot(icon: self.icon, ingredient: ingredient)
+        _icon.setImage(ingredient.image, for: .normal)
+        _icon.layer.borderWidth = 0
+        _icon.layer.borderColor = UIColor.clear.cgColor
+        let filled = SWFilledSpot(icon: _icon, ingredient: ingredient)
         return filled
     }
     
 }
 
-class SWFilledSpot {
+class SWFilledSpot: SWSelectionSpot {
     
     private let ingredient: SWIngredient
     
-    private let icon: UIButton
-    
-    init(icon spot: UIButton, ingredient: SWIngredient) {
-        self.icon = spot
-        self.ingredient = ingredient
+    var icon: UIView {
+        get {
+            return _icon
+        }
     }
     
-    func move(angle: CGFloat, radius: CGFloat) {
-        icon.transform = CGAffineTransform.identity.rotated(by: angle).translatedBy(x: radius, y: 0)
+    private let _icon: UIButton
+    
+    init(icon spot: UIButton, ingredient: SWIngredient) {
+        _icon = spot
+        self.ingredient = ingredient
     }
     
 }
 
-class SWDelimeterSpot {
+class SWDelimeterSpot: SWSelectionSpot {
     
     var angle: CGFloat {
         get {
@@ -101,18 +117,20 @@ class SWDelimeterSpot {
         }
     }
     
-    private let icon: UIImageView
-    
-    init(icon image: UIImageView) {
-        icon = image
+    var icon: UIView {
+        get {
+            return _icon
+        }
     }
     
-    func move(angle: CGFloat, radius: CGFloat) {
-        icon.transform = CGAffineTransform.identity.rotated(by: angle).translatedBy(x: radius, y: 0)
+    private let _icon: UIImageView
+    
+    init(icon image: UIImageView) {
+        _icon = image
     }
     
     func alignView(to center: CGPoint) {
-        icon.center = center
+        _icon.center = center
     }
     
 }

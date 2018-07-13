@@ -230,11 +230,32 @@ class SWSelectionWheelController: UIViewController {
                 let delta = acos(min(cos, 1.0)) * direction
                 
                 let time = next.time.timeIntervalSince(prev.time)
-                UIView.animate(withDuration: time, animations: {
-                    self.rotateSubviews(by: delta)
-                })
+                UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
+//                UIView.animate(withDuration: time, animations: {
+//                    self.rotateSubviews(by: delta)
+//                })
             }
             prev = next
+        case .cancelled, .ended:
+//            UIView.animate(withDuration: 5, animations: {
+//                self.rotateSubviews(by: self.getDeltaToClosestSpot())
+//            })
+//            UIView.animate(withDuration: 0.125, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { self.rotateSubviews(by: self.getDeltaToClosestSpot()) }, completion: nil)
+//            UIView.animate(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: self.getDeltaToClosestSpot()) }, completion: nil)
+            
+            UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: {
+                let steps: Int = 12
+                let forward: Int = 2
+                let backward: Int = 1
+                let dTime: TimeInterval = TimeInterval(1 / steps)
+                let dAngle: CGFloat = self.getDeltaToClosestSpot() / CGFloat(steps)
+                for i in 0..<steps - (forward + backward) {
+                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: dAngle) })
+                }
+                for i in forward..<steps {
+                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: dAngle) })
+                }
+            }, completion: nil)
         default:
             prev = nil
         }
@@ -299,9 +320,20 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
+    func getSpotAngles() -> [CGFloat] {
+        var angles: [CGFloat] = []
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+            if !(spot is SWDelimeterSpot) {
+                angles.append(current)
+            }
+        })
+        return angles
+    }
+    
     func rotateSubviews(by delta: CGFloat) {
         rotation += delta
-        rotation = max(getMaxRotation(), min(getMaxRotation(), rotation))
+        rotation = max(getMinRotation(), min(getMaxRotation(), rotation))
         
         forEachSpot(do: {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
@@ -323,26 +355,21 @@ class SWSelectionWheelController: UIViewController {
     }
     
     func getMinRotation() -> CGFloat {
-        var angles: [CGFloat] = []
-        forEachSpot(do: {
-            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
-            angles.append(front - current)
-        })
-        return angles.min() ?? 0
+        return getSpotAngles().map({ front - $0 }).min() ?? 0
     }
     
     func getMaxRotation() -> CGFloat {
-        var angles: [CGFloat] = []
-        forEachSpot(do: {
-            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
-            angles.append(front - current)
-        })
-        return angles.max() ?? 0
+        return getSpotAngles().map({ front - $0 }).max() ?? 0
     }
     
-//    func getClosestSpot(to angle: CGFloat) -> [CGFloat] {
-//
-//    }
+    func getDeltaToClosestSpot() -> CGFloat {
+        return getSpotAngles().map({
+            return front - ($0 + rotation)
+        }).reduce(CGFloat.infinity, {
+            (result: CGFloat, next: CGFloat) -> CGFloat in
+            return abs(result) > abs(next) ? next : result
+        })
+    }
     
     func getRandomIngredient() -> SWIngredient {
         return (SWInmemoryIngredientRepository()).getAll().random()!

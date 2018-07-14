@@ -32,11 +32,25 @@ class SubwheelViewController: UIViewController {
         self.addChildViewController(selection)
         selection.didMove(toParentViewController: self)
         selection.alignSubviews()
+        
+        let blueButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 200), size: CGSize(side: 60)))
+        blueButton.addTarget(self, action: #selector(onBlueButtonClick(_:)), for: .touchUpInside)
+        blueButton.layer.cornerRadius = 30
+        blueButton.backgroundColor = .blue
+        view.addSubview(blueButton)
+//        blueButton.set
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Action Methods
+    
+    @IBAction func onBlueButtonClick(_ sender: Any) {
+        let ingredients = SWInmemoryIngredientRepository()
+        selection.push(ingredients.getAll().random()!)
     }
     
     /*

@@ -69,7 +69,6 @@ class SWSelectionWheelController: UIViewController {
     private var center: CGPoint {
         get {
             return CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0.5)
-//            return CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0)
         }
     }
     
@@ -87,33 +86,7 @@ class SWSelectionWheelController: UIViewController {
         enhancers: SWRange(min: 1, max: 2, current: 0)
     )
     
-//    private var spots: [Any] {
-//        get {
-//            var spots: [Any] = []
-//            spots.append(contentsOf: leafs)
-//            spots.append(leafsToFats)
-//            spots.append(contentsOf: fats)
-//            spots.append(fatsToVeggies)
-//            spots.append(contentsOf: veggies)
-//            spots.append(veggiesToProteins)
-//            spots.append(contentsOf: proteins)
-//            spots.append(proteins)
-//            spots.append(contentsOf: enhancers)
-//            return spots
-//        }
-//    }
-    
     private var spots: [SWSelectionSpot] = []
-    
-//    private var leafs: [Any] = []
-//    private var leafsToFats: Any!
-//    private var fats: [Any] = []
-//    private var fatsToVeggies: Any!
-//    private var veggies: [Any] = []
-//    private var veggiesToProteins: Any!
-//    private var proteins: [Any] = []
-//    private var proteinsToEnhancers: Any!
-//    private var enhancers: [Any] = []
     
     private var spiner: UIPanGestureRecognizer!
     
@@ -133,10 +106,8 @@ class SWSelectionWheelController: UIViewController {
         }
         //leafs | fats
         do {
-//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
-//            leafsToFats = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //fats
@@ -144,15 +115,12 @@ class SWSelectionWheelController: UIViewController {
             let button = UIButton()
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, for: [.fat])
-//            fats.append(spot)
             spots.append(spot)
         }
         //fats | veggies
         do {
-//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
-//            fatsToVeggies = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //veggies
@@ -160,15 +128,12 @@ class SWSelectionWheelController: UIViewController {
             let button = UIButton()
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, for: [.veggy])
-//            veggies.append(spot)
             spots.append(spot)
         }
         //veggies | proteins
         do {
-//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
-//            veggiesToProteins = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //proteins
@@ -176,15 +141,12 @@ class SWSelectionWheelController: UIViewController {
             let button = UIButton()
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, for: [.protein])
-//            proteins.append(spot)
             spots.append(spot)
         }
         //proteins | enhancers
         do {
-//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
             view.addSubview(delimeter)
-//            proteinsToEnhancers = SWDelimeterSpot(icon: delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
         //enhancers
@@ -192,7 +154,6 @@ class SWSelectionWheelController: UIViewController {
             let button = UIButton()
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, for: [.fruits, .dressing, .unexpected])
-//            enhancers.append(spot)
             spots.append(spot)
         }
         
@@ -231,29 +192,20 @@ class SWSelectionWheelController: UIViewController {
                 
                 let time = next.time.timeIntervalSince(prev.time)
                 UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
-//                UIView.animate(withDuration: time, animations: {
-//                    self.rotateSubviews(by: delta)
-//                })
             }
             prev = next
         case .cancelled, .ended:
-//            UIView.animate(withDuration: 5, animations: {
-//                self.rotateSubviews(by: self.getDeltaToClosestSpot())
-//            })
-//            UIView.animate(withDuration: 0.125, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: { self.rotateSubviews(by: self.getDeltaToClosestSpot()) }, completion: nil)
-//            UIView.animate(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: self.getDeltaToClosestSpot()) }, completion: nil)
-            
             UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: {
                 let steps: Int = 12
-                let forward: Int = 2
-                let backward: Int = 1
+                let forward: Int = 10
+                let backward: Int = 2
                 let dTime: TimeInterval = TimeInterval(1 / steps)
-                let dAngle: CGFloat = self.getDeltaToClosestSpot() / CGFloat(steps)
-                for i in 0..<steps - (forward + backward) {
+                let dAngle: CGFloat = self.getDeltaToClosestSpot() / CGFloat(forward)
+                for i in 0..<forward {
                     UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: dAngle) })
                 }
-                for i in forward..<steps {
-                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: dAngle) })
+                for i in 0..<backward {
+                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: -dAngle) })
                 }
             }, completion: nil)
         default:
@@ -273,19 +225,26 @@ class SWSelectionWheelController: UIViewController {
 
         var current: CGFloat = 0
         
+        var prevKind: SWIngredientKinds?
+        
         for i in 0..<spots.count {
             
             if let spot = spots[i] as? SWHiddenSpot {
-                spot.alignView(to: self.center)
-                spots[i] = spot.open(angle: current + front, radius: radius.spoke).fill(with: getRandomIngredient())
-                current += step + spacing
+                if prevKind == nil || (prevKind != spot.kinds.first) {
+                    spot.alignView(to: self.center)
+                    spots[i] = spot.open(angle: current, radius: radius.spoke)//.fill(with: getRandomIngredient())
+                    current += step + spacing
+                }
+                prevKind = spot.kinds.first
             }
             else if let delimeter = spots[i] as? SWDelimeterSpot {
                 delimeter.alignView(to: self.center)
-                delimeter.move(angle: current + front, radius: radius.spoke)
+                delimeter.move(angle: current, radius: radius.spoke)
                 current += separator + spacing
             }
         }
+        
+        rotateSubviews(by: 0)
     }
     
     /** forEachSpot(do action: (spot: SWSelectionSpot, angle: CGFloat, index: Int) -> Void) */
@@ -306,7 +265,7 @@ class SWSelectionWheelController: UIViewController {
             action(spot, current, i)
             
             if spot is SWHiddenSpot {
-                current += step + spacing
+//                current += step + spacing
             }
             else if spot is SWOpenSpot {
                 current += step + spacing
@@ -371,8 +330,57 @@ class SWSelectionWheelController: UIViewController {
         })
     }
     
+    func getSpotAtFront() -> SWSelectionSpot? {
+        var min = CGFloat.infinity
+        var focused: SWSelectionSpot?
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+            
+            let delta = front - (current + rotation)
+            if spot is SWHiddenSpot {
+                //skip
+            }
+            else if spot is SWOpenSpot && abs(min) >= abs(delta) {
+                min = delta
+                focused = spot
+            }
+            else if spot is SWFilledSpot && abs(min) >= abs(delta) {
+                min = delta
+                focused = spot
+            }
+            else if spot is SWDelimeterSpot {
+                //skip
+            }
+        })
+        return focused
+    }
+
+    func replace(_ original: SWSelectionSpot, with new: SWSelectionSpot) {
+        for i in 0..<spots.count {
+            if spots[i].icon === new.icon {
+                spots[i] = new
+                break
+            }
+        }
+    }
+    
     func getRandomIngredient() -> SWIngredient {
         return (SWInmemoryIngredientRepository()).getAll().random()!
+    }
+}
+
+extension SWSelectionWheelController: SWSelectionWheelProtocol {
+    
+    // MARK: - SWSelectionWheelProtocol Protocol Methods
+
+    func push(_ ingredient: SWIngredient) {
+        if let focused = getSpotAtFront() as? SWOpenSpot  {
+            replace(focused, with: focused.fill(with: ingredient))
+        }
+    }
+    
+    func pop(_ ingredient: SWIngredient) {
+        
     }
 
 }

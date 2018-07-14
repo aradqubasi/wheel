@@ -98,6 +98,8 @@
 		15A77A0B1FFB533B0030304F /* SWAbstractWheelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */; };
 		15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A0E1FFC25410030304F /* SWWheelView.swift */; };
 		15A77A11200019150030304F /* SWRingMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A10200019150030304F /* SWRingMaskView.swift */; };
+		15AAAE1D20F9B58D0022996D /* SWSelectionWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */; };
+		15AAAE1F20F9B5B70022996D /* SWSelectionWheelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */; };
 		15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */; };
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
@@ -292,6 +294,8 @@
 		15A77A0A1FFB533B0030304F /* SWAbstractWheelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAbstractWheelController.swift; sourceTree = "<group>"; };
 		15A77A0E1FFC25410030304F /* SWWheelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelView.swift; sourceTree = "<group>"; };
 		15A77A10200019150030304F /* SWRingMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskView.swift; sourceTree = "<group>"; };
+		15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelDelegate.swift; sourceTree = "<group>"; };
+		15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelProtocol.swift; sourceTree = "<group>"; };
 		15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
@@ -500,6 +504,8 @@
 				15BB5A4A1FE6513A003816AF /* SelectionState.swift */,
 				152F66E020EDDCD20070BAA5 /* SWSelectionWheelController.swift */,
 				152F66E220F084200070BAA5 /* SWSpot.swift */,
+				15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */,
+				15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */,
 			);
 			path = Selection;
 			sourceTree = "<group>";
@@ -1061,6 +1067,7 @@
 				15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */,
 				15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */,
 				1511929C207C74C900D93751 /* SWConcreteStepsAssembler.swift in Sources */,
+				15AAAE1D20F9B58D0022996D /* SWSelectionWheelDelegate.swift in Sources */,
 				15F5D629208498E400462DE7 /* SWInmemoryBowlTimelineRepository.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
 				154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */,
@@ -1097,6 +1104,7 @@
 				15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
 				15FA4E3220DE870200A345EC /* SWConcreteOverlayAssembler.swift in Sources */,
+				15AAAE1F20F9B5B70022996D /* SWSelectionWheelProtocol.swift in Sources */,
 				155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */,
 				152F66D820EB37070070BAA5 /* Array.swift in Sources */,
 				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,

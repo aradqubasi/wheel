@@ -42,12 +42,17 @@ class SWHiddenSpot: SWSelectionSpot {
         self.kinds = kinds
     }
     
-    func open(angle: CGFloat, radius: CGFloat) -> SWOpenSpot {
-        icon.alpha = 1
-        self.move(angle: angle, radius: radius)
-        return SWOpenSpot(icon: _icon)
-    }
+//    func open(angle: CGFloat, radius: CGFloat) -> SWOpenSpot {
+//        icon.alpha = 1
+//        self.move(angle: angle, radius: radius)
+//        return SWOpenSpot(icon: _icon)
+//    }
 
+    func open() -> SWOpenSpot {
+        icon.alpha = 1
+        return SWOpenSpot(icon: _icon, kinds: self.kinds)
+    }
+    
     func alignView(to center: CGPoint) {
         icon.alpha = 0
         icon.frame.size = size
@@ -61,6 +66,8 @@ class SWHiddenSpot: SWSelectionSpot {
 }
 
 class SWOpenSpot: SWSelectionSpot {
+    
+    let kinds: [SWIngredientKinds]
 
     var angle: CGFloat {
         get {
@@ -76,21 +83,24 @@ class SWOpenSpot: SWSelectionSpot {
     
     private let _icon: UIButton
     
-    init(icon spot: UIButton) {
+    init(icon spot: UIButton, kinds: [SWIngredientKinds]) {
         _icon = spot
+        self.kinds = kinds
     }
     
     func fill(with ingredient: SWIngredient) -> SWFilledSpot {
         _icon.setImage(ingredient.image, for: .normal)
         _icon.layer.borderWidth = 0
         _icon.layer.borderColor = UIColor.clear.cgColor
-        let filled = SWFilledSpot(icon: _icon, ingredient: ingredient)
+        let filled = SWFilledSpot(icon: _icon, ingredient: ingredient, kinds: self.kinds)
         return filled
     }
     
 }
 
 class SWFilledSpot: SWSelectionSpot {
+    
+    let kinds: [SWIngredientKinds]
     
     private let ingredient: SWIngredient
     
@@ -102,9 +112,10 @@ class SWFilledSpot: SWSelectionSpot {
     
     private let _icon: UIButton
     
-    init(icon spot: UIButton, ingredient: SWIngredient) {
+    init(icon spot: UIButton, ingredient: SWIngredient, kinds: [SWIngredientKinds]) {
         _icon = spot
         self.ingredient = ingredient
+        self.kinds = kinds
     }
     
 }
@@ -131,6 +142,8 @@ class SWDelimeterSpot: SWSelectionSpot {
     
     func alignView(to center: CGPoint) {
         _icon.center = center
+//        icon.layer.borderWidth = 1
+//        icon.layer.borderColor = UIColor.tiara.cgColor
     }
     
 }

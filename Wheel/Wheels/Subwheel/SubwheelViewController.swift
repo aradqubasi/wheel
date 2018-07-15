@@ -28,6 +28,7 @@ class SubwheelViewController: UIViewController {
         let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
         selection.view.frame = rectangle
         selection.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 1.3)
+//        selection.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 0.5)
         view.addSubview(selection.view)
         self.addChildViewController(selection)
         selection.didMove(toParentViewController: self)
@@ -50,7 +51,11 @@ class SubwheelViewController: UIViewController {
     
     @IBAction func onBlueButtonClick(_ sender: Any) {
         let ingredients = SWInmemoryIngredientRepository()
-        selection.push(ingredients.getAll().random()!)
+        if let allowed = selection.getFocusedKind().first {
+            UIView.animate(withDuration: 0.225, animations: { self.selection.push(ingredients.getAll(by: allowed).random()!) })
+            
+        }
+        //).random()!)
     }
     
     /*

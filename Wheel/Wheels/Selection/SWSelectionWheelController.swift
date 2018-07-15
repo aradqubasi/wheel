@@ -21,6 +21,7 @@ class SWSelectionWheelController: UIViewController {
         let wheel: CGFloat
         let pin: CGFloat
         let spoke: CGFloat
+        let pointer: CGFloat
     }
     
     private struct SWSizes {
@@ -50,7 +51,7 @@ class SWSelectionWheelController: UIViewController {
     
     private var radius: SWRadiuses {
         get {
-            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10)
+            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 7)
         }
     }
     
@@ -91,14 +92,23 @@ class SWSelectionWheelController: UIViewController {
     private var spiner: UIPanGestureRecognizer!
     
     private var prev: SWSpinerStats?
+    
+    private var pointer: UIImageView!
 
     // MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //pointer
+        do {
+            self.pointer = UIImageView(image: #imageLiteral(resourceName: "wheelgui/fingertop"))
+            view.addSubview(pointer)
+        }
+        
         //leafs
         for _ in 0..<count.leafs.max {
+//            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 42)))
             let button = UIButton()
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, for: [.base])
@@ -217,14 +227,6 @@ class SWSelectionWheelController: UIViewController {
         
         view.shapeAsLayerView()
         
-        let step = radius.pin * 2 / radius.wheel
-        
-        let separator = size.delimeter.height / radius.wheel
-        
-        let spacing = self.spacing / radius.wheel
-
-        var current: CGFloat = 0
-        
         var prevKind: SWIngredientKinds?
         
         for i in 0..<spots.count {
@@ -232,17 +234,21 @@ class SWSelectionWheelController: UIViewController {
             if let spot = spots[i] as? SWHiddenSpot {
                 if prevKind == nil || (prevKind != spot.kinds.first) {
                     spot.alignView(to: self.center)
-                    spots[i] = spot.open(angle: current, radius: radius.spoke)//.fill(with: getRandomIngredient())
-                    current += step + spacing
+                    spots[i] = spot.open()
                 }
+//                spot.alignView(to: self.center)
+//                spots[i] = spot.open(angle: current, radius: radius.spoke)//.fill(with: getRandomIngredient())
+//                current += step + spacing
+                
                 prevKind = spot.kinds.first
             }
             else if let delimeter = spots[i] as? SWDelimeterSpot {
                 delimeter.alignView(to: self.center)
-                delimeter.move(angle: current, radius: radius.spoke)
-                current += separator + spacing
             }
         }
+        
+        pointer.center = self.center
+        pointer.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.pointer)
         
         rotateSubviews(by: 0)
     }
@@ -262,19 +268,32 @@ class SWSelectionWheelController: UIViewController {
             
             let spot = spots[i]
             
+            if spot is SWHiddenSpot {
+                //skip
+            }
+            else if spot is SWOpenSpot {
+                current += (step + spacing) * 0.5
+            }
+            else if spot is SWFilledSpot {
+                current += (step + spacing) * 0.5
+            }
+            else if spot is SWDelimeterSpot {
+                current += (separator + spacing) * 0.5
+            }
+            
             action(spot, current, i)
             
             if spot is SWHiddenSpot {
-//                current += step + spacing
+                //skip
             }
             else if spot is SWOpenSpot {
-                current += step + spacing
+                current += (step + spacing) * 0.5
             }
             else if spot is SWFilledSpot {
-                current += step + spacing
+                current += (step + spacing) * 0.5
             }
             else if spot is SWDelimeterSpot {
-                current += separator + spacing
+                current += (separator + spacing) * 0.5
             }
         }
     }
@@ -283,7 +302,7 @@ class SWSelectionWheelController: UIViewController {
         var angles: [CGFloat] = []
         forEachSpot(do: {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
-            if !(spot is SWDelimeterSpot) {
+            if !(spot is SWDelimeterSpot) && !(spot is SWHiddenSpot) {
                 angles.append(current)
             }
         })
@@ -306,7 +325,7 @@ class SWSelectionWheelController: UIViewController {
                 filled.move(angle: current + rotation, radius: radius.spoke)
             }
             else if let delimeter = spot as? SWDelimeterSpot {
-                delimeter.alignView(to: self.center)
+//                delimeter.alignView(to: self.center)
                 delimeter.move(angle: current + rotation, radius: radius.spoke)
             }
         })
@@ -367,6 +386,8 @@ class SWSelectionWheelController: UIViewController {
     func getRandomIngredient() -> SWIngredient {
         return (SWInmemoryIngredientRepository()).getAll().random()!
     }
+    
+    
 }
 
 extension SWSelectionWheelController: SWSelectionWheelProtocol {
@@ -376,11 +397,26 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     func push(_ ingredient: SWIngredient) {
         if let focused = getSpotAtFront() as? SWOpenSpot  {
             replace(focused, with: focused.fill(with: ingredient))
+            if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(ingredient.kind) ?? false }) as? SWHiddenSpot {
+                replace(hidden, with: hidden.open())
+                self.rotateSubviews(by: 0)
+            }
         }
     }
     
     func pop(_ ingredient: SWIngredient) {
         
+    }
+    
+    func getFocusedKind() -> [SWIngredientKinds] {
+        var result: [SWIngredientKinds] = []
+        if let focused = getSpotAtFront() as? SWOpenSpot {
+            result.append(contentsOf: focused.kinds)
+        }
+        else if let focused = getSpotAtFront() as? SWFilledSpot {
+            result.append(contentsOf: focused.kinds)
+        }
+        return result
     }
 
 }

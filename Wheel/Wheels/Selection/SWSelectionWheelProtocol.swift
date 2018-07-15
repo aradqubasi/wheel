@@ -13,4 +13,6 @@ protocol SWSelectionWheelProtocol {
     
     func pop(_ ingredient: SWIngredient)
     
+    func getFocusedKind() -> [SWIngredientKinds]
+    
 }

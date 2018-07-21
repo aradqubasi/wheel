@@ -281,4 +281,13 @@ extension UILabel {
         return label
     }
     
+    class var selectionWheelLabel: UILabel {
+        get {
+            let label = UILabel(frame: CGRect(origin: .zero, size: CGSize(width: 600, height: 14)))
+            label.font = UIFont(name: "Avenir-Medium", size: 10)
+            label.textColor = UIColor.shuttlegray
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

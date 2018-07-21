@@ -22,6 +22,7 @@ class SWSelectionWheelController: UIViewController {
         let pin: CGFloat
         let spoke: CGFloat
         let pointer: CGFloat
+        let label: CGFloat
     }
     
     private struct SWSizes {
@@ -51,7 +52,7 @@ class SWSelectionWheelController: UIViewController {
     
     private var radius: SWRadiuses {
         get {
-            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 7)
+            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5)
         }
     }
     
@@ -94,6 +95,8 @@ class SWSelectionWheelController: UIViewController {
     private var prev: SWSpinerStats?
     
     private var pointer: UIImageView!
+    
+    private var labels: [UILabel] = []
 
     // MARK: - Initialization
 
@@ -172,6 +175,7 @@ class SWSelectionWheelController: UIViewController {
             spiner = UIPanGestureRecognizer(target: self, action: #selector(onSpin(sender:)))
             view.addGestureRecognizer(spiner)
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -223,6 +227,15 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
+    func getLabel() -> UILabel {
+        let label = UILabel.selectionWheelLabel
+        self.view.addSubview(label)
+        label.center = self.center
+        label.alpha = 0
+        label.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.label)
+        return label
+    }
+    
     func alignSubviews() {
         
         view.shapeAsLayerView()
@@ -232,9 +245,9 @@ class SWSelectionWheelController: UIViewController {
         for i in 0..<spots.count {
             
             if let spot = spots[i] as? SWHiddenSpot {
+                spot.alignView(to: self.center)
                 if prevKind == nil || (prevKind != spot.kinds.first) {
-                    spot.alignView(to: self.center)
-                    spots[i] = spot.open()
+                    spots[i] = spot.open(as: getLabel())
                 }
 //                spot.alignView(to: self.center)
 //                spots[i] = spot.open(angle: current, radius: radius.spoke)//.fill(with: getRandomIngredient())
@@ -316,13 +329,16 @@ class SWSelectionWheelController: UIViewController {
         forEachSpot(do: {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
             if let hidden = spot as? SWHiddenSpot {
-                hidden.alignView(to: self.center)
+//                hidden.alignView(to: self.center)
+                hidden.move(angle: current + rotation, radius: radius.spoke)
             }
             else if let openned = spot as? SWOpenSpot {
                 openned.move(angle: current + rotation, radius: radius.spoke)
+                openned.label.alpha = getLabelAlpha(for: openned)
             }
             else if let filled = spot as? SWFilledSpot {
                 filled.move(angle: current + rotation, radius: radius.spoke)
+                filled.label.alpha = getLabelAlpha(for: filled)
             }
             else if let delimeter = spot as? SWDelimeterSpot {
 //                delimeter.alignView(to: self.center)
@@ -387,6 +403,42 @@ class SWSelectionWheelController: UIViewController {
         return (SWInmemoryIngredientRepository()).getAll().random()!
     }
     
+    func getLabelAlpha(for target: SWSelectionSpot) -> CGFloat {
+        var prev: CGFloat?
+        var base: CGFloat!
+        var next: CGFloat?
+        self.forEachSpot(do: {
+            (spot, angle, index) -> Void in
+            if spot is SWOpenSpot || spot is SWFilledSpot {
+                if target.icon === spot.icon {
+                    base = angle
+                 }
+                else {
+                    if base == nil {
+                        prev = angle
+                    }
+                    if base != nil && next == nil {
+                        next = angle
+                    }
+                }
+            }
+        })
+        let center = front - base
+        let right = front - (prev ?? -CGFloat.infinity)
+        let left = front - (next ?? CGFloat.infinity)
+        var visibility = radius.pin / radius.spoke
+        if rotation < center {
+            visibility = abs(center - left) * 0.75
+        }
+        else if rotation > center {
+            visibility = abs(center - right) * 0.75
+        }
+        else {
+            return 1
+        }
+        let alpha = 1.0 - abs(center - rotation) / visibility
+        return alpha
+    }
     
 }
 
@@ -398,7 +450,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         if let focused = getSpotAtFront() as? SWOpenSpot  {
             replace(focused, with: focused.fill(with: ingredient))
             if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(ingredient.kind) ?? false }) as? SWHiddenSpot {
-                replace(hidden, with: hidden.open())
+                replace(hidden, with: hidden.open(as: getLabel()))
                 self.rotateSubviews(by: 0)
             }
         }

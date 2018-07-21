@@ -12,7 +12,7 @@ import UIKit
 protocol SWSelectionSpot {
     
     var icon: UIView { get }
-    
+
     func move(angle: CGFloat, radius: CGFloat) -> Void
     
 }
@@ -48,9 +48,31 @@ class SWHiddenSpot: SWSelectionSpot {
 //        return SWOpenSpot(icon: _icon)
 //    }
 
-    func open() -> SWOpenSpot {
+    func open(as label: UILabel) -> SWOpenSpot {
         icon.alpha = 1
-        return SWOpenSpot(icon: _icon, kinds: self.kinds)
+        let openned = SWOpenSpot(icon: _icon, label: label, kinds: self.kinds)
+        if openned.kinds.contains(.base) {
+            openned.label.text = "BASE"
+        }
+        else if openned.kinds.contains(.fat) {
+            openned.label.text = "FATS"
+        }
+        else if openned.kinds.contains(.protein) {
+            openned.label.text = "PROTEINS"
+        }
+        else if openned.kinds.contains(.veggy) {
+            openned.label.text = "VEGGIES"
+        }
+        else if openned.kinds.contains(.unexpected) {
+            openned.label.text = "ENHANCERS"
+        }
+        else if openned.kinds.contains(.dressing) {
+            openned.label.text = "ENHANCERS"
+        }
+        else if openned.kinds.contains(.fruits) {
+            openned.label.text = "ENHANCERS"
+        }
+        return openned
     }
     
     func alignView(to center: CGPoint) {
@@ -74,6 +96,14 @@ class SWOpenSpot: SWSelectionSpot {
             return atan2(icon.transform.b, icon.transform.a)
         }
     }
+    
+    var label: UILabel {
+        get {
+            return _label
+        }
+    }
+    
+    private let _label: UILabel
    
     var icon: UIView {
         get {
@@ -83,8 +113,9 @@ class SWOpenSpot: SWSelectionSpot {
     
     private let _icon: UIButton
     
-    init(icon spot: UIButton, kinds: [SWIngredientKinds]) {
+    init(icon spot: UIButton, label: UILabel, kinds: [SWIngredientKinds]) {
         _icon = spot
+        _label = label
         self.kinds = kinds
     }
     
@@ -92,7 +123,8 @@ class SWOpenSpot: SWSelectionSpot {
         _icon.setImage(ingredient.image, for: .normal)
         _icon.layer.borderWidth = 0
         _icon.layer.borderColor = UIColor.clear.cgColor
-        let filled = SWFilledSpot(icon: _icon, ingredient: ingredient, kinds: self.kinds)
+        let filled = SWFilledSpot(icon: _icon, label: _label, ingredient: ingredient, kinds: self.kinds)
+        filled.label.text = filled.ingredient.name.uppercased()
         return filled
     }
     
@@ -102,7 +134,15 @@ class SWFilledSpot: SWSelectionSpot {
     
     let kinds: [SWIngredientKinds]
     
-    private let ingredient: SWIngredient
+    let ingredient: SWIngredient
+    
+    var label: UILabel {
+        get {
+            return _label
+        }
+    }
+    
+    private let _label: UILabel
     
     var icon: UIView {
         get {
@@ -112,10 +152,11 @@ class SWFilledSpot: SWSelectionSpot {
     
     private let _icon: UIButton
     
-    init(icon spot: UIButton, ingredient: SWIngredient, kinds: [SWIngredientKinds]) {
+    init(icon spot: UIButton, label: UILabel, ingredient: SWIngredient, kinds: [SWIngredientKinds]) {
         _icon = spot
         self.ingredient = ingredient
         self.kinds = kinds
+        _label = label
     }
     
 }

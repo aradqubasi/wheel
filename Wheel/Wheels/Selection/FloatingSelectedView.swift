@@ -118,6 +118,7 @@ class FloatingSelectedView: UIView, Floatable {
         _food = pin.asIngridient
         
         frame.origin = pin.convert(.zero, to: scene!)
+        print("taking \(frame.origin)")
         
         _item.setImage(pin.asIngridient.image, for: .normal)
         _item.isUserInteractionEnabled = false

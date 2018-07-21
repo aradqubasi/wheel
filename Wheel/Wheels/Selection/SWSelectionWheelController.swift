@@ -103,6 +103,13 @@ class SWSelectionWheelController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        do {
+//            let line = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 10, height: 1000)))
+//            line.backgroundColor = .red
+//            view.addSubview(line)
+//            line.center = self.center
+//        }
+        
         //pointer
         do {
             self.pointer = UIImageView(image: #imageLiteral(resourceName: "wheelgui/fingertop"))
@@ -249,10 +256,6 @@ class SWSelectionWheelController: UIViewController {
                 if prevKind == nil || (prevKind != spot.kinds.first) {
                     spots[i] = spot.open(as: getLabel())
                 }
-//                spot.alignView(to: self.center)
-//                spots[i] = spot.open(angle: current, radius: radius.spoke)//.fill(with: getRandomIngredient())
-//                current += step + spacing
-                
                 prevKind = spot.kinds.first
             }
             else if let delimeter = spots[i] as? SWDelimeterSpot {
@@ -329,7 +332,6 @@ class SWSelectionWheelController: UIViewController {
         forEachSpot(do: {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
             if let hidden = spot as? SWHiddenSpot {
-//                hidden.alignView(to: self.center)
                 hidden.move(angle: current + rotation, radius: radius.spoke)
             }
             else if let openned = spot as? SWOpenSpot {
@@ -341,7 +343,6 @@ class SWSelectionWheelController: UIViewController {
                 filled.label.alpha = getLabelAlpha(for: filled)
             }
             else if let delimeter = spot as? SWDelimeterSpot {
-//                delimeter.alignView(to: self.center)
                 delimeter.move(angle: current + rotation, radius: radius.spoke)
             }
         })
@@ -440,6 +441,27 @@ class SWSelectionWheelController: UIViewController {
         return alpha
     }
     
+    func getDeltaToFirstOf(_ kind: SWIngredientKinds) -> CGFloat {
+        let target = spots.first(where: {
+            return ($0 as? SWOpenSpot)?.kinds.contains(kind) ?? false || ($0 as? SWFilledSpot)?.kinds.contains(kind) ?? false
+        })
+        if let target = target {
+            var targetAngle: CGFloat?
+            forEachSpot(do: {
+                (spot, angle, index) -> Void in
+                if spot.icon === target.icon {
+                    targetAngle = angle
+                }
+            })
+            if let targetAngle = targetAngle {
+                return front - targetAngle - rotation
+//                rotateSubviews(by: delta)
+                
+            }
+        }
+        return 0
+    }
+    
 }
 
 extension SWSelectionWheelController: SWSelectionWheelProtocol {
@@ -454,6 +476,78 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 self.rotateSubviews(by: 0)
             }
         }
+    }
+
+    func push(_ floatable: Floatable) {
+        let ingredient = floatable.asIngridient
+        let initial = floatable.convert(.zero, to: view)
+        let floatable = UIImageView(image: ingredient.image)
+        floatable.frame.origin = initial
+        view.addSubview(floatable)
+        
+        UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
+            let delta = self.getDeltaToFirstOf(ingredient.kind)
+            for i in 0..<25 {
+                UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
+            }
+        }, completion: nil)
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.moveToFirstOf(ingredient.kind)
+//        })
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+            floatable.transform = CGAffineTransform.identity.translatedBy(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+        }, completion: {
+            (success) -> Void in
+            floatable.removeFromSuperview()
+            UIView.animate(withDuration: 0.25, animations: {
+                self.push(ingredient)
+            })
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.push(ingredient)
+//            }, completion: {
+//                (success) -> Void in
+//                UIView.animate(withDuration: 0.25, animations: {
+//                    self.moveToFirstOf(<#T##kind: SWIngredientKinds##SWIngredientKinds#>)
+//                })
+//            })
+        })
+//        UIView.animate(withDuration: 0.75, animations: {
+//            floatable.transform = CGAffineTransform.identity.translatedBy(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+//        }, completion: {
+//            (success) -> Void in
+//            floatable.removeFromSuperview()
+//
+//        })
+    }
+    
+    func push(_ floatables: [Floatable]) {
+        let ingredient = floatables.first!.asIngridient
+        let initial = floatables.first!.convert(.zero, to: view)
+        let floatable = UIImageView(image: ingredient.image)
+        floatable.frame.origin = initial
+        view.addSubview(floatable)
+        
+        UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
+            let delta = self.getDeltaToFirstOf(ingredient.kind)
+            for i in 0..<25 {
+                UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
+            }
+        }, completion: nil)
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+            floatable.transform = CGAffineTransform.identity.translatedBy(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+        }, completion: {
+            (success) -> Void in
+            floatable.removeFromSuperview()
+            UIView.animate(withDuration: 0.25, animations: {
+                self.push(ingredient)
+            }, completion: {
+                (success) -> Void in
+                var remainings = floatables.filter({ $0.asIngridient != ingredient })
+                if remainings.count != 0 {
+                    self.push(remainings)
+                }
+            })
+        })
     }
     
     func pop(_ ingredient: SWIngredient) {

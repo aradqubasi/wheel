@@ -19,6 +19,8 @@ class SubwheelViewController: UIViewController {
     private var selection: SWSelectionWheelController!
     
     // MARK: - Initialization
+    
+    var floatings: [Floatable] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +41,37 @@ class SubwheelViewController: UIViewController {
         blueButton.layer.cornerRadius = 30
         blueButton.backgroundColor = .blue
         view.addSubview(blueButton)
-//        blueButton.set
+        
+        let ingredients = SWInmemoryIngredientRepository()
+        
+        let protein = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 66, y: 312.5), size: CGSize(width: 42, height: 42)))
+        protein.ingredient = ingredients.getAll(by: .protein).random()!
+        view.addSubview(protein)
+        floatings.append(protein)
+        let veggy = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 127, y: 312.5), size: CGSize(width: 42, height: 42)))
+        veggy.ingredient = ingredients.getAll(by: .veggy).random()!
+        view.addSubview(veggy)
+        floatings.append(veggy)
+        let fats = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 188, y: 312.5), size: CGSize(width: 42, height: 42)))
+        fats.ingredient = ingredients.getAll(by: .fat).random()!
+        view.addSubview(fats)
+        floatings.append(fats)
+        let base = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 249, y: 312.5), size: CGSize(width: 42, height: 42)))
+        base.ingredient = ingredients.getAll(by: .base).random()!
+        view.addSubview(base)
+        floatings.append(base)
+        let unexpected = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 79.5, y: 80), size: CGSize(width: 42, height: 42)))
+        unexpected.ingredient = ingredients.getAll(by: .unexpected).random()!
+        view.addSubview(unexpected)
+        floatings.append(unexpected)
+//        let dressing = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 159.5, y: 80), size: CGSize(width: 42, height: 42)))
+//        dressing.ingredient = ingredients.getAll(by: .dressing).random()!
+//        view.addSubview(dressing)
+//        floatings.append(dressing)
+//        let fruits = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 239.5, y: 80), size: CGSize(width: 42, height: 42)))
+//        fruits.ingredient = ingredients.getAll(by: .fruits).random()!
+//        view.addSubview(fruits)
+//        floatings.append(fruits)
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,13 +81,24 @@ class SubwheelViewController: UIViewController {
     
     // MARK: - Action Methods
     
-    @IBAction func onBlueButtonClick(_ sender: Any) {
-        let ingredients = SWInmemoryIngredientRepository()
-        if let allowed = selection.getFocusedKind().first {
-            UIView.animate(withDuration: 0.225, animations: { self.selection.push(ingredients.getAll(by: allowed).random()!) })
-            
+    class SWFakeFloatable: UIView, Floatable {
+        var asIngridient: SWIngredient {
+            get {
+                return ingredient
+            }
         }
-        //).random()!)
+        var ingredient: SWIngredient!
+    }
+    
+    @IBAction func onBlueButtonClick(_ sender: Any) {
+//        let ingredients = SWInmemoryIngredientRepository()
+//        if let allowed = selection.getFocusedKind().first {
+//            UIView.animate(withDuration: 0.225, animations: { self.selection.push(ingredients.getAll(by: allowed).random()!) })
+//
+//        }
+        
+//        selection.push(floatings.random()!)
+        selection.push(floatings)
     }
     
     /*

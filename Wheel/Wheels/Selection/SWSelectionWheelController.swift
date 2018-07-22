@@ -97,6 +97,8 @@ class SWSelectionWheelController: UIViewController {
     private var pointer: UIImageView!
     
     private var labels: [UILabel] = []
+    
+    private var invisible: UIView!
 
     // MARK: - Initialization
 
@@ -109,6 +111,11 @@ class SWSelectionWheelController: UIViewController {
 //            view.addSubview(line)
 //            line.center = self.center
 //        }
+        
+        do {
+            invisible = UIView()
+            view.addSubview(invisible)
+        }
         
         //pointer
         do {
@@ -467,6 +474,20 @@ class SWSelectionWheelController: UIViewController {
 extension SWSelectionWheelController: SWSelectionWheelProtocol {
     
     // MARK: - SWSelectionWheelProtocol Protocol Methods
+    
+    func open(for kind: SWIngredientKinds) {
+        if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(kind) ?? false }) as? SWHiddenSpot {
+            replace(hidden, with: hidden.open(as: getLabel()))
+            self.rotateSubviews(by: 0)
+        }
+    }
+    
+    func insert(_ ingredient: SWIngredient) {
+        if let focused = getSpotAtFront() as? SWOpenSpot  {
+            replace(focused, with: focused.fill(with: ingredient))
+        }
+        self.rotateSubviews(by: 0)
+    }
 
     func push(_ ingredient: SWIngredient) {
         if let focused = getSpotAtFront() as? SWOpenSpot  {
@@ -521,11 +542,31 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
     
     func push(_ floatables: [Floatable]) {
-        let ingredient = floatables.first!.asIngridient
-        let initial = floatables.first!.convert(.zero, to: view)
+        let first = floatables.sorted(by: {
+            (prev, next) -> Bool in
+            let prev = prev.asIngridient.kind
+            let next = next.asIngridient.kind
+            let rank: [SWIngredientKinds:Int] = [
+                .fruits : 0,
+                .dressing : 0,
+                .unexpected : 0,
+                .protein: 1,
+                .veggy: 2,
+                .fat: 3,
+                .base: 4
+            ]
+            return rank[prev] ?? 0 >= rank[next] ?? 0
+        }).reversed().first!
+        
+        let ingredient = first.asIngridient
+        let initial = first.convert(.zero, to: view)
         let floatable = UIImageView(image: ingredient.image)
         floatable.frame.origin = initial
         view.addSubview(floatable)
+ 
+        let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+        let two = CGPoint(x: three.x * 0.666, y: three.y * 0.666)
+        let one = CGPoint(x: three.x * 0.333, y: three.y * 0.333)
         
         UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
             let delta = self.getDeltaToFirstOf(ingredient.kind)
@@ -533,20 +574,33 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
             }
         }, completion: nil)
-        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
-            floatable.transform = CGAffineTransform.identity.translatedBy(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+        UIView.animate(withDuration: 0.75, animations: { floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y) })
+
+        UIView.animate(withDuration: 0.25, delay: 0.25, options: [.beginFromCurrentState], animations: {
+            self.open(for: ingredient.kind)
+            self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.333)
+//            floatable.transform = CGAffineTransform.identity.translatedBy(x: two.x, y: two.y)
+        }, completion: nil)
+        UIView.animate(withDuration: 0.25, delay: 0.5, options: [.curveEaseOut], animations: {
+            self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.666)
+//            floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
         }, completion: {
             (success) -> Void in
             floatable.removeFromSuperview()
-            UIView.animate(withDuration: 0.25, animations: {
-                self.push(ingredient)
-            }, completion: {
-                (success) -> Void in
-                var remainings = floatables.filter({ $0.asIngridient != ingredient })
-                if remainings.count != 0 {
-                    self.push(remainings)
-                }
-            })
+//            UIView.animate(withDuration: 0.25, animations: {
+//                self.insert(ingredient)
+//            }, completion: {
+//                (success) -> Void in
+//                let remainings = floatables.filter({ $0.asIngridient != ingredient })
+//                if remainings.count != 0 {
+//                    self.push(remainings)
+//                }
+//            })
+            self.insert(ingredient)
+            let remainings = floatables.filter({ $0.asIngridient != ingredient })
+            if remainings.count != 0 {
+                self.push(remainings)
+            }
         })
     }
     

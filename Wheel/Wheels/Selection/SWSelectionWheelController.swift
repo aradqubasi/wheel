@@ -99,6 +99,8 @@ class SWSelectionWheelController: UIViewController {
     private var labels: [UILabel] = []
     
     private var invisible: UIView!
+    
+    private var unseen: UIView!
 
     // MARK: - Initialization
 
@@ -115,6 +117,9 @@ class SWSelectionWheelController: UIViewController {
         do {
             invisible = UIView()
             view.addSubview(invisible)
+            
+            unseen = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 10)))
+            view.addSubview(unseen)
         }
         
         //pointer
@@ -287,39 +292,111 @@ class SWSelectionWheelController: UIViewController {
         
         var current: CGFloat = 0
         
+        var prevSpotKind: SWIngredientKinds = .dressing
+        var skipAngleIncrease = false
+//        var forceAngleIncrease = false
+
         for i in 0..<spots.count {
             
             let spot = spots[i]
             
-            if spot is SWHiddenSpot {
-                //skip
+            if skipAngleIncrease {
+                if spot is SWDelimeterSpot {
+                    current += (separator + spacing) * 0.5
+                }
+                
+                action(spot, current, i)
+                skipAngleIncrease = false
+                
+                if spot is SWDelimeterSpot {
+                    current += (separator + spacing) * 0.5
+                }
             }
-            else if spot is SWOpenSpot {
-                current += (step + spacing) * 0.5
-            }
-            else if spot is SWFilledSpot {
-                current += (step + spacing) * 0.5
-            }
-            else if spot is SWDelimeterSpot {
-                current += (separator + spacing) * 0.5
-            }
-            
-            action(spot, current, i)
-            
-            if spot is SWHiddenSpot {
-                //skip
-            }
-            else if spot is SWOpenSpot {
-                current += (step + spacing) * 0.5
-            }
-            else if spot is SWFilledSpot {
-                current += (step + spacing) * 0.5
-            }
-            else if spot is SWDelimeterSpot {
-                current += (separator + spacing) * 0.5
+            else {
+                if spot is SWHiddenSpot {
+                    //align to next non hidden spot of the same type
+                    if prevSpotKind != spot.kinds.first {
+                        current += (step + spacing) * 0.5
+                    }
+                }
+                else if spot is SWOpenSpot {
+                    current += (step + spacing) * 0.5
+                }
+                else if spot is SWFilledSpot {
+                    current += (step + spacing) * 0.5
+                }
+                else if spot is SWDelimeterSpot {
+                    current += (separator + spacing) * 0.5
+                }
+                
+                action(spot, current, i)
+                
+                if spot is SWHiddenSpot {
+                    //align to next non hidden spot of the same type
+                    if prevSpotKind != spot.kinds.first {
+                        current += (step + spacing) * 0.5
+                        skipAngleIncrease = true
+                    }
+                    prevSpotKind = spot.kinds.first!
+                }
+                else if spot is SWOpenSpot {
+                    current += (step + spacing) * 0.5
+                    prevSpotKind = spot.kinds.first!
+                }
+                else if spot is SWFilledSpot {
+                    current += (step + spacing) * 0.5
+                    prevSpotKind = spot.kinds.first!
+                }
+                else if spot is SWDelimeterSpot {
+                    current += (separator + spacing) * 0.5
+                }
             }
         }
     }
+    
+//    private func forEachSpot(do action: (_ spot: SWSelectionSpot,_ angle: CGFloat,_ index: Int) -> Void) {
+//
+//        let step = radius.pin * 2 / radius.wheel
+//
+//        let separator = size.delimeter.width / radius.wheel
+//
+//        let spacing = self.spacing / radius.wheel
+//
+//        var current: CGFloat = 0
+//
+//        for i in 0..<spots.count {
+//
+//            let spot = spots[i]
+//
+//            if spot is SWHiddenSpot {
+//                //skip
+//            }
+//            else if spot is SWOpenSpot {
+//                current += (step + spacing) * 0.5
+//            }
+//            else if spot is SWFilledSpot {
+//                current += (step + spacing) * 0.5
+//            }
+//            else if spot is SWDelimeterSpot {
+//                current += (separator + spacing) * 0.5
+//            }
+//
+//            action(spot, current, i)
+//
+//            if spot is SWHiddenSpot {
+//                //skip
+//            }
+//            else if spot is SWOpenSpot {
+//                current += (step + spacing) * 0.5
+//            }
+//            else if spot is SWFilledSpot {
+//                current += (step + spacing) * 0.5
+//            }
+//            else if spot is SWDelimeterSpot {
+//                current += (separator + spacing) * 0.5
+//            }
+//        }
+//    }
     
     func getSpotAngles() -> [CGFloat] {
         var angles: [CGFloat] = []
@@ -354,6 +431,43 @@ class SWSelectionWheelController: UIViewController {
             }
         })
         
+    }
+    
+    func getRotateSubviewsSteps(rotation delta: CGFloat, steps: Int) -> [Int:[() -> Void]] {
+        let rotation = max(getMinRotation(), min(getMaxRotation(), delta + self.rotation))
+        
+        var rotateSteps: [Int:[() -> Void]] = [:]
+        
+        forEachSpot(do: {
+            (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
+//            if let hidden = spot as? SWHiddenSpot {
+//                hidden.move(angle: current + rotation, radius: radius.spoke)
+//            }
+//            else if let openned = spot as? SWOpenSpot {
+//                openned.move(angle: current + rotation, radius: radius.spoke)
+//                openned.label.alpha = getLabelAlpha(for: openned)
+//            }
+//            else if let filled = spot as? SWFilledSpot {
+//                filled.move(angle: current + rotation, radius: radius.spoke)
+//                filled.label.alpha = getLabelAlpha(for: filled)
+//            }
+//            else if let delimeter = spot as? SWDelimeterSpot {
+//                delimeter.move(angle: current + rotation, radius: radius.spoke)
+//            }
+            let distance = (current + rotation) - spot.angle
+            for index in 0..<steps {
+                if rotateSteps[index] == nil {
+                    rotateSteps[index] = []
+                }
+                let subRadius = self.radius.spoke
+                let subRotation = distance / CGFloat(steps) * CGFloat(index) + spot.angle
+                rotateSteps[index]?.append {
+                    spot.move(angle: subRotation, radius: subRadius)
+                }
+            }
+        })
+        
+        return rotateSteps
     }
     
     func getMinRotation() -> CGFloat {
@@ -468,7 +582,7 @@ class SWSelectionWheelController: UIViewController {
         }
         return 0
     }
-    
+     var start: Date!
 }
 
 extension SWSelectionWheelController: SWSelectionWheelProtocol {
@@ -480,6 +594,16 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             replace(hidden, with: hidden.open(as: getLabel()))
             self.rotateSubviews(by: 0)
         }
+    }
+    
+    func preopen(for kind: SWIngredientKinds) {
+        if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(kind) ?? false }) as? SWHiddenSpot {
+            replace(hidden, with: hidden.open(as: getLabel()))
+        }
+    }
+    
+    func postopen() {
+        self.rotateSubviews(by: 0)
     }
     
     func insert(_ ingredient: SWIngredient) {
@@ -541,7 +665,16 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
 //        })
     }
     
+   
+    
     func push(_ floatables: [Floatable]) {
+        start = Date()
+        pushTheVeggy(floatables, isfirst: true)
+        pushTheWheel(floatables, isfirst: true)
+    }
+    
+    private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
+        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
         let first = floatables.sorted(by: {
             (prev, next) -> Bool in
             let prev = prev.asIngridient.kind
@@ -556,53 +689,182 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 .base: 4
             ]
             return rank[prev] ?? 0 >= rank[next] ?? 0
-        }).reversed().first!
+            //        }).reversed().first!
+        }).first!
         
+//        var images: [UII] = []
+//        for floatable in floatables {
+//            let
+//        }
+//
         let ingredient = first.asIngridient
         let initial = first.convert(.zero, to: view)
         let floatable = UIImageView(image: ingredient.image)
         floatable.frame.origin = initial
         view.addSubview(floatable)
- 
-        let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
-        let two = CGPoint(x: three.x * 0.666, y: three.y * 0.666)
-        let one = CGPoint(x: three.x * 0.333, y: three.y * 0.333)
         
-        UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [.beginFromCurrentState], animations: {
-            let delta = self.getDeltaToFirstOf(ingredient.kind)
-            for i in 0..<25 {
-                UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
-            }
-        }, completion: nil)
-        UIView.animate(withDuration: 0.75, animations: { floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y) })
+        let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
 
-        UIView.animate(withDuration: 0.25, delay: 0.25, options: [.beginFromCurrentState], animations: {
-            self.open(for: ingredient.kind)
-            self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.333)
-//            floatable.transform = CGAffineTransform.identity.translatedBy(x: two.x, y: two.y)
-        }, completion: nil)
-        UIView.animate(withDuration: 0.25, delay: 0.5, options: [.curveEaseOut], animations: {
-            self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.666)
-//            floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
+        UIView.animate(withDuration: 0.75, animations: {
+            floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
+//            self.unseen.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.666)
         }, completion: {
             (success) -> Void in
             floatable.removeFromSuperview()
-//            UIView.animate(withDuration: 0.25, animations: {
-//                self.insert(ingredient)
+            print("veggy circle end #\(floatables.count) \(Date().timeIntervalSince(self.start))")
+        })
+        
+        let shrouded = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 10)))
+        view.addSubview(shrouded)
+        UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+            shrouded.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.333)
+        }, completion: {
+            (success) -> Void in
+            shrouded.removeFromSuperview()
+            let remainings = floatables.filter({ $0.asIngridient != ingredient })
+            if remainings.count != 0 {
+                self.pushTheVeggy(remainings, isfirst: false)
+            }
+        })
+        
+//        UIView.animate(withDuration: 0.25, animations: {
+//            self.unseen.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.666)
+//        }, completion: {
+//            (success) -> Void in
+//            let remainings = floatables.filter({ $0.asIngridient != ingredient })
+//            if remainings.count != 0 {
+//                self.pushTheVeggy(remainings, isfirst: false)
+//            }
+//        })
+    }
+    
+    private func pushTheWheel(_ floatables: [Floatable], isfirst: Bool) {
+        print("wheel circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
+        let first = floatables.sorted(by: {
+            (prev, next) -> Bool in
+            let prev = prev.asIngridient.kind
+            let next = next.asIngridient.kind
+            let rank: [SWIngredientKinds:Int] = [
+                .fruits : 0,
+                .dressing : 0,
+                .unexpected : 0,
+                .protein: 1,
+                .veggy: 2,
+                .fat: 3,
+                .base: 4
+            ]
+            return rank[prev] ?? 0 >= rank[next] ?? 0
+            //        }).reversed().first!
+        }).first!
+        
+        let ingredient = first.asIngridient
+        let initial = first.convert(.zero, to: view)
+        
+        let unseen = UIView()
+        view.addSubview(unseen)
+        UIView.animateKeyframes(withDuration: isfirst ? 0.5 : 0.25, delay: 0, options: [], animations: {
+            let delta = self.getDeltaToFirstOf(ingredient.kind)
+            for i in 0..<25 {
+                UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
+                unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
+            }
+        }, completion: {
+            (success) -> Void in
+            self.preopen(for: ingredient.kind)
+            
+            UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+                let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
+                for i in 0..<25 {
+                    UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
+                        let subStepAnimations = steps[i]!
+                        for j in 0..<subStepAnimations.count {
+                            let subStepAnimation = subStepAnimations[j]
+                            subStepAnimation()
+                        }
+//                        self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.333)
+                        unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
+                    })
+                }
+            }, completion: {
+                (success) -> Void in
+                unseen.removeFromSuperview()
+                print("wheel circle end #\(floatables.count) \(Date().timeIntervalSince(self.start))")
+                self.insert(ingredient)
+                let remainings = floatables.filter({ $0.asIngridient != ingredient })
+                if remainings.count != 0 {
+                    self.pushTheWheel(remainings, isfirst: false)
+                }
+            })
+        })
+    }
+    
+//    func push(_ floatables: [Floatable]) {
+//        let first = floatables.sorted(by: {
+//            (prev, next) -> Bool in
+//            let prev = prev.asIngridient.kind
+//            let next = next.asIngridient.kind
+//            let rank: [SWIngredientKinds:Int] = [
+//                .fruits : 0,
+//                .dressing : 0,
+//                .unexpected : 0,
+//                .protein: 1,
+//                .veggy: 2,
+//                .fat: 3,
+//                .base: 4
+//            ]
+//            return rank[prev] ?? 0 >= rank[next] ?? 0
+////        }).reversed().first!
+//        }).first!
+//
+//        let ingredient = first.asIngridient
+//        let initial = first.convert(.zero, to: view)
+//        let floatable = UIImageView(image: ingredient.image)
+//        floatable.frame.origin = initial
+//        view.addSubview(floatable)
+//
+//        let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
+//
+//        UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+//            let delta = self.getDeltaToFirstOf(ingredient.kind)
+//            for i in 0..<25 {
+//                UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta * 0.04) })
+//            }
+//        }, completion: {
+//            (success) -> Void in
+//            self.preopen(for: ingredient.kind)
+//
+//            UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+//                let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
+//                for i in 0..<25 {
+//                    UIView.addKeyframe(withRelativeStartTime: 0.01 * TimeInterval(i), relativeDuration: 0.04, animations: {
+//                        let subStepAnimations = steps[i]!
+//                        for j in 0..<subStepAnimations.count {
+//                            let subStepAnimation = subStepAnimations[j]
+//                            subStepAnimation()
+//                        }
+//                        self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.333)
+//                    })
+//                }
 //            }, completion: {
 //                (success) -> Void in
+//
+//            })
+//
+//            UIView.animate(withDuration: 0.25, delay: 0.25, options: [], animations: {
+//                self.invisible.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.666)
+//            }, completion: {
+//                (success) -> Void in
+//                floatable.removeFromSuperview()
+//                self.insert(ingredient)
 //                let remainings = floatables.filter({ $0.asIngridient != ingredient })
 //                if remainings.count != 0 {
 //                    self.push(remainings)
 //                }
 //            })
-            self.insert(ingredient)
-            let remainings = floatables.filter({ $0.asIngridient != ingredient })
-            if remainings.count != 0 {
-                self.push(remainings)
-            }
-        })
-    }
+//        })
+//        UIView.animate(withDuration: 0.75, animations: { floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y) })
+//    }
+    
     
     func pop(_ ingredient: SWIngredient) {
         

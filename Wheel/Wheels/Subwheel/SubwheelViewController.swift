@@ -36,11 +36,17 @@ class SubwheelViewController: UIViewController {
         selection.didMove(toParentViewController: self)
         selection.alignSubviews()
         
-        let blueButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 200), size: CGSize(side: 60)))
+        let blueButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 200), size: CGSize(side: 30)))
         blueButton.addTarget(self, action: #selector(onBlueButtonClick(_:)), for: .touchUpInside)
-        blueButton.layer.cornerRadius = 30
+        blueButton.layer.cornerRadius = 15
         blueButton.backgroundColor = .blue
         view.addSubview(blueButton)
+        
+        let redButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 230 + 5), size: CGSize(side: 30)))
+        redButton.addTarget(self, action: #selector(onRedButtonClick(_:)), for: .touchUpInside)
+        redButton.layer.cornerRadius = 15
+        redButton.backgroundColor = .red
+        view.addSubview(redButton)
         
         let ingredients = SWInmemoryIngredientRepository()
         
@@ -99,6 +105,13 @@ class SubwheelViewController: UIViewController {
         
 //        selection.push(floatings.random()!)
         selection.push(floatings)
+    }
+    
+    @IBAction func onRedButtonClick(_ sender: Any) {
+        let ingredients = SWInmemoryIngredientRepository()
+        if let allowed = selection.getFocusedKind().first {
+            selection.push(ingredients.getAll(by: allowed).random()!)
+        }
     }
     
     /*

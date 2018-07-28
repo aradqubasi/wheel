@@ -601,6 +601,99 @@ class SWSelectionWheelController: UIViewController {
         }
         return 0
     }
+    
+    private func getRank(of ingredient: SWIngredient) -> Int {
+        if ingredient.kind == .fruits {
+            return 0
+        }
+        else if ingredient.kind == .dressing {
+            return 0
+        }
+        else if ingredient.kind == .unexpected {
+            return 0
+        }
+        else if ingredient.kind == .protein {
+            return 1
+        }
+        else if ingredient.kind == .veggy {
+            return 2
+        }
+        else if ingredient.kind == .fat {
+            return 3
+        }
+        else if ingredient.kind == .base {
+            return 4
+        }
+        return 0
+    }
+    
+    private func sortAndFilter(_ ingredients: [SWIngredient]) -> [SWIngredient] {
+        var enhancers = count.enhancers.max
+        var leafs = count.leafs.max
+        var fats = count.fats.max
+        var proteins = count.proteins.max
+        var veggies = count.veggies.max
+        for spot in spots {
+            if let filled = spot as? SWFilledSpot {
+                if filled.kinds.first == .base {
+                    leafs = leafs - 1
+                }
+                else if filled.kinds.first == .fat {
+                    fats = fats - 1
+                }
+                else if filled.kinds.first == .veggy {
+                    veggies = veggies - 1
+                }
+                else if filled.kinds.first == .protein {
+                    proteins = proteins - 1
+                }
+                else {
+                    enhancers = enhancers - 1
+                }
+            }
+        }
+        let result = ingredients.filter({
+            if $0.kind == .base  {
+                leafs = leafs - 1
+                return leafs >= 0
+            }
+            else if $0.kind == .fat {
+                fats = fats - 1
+                return fats >= 0
+            }
+            else if $0.kind == .veggy  {
+                veggies = veggies - 1
+                return veggies >= 0
+            }
+            else if $0.kind == .protein {
+                proteins = proteins - 1
+                return proteins >= 0
+            }
+            else {
+                enhancers = enhancers - 1
+                return enhancers >= 0
+            }
+        }).sorted(by: {
+            (prev, next) -> Bool in
+            return getRank(of: prev) >= getRank(of: next)
+        })
+        return result
+    }
+    
+    private func sortAndFilter(_ floatables: [Floatable]) -> [Floatable] {
+        var result: [Floatable] = []
+        sortAndFilter(floatables.map({
+            return $0.asIngridient
+        })).forEach({
+            (ingredient) in
+            result.append(floatables.first(where: {
+                (next) -> Bool in
+                return next.asIngridient == ingredient
+            })!)
+        })
+        return result
+    }
+    
      var start: Date!
 }
 
@@ -626,10 +719,13 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     
     func push(_ ingredient: SWIngredient) {
         start = Date()
-        pushTheWheel([ingredient], isfirst: false)
+        if getSpotAtFront() is SWOpenSpot {
+            pushTheWheel([ingredient], isfirst: false)
+        }
     }
 
     func push(_ floatable: Floatable) {
+        
         push([floatable])
     }
     
@@ -643,21 +739,26 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     
     private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
         print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
-        let first = floatables.sorted(by: {
-            (prev, next) -> Bool in
-            let prev = prev.asIngridient.kind
-            let next = next.asIngridient.kind
-            let rank: [SWIngredientKinds:Int] = [
-                .fruits : 0,
-                .dressing : 0,
-                .unexpected : 0,
-                .protein: 1,
-                .veggy: 2,
-                .fat: 3,
-                .base: 4
-            ]
-            return rank[prev] ?? 0 >= rank[next] ?? 0
-        }).first!
+        let sorted = sortAndFilter(floatables)
+        if sorted.count == 0 {
+            return
+        }
+        let first = sorted.first!
+//        let first = floatables.sorted(by: {
+//            (prev, next) -> Bool in
+//            let prev = prev.asIngridient.kind
+//            let next = next.asIngridient.kind
+//            let rank: [SWIngredientKinds:Int] = [
+//                .fruits : 0,
+//                .dressing : 0,
+//                .unexpected : 0,
+//                .protein: 1,
+//                .veggy: 2,
+//                .fat: 3,
+//                .base: 4
+//            ]
+//            return rank[prev] ?? 0 >= rank[next] ?? 0
+//        }).first!
         
         let ingredient = first.asIngridient
         let initial = first.convert(.zero, to: view)
@@ -672,7 +773,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         }, completion: {
             (success) -> Void in
             floatable.removeFromSuperview()
-            print("veggy circle end #\(floatables.count) \(Date().timeIntervalSince(self.start))")
+            print("veggy circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
         })
 
         
@@ -683,7 +784,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         }, completion: {
             (success) -> Void in
             shrouded.removeFromSuperview()
-            let remainings = floatables.filter({ $0.asIngridient != ingredient })
+            let remainings = sorted.filter({ $0.asIngridient != ingredient })
             if remainings.count != 0 {
                 self.pushTheVeggy(remainings, isfirst: false)
             }
@@ -692,22 +793,27 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
     
     private func pushTheWheel(_ ingredients: [SWIngredient], isfirst: Bool) {
-        print("wheel circle start #\(ingredients.count) \(Date().timeIntervalSince(start))")
-        let first = ingredients.sorted(by: {
-            (prev, next) -> Bool in
-            let prev = prev.kind
-            let next = next.kind
-            let rank: [SWIngredientKinds:Int] = [
-                .fruits : 0,
-                .dressing : 0,
-                .unexpected : 0,
-                .protein: 1,
-                .veggy: 2,
-                .fat: 3,
-                .base: 4
-            ]
-            return rank[prev] ?? 0 >= rank[next] ?? 0
-        }).first!
+        let sorted = sortAndFilter(ingredients)
+        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
+        if sorted.count == 0 {
+            return
+        }
+        let first = sorted.first!
+//        let first = ingredients.sorted(by: {
+//            (prev, next) -> Bool in
+//            let prev = prev.kind
+//            let next = next.kind
+//            let rank: [SWIngredientKinds:Int] = [
+//                .fruits : 0,
+//                .dressing : 0,
+//                .unexpected : 0,
+//                .protein: 1,
+//                .veggy: 2,
+//                .fat: 3,
+//                .base: 4
+//            ]
+//            return rank[prev] ?? 0 >= rank[next] ?? 0
+//        }).first!
         
         let ingredient = first
         
@@ -743,9 +849,9 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             }, completion: {
                 (success) -> Void in
                 unseen.removeFromSuperview()
-                print("wheel circle end #\(ingredients.count) \(Date().timeIntervalSince(self.start))")
+                print("wheel circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
                 self.insert(ingredient)
-                let remainings = ingredients.filter({ $0 != ingredient })
+                let remainings = sorted.filter({ $0 != ingredient })
                 if remainings.count != 0 {
                     self.pushTheWheel(remainings, isfirst: false)
                 }

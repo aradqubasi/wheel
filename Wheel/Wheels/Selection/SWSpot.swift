@@ -33,11 +33,21 @@ class SWHiddenSpot: SWSelectionSpot {
         }
     }
     
+    var label: UILabel {
+        get {
+            return _label
+        }
+    }
+    
+    private let _label: UILabel
+    
     let kinds: [SWIngredientKinds]
     
     private let size = CGSize(width: 42, height: 42)
     
     private let _icon: UIButton
+    
+    
     
     /** current angle */
     var angle: CGFloat = 0
@@ -45,20 +55,16 @@ class SWHiddenSpot: SWSelectionSpot {
     /** current radius*/
     var radius: CGFloat = 0
     
-    init(icon spot: UIButton, for kinds: [SWIngredientKinds]) {
+    init(icon spot: UIButton, label: UILabel, for kinds: [SWIngredientKinds]) {
         _icon = spot
+        _label = label
         self.kinds = kinds
     }
-    
-//    func open(angle: CGFloat, radius: CGFloat) -> SWOpenSpot {
-//        icon.alpha = 1
-//        self.move(angle: angle, radius: radius)
-//        return SWOpenSpot(icon: _icon)
-//    }
 
-    func open(as label: UILabel) -> SWOpenSpot {
+//    func open(as label: UILabel) -> SWOpenSpot {
+    func open() -> SWOpenSpot {
         icon.alpha = 1
-        let openned = SWOpenSpot(icon: _icon, label: label, kinds: self.kinds)
+        let openned = SWOpenSpot(icon: _icon, label: _label, kinds: self.kinds)
         if openned.kinds.contains(.base) {
             openned.label.text = "BASE"
         }
@@ -106,12 +112,6 @@ class SWHiddenSpot: SWSelectionSpot {
 class SWOpenSpot: SWSelectionSpot {
     
     let kinds: [SWIngredientKinds]
-
-//    var angle: CGFloat {
-//        get {
-//            return atan2(icon.transform.b, icon.transform.a)
-//        }
-//    }
     
     var label: UILabel {
         get {
@@ -150,6 +150,13 @@ class SWOpenSpot: SWSelectionSpot {
         filled.angle = self.angle
         filled.radius = self.radius
         return filled
+    }
+    
+    func hide() -> SWHiddenSpot {
+        let hidden = SWHiddenSpot(icon: _icon, label: _label, for: kinds)
+        
+        _icon.alpha = 0
+        return hidden
     }
     
     func move(angle: CGFloat, radius: CGFloat) {
@@ -199,15 +206,45 @@ class SWFilledSpot: SWSelectionSpot {
         self.radius = radius
         icon.transform = CGAffineTransform.identity.rotated(by: angle + CGFloat.pi * 0.5).translatedBy(x: 0, y: -radius)
     }
+    
+    func close() -> SWOpenSpot {
+        let openned = SWOpenSpot(icon: _icon, label: label, kinds: self.kinds)
+
+        _icon.alpha = 1
+        _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
+        _icon.layer.cornerRadius = icon.bounds.width * 0.5
+        _icon.layer.borderWidth = 1
+        _icon.layer.borderColor = UIColor.tiara.cgColor
+        
+        if openned.kinds.contains(.base) {
+            openned.label.text = "BASE"
+        }
+        else if openned.kinds.contains(.fat) {
+            openned.label.text = "FATS"
+        }
+        else if openned.kinds.contains(.protein) {
+            openned.label.text = "PROTEINS"
+        }
+        else if openned.kinds.contains(.veggy) {
+            openned.label.text = "VEGGIES"
+        }
+        else if openned.kinds.contains(.unexpected) {
+            openned.label.text = "ENHANCERS"
+        }
+        else if openned.kinds.contains(.dressing) {
+            openned.label.text = "ENHANCERS"
+        }
+        else if openned.kinds.contains(.fruits) {
+            openned.label.text = "ENHANCERS"
+        }
+        
+        openned.angle = self.angle
+        openned.radius = self.radius
+        return openned
+    }
 }
 
 class SWDelimeterSpot: SWSelectionSpot {
-    
-//    var angle: CGFloat {
-//        get {
-//            return atan2(icon.transform.b, icon.transform.a)
-//        }
-//    }
     
     var icon: UIView {
         get {

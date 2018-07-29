@@ -48,6 +48,12 @@ class SubwheelViewController: UIViewController {
         redButton.backgroundColor = .red
         view.addSubview(redButton)
         
+        let greenButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 200 + 5 + 30 + 5 + 30), size: CGSize(side: 30)))
+        greenButton.addTarget(self, action: #selector(onGreenButtonClick(_:)), for: .touchUpInside)
+        greenButton.layer.cornerRadius = 15
+        greenButton.backgroundColor = .green
+        view.addSubview(greenButton)
+        
         let ingredients = SWInmemoryIngredientRepository()
         
         let protein = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 66, y: 312.5), size: CGSize(width: 42, height: 42)))
@@ -111,6 +117,12 @@ class SubwheelViewController: UIViewController {
         let ingredients = SWInmemoryIngredientRepository()
         if let allowed = selection.getFocusedKind().first {
             selection.push(ingredients.getAll(by: allowed).random()!)
+        }
+    }
+    
+    @IBAction func onGreenButtonClick(_ sender: Any) {
+        if let focused = selection.getFocusedIngredient() {
+            selection.pop(focused)
         }
     }
     

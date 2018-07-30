@@ -50,6 +50,12 @@ class SWSelectionWheelController: UIViewController {
     
     // MARK: - Private Properties
     
+    private let rollTimeOfFirstOfManyIngredients: TimeInterval = 0.5
+    
+    private let rollTimeOfFollowingOfManyIngredients: TimeInterval = 0.25
+    
+    private let rollTimeOfOneIngredient: TimeInterval = 0
+    
     private var radius: SWRadiuses {
         get {
             return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5)
@@ -229,16 +235,13 @@ class SWSelectionWheelController: UIViewController {
             prev = next
         case .cancelled, .ended:
             UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: {
-                let steps: Int = 12
-                let forward: Int = 10
-                let backward: Int = 2
-                let dTime: TimeInterval = TimeInterval(1 / steps)
-                let dAngle: CGFloat = self.getDeltaToClosestSpot() / CGFloat(forward)
-                for i in 0..<forward {
-                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: dAngle) })
-                }
-                for i in 0..<backward {
-                    UIView.addKeyframe(withRelativeStartTime: dTime * TimeInterval(i), relativeDuration: dTime, animations: { self.rotateSubviews(by: -dAngle) })
+                let steps: Int = 10
+                let step: Double = 1.0 / Double(steps)
+
+                let dAngle: CGFloat = self.getDeltaToClosest() * CGFloat(step)
+                print("getDeltaToClosest : \(self.getDeltaToClosest())")
+                for i in 0..<steps {
+                    UIView.addKeyframe(withRelativeStartTime: step * Double(i), relativeDuration: step, animations: { self.rotateSubviews(by: dAngle) })
                 }
             }, completion: nil)
         default:
@@ -248,12 +251,7 @@ class SWSelectionWheelController: UIViewController {
     
     func getLabel() -> UILabel {
         let label = UILabel.selectionWheelLabel
-//        label.backgroundColor = .red
         self.view.addSubview(label)
-//        label.center = self.center
-//        label.alpha = 0
-//        label.frame = CGRect(origin: CGPoint(x: -112.5, y: 0), size: CGSize(width: 600, height: 14))
-//        label.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.label)
         return label
     }
     
@@ -376,17 +374,14 @@ class SWSelectionWheelController: UIViewController {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
             if let hidden = spot as? SWHiddenSpot {
                 hidden.move(angle: current + rotation, radius: radius.spoke)
-//                print("SWHiddenSpot \(hidden.label.alpha) \(hidden.label.frame) \(hidden.label.text ?? "")")
             }
             else if let openned = spot as? SWOpenSpot {
                 openned.move(angle: current + rotation, radius: radius.spoke)
                 openned.label.alpha = getLabelAlpha(for: openned)
-//                print("SWOpenSpot \(openned.label.alpha) \(openned.label.frame) \(openned.label.text ?? "")")
             }
             else if let filled = spot as? SWFilledSpot {
                 filled.move(angle: current + rotation, radius: radius.spoke)
                 filled.label.alpha = getLabelAlpha(for: filled)
-//                print("SWFilledSpot \(filled.label.alpha) \(filled.label.frame) \(filled.label.text ?? "")")
             }
             else if let delimeter = spot as? SWDelimeterSpot {
                 delimeter.move(angle: current + rotation, radius: radius.spoke)
@@ -424,15 +419,6 @@ class SWSelectionWheelController: UIViewController {
     
     func getMaxRotation() -> CGFloat {
         return getSpotAngles().map({ front - $0 }).max() ?? 0
-    }
-    
-    func getDeltaToClosestSpot() -> CGFloat {
-        return getSpotAngles().map({
-            return front - ($0 + rotation)
-        }).reduce(CGFloat.infinity, {
-            (result: CGFloat, next: CGFloat) -> CGFloat in
-            return abs(result) > abs(next) ? next : result
-        })
     }
     
     func getSpotAtFront() -> SWSelectionSpot? {
@@ -565,6 +551,17 @@ class SWSelectionWheelController: UIViewController {
         return 0
     }
     
+    func getDeltaToClosest() -> CGFloat {
+        var angles: [CGFloat] = []
+        forEachSpot(do: {
+            (spot, angle, index) -> Void in
+            if spot is SWOpenSpot || spot is SWFilledSpot {
+                angles.append(front - angle - rotation)
+            }
+        })
+        return angles.reduce(CGFloat.infinity, { abs($0) > abs($1) ? $1 : $0 })
+    }
+    
     private func getRank(of ingredient: SWIngredient) -> Int {
         if ingredient.kind == .fruits {
             return 0
@@ -667,8 +664,8 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
  
     func preopen(for kind: SWIngredientKinds) {
         if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(kind) ?? false }) as? SWHiddenSpot {
-//            replace(hidden, with: hidden.open(as: getLabel()))
-            replace(hidden, with: hidden.open())
+            let openned = hidden.open()
+            replace(hidden, with: openned)
         }
     }
 
@@ -684,21 +681,21 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     func push(_ ingredient: SWIngredient) {
         start = Date()
         if getSpotAtFront() is SWOpenSpot {
-            pushTheWheel([ingredient], isfirst: false)
+            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient)
         }
     }
 
-    func push(_ floatable: Floatable) {
-        
-        push([floatable])
-    }
-    
+//    func push(_ floatable: Floatable) {
+//
+//        push([floatable])
+//    }
+//
    
     
     func push(_ floatables: [Floatable]) {
         start = Date()
         pushTheVeggy(floatables, isfirst: true)
-        pushTheWheel(floatables.map( { return $0.asIngridient } ), isfirst: true)
+        pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients)
     }
     
     private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
@@ -741,9 +738,9 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         
     }
     
-    private func pushTheWheel(_ ingredients: [SWIngredient], isfirst: Bool) {
+    private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval) {
         let sorted = sortAndFilter(ingredients)
-        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
+//        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
         if sorted.count == 0 {
             return
         }
@@ -759,7 +756,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         
         let unseen = UIView()
         view.addSubview(unseen)
-        UIView.animateKeyframes(withDuration: isfirst ? 0.5 : 0.25, delay: 0, options: [], animations: {
+        UIView.animateKeyframes(withDuration: rollTime, delay: 0, options: [], animations: {
             for i in 0..<25 {
                 UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: { self.rotateSubviews(by: delta! * 0.04) })
                 unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
@@ -767,8 +764,8 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         }, completion: {
             (success) -> Void in
             self.preopen(for: ingredient.kind)
-            
             UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+                (self.getSpotAtFront() as? SWOpenSpot)?.dissolve()
                 let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
                 for i in 0..<25 {
                     UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
@@ -783,11 +780,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             }, completion: {
                 (success) -> Void in
                 unseen.removeFromSuperview()
-                print("wheel circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
+//                print("wheel circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
                 self.insert(ingredient)
                 let remainings = sorted.filter({ $0 != ingredient })
                 if remainings.count != 0 {
-                    self.pushTheWheel(remainings, isfirst: false)
+                    self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients)
                 }
             })
         })
@@ -805,13 +802,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         })
         let related = spots.filter({ (spot) -> Bool in return spot.kinds.first(where: { (kind) -> Bool in return kind == ingredient.kind }) != nil })
         let firstOpenned = related.first(where: { $0 is SWOpenSpot })
-        let firstHidden = related.first(where: { $0 is SWHiddenSpot })
-        let lastFilled = related.first(where: { $0 is SWFilledSpot && $0.icon != popped?.icon })
         if let popped = popped as? SWFilledSpot {
             if related.count == 1 {
                 replace(popped, with: popped.close())
             }
-            else if related.count >= 1 && firstOpenned != nil {
+            else if related.count >= 1 {
                 var poppedPositionFound = false
                 for i in 0..<related.count {
                     if poppedPositionFound {
@@ -821,26 +816,8 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                         poppedPositionFound = true
                     }
                 }
-                replace(popped, with: popped.close().hide())
+                replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
                 rotateSubviews(by: 0)
-            }
-            else if related.count >= 1 && firstOpenned == nil {
-                var poppedPositionFound = false
-                for i in 0..<related.count {
-                    if poppedPositionFound {
-                        turn(popped, with: related[i])
-                    }
-                    if related[i].icon == popped.icon && !poppedPositionFound {
-                        poppedPositionFound = true
-                    }
-                }
-                replace(popped, with: popped.close())
-                rotateSubviews(by: 0)
-            }
-        }
-        for spot in spots {
-            if let label = (spot as? SWLabeledSelectionSpot)?.label {
-                print("\(label.text ?? "empty") \(label.alpha)")
             }
         }
     }

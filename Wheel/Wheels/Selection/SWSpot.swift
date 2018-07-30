@@ -152,6 +152,7 @@ class SWOpenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     }
     
     func fill(with ingredient: SWIngredient) -> SWFilledSpot {
+        _icon.alpha = 1
         _icon.setImage(ingredient.image, for: .normal)
         _icon.layer.borderWidth = 0
         _icon.layer.borderColor = UIColor.clear.cgColor
@@ -176,6 +177,10 @@ class SWOpenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
         self.angle = angle
         self.radius = radius
         icon.transform = CGAffineTransform.identity.rotated(by: angle + CGFloat.pi * 0.5).translatedBy(x: 0, y: -radius)
+    }
+    
+    func dissolve() {
+        _icon.alpha = 0
     }
 }
 

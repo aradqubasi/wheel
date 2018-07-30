@@ -662,10 +662,14 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     // MARK: - SWSelectionWheelProtocol Protocol Methods
     
  
-    func preopen(for kind: SWIngredientKinds) {
+    func preopen(for kind: SWIngredientKinds) -> Bool {
         if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(kind) ?? false }) as? SWHiddenSpot {
             let openned = hidden.open()
             replace(hidden, with: openned)
+            return true
+        }
+        else {
+            return false
         }
     }
 
@@ -681,7 +685,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     func push(_ ingredient: SWIngredient) {
         start = Date()
         if getSpotAtFront() is SWOpenSpot {
-            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient)
+            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
         }
     }
 
@@ -695,7 +699,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     func push(_ floatables: [Floatable]) {
         start = Date()
         pushTheVeggy(floatables, isfirst: true)
-        pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients)
+        pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients, shouldSkipOpening: false)
     }
     
     private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
@@ -714,7 +718,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         
         let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
 
-        UIView.animate(withDuration: 0.75, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.85, delay: 0, options: [.curveEaseInOut], animations: {
             floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
         }, completion: {
             (success) -> Void in
@@ -738,7 +742,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         
     }
     
-    private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval) {
+    private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval, shouldSkipOpening: Bool) {
         let sorted = sortAndFilter(ingredients)
 //        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
         if sorted.count == 0 {
@@ -763,8 +767,8 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             }
         }, completion: {
             (success) -> Void in
-            self.preopen(for: ingredient.kind)
-            UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+            let willOpenHidden = self.preopen(for: ingredient.kind)
+            UIView.animateKeyframes(withDuration: (willOpenHidden && shouldSkipOpening) || !shouldSkipOpening ? 0.25 : 0, delay: 0, options: [], animations: {
                 (self.getSpotAtFront() as? SWOpenSpot)?.dissolve()
                 let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
                 for i in 0..<25 {
@@ -780,11 +784,10 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             }, completion: {
                 (success) -> Void in
                 unseen.removeFromSuperview()
-//                print("wheel circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
                 self.insert(ingredient)
                 let remainings = sorted.filter({ $0 != ingredient })
                 if remainings.count != 0 {
-                    self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients)
+                    self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients, shouldSkipOpening: shouldSkipOpening)
                 }
             })
         })
@@ -817,7 +820,28 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                     }
                 }
                 replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
-                rotateSubviews(by: 0)
+//                rotateSubviews(by: 0)
+                do {
+                    let unseen = UIView()
+                    UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
+                        self.view.addSubview(unseen)
+                        let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
+                        for i in 0..<25 {
+                            UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
+                                let subStepAnimations = steps[i]!
+                                for j in 0..<subStepAnimations.count {
+                                    let subStepAnimation = subStepAnimations[j]
+                                    subStepAnimation()
+                                }
+                                unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
+                            })
+                        }
+                    }, completion: {
+                        (success: Bool) -> Void in
+                        unseen.removeFromSuperview()
+                    })
+                    
+                }
             }
         }
     }

@@ -180,7 +180,7 @@ class SWOpenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     }
     
     func dissolve() {
-        _icon.alpha = 0
+        _icon.alpha = 0.5
     }
 }
 

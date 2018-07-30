@@ -25,7 +25,13 @@ protocol SWSelectionSpot {
     
 }
 
-class SWHiddenSpot: SWSelectionSpot {
+protocol SWLabeledSelectionSpot {
+    
+    var label: UILabel { get }
+    
+}
+
+class SWHiddenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     
     var icon: UIView {
         get {
@@ -91,7 +97,7 @@ class SWHiddenSpot: SWSelectionSpot {
         return openned
     }
     
-    func alignView(to center: CGPoint) {
+    func alignView(to center: CGPoint, moveLabelUpBy labelRadius: CGFloat) {
         icon.alpha = 0
         icon.frame.size = size
         _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
@@ -99,6 +105,10 @@ class SWHiddenSpot: SWSelectionSpot {
         icon.layer.borderWidth = 1
         icon.layer.borderColor = UIColor.tiara.cgColor
         icon.center = center
+        
+        label.center = center
+        label.alpha = 0
+        label.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -labelRadius)
     }
     
     func move(angle: CGFloat, radius: CGFloat) {
@@ -109,7 +119,7 @@ class SWHiddenSpot: SWSelectionSpot {
     
 }
 
-class SWOpenSpot: SWSelectionSpot {
+class SWOpenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     
     let kinds: [SWIngredientKinds]
     
@@ -155,7 +165,10 @@ class SWOpenSpot: SWSelectionSpot {
     func hide() -> SWHiddenSpot {
         let hidden = SWHiddenSpot(icon: _icon, label: _label, for: kinds)
         
-        _icon.alpha = 0
+        hidden.icon.alpha = 0
+        hidden.label.alpha = 0
+        hidden.label.text = nil
+        
         return hidden
     }
     
@@ -166,7 +179,7 @@ class SWOpenSpot: SWSelectionSpot {
     }
 }
 
-class SWFilledSpot: SWSelectionSpot {
+class SWFilledSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     
     let kinds: [SWIngredientKinds]
     
@@ -208,7 +221,7 @@ class SWFilledSpot: SWSelectionSpot {
     }
     
     func close() -> SWOpenSpot {
-        let openned = SWOpenSpot(icon: _icon, label: label, kinds: self.kinds)
+        let openned = SWOpenSpot(icon: _icon, label: _label, kinds: self.kinds)
 
         _icon.alpha = 1
         _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)

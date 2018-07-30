@@ -248,10 +248,12 @@ class SWSelectionWheelController: UIViewController {
     
     func getLabel() -> UILabel {
         let label = UILabel.selectionWheelLabel
+//        label.backgroundColor = .red
         self.view.addSubview(label)
-        label.center = self.center
-        label.alpha = 0
-        label.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.label)
+//        label.center = self.center
+//        label.alpha = 0
+//        label.frame = CGRect(origin: CGPoint(x: -112.5, y: 0), size: CGSize(width: 600, height: 14))
+//        label.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.label)
         return label
     }
     
@@ -264,7 +266,7 @@ class SWSelectionWheelController: UIViewController {
         for i in 0..<spots.count {
             
             if let spot = spots[i] as? SWHiddenSpot {
-                spot.alignView(to: self.center)
+                spot.alignView(to: self.center, moveLabelUpBy: radius.label)
                 if prevKind == nil || (prevKind != spot.kinds.first) {
 //                    spots[i] = spot.open(as: getLabel())
                     spots[i] = spot.open()
@@ -374,17 +376,17 @@ class SWSelectionWheelController: UIViewController {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
             if let hidden = spot as? SWHiddenSpot {
                 hidden.move(angle: current + rotation, radius: radius.spoke)
-                print("SWHiddenSpot \(hidden.label.alpha) \(hidden.label.frame) \(hidden.label.text ?? "")")
+//                print("SWHiddenSpot \(hidden.label.alpha) \(hidden.label.frame) \(hidden.label.text ?? "")")
             }
             else if let openned = spot as? SWOpenSpot {
                 openned.move(angle: current + rotation, radius: radius.spoke)
                 openned.label.alpha = getLabelAlpha(for: openned)
-                print("SWOpenSpot \(openned.label.alpha) \(openned.label.frame) \(openned.label.text ?? "")")
+//                print("SWOpenSpot \(openned.label.alpha) \(openned.label.frame) \(openned.label.text ?? "")")
             }
             else if let filled = spot as? SWFilledSpot {
                 filled.move(angle: current + rotation, radius: radius.spoke)
                 filled.label.alpha = getLabelAlpha(for: filled)
-                print("SWFilledSpot \(filled.label.alpha) \(filled.label.frame) \(filled.label.text ?? "")")
+//                print("SWFilledSpot \(filled.label.alpha) \(filled.label.frame) \(filled.label.text ?? "")")
             }
             else if let delimeter = spot as? SWDelimeterSpot {
                 delimeter.move(angle: current + rotation, radius: radius.spoke)
@@ -834,6 +836,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 }
                 replace(popped, with: popped.close())
                 rotateSubviews(by: 0)
+            }
+        }
+        for spot in spots {
+            if let label = (spot as? SWLabeledSelectionSpot)?.label {
+                print("\(label.text ?? "empty") \(label.alpha)")
             }
         }
     }

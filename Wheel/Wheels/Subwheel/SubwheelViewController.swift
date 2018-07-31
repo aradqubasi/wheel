@@ -18,6 +18,12 @@ class SubwheelViewController: UIViewController {
     
     private var selection: SWSelectionWheelController!
     
+    private var abstractSelection: SWSelectionWheelProtocol {
+        get {
+            return selection
+        }
+    }
+    
     // MARK: - Initialization
     
     var floatings: [Floatable] = []
@@ -54,16 +60,26 @@ class SubwheelViewController: UIViewController {
         greenButton.backgroundColor = .green
         view.addSubview(greenButton)
         
+        let orangeButton = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 200 + 5 + 30 + 5 + 30 + 5 + 30), size: CGSize(side: 30)))
+        orangeButton.addTarget(self, action: #selector(onOrangeButtonClick(_:)), for: .touchUpInside)
+        orangeButton.layer.cornerRadius = 15
+        orangeButton.backgroundColor = .orange
+        view.addSubview(orangeButton)
+        
         let ingredients = SWInmemoryIngredientRepository()
         
         let protein = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 66, y: 312.5), size: CGSize(width: 42, height: 42)))
         protein.ingredient = ingredients.getAll(by: .protein).random()!
         view.addSubview(protein)
         floatings.append(protein)
-        let veggy = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 127, y: 312.5), size: CGSize(width: 42, height: 42)))
-        veggy.ingredient = ingredients.getAll(by: .veggy).random()!
-        view.addSubview(veggy)
-        floatings.append(veggy)
+        let veggy1 = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 127, y: 312.5), size: CGSize(width: 42, height: 42)))
+        veggy1.ingredient = ingredients.getAll(by: .veggy).random()!
+        view.addSubview(veggy1)
+        floatings.append(veggy1)
+        let veggy2 = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 127, y: 312.5), size: CGSize(width: 42, height: 42)))
+        veggy2.ingredient = ingredients.getAll(by: .veggy).random()!
+        view.addSubview(veggy2)
+        floatings.append(veggy2)
         let fats = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 188, y: 312.5), size: CGSize(width: 42, height: 42)))
         fats.ingredient = ingredients.getAll(by: .fat).random()!
         view.addSubview(fats)
@@ -110,22 +126,27 @@ class SubwheelViewController: UIViewController {
 //        }
         
 //        selection.push(floatings.random()!)
-        selection.push(floatings)
+        abstractSelection.push(floatings)
     }
     
     @IBAction func onRedButtonClick(_ sender: Any) {
         let ingredients = SWInmemoryIngredientRepository()
-        if let allowed = selection.getFocusedKind().first {
-            selection.push(ingredients.getAll(by: allowed).random()!)
+        if let allowed = abstractSelection.getFocusedKind().first {
+            abstractSelection.push(ingredients.getAll(by: allowed).random()!)
         }
     }
     
     @IBAction func onGreenButtonClick(_ sender: Any) {
-        if let focused = selection.getFocusedIngredient() {
-            selection.pop(focused)
+        if let focused = abstractSelection.getFocusedIngredient() {
+            abstractSelection.pop(focused)
         }
     }
     
+    @IBAction func onOrangeButtonClick(_ sender: Any) {
+        if let selection = abstractSelection as? SWSelectionWheelController{
+            selection.setStatus(!selection.getStatus())
+        }
+    }
     /*
     // MARK: - Navigation
 

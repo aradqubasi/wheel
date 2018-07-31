@@ -11,4 +11,6 @@ protocol SWSelectionWheelDelegate {
     
     func onKindSwitched(to kind: SWIngredientKinds)
     
+    func onCook()
+    
 }

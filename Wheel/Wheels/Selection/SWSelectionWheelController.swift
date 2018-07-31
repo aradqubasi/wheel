@@ -23,6 +23,7 @@ class SWSelectionWheelController: UIViewController {
         let spoke: CGFloat
         let pointer: CGFloat
         let label: CGFloat
+        let button: CGFloat
     }
     
     private struct SWSizes {
@@ -44,9 +45,9 @@ class SWSelectionWheelController: UIViewController {
         let enhancers: SWRange
     }
     
-    // MARK: - SWSpot
+    // MARK: - Public Properties
     
-    
+    var delegate: SWSelectionWheelDelegate?
     
     // MARK: - Private Properties
     
@@ -58,7 +59,7 @@ class SWSelectionWheelController: UIViewController {
     
     private var radius: SWRadiuses {
         get {
-            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5)
+            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5, button: view.bounds.width * 0.5 + 48 * 0.5 - 5)
         }
     }
     
@@ -102,31 +103,12 @@ class SWSelectionWheelController: UIViewController {
     
     private var pointer: UIImageView!
     
-    private var labels: [UILabel] = []
-    
-    private var invisible: UIView!
-    
-    private var unseen: UIView!
+    private var cook: SWCookingButton!
 
     // MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-//        do {
-//            let line = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 10, height: 1000)))
-//            line.backgroundColor = .red
-//            view.addSubview(line)
-//            line.center = self.center
-//        }
-        
-        do {
-            invisible = UIView()
-            view.addSubview(invisible)
-            
-            unseen = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 10)))
-            view.addSubview(unseen)
-        }
         
         //pointer
         do {
@@ -195,6 +177,12 @@ class SWSelectionWheelController: UIViewController {
             spots.append(spot)
         }
         
+        //cook button
+        do {
+            cook = SWDisabledCookingButton.getInitialButton(into: view)
+            cook.delegate = self
+        }
+        
         //gestures
         do {
             spiner = UIPanGestureRecognizer(target: self, action: #selector(onSpin(sender:)))
@@ -208,11 +196,47 @@ class SWSelectionWheelController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func alignSubviews() {
+        
+        view.shapeAsSelectionWheelBackground()
+        
+        do {
+            var prevKind: SWIngredientKinds?
+            
+            for i in 0..<spots.count {
+                
+                if let spot = spots[i] as? SWHiddenSpot {
+                    spot.alignView(to: self.center, moveLabelUpBy: radius.label)
+                    if prevKind == nil || (prevKind != spot.kinds.first) {
+                        //                    spots[i] = spot.open(as: getLabel())
+                        spots[i] = spot.open()
+                    }
+                    prevKind = spot.kinds.first
+                }
+                else if let delimeter = spots[i] as? SWDelimeterSpot {
+                    delimeter.alignView(to: self.center)
+                }
+            }
+        }
+        
+        do {
+            pointer.center = self.center
+            pointer.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.pointer)
+        }
+        
+        do {
+            cook.container.center = self.center
+            cook.container.transform = CGAffineTransform.identity.translatedBy(x: radius.button * cos(CGFloat.pi * -0.360), y: radius.button * sin(CGFloat.pi * -0.360))
+        }
+        
+        rotateSubviews(by: 0)
+    }
+    
     // MARK: - Private Methods
     
-    var rotation: CGFloat = -CGFloat.pi
+    private var rotation: CGFloat = -CGFloat.pi
     
-    @IBAction func onSpin(sender: UIPanGestureRecognizer) {
+    @IBAction private func onSpin(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
             prev = SWSpinerStats(point: sender.location(in: view), time: Date())
@@ -249,37 +273,10 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
-    func getLabel() -> UILabel {
+    private func getLabel() -> UILabel {
         let label = UILabel.selectionWheelLabel
         self.view.addSubview(label)
         return label
-    }
-    
-    func alignSubviews() {
-        
-        view.shapeAsLayerView()
-        
-        var prevKind: SWIngredientKinds?
-        
-        for i in 0..<spots.count {
-            
-            if let spot = spots[i] as? SWHiddenSpot {
-                spot.alignView(to: self.center, moveLabelUpBy: radius.label)
-                if prevKind == nil || (prevKind != spot.kinds.first) {
-//                    spots[i] = spot.open(as: getLabel())
-                    spots[i] = spot.open()
-                }
-                prevKind = spot.kinds.first
-            }
-            else if let delimeter = spots[i] as? SWDelimeterSpot {
-                delimeter.alignView(to: self.center)
-            }
-        }
-        
-        pointer.center = self.center
-        pointer.transform = CGAffineTransform.identity.translatedBy(x: 0, y: -radius.pointer)
-        
-        rotateSubviews(by: 0)
     }
     
     /** forEachSpot(do action: (spot: SWSelectionSpot, angle: CGFloat, index: Int) -> Void) */
@@ -355,7 +352,7 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
-    func getSpotAngles() -> [CGFloat] {
+    private func getSpotAngles() -> [CGFloat] {
         var angles: [CGFloat] = []
         forEachSpot(do: {
             (spot: SWSelectionSpot, current: CGFloat, index: Int) -> Void in
@@ -366,7 +363,7 @@ class SWSelectionWheelController: UIViewController {
         return angles
     }
     
-    func rotateSubviews(by delta: CGFloat) {
+    private func rotateSubviews(by delta: CGFloat) {
         rotation += delta
         rotation = max(getMinRotation(), min(getMaxRotation(), rotation))
         
@@ -390,7 +387,7 @@ class SWSelectionWheelController: UIViewController {
         
     }
     
-    func getRotateSubviewsSteps(rotation delta: CGFloat, steps: Int) -> [Int:[() -> Void]] {
+    private func getRotateSubviewsSteps(rotation delta: CGFloat, steps: Int) -> [Int:[() -> Void]] {
         let rotation = max(getMinRotation(), min(getMaxRotation(), delta + self.rotation))
         
         var rotateSteps: [Int:[() -> Void]] = [:]
@@ -413,15 +410,15 @@ class SWSelectionWheelController: UIViewController {
         return rotateSteps
     }
     
-    func getMinRotation() -> CGFloat {
+    private func getMinRotation() -> CGFloat {
         return getSpotAngles().map({ front - $0 }).min() ?? 0
     }
     
-    func getMaxRotation() -> CGFloat {
+    private func getMaxRotation() -> CGFloat {
         return getSpotAngles().map({ front - $0 }).max() ?? 0
     }
     
-    func getSpotAtFront() -> SWSelectionSpot? {
+    private func getSpotAtFront() -> SWSelectionSpot? {
         var min = CGFloat.infinity
         var focused: SWSelectionSpot?
         forEachSpot(do: {
@@ -446,7 +443,7 @@ class SWSelectionWheelController: UIViewController {
         return focused
     }
 
-    func replace(_ original: SWSelectionSpot, with new: SWSelectionSpot) {
+    private func replace(_ original: SWSelectionSpot, with new: SWSelectionSpot) {
         for i in 0..<spots.count {
             if spots[i].icon === new.icon {
                 spots[i] = new
@@ -455,7 +452,7 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
-    func turn(_ original: SWSelectionSpot, with new: SWSelectionSpot) {
+    private func turn(_ original: SWSelectionSpot, with new: SWSelectionSpot) {
         for i in 0..<spots.count {
             if spots[i].icon === original.icon {
                 for j in 0..<spots.count {
@@ -470,11 +467,11 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
-    func getRandomIngredient() -> SWIngredient {
+    private func getRandomIngredient() -> SWIngredient {
         return (SWInmemoryIngredientRepository()).getAll().random()!
     }
     
-    func getLabelAlpha(for target: SWSelectionSpot) -> CGFloat {
+    private func getLabelAlpha(for target: SWSelectionSpot) -> CGFloat {
         var prev: CGFloat?
         var base: CGFloat!
         var next: CGFloat?
@@ -511,7 +508,7 @@ class SWSelectionWheelController: UIViewController {
         return alpha
     }
     
-    func getDeltaToFirstOpenOf(_ kind: SWIngredientKinds) -> CGFloat? {
+    private func getDeltaToFirstOpenOf(_ kind: SWIngredientKinds) -> CGFloat? {
         let target = spots.first(where: {
             return ($0 as? SWOpenSpot)?.kinds.contains(kind) ?? false
         })
@@ -530,7 +527,7 @@ class SWSelectionWheelController: UIViewController {
         return nil
     }
     
-    func getDeltaToFirstOf(_ kind: SWIngredientKinds) -> CGFloat {
+    private func getDeltaToFirstOf(_ kind: SWIngredientKinds) -> CGFloat {
         let target = spots.first(where: {
             return ($0 as? SWOpenSpot)?.kinds.contains(kind) ?? false || ($0 as? SWFilledSpot)?.kinds.contains(kind) ?? false
         })
@@ -654,15 +651,7 @@ class SWSelectionWheelController: UIViewController {
         return result
     }
     
-     var start: Date!
-}
-
-extension SWSelectionWheelController: SWSelectionWheelProtocol {
-    
-    // MARK: - SWSelectionWheelProtocol Protocol Methods
-    
- 
-    func preopen(for kind: SWIngredientKinds) -> Bool {
+    private func preopen(for kind: SWIngredientKinds) -> Bool {
         if let hidden = spots.first(where: { ($0 as? SWHiddenSpot)?.kinds.contains(kind) ?? false }) as? SWHiddenSpot {
             let openned = hidden.open()
             replace(hidden, with: openned)
@@ -672,38 +661,16 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             return false
         }
     }
-
     
-    func insert(_ ingredient: SWIngredient) {
+    private func insert(_ ingredient: SWIngredient) {
         if let focused = getSpotAtFront() as? SWOpenSpot  {
             replace(focused, with: focused.fill(with: ingredient))
         }
         self.rotateSubviews(by: 0)
     }
-
-    
-    func push(_ ingredient: SWIngredient) {
-        start = Date()
-        if getSpotAtFront() is SWOpenSpot {
-            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
-        }
-    }
-
-//    func push(_ floatable: Floatable) {
-//
-//        push([floatable])
-//    }
-//
-   
-    
-    func push(_ floatables: [Floatable]) {
-        start = Date()
-        pushTheVeggy(floatables, isfirst: true)
-        pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients, shouldSkipOpening: false)
-    }
     
     private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
-        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
+        //        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
         let sorted = sortAndFilter(floatables)
         if sorted.count == 0 {
             return
@@ -717,15 +684,15 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         view.addSubview(floatable)
         
         let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
-
+        
         UIView.animate(withDuration: 0.85, delay: 0, options: [.curveEaseInOut], animations: {
             floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
         }, completion: {
             (success) -> Void in
             floatable.removeFromSuperview()
-            print("veggy circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
+            //            print("veggy circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
         })
-
+        
         
         let shrouded = UIView(frame: CGRect(origin: .zero, size: CGSize(side: 10)))
         view.addSubview(shrouded)
@@ -744,7 +711,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     
     private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval, shouldSkipOpening: Bool) {
         let sorted = sortAndFilter(ingredients)
-//        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
+        //        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
         if sorted.count == 0 {
             return
         }
@@ -786,6 +753,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 unseen.removeFromSuperview()
                 self.insert(ingredient)
                 let remainings = sorted.filter({ $0 != ingredient })
+                do {
+                    UIView.animate(withDuration: 0.225) {
+                        self.setCookingButtonState()
+                    }
+                }
                 if remainings.count != 0 {
                     self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients, shouldSkipOpening: shouldSkipOpening)
                 }
@@ -793,7 +765,69 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         })
     }
     
+    // MARK: - Actions
     
+    @IBAction private func onCookClick(sender: UIButton) -> Void {
+        delegate?.onCook()
+    }
+    
+    @IBAction private func onFoodClick(sender: FloatingSelectedView) {
+//        delegate?.onRemove(of: sender, in: self)
+    }
+    
+    private func setCookingButtonState() {
+        var leafs: Int = 0
+        var fats = 0
+        var veggies = 0
+        var proteins = 0
+        var enhancers = 0
+        for spot in spots {
+            if !(spot is SWFilledSpot) {
+                continue
+            }
+            if spot.kinds.first == .base {
+                leafs += 1
+            }
+            else if spot.kinds.first == .fat {
+                fats += 1
+            }
+            else if spot.kinds.first == .veggy {
+                veggies += 1
+            }
+            else if spot.kinds.first == .protein {
+                proteins += 1
+            }
+            else {
+                enhancers += 1
+            }
+        }
+        if leafs >= count.leafs.min && fats >= count.fats.min && veggies >= count.veggies.min && proteins >= count.proteins.min && enhancers >= count.enhancers.min {
+            cook = (cook as? SWDisabledCookingButton)?.enable() ?? cook
+        }
+        else {
+            cook = (cook as? SWEnabledCookingButton)?.disable() ?? cook
+        }
+    }
+    
+}
+
+extension SWSelectionWheelController: SWSelectionWheelProtocol {
+    
+    // MARK: - SWSelectionWheelProtocol Protocol Methods
+
+    func push(_ ingredient: SWIngredient) {
+//        start = Date()
+        if getSpotAtFront() is SWOpenSpot {
+            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
+        }
+    }
+    
+    func push(_ floatables: [Floatable]) {
+//        start = Date()
+        pushTheVeggy(floatables, isfirst: true)
+        pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients, shouldSkipOpening: false)
+    }
+ 
     func pop(_ ingredient: SWIngredient) {
         let popped = spots.first(where: {
             if let filled = $0 as? SWFilledSpot {
@@ -820,7 +854,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                     }
                 }
                 replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
-//                rotateSubviews(by: 0)
+                do {
+                    UIView.animate(withDuration: 0.225) {
+                        self.setCookingButtonState()
+                    }
+                }
                 do {
                     let unseen = UIView()
                     UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
@@ -840,7 +878,6 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                         (success: Bool) -> Void in
                         unseen.removeFromSuperview()
                     })
-                    
                 }
             }
         }
@@ -863,5 +900,33 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         }
         return nil
     }
+}
 
+extension SWSelectionWheelController {
+    
+    func getStatus() -> Bool {
+        return cook is SWEnabledCookingButton
+    }
+    
+    func setStatus(_ enable: Bool) {
+        if enable {
+            cook = (cook as? SWDisabledCookingButton)?.enable() ?? cook
+        }
+        else {
+            cook = (cook as? SWEnabledCookingButton)?.disable() ?? cook
+        }
+    }
+}
+
+extension SWSelectionWheelController: SWCookingButtonDelegate {
+    
+    func onCook(_ sender: SWCookingButton) {
+        if sender is SWEnabledCookingButton {
+            print("onCook(SWEnabledCookingButton)")
+        }
+        if sender is SWDisabledCookingButton {
+            print("onCook(SWDisabledCookingButton)")
+        }
+    }
+    
 }

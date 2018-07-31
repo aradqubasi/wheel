@@ -100,6 +100,7 @@
 		15A77A11200019150030304F /* SWRingMaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A77A10200019150030304F /* SWRingMaskView.swift */; };
 		15AAAE1D20F9B58D0022996D /* SWSelectionWheelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */; };
 		15AAAE1F20F9B5B70022996D /* SWSelectionWheelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */; };
+		15AAAE23210F7D340022996D /* SWCookingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE22210F7D340022996D /* SWCookingButton.swift */; };
 		15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */; };
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
@@ -296,6 +297,7 @@
 		15A77A10200019150030304F /* SWRingMaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskView.swift; sourceTree = "<group>"; };
 		15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelDelegate.swift; sourceTree = "<group>"; };
 		15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelProtocol.swift; sourceTree = "<group>"; };
+		15AAAE22210F7D340022996D /* SWCookingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCookingButton.swift; sourceTree = "<group>"; };
 		15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
@@ -506,6 +508,7 @@
 				152F66E220F084200070BAA5 /* SWSpot.swift */,
 				15AAAE1C20F9B58C0022996D /* SWSelectionWheelDelegate.swift */,
 				15AAAE1E20F9B5B70022996D /* SWSelectionWheelProtocol.swift */,
+				15AAAE22210F7D340022996D /* SWCookingButton.swift */,
 			);
 			path = Selection;
 			sourceTree = "<group>";
@@ -983,6 +986,7 @@
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
 				15A2589F2093942500F738B5 /* SWConcreteOptionAligner.swift in Sources */,
 				150FB1C71FF8CA65003F2601 /* SWAbstractWheelView.swift in Sources */,
+				15AAAE23210F7D340022996D /* SWCookingButton.swift in Sources */,
 				15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */,

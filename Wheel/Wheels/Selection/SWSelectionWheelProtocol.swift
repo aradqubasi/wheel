@@ -11,6 +11,8 @@ protocol SWSelectionWheelProtocol {
     
     func push(_ ingredient: SWIngredient)
     
+    func push(_ floatables: [Floatable])
+    
     func pop(_ ingredient: SWIngredient)
     
     func getFocusedKind() -> [SWIngredientKinds]

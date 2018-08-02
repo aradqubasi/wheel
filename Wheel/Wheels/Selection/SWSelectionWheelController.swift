@@ -49,6 +49,8 @@ class SWSelectionWheelController: UIViewController {
     
     var delegate: SWSelectionWheelDelegate?
     
+    var assembler: SWSelectionWheelAssembler!
+    
     // MARK: - Private Properties
     
     private let rollTimeOfFirstOfManyIngredients: TimeInterval = 0.5
@@ -59,7 +61,7 @@ class SWSelectionWheelController: UIViewController {
     
     private var radius: SWRadiuses {
         get {
-            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5, button: view.bounds.width * 0.5 + 48 * 0.5 - 5)
+            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5, button: view.bounds.width * 0.5 + 48 * 0.5 - 15)
         }
     }
     
@@ -104,11 +106,25 @@ class SWSelectionWheelController: UIViewController {
     private var pointer: UIImageView!
     
     private var cook: SWCookingButton!
+    
+    private var tipController: SWTipController!
+    
+    private var tipGenerator: SWTipGenerator!
 
     // MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tipController = assembler.resolve()
+        tipController.orientation = .center
+        
+        tipGenerator = assembler.resolve()
+        tipGenerator.leafs = count.leafs.min
+        tipGenerator.veggies = count.veggies.min
+        tipGenerator.fats = count.fats.min
+        tipGenerator.proteins = count.proteins.min
+        tipGenerator.enhancers = count.enhancers.min
         
         //pointer
         do {
@@ -126,7 +142,8 @@ class SWSelectionWheelController: UIViewController {
         }
         //leafs | fats
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIView.selectionDelimeter
             view.addSubview(delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
@@ -139,7 +156,8 @@ class SWSelectionWheelController: UIViewController {
         }
         //fats | veggies
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIView.selectionDelimeter
             view.addSubview(delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
@@ -152,7 +170,8 @@ class SWSelectionWheelController: UIViewController {
         }
         //veggies | proteins
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIView.selectionDelimeter
             view.addSubview(delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
@@ -165,7 +184,8 @@ class SWSelectionWheelController: UIViewController {
         }
         //proteins | enhancers
         do {
-            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+//            let delimeter = UIImageView(image: #imageLiteral(resourceName: "wheelgui/delimeter"))
+            let delimeter = UIView.selectionDelimeter
             view.addSubview(delimeter)
             spots.append(SWDelimeterSpot(icon: delimeter))
         }
@@ -816,19 +836,35 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     // MARK: - SWSelectionWheelProtocol Protocol Methods
 
     func push(_ ingredient: SWIngredient) {
-//        start = Date()
+        do {
+            self.tipController.unanimate()
+            UIView.animate(withDuration: 0.225) {
+                self.tipController.fade()
+            }
+        }
         if getSpotAtFront() is SWOpenSpot {
             pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
         }
     }
     
     func push(_ floatables: [Floatable]) {
-//        start = Date()
+        do {
+            self.tipController.unanimate()
+            UIView.animate(withDuration: 0.225) {
+                self.tipController.fade()
+            }
+        }
         pushTheVeggy(floatables, isfirst: true)
         pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients, shouldSkipOpening: false)
     }
  
     func pop(_ ingredient: SWIngredient) {
+        do {
+            self.tipController.unanimate()
+            UIView.animate(withDuration: 0.225) {
+                self.tipController.fade()
+            }
+        }
         let popped = spots.first(where: {
             if let filled = $0 as? SWFilledSpot {
                 return filled.ingredient == ingredient
@@ -842,6 +878,11 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         if let popped = popped as? SWFilledSpot {
             if related.count == 1 {
                 replace(popped, with: popped.close())
+                do {
+                    UIView.animate(withDuration: 0.225) {
+                        self.setCookingButtonState()
+                    }
+                }
             }
             else if related.count >= 1 {
                 var poppedPositionFound = false
@@ -925,7 +966,17 @@ extension SWSelectionWheelController: SWCookingButtonDelegate {
             print("onCook(SWEnabledCookingButton)")
         }
         if sender is SWDisabledCookingButton {
-            print("onCook(SWDisabledCookingButton)")
+            let tip = tipGenerator.getTip(for: self.spots.filter({ return $0 is SWFilledSpot }).map({ return ($0 as! SWFilledSpot).ingredient }))
+            
+            let anchor = CGPoint(x: self.center.x, y: self.center.y - radius.wheel)
+            tipController.show(tip: tip, at: anchor, in: view)
+            
+            tipController.shrink()
+            let grow = { () -> Void in self.tipController.grow() }
+            UIView.animate(withDuration: 0.25, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: grow, completion: nil)
+            
+            let fade = { () -> Void in self.tipController.fade() }
+            UIView.animate(withDuration: 0.5, delay: 4, options: [.curveEaseOut], animations: fade, completion: nil)
         }
     }
     

@@ -8,7 +8,17 @@
 
 import Foundation
 import UIKit
+
+enum SWTipOrientation: String {
+    case right
+    case center
+}
+
 class SWTipController {
+    
+    // MARK: - Attributes
+    
+    var orientation: SWTipOrientation = .right
     
     // MARK: - Subviews
     
@@ -48,9 +58,16 @@ class SWTipController {
         balloon.backgroundColor = .casablanca
         balloon.layer.cornerRadius = 4
         balloon.alpha = 1
-        let balloonX: CGFloat = scene.bounds.width - (balloon.frame.size.width + sidePadding)
-        let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
-        balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
+        if orientation == .right {
+            let balloonX: CGFloat = scene.bounds.width - (balloon.frame.size.width + sidePadding)
+            let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
+            balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
+        }
+        else if orientation == .center {
+            let balloonX: CGFloat = (scene.bounds.width - balloon.frame.size.width) * 0.5
+            let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
+            balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
+        }
         scene.addSubview(balloon)
         
         tip.attributedText = tipText

@@ -33,6 +33,7 @@ class SubwheelViewController: UIViewController {
         self.view.addSubview(assembler.resolve())
         
         selection = SWSelectionWheelController()
+        selection.assembler = self.assembler.resolve()
         let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
         selection.view.frame = rectangle
         selection.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 1.3)

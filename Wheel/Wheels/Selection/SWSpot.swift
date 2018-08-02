@@ -270,7 +270,7 @@ class SWDelimeterSpot: SWSelectionSpot {
         }
     }
     
-    private let _icon: UIImageView
+    private let _icon: UIView
     
     let kinds: [SWIngredientKinds] = []
     
@@ -280,7 +280,7 @@ class SWDelimeterSpot: SWSelectionSpot {
     /** current radius*/
     var radius: CGFloat = 0
     
-    init(icon image: UIImageView) {
+    init(icon image: UIView) {
         _icon = image
     }
     

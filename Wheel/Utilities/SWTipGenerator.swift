@@ -9,6 +9,16 @@
 import Foundation
 protocol SWTipGenerator {
     
+    var leafs: Int { get set }
+
+    var fats: Int { get set }
+
+    var proteins: Int { get set }
+
+    var veggies: Int { get set }
+
+    var enhancers: Int { get set }
+    
     func getTip(for ingredients: [SWIngredient]) -> String
     
 }

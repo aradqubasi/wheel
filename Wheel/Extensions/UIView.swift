@@ -161,4 +161,14 @@ extension UIView {
         self.layer.shadowPath = UIBezierPath(roundedRect: self.bounds, cornerRadius: self.bounds.width / 2).cgPath
     }
 
+    class var selectionDelimeter: UIView {
+        get {
+            let inner = UIView(frame: CGRect(origin: CGPoint(x: 3, y: 0), size: CGSize(width: 2, height: 30)))
+            inner.backgroundColor = UIColor(patternImage: #imageLiteral(resourceName: "wheelgui/dash_pattern_vertical"))
+            let outer = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 8, height: 30)))
+            outer.backgroundColor = UIColor.clear
+            outer.addSubview(inner)
+            return outer
+        }
+    }
 }

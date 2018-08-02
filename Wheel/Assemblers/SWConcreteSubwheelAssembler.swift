@@ -29,4 +29,8 @@ class SWConcreteSubwheelAssembler: SWSubwheelAssembler {
     func resolve() -> SWSegueRepository {
         return SWInmemorySegueRepository()
     }
+    
+    func resolve() -> SWSelectionWheelAssembler {
+        return SWConcreteSelectionWheelAssembler()
+    }
 }

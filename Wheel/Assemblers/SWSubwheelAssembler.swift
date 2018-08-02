@@ -17,4 +17,7 @@ protocol SWSubwheelAssembler {
     func resolve() -> SWIngredientRepository
     
     func resolve() -> SWSegueRepository
+    
+    func resolve() -> SWSelectionWheelAssembler
+    
 }

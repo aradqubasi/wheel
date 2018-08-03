@@ -34,6 +34,7 @@ class SubwheelViewController: UIViewController {
         
         selection = SWSelectionWheelController()
         selection.assembler = self.assembler.resolve()
+        selection.delegate = self
         let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
         selection.view.frame = rectangle
         selection.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 1.3)
@@ -158,4 +159,29 @@ class SubwheelViewController: UIViewController {
     }
     */
 
+}
+
+extension SubwheelViewController: SWSelectionWheelDelegate {
+    
+    func onKindSwitched(to kind: SWIngredientKinds) {
+        print("SubwheelViewController.onKindSwitched")
+    }
+    
+    func onCook() {
+        print("SubwheelViewController.onCook")
+    }
+    
+    func onTriggerRandomIngredient(of kind: [SWIngredientKinds]) {
+        print("SubwheelViewController.onTriggerRandomIngredient")
+        let ingredients = SWInmemoryIngredientRepository()
+//        selection.push(ingredients.getAll(by: kind.random()!).random()!)
+        let test = SWFakeFloatable(frame: CGRect(origin: CGPoint(x: 66, y: 312.5), size: CGSize(width: 42, height: 42)))
+        test.ingredient = ingredients.getAll(by: kind.random()!).random()!
+        view.addSubview(test)
+        selection.push([test])
+    }
+    
+    
+    
+    
 }

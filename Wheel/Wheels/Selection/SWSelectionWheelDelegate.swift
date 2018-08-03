@@ -13,4 +13,6 @@ protocol SWSelectionWheelDelegate {
     
     func onCook()
     
+    func onTriggerRandomIngredient(of kind: [SWIngredientKinds])
+    
 }

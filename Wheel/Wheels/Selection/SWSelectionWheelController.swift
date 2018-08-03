@@ -150,6 +150,7 @@ class SWSelectionWheelController: UIViewController {
         //fats
         for _ in 0..<count.fats.max {
             let button = UIButton()
+            button.addTarget(self, action: #selector(onSpotClick(sender:)), for: .touchUpInside)
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, label: getLabel(), for: [.fat])
             spots.append(spot)
@@ -164,6 +165,7 @@ class SWSelectionWheelController: UIViewController {
         //veggies
         for _ in 0..<count.veggies.max {
             let button = UIButton()
+            button.addTarget(self, action: #selector(onSpotClick(sender:)), for: .touchUpInside)
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, label: getLabel(), for: [.veggy])
             spots.append(spot)
@@ -178,6 +180,7 @@ class SWSelectionWheelController: UIViewController {
         //proteins
         for _ in 0..<count.proteins.max {
             let button = UIButton()
+            button.addTarget(self, action: #selector(onSpotClick(sender:)), for: .touchUpInside)
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, label: getLabel(), for: [.protein])
             spots.append(spot)
@@ -192,6 +195,7 @@ class SWSelectionWheelController: UIViewController {
         //enhancers
         for _ in 0..<count.enhancers.max {
             let button = UIButton()
+            button.addTarget(self, action: #selector(onSpotClick(sender:)), for: .touchUpInside)
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, label: getLabel(), for: [.fruits, .dressing, .unexpected])
             spots.append(spot)
@@ -423,6 +427,12 @@ class SWSelectionWheelController: UIViewController {
                 let subRotation = distance / CGFloat(steps) * CGFloat(index) + spot.angle
                 rotateSteps[index]?.append {
                     spot.move(angle: subRotation, radius: subRadius)
+                    if let opened = spot as? SWOpenSpot {
+                        opened.label.alpha = self.getLabelAlpha(for: opened)
+                    }
+                    if let filled = spot as? SWFilledSpot {
+                        filled.label.alpha = self.getLabelAlpha(for: filled)
+                    }
                 }
             }
         })
@@ -785,16 +795,6 @@ class SWSelectionWheelController: UIViewController {
         })
     }
     
-    // MARK: - Actions
-    
-    @IBAction private func onCookClick(sender: UIButton) -> Void {
-        delegate?.onCook()
-    }
-    
-    @IBAction private func onFoodClick(sender: FloatingSelectedView) {
-//        delegate?.onRemove(of: sender, in: self)
-    }
-    
     private func setCookingButtonState() {
         var leafs: Int = 0
         var fats = 0
@@ -826,6 +826,27 @@ class SWSelectionWheelController: UIViewController {
         }
         else {
             cook = (cook as? SWEnabledCookingButton)?.disable() ?? cook
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction private func onCookClick(sender: UIButton) -> Void {
+        delegate?.onCook()
+    }
+    
+    @IBAction private func onFoodClick(sender: FloatingSelectedView) {
+//        delegate?.onRemove(of: sender, in: self)
+    }
+    
+    @IBAction private func onSpotClick(sender: UIButton) {
+        if let first = spots.first(where: { $0.icon == sender }) {
+            if let filled = first as? SWFilledSpot {
+                self.pop(filled.ingredient)
+            }
+            else if let open = first as? SWOpenSpot {
+                self.delegate?.onTriggerRandomIngredient(of: open.kinds)
+            }
         }
     }
     
@@ -964,6 +985,7 @@ extension SWSelectionWheelController: SWCookingButtonDelegate {
     func onCook(_ sender: SWCookingButton) {
         if sender is SWEnabledCookingButton {
             print("onCook(SWEnabledCookingButton)")
+            delegate?.onCook()
         }
         if sender is SWDisabledCookingButton {
             let tip = tipGenerator.getTip(for: self.spots.filter({ return $0 is SWFilledSpot }).map({ return ($0 as! SWFilledSpot).ingredient }))

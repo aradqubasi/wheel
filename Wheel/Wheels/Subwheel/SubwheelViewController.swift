@@ -163,8 +163,8 @@ class SubwheelViewController: UIViewController {
 
 extension SubwheelViewController: SWSelectionWheelDelegate {
     
-    func onKindSwitched(to kind: SWIngredientKinds) {
-        print("SubwheelViewController.onKindSwitched")
+    func onKindSwitched(from prev: SWIngredientKinds, to next: SWIngredientKinds) {
+        print("onKindSwitched from \(prev) to \(next)")
     }
     
     func onCook() {

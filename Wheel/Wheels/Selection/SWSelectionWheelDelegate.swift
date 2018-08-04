@@ -9,7 +9,7 @@
 import Foundation
 protocol SWSelectionWheelDelegate {
     
-    func onKindSwitched(to kind: SWIngredientKinds)
+    func onKindSwitched(from prev: SWIngredientKinds, to next: SWIngredientKinds)
     
     func onCook()
     

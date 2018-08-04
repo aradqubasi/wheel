@@ -110,6 +110,8 @@ class SWSelectionWheelController: UIViewController {
     private var tipController: SWTipController!
     
     private var tipGenerator: SWTipGenerator!
+    
+    private var prevFocusedKinds: SWIngredientKinds = .base
 
     // MARK: - Initialization
 
@@ -281,6 +283,12 @@ class SWSelectionWheelController: UIViewController {
                 UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
             }
             prev = next
+            if let spot = getSpotAtFront() {
+                if let next = spot.kinds.first, next != prevFocusedKinds {
+                    delegate?.onKindSwitched(from: prevFocusedKinds, to: next)
+                    prevFocusedKinds = next
+                }
+            }
         case .cancelled, .ended:
             UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [.beginFromCurrentState], animations: {
                 let steps: Int = 10

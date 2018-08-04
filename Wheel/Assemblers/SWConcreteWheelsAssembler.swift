@@ -65,4 +65,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve(using background: UIView) -> SWSubwheelAssembler {
         return SWConcreteSubwheelAssembler(background: background)
     }
+    
+    func resolve() -> SWSelectionWheelAssembler {
+        return SWConcreteSelectionWheelAssembler()
+    }
 }

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 protocol SWSelectionWheelProtocol {
     
     func push(_ ingredient: SWIngredient)
@@ -19,4 +21,11 @@ protocol SWSelectionWheelProtocol {
     
     func getFocusedIngredient() -> SWIngredient?
     
+    func hideTip() -> Void
+    
+    func clear() -> Void
+    
+    func contains(_ touch: UITouch) -> Bool
+    
+    func getSelected() -> [SWIngredient]
 }

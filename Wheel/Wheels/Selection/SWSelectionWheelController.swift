@@ -857,7 +857,6 @@ class SWSelectionWheelController: UIViewController {
             }
         }
     }
-    
 }
 
 extension SWSelectionWheelController: SWSelectionWheelProtocol {
@@ -969,6 +968,22 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             return focused.ingredient
         }
         return nil
+    }
+    
+    func hideTip() {
+        tipController.fade()
+    }
+    
+    func clear() {
+        
+    }
+    
+    func contains(_ touch: UITouch) -> Bool {
+        return view.bounds.contains(touch.location(in: view))
+    }
+    
+    func getSelected() -> [SWIngredient] {
+        return spots.map({ $0 as? SWFilledSpot }).filter({ $0 != nil }).map({ $0!.ingredient })
     }
 }
 

@@ -61,12 +61,21 @@ class SWPickingOverlayAnimationController: NSObject, UIViewControllerAnimatedTra
 //            wheel.navigationController?.isNavigationBarHidden = transitionContext.transitionWasCancelled
         }
         
+//        if let focused = overlay.focused {
+//            if wheel.selectionController.selected.first(where: { $0.asIngridient.kind == overlay.focused!.asIngridient.kind }) != nil {
+//                wheel.selectionController.upreplace(with: focused.asIngridient)
+//            }
+//            else {
+//                wheel.add([focused])
+//            }
+//        }
+        
         if let focused = overlay.focused {
-            if wheel.selectionController.selected.first(where: { $0.asIngridient.kind == overlay.focused!.asIngridient.kind }) != nil {
-                wheel.selectionController.upreplace(with: focused.asIngridient)
+            if wheel.selectionController.getSelected().first(where: { $0.kind == overlay.focused!.asIngridient.kind }) != nil {
+                wheel.selectionController.push(focused.asIngridient)
             }
             else {
-                wheel.add([focused])
+                wheel.selectionController.push([focused])
             }
         }
         

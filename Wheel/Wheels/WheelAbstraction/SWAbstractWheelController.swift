@@ -43,4 +43,6 @@ protocol SWAbstractWheelController {
     func lock(on pin: PinView) -> Void
     
     func unlock() -> Void
+    
+    func getIngredientAt(_ index: Int) -> SWIngredient?
 }

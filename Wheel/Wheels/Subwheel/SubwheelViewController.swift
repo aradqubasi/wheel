@@ -111,14 +111,14 @@ class SubwheelViewController: UIViewController {
     
     // MARK: - Action Methods
     
-    class SWFakeFloatable: UIView, Floatable {
-        var asIngridient: SWIngredient {
-            get {
-                return ingredient
-            }
-        }
-        var ingredient: SWIngredient!
-    }
+//    class SWFakeFloatable: UIView, Floatable {
+//        var asIngridient: SWIngredient {
+//            get {
+//                return ingredient
+//            }
+//        }
+//        var ingredient: SWIngredient!
+//    }
     
     @IBAction func onBlueButtonClick(_ sender: Any) {
 //        let ingredients = SWInmemoryIngredientRepository()

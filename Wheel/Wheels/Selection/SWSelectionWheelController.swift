@@ -837,6 +837,81 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
+    private func popVeggies(_ ingredients: [SWIngredient]) {
+        let ingredient = ingredients.first!
+        do {
+            self.tipController.unanimate()
+            UIView.animate(withDuration: 0.225) {
+                self.tipController.fade()
+            }
+        }
+        let popped = spots.first(where: {
+            if let filled = $0 as? SWFilledSpot {
+                return filled.ingredient == ingredient
+            }
+            else {
+                return false
+            }
+        })
+        let related = spots.filter({ (spot) -> Bool in return spot.kinds.first(where: { (kind) -> Bool in return kind == ingredient.kind }) != nil })
+        let firstOpenned = related.first(where: { $0 is SWOpenSpot })
+        if let popped = popped as? SWFilledSpot {
+            if related.count == 1 {
+                replace(popped, with: popped.close())
+                do {
+                    UIView.animate(withDuration: 0.225) {
+                        self.setCookingButtonState()
+                    }
+                }
+                let remainings = ingredients.filter({ $0 != ingredient })
+                if remainings.count != 0 {
+                    self.popVeggies(remainings)
+                }
+            }
+            else if related.count >= 1 {
+                var poppedPositionFound = false
+                for i in 0..<related.count {
+                    if poppedPositionFound {
+                        turn(popped, with: related[i])
+                    }
+                    if related[i].icon == popped.icon && !poppedPositionFound {
+                        poppedPositionFound = true
+                    }
+                }
+                replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
+                do {
+                    UIView.animate(withDuration: 0.225) {
+                        self.setCookingButtonState()
+                    }
+                }
+                do {
+                    let unseen = UIView()
+                    UIView.animateKeyframes(withDuration: ingredients.count == 1 ? 0.25 : 0, delay: 0, options: [], animations: {
+                        self.view.addSubview(unseen)
+                        let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
+                        for i in 0..<25 {
+                            UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
+                                let subStepAnimations = steps[i]!
+                                for j in 0..<subStepAnimations.count {
+                                    let subStepAnimation = subStepAnimations[j]
+                                    subStepAnimation()
+                                }
+                                unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
+                            })
+                        }
+                    }, completion: {
+                        (success: Bool) -> Void in
+                        unseen.removeFromSuperview()
+                        let remainings = ingredients.filter({ $0 != ingredient })
+                        if remainings.count != 0 {
+                            self.popVeggies(remainings)
+                        }
+                    })
+                }
+            }
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction private func onCookClick(sender: UIButton) -> Void {
@@ -887,69 +962,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
  
     func pop(_ ingredient: SWIngredient) {
-        do {
-            self.tipController.unanimate()
-            UIView.animate(withDuration: 0.225) {
-                self.tipController.fade()
-            }
-        }
-        let popped = spots.first(where: {
-            if let filled = $0 as? SWFilledSpot {
-                return filled.ingredient == ingredient
-            }
-            else {
-                return false
-            }
-        })
-        let related = spots.filter({ (spot) -> Bool in return spot.kinds.first(where: { (kind) -> Bool in return kind == ingredient.kind }) != nil })
-        let firstOpenned = related.first(where: { $0 is SWOpenSpot })
-        if let popped = popped as? SWFilledSpot {
-            if related.count == 1 {
-                replace(popped, with: popped.close())
-                do {
-                    UIView.animate(withDuration: 0.225) {
-                        self.setCookingButtonState()
-                    }
-                }
-            }
-            else if related.count >= 1 {
-                var poppedPositionFound = false
-                for i in 0..<related.count {
-                    if poppedPositionFound {
-                        turn(popped, with: related[i])
-                    }
-                    if related[i].icon == popped.icon && !poppedPositionFound {
-                        poppedPositionFound = true
-                    }
-                }
-                replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
-                do {
-                    UIView.animate(withDuration: 0.225) {
-                        self.setCookingButtonState()
-                    }
-                }
-                do {
-                    let unseen = UIView()
-                    UIView.animateKeyframes(withDuration: 0.25, delay: 0, options: [], animations: {
-                        self.view.addSubview(unseen)
-                        let steps = self.getRotateSubviewsSteps(rotation: 0, steps: 25)
-                        for i in 0..<25 {
-                            UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
-                                let subStepAnimations = steps[i]!
-                                for j in 0..<subStepAnimations.count {
-                                    let subStepAnimation = subStepAnimations[j]
-                                    subStepAnimation()
-                                }
-                                unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
-                            })
-                        }
-                    }, completion: {
-                        (success: Bool) -> Void in
-                        unseen.removeFromSuperview()
-                    })
-                }
-            }
-        }
+        popVeggies([ingredient])
     }
     
     func getFocusedKind() -> [SWIngredientKinds] {
@@ -975,7 +988,10 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
     
     func clear() {
-        
+        let selected = getSelected()
+        if selected.count > 0 {
+            popVeggies(selected)
+        }
     }
     
     func contains(_ touch: UITouch) -> Bool {

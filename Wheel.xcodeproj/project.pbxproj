@@ -103,6 +103,8 @@
 		15AAAE23210F7D340022996D /* SWCookingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE22210F7D340022996D /* SWCookingButton.swift */; };
 		15AAAE25211175E00022996D /* SWSelectionWheelAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE24211175E00022996D /* SWSelectionWheelAssembler.swift */; };
 		15AAAE272111766B0022996D /* SWConcreteSelectionWheelAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE262111766B0022996D /* SWConcreteSelectionWheelAssembler.swift */; };
+		15AAAE292116D69B0022996D /* SWFakeFloatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE282116D69B0022996D /* SWFakeFloatable.swift */; };
+		15AAAE2B2116D71C0022996D /* SWPlaceholderFloatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15AAAE2A2116D71C0022996D /* SWPlaceholderFloatable.swift */; };
 		15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */; };
 		15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */; };
 		15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15B00C40200B489F002B93A8 /* SWPagerController.swift */; };
@@ -302,6 +304,8 @@
 		15AAAE22210F7D340022996D /* SWCookingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCookingButton.swift; sourceTree = "<group>"; };
 		15AAAE24211175E00022996D /* SWSelectionWheelAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSelectionWheelAssembler.swift; sourceTree = "<group>"; };
 		15AAAE262111766B0022996D /* SWConcreteSelectionWheelAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteSelectionWheelAssembler.swift; sourceTree = "<group>"; };
+		15AAAE282116D69B0022996D /* SWFakeFloatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFakeFloatable.swift; sourceTree = "<group>"; };
+		15AAAE2A2116D71C0022996D /* SWPlaceholderFloatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPlaceholderFloatable.swift; sourceTree = "<group>"; };
 		15B00C3B200B3C2D002B93A8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		15B00C3E200B3E89002B93A8 /* SWPagerStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerStates.swift; sourceTree = "<group>"; };
 		15B00C40200B489F002B93A8 /* SWPagerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPagerController.swift; sourceTree = "<group>"; };
@@ -507,6 +511,8 @@
 				15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */,
 				1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */,
 				15DF420B1FE1352B00B6CC62 /* Floatable.swift */,
+				15AAAE282116D69B0022996D /* SWFakeFloatable.swift */,
+				15AAAE2A2116D71C0022996D /* SWPlaceholderFloatable.swift */,
 				15BB5A4A1FE6513A003816AF /* SelectionState.swift */,
 				152F66E020EDDCD20070BAA5 /* SWSelectionWheelController.swift */,
 				152F66E220F084200070BAA5 /* SWSpot.swift */,
@@ -971,6 +977,7 @@
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				15D13D482054135600D44923 /* SWWideWheelsAligner.swift in Sources */,
 				15F4AF302011E82F00C486FF /* SWBowlSceneView.swift in Sources */,
+				15AAAE2B2116D71C0022996D /* SWPlaceholderFloatable.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
@@ -1019,6 +1026,7 @@
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
+				15AAAE292116D69B0022996D /* SWFakeFloatable.swift in Sources */,
 				156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */,
 				15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */,
 				151192A2207DC67000D93751 /* UITextField.swift in Sources */,

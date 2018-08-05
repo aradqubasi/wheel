@@ -593,31 +593,72 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     @IBAction func onNextMenu(_ sender: Any) {
 
         if !adding {
-            let shuffle = { () -> Void in
-                
-                self.bases.moveToRandomPin()
-                self.fats.moveToRandomPin()
-                self.veggies.moveToRandomPin()
-                self.proteins.moveToRandomPin()
-//                self.unexpected.random()
-//                self.dressing.random()
-//                self.fruits.random()
-                
-//                self.selectionController.erase()
-                self.selectionController.clear()
+            
+            //prepare places
+            let places: [SWIngredientKinds : UIView] = [
+                .base: UIView(frame: CGRect(origin: bases.focused.convert(.zero, to: view), size: CGSize(side: 41))),
+                .fat: UIView(frame: CGRect(origin: fats.focused.convert(.zero, to: view), size: CGSize(side: 41))),
+                .protein : UIView(frame: CGRect(origin: proteins.focused.convert(.zero, to: view), size: CGSize(side: 41))),
+                .veggy: UIView(frame: CGRect(origin: veggies.focused.convert(.zero, to: view), size: CGSize(side: 41))),
+                .unexpected: UIView(frame: CGRect(origin: toUnexpected.convert(.zero, to: view), size: CGSize(side: 41))),
+                .fruits: UIView(frame: CGRect(origin: toFruits.convert(.zero, to: view), size: CGSize(side: 41))),
+                .dressing: UIView(frame: CGRect(origin: toDressing.convert(.zero, to: view), size: CGSize(side: 41)))
+            ]
+            places.forEach({ self.view.addSubview($0.value) })
+            
+            //get wheeled ingredient positions
+            let baseIndex = bases.count.random()
+            let fatIndex = fats.count.random()
+            let veggy1Index = veggies.count.random()
+            var veggy2Index = veggies.count.random()
+            for _ in 0..<veggies.count {
+                if veggies.getIngredientAt(veggy1Index) != veggies.getIngredientAt(veggy2Index) {
+                    break
+                }
+                else {
+                    veggy2Index += 1
+                    veggy2Index = veggy2Index >= veggies.count - 1 ? 0 : veggy2Index
+                }
+            }
+            let proteinIndex = proteins.count.random()
+            
+            let base = SWPlaceholderFloatable()
+            base.placeholder = places[.base]
+            base.ingredient = bases.getIngredientAt(baseIndex)
+            let fat = SWPlaceholderFloatable()
+            fat.placeholder = places[.fat]
+            fat.ingredient = fats.getIngredientAt(fatIndex)
+            let veggy1 = SWPlaceholderFloatable()
+            veggy1.placeholder = places[.veggy]
+            veggy1.ingredient = veggies.getIngredientAt(veggy1Index)
+            let veggy2 = SWPlaceholderFloatable()
+            veggy2.placeholder = places[.veggy]
+            veggy2.ingredient = veggies.getIngredientAt(veggy2Index)
+            let protein = SWPlaceholderFloatable()
+            protein.placeholder = places[.protein]
+            protein.ingredient = proteins.getIngredientAt(proteinIndex)
+            
+            
+            let shuffle1 = { () -> Void in
+                self.bases.move(to: baseIndex)
+                self.fats.move(to: fatIndex)
+                self.veggies.move(to: veggy1Index)
+                self.proteins.move(to: proteinIndex)
+//                self.selectionController.clear()
+            }
+            
+            let shuffle2 = { () -> Void in
+                self.veggies.move(to: veggy2Index)
             }
             
             let select = { (_: Bool) -> Void in
-                var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-//                [self.toFruits, self.toDressing, self.toUnexpected].forEach({ (button: ToOverlayButton) in
-//                    if button.haveSelection {
-//                        focus.append(button)
-//                    }
-//                })
-                if let fruit = self.filter.filterByOptionsAnd(by: .fruits).random() {
-                    self.toFruits.selection = fruit
-                    focus.append(self.toFruits)
-                }
+                
+                var focus: [Floatable] = [base, fat, veggy1, veggy2, protein]
+                
+//                if let fruit = self.filter.filterByOptionsAnd(by: .fruits).random() {
+//                    self.toFruits.selection = fruit
+//                    focus.append(self.toFruits)
+//                }
                 if let unexpected = self.filter.filterByOptionsAnd(by: .unexpected).random() {
                     self.toUnexpected.selection = unexpected
                     focus.append(self.toUnexpected)
@@ -630,7 +671,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 self.selectionController.push(focus)
             }
             
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
+            self.selectionController.clear()
+            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
+            UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: nil)
         }
     }
     

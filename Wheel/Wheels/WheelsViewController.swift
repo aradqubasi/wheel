@@ -755,6 +755,63 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - Private Methods
     
+    private func getNew(of kind: SWIngredientKinds, excluding existing: [SWIngredient]) -> SWIngredientLocation {
+        
+        switch kind {
+        case .base, .fat, .protein, .veggy:
+            var wheel: SWAbstractWheelController!
+            switch kind {
+            case .base:
+                wheel = bases
+            case .fat:
+                wheel = fats
+            case .protein:
+                wheel = proteins
+            case .veggy:
+                wheel = veggies
+            default:
+                fatalError("there is no wheel for kind \(kind)")
+            }
+            var random = wheel.count.random()
+            for _ in 0..<wheel.count {
+                if existing.first(where: { $0 == wheel.getIngredientAt(random) }) == nil {
+                    break
+                }
+                random += 1
+                if random == wheel.count {
+                    random = 0
+                }
+            }
+            return SWWheelIngredientLocation(ingredient: wheel.getIngredientAt(random)!, index: random, wheel: wheel, scene: view)
+        case .dressing, .fruits, .unexpected:
+            var button: UIButton!
+            switch kind {
+            case .dressing:
+                button = self.toDressing
+            case .fruits:
+                button = self.toFruits
+            case .unexpected:
+                button = self.toUnexpected
+            default:
+                fatalError("there is no button for kind \(kind)")
+            }
+            let ingredients = filter.filterByOptionsAnd(by: kind)
+            var random = ingredients.count.random()
+            for _ in 0..<ingredients.count {
+                if ingredients.first(where: { $0 == ingredients[random] }) == nil {
+                    break
+                }
+                random += 1
+                if random == ingredients.count {
+                    random = 0
+                }
+            }
+            return SWButtonIngredientLocation(ingredient: ingredients[random], button: button)
+//        default:
+//            fatalError("can not getNew(of:excluding:) for kind: \(kind)")
+        }
+    }
+    
     private func shake(of wheel: SWAbstractWheelController, thoward direction: CGFloat) {
         print("shake(of wheel: SWAbstractWheelController, thoward direction: \(direction)")
         let step = CGFloat.pi * 0.04 * (100 / wheel.radius)
@@ -1057,6 +1114,10 @@ extension WheelsViewController: SWSelectionWheelDelegate {
     }
     
     func onTriggerRandomIngredient(of kind: [SWIngredientKinds]) {
+        if let kind = kind.random() {
+            let location = getNew(of: kind, excluding: selectionController.getSelected())
+            selectionController.push([location.location])
+        }
 //        if !adding {
 //            let shuffle = { () -> Void in
 //                self.bases.moveToRandomPin()

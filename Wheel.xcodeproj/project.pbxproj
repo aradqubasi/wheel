@@ -21,6 +21,9 @@
 		151AFE451F8A858200CC5357 /* WSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE441F8A858200CC5357 /* WSettings.swift */; };
 		151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151AFE481FA119FD00CC5357 /* UIImage.swift */; };
 		151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer.swift */; };
+		151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43821180E010018CF52 /* SWIngredientLocation.swift */; };
+		151EE43B21180F6F0018CF52 /* SWWheelIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */; };
+		151EE43D211812320018CF52 /* SWButtonIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */; };
 		1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */; };
 		152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */; };
 		152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */; };
@@ -222,6 +225,9 @@
 		151AFE441F8A858200CC5357 /* WSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WSettings.swift; sourceTree = "<group>"; };
 		151AFE481FA119FD00CC5357 /* UIImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		151C425B20CCF18F00582268 /* SWSwipeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeGestureRecognizer.swift; sourceTree = "<group>"; };
+		151EE43821180E010018CF52 /* SWIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientLocation.swift; sourceTree = "<group>"; };
+		151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelIngredientLocation.swift; sourceTree = "<group>"; };
+		151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWButtonIngredientLocation.swift; sourceTree = "<group>"; };
 		1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedView.swift; sourceTree = "<group>"; };
 		152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideOverlayAnimationController.swift; sourceTree = "<group>"; };
 		152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPickingOverlayAnimationController.swift; sourceTree = "<group>"; };
@@ -663,6 +669,9 @@
 				150FB1C81FFA2B34003F2601 /* WheelAbstraction */,
 				15BA8025203FDAF900596CC8 /* SWWheelPositionCalculator.swift */,
 				15D13D4920564A8B00D44923 /* SWLocksController.swift */,
+				151EE43821180E010018CF52 /* SWIngredientLocation.swift */,
+				151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */,
+				151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */,
 			);
 			path = Wheels;
 			sourceTree = "<group>";
@@ -1006,6 +1015,7 @@
 				156B0BD5203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift in Sources */,
 				15A2589B20938DB200F738B5 /* SWLessButton.swift in Sources */,
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
+				151EE43D211812320018CF52 /* SWButtonIngredientLocation.swift in Sources */,
 				15BA802D2041450D00596CC8 /* SWConcreteRecipyAssembler.swift in Sources */,
 				15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */,
 				15119298207B67D200D93751 /* StepsViewController.swift in Sources */,
@@ -1056,6 +1066,7 @@
 				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
 				15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */,
+				151EE43B21180F6F0018CF52 /* SWWheelIngredientLocation.swift in Sources */,
 				15F5D62420848CA600462DE7 /* SWBowlTimeline.swift in Sources */,
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */,
@@ -1095,6 +1106,7 @@
 				15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */,
 				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
+				151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
 				15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */,
 				15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */,

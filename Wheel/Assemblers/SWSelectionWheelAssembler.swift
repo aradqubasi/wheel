@@ -13,4 +13,6 @@ protocol SWSelectionWheelAssembler {
     
     func resolve() -> SWTipGenerator
     
+    func resolve() -> SWAnimationSemaphor
+    
 }

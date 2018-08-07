@@ -30,7 +30,7 @@ class SWConcreteSubwheelAssembler: SWSubwheelAssembler {
         return SWInmemorySegueRepository()
     }
     
-    func resolve() -> SWSelectionWheelAssembler {
-        return SWConcreteSelectionWheelAssembler()
+    func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler {
+        return SWConcreteSelectionWheelAssembler(semaphor: semaphor)
     }
 }

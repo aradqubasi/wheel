@@ -125,6 +125,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: showend)
 
+        if let focused =  selectionController.getSelected().first(where: { $0 == sender.focused.asIngridient }) {
+            selectionController.move(to: focused)
+        }
+        else {
+            selectionController.moveToFirstOpen(of: sender.focused.asIngridient.kind)
+        }
     }
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
@@ -142,23 +148,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
         }
-//        else if self.selectionController.selected.first(where: { $0.asIngridient.kind == pin.asIngridient.kind }) != nil {
-//            let moveto = { () -> Void in
-//                sender.move(to: index)
-//                self.selectionController.upreplace(with: pin.asIngridient)
-//            }
-//            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: nil)
-//        }
-//        else {
-//            let moveto = { () -> Void in
-//                sender.move(to: index)
-//            }
-//            let showend = { (_: Bool) -> Void in
-//                self.add([pin])
-//            }
-//
-//            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
-//        }
         
     }
     
@@ -184,49 +173,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: unlocking, completion: nil)
     }
     
-    // MARK: - SelectionDelegate
-    
-//    func onRemove(of pin: Floatable, in controller: SelectionController) {
-//
-//        if controller.selected.count == 1 && controller.selected.first(where: { return $0.asIngridient == pin.asIngridient }) != nil {
-//
-//            let shrinkdown = { () in
-//                self.selectionController.shrinkdown()
-//            }
-//
-//            let discharge = { (_:Bool) in
-//                self.selectionController.discharge()
-//            }
-//
-//            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: shrinkdown, completion: discharge)
-//        }
-//        else {
-//
-//            let close = { () in
-//                controller.erase(pin)
-//            }
-//
-//            let showend = { (_: Bool) -> Void in }
-//            UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: close, completion: showend)
-//
-//        }
-//    }
-//
-//    func onCook(in controller: SelectionController) {
-//
-//        selected = selectionController.selected.map({ $0.asIngridient })
-//        perform(segue: segues.getWheelsToRecipy())
-//    }
-//
-//    func onCookTry(in controller: SelectionController) {
-//        let text = _tipster.getTip(for: controller.selected.map({ $0.asIngridient }))
-//        controller.show(tip: text)
-//    }
-    
     // MARK: - UIGestureRegocnizerDelegate Methods
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        return !selectionController.contains(touch) && !options.opened
         return !selectionController.contains(touch) && !options.opened
     }
     
@@ -460,7 +409,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let concreteSelectionController = SWSelectionWheelController()
             selectionController = concreteSelectionController
-            concreteSelectionController.assembler = self.assembler.resolve()
+            concreteSelectionController.assembler = self.assembler.resolve(semaphor: self)
             concreteSelectionController.delegate = self
             let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
             concreteSelectionController.view.frame = rectangle
@@ -503,22 +452,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            input.layer.borderWidth = 2
 //            view.addSubview(input)
 
-            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
-            roll.setTitleColor(UIColor.black, for: .normal)
-            roll.setTitle("*", for: .normal)
-            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
-            view.addSubview(roll)
+//            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
+//            roll.setTitleColor(UIColor.black, for: .normal)
+//            roll.setTitle("*", for: .normal)
+//            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
+//            view.addSubview(roll)
         }
-        
-        //tip
-//        do {
-//            tips = SWTipController()
-//        }
-        
-//        guard let nav = navigationController else {
-//            fatalError("wheel do not have navigation controller")
-//        }
-//        nav.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
@@ -555,119 +494,49 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onToUnexpectedClick(_ sender: UIButton) {
-        print("onToUnexpectedClick")
         overlayTransitionContext = .unexpected
         perform(segue: segues.getWheelsToOverlay())
-//        unexpected.set(for: sender)
-//        let open = { () in
-//            self.unexpected.open()
-//        }
-//        let showend = { (_: Bool) -> Void in }
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     @IBAction func onToDressingClick(_ sender: UIButton) {
-        print("onToDressingClick")
         overlayTransitionContext = .dressing
         perform(segue: segues.getWheelsToOverlay())
-//        dressing.set(for: sender)
-//        let open = { () in
-//            self.dressing.open()
-//        }
-//        let showend = { (_: Bool) -> Void in }
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
 
     @IBAction func onToFruitsClick(_ sender: UIButton) {
-        print("onToFruitsClick")
         overlayTransitionContext = .fruits
         perform(segue: segues.getWheelsToOverlay())
-//        fruits.set(for: sender)
-//        let open = { () in
-//            self.fruits.open()
-//        }
-//        let showend = { (_: Bool) -> Void in }
-//        UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: open, completion: showend)
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
 
         if !adding {
             
-            //prepare places
-            let places: [SWIngredientKinds : UIView] = [
-                .base: UIView(frame: CGRect(origin: bases.focused.convert(.zero, to: view), size: CGSize(side: 41))),
-                .fat: UIView(frame: CGRect(origin: fats.focused.convert(.zero, to: view), size: CGSize(side: 41))),
-                .protein : UIView(frame: CGRect(origin: proteins.focused.convert(.zero, to: view), size: CGSize(side: 41))),
-                .veggy: UIView(frame: CGRect(origin: veggies.focused.convert(.zero, to: view), size: CGSize(side: 41))),
-                .unexpected: UIView(frame: CGRect(origin: toUnexpected.convert(.zero, to: view), size: CGSize(side: 41))),
-                .fruits: UIView(frame: CGRect(origin: toFruits.convert(.zero, to: view), size: CGSize(side: 41))),
-                .dressing: UIView(frame: CGRect(origin: toDressing.convert(.zero, to: view), size: CGSize(side: 41)))
-            ]
-            places.forEach({ self.view.addSubview($0.value) })
+            let base = getNew(of: .base, excluding: [])
+            let fat = getNew(of: .fat, excluding: [])
+            let veggy1 = getNew(of: .veggy, excluding: [])
+            let veggy2 = getNew(of: .veggy, excluding: [veggy1.ingredient])
+            let protein = getNew(of: .protein, excluding: [])
             
-            //get wheeled ingredient positions
-            let baseIndex = bases.count.random()
-            let fatIndex = fats.count.random()
-            let veggy1Index = veggies.count.random()
-            var veggy2Index = veggies.count.random()
-            for _ in 0..<veggies.count {
-                if veggies.getIngredientAt(veggy1Index) != veggies.getIngredientAt(veggy2Index) {
-                    break
-                }
-                else {
-                    veggy2Index += 1
-                    veggy2Index = veggy2Index >= veggies.count - 1 ? 0 : veggy2Index
-                }
-            }
-            let proteinIndex = proteins.count.random()
-            
-            let base = SWPlaceholderFloatable()
-            base.placeholder = places[.base]
-            base.ingredient = bases.getIngredientAt(baseIndex)
-            let fat = SWPlaceholderFloatable()
-            fat.placeholder = places[.fat]
-            fat.ingredient = fats.getIngredientAt(fatIndex)
-            let veggy1 = SWPlaceholderFloatable()
-            veggy1.placeholder = places[.veggy]
-            veggy1.ingredient = veggies.getIngredientAt(veggy1Index)
-            let veggy2 = SWPlaceholderFloatable()
-            veggy2.placeholder = places[.veggy]
-            veggy2.ingredient = veggies.getIngredientAt(veggy2Index)
-            let protein = SWPlaceholderFloatable()
-            protein.placeholder = places[.protein]
-            protein.ingredient = proteins.getIngredientAt(proteinIndex)
+            let fruit = getNew(of: .fruits, excluding: [])
+            let unexpected = getNew(of: .unexpected, excluding: [])
+            let dressing = getNew(of: .dressing, excluding: [])
+            let enhancer = [fruit, unexpected, dressing].random()!
             
             
             let shuffle1 = { () -> Void in
-                self.bases.move(to: baseIndex)
-                self.fats.move(to: fatIndex)
-                self.veggies.move(to: veggy1Index)
-                self.proteins.move(to: proteinIndex)
-//                self.selectionController.clear()
+                base.move()
+                fat.move()
+                veggy1.move()
+                protein.move()
             }
             
             let shuffle2 = { () -> Void in
-                self.veggies.move(to: veggy2Index)
+                veggy2.move()
             }
             
             let select = { (_: Bool) -> Void in
-                
-                var focus: [Floatable] = [base, fat, veggy1, veggy2, protein]
-                
-//                if let fruit = self.filter.filterByOptionsAnd(by: .fruits).random() {
-//                    self.toFruits.selection = fruit
-//                    focus.append(self.toFruits)
-//                }
-                if let unexpected = self.filter.filterByOptionsAnd(by: .unexpected).random() {
-                    self.toUnexpected.selection = unexpected
-                    focus.append(self.toUnexpected)
-                }
-                if let dressing = self.filter.filterByOptionsAnd(by: .dressing).random() {
-                    self.toDressing.selection = dressing
-                    focus.append(self.toDressing)
-                }
-//                self.add(focus)
+                let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
                 self.selectionController.push(focus)
             }
             
@@ -754,6 +623,29 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     // MARK: - Private Methods
+    
+    private func setActiveState(to wheel: SWAbstractWheelController) -> Void {
+        self.current = wheel
+        self.bases.state = wheel.active
+        self.fats.state = wheel.active
+        self.veggies.state = wheel.active
+        self.proteins.state = wheel.active
+    }
+    
+    private func getWheel(of kind: SWIngredientKinds) -> SWAbstractWheelController? {
+        switch kind {
+        case .base:
+            return self.bases
+        case .fat:
+            return self.fats
+        case .veggy:
+            return self.veggies
+        case .protein:
+            return self.proteins
+        default:
+            return nil
+        }
+    }
     
     private func getNew(of kind: SWIngredientKinds, excluding existing: [SWIngredient]) -> SWIngredientLocation {
         
@@ -878,10 +770,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                     wheel.move(to: self.current.index)
                 }
                 let updateSelection = { (_: Bool) -> Void in
-//                    if self.selectionController.state == .hidden {
-//                        self.openSelectionBar()
-//                    }
-//                    self.selectionController.upreplace(with: self.current.focused.asIngridient)
                     self.selectionController.push(self.current.focused.asIngridient)
                 }
                 UIView.animate(withDuration: 0.1, delay: 0, options: [], animations: toSocket, completion: updateSelection)
@@ -920,73 +808,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             return 0
         }
     }
-    
-//    func add(_ pins: [Floatable]) {
-//        if adding {
-//            return
-//        }
-//        adding = true
-//
-//        let pins = pins.filter({ selectionController.will(fit: $0.asIngridient) })
-//        if pins.count > 0 {
-//
-//            if selectionController.state == .hidden {
-//                openSelectionBar()
-//            }
-//
-//            var delay: TimeInterval = 0
-//            let speed: TimeInterval = 0.15
-//            let count: TimeInterval = pins.count == 1 ? 0.5 : 1
-//
-//            if pins.count == 1 {
-//                let merge = { () -> Void in
-//                    self.selectionController.push(islast: false)
-//                }
-//                let last = {(finished: Bool) -> Void in
-//                }
-//                UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
-//            }
-//
-//            let last = pins.last!.asIngridient
-//            for pin in pins {
-//
-//                let copy = {
-//                    self.selectionController.copy(of: pin)
-//                }
-//
-//                let afterCopy = { (_: Bool) -> Void in
-//                    let move = { () -> Void in
-//                        self.selectionController.moving(of: pin)
-//                    }
-//                    let finish = { (finished: Bool) -> Void in
-//                        self.selectionController.merging(of: pin)
-//                        let merge = { () -> Void in
-//                            self.selectionController.push(islast: pin.asIngridient == last)
-//                        }
-//                        let last = {(finished: Bool) -> Void in
-//                            if pin.asIngridient == last {
-//                                self.adding = false
-//                            }
-//                        }
-//                        UIView.animate(withDuration: 1 * speed, delay: 0 * speed, options: [.curveEaseOut], animations: merge, completion: last)
-//                    }
-//                    UIView.animate(withDuration: 5 * speed * count, delay: 0, options: [.curveEaseIn], animations: move, completion: finish)
-//                }
-//
-//                UIView.animate(withDuration: 0, delay: delay * speed, options: [], animations: copy, completion: afterCopy)
-//                delay += 1.5
-//            }
-//        }
-//        else {
-//            adding = false
-//        }
-//    }
-    
-//    func openSelectionBar() {
-//        selectionController.set()
-//        let shrink = { () in self.selectionController.shrink() }
-//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.6, initialSpringVelocity: 0, options: [], animations: shrink, completion: nil)
-//    }
     
     // MARK: - Navigation
     
@@ -1035,6 +856,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         proteins.refill(with: ingredients[.protein]!)
         proteins.flush()
         
+        let filtered = selectionController.getSelected().filter({ (next) -> Bool in return ingredients[next.kind]!.first(where: { (n) -> Bool in return n == next } ) == nil })
+        if filtered.count > 0 {
+            selectionController.pop(filtered)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -1091,8 +916,6 @@ extension WheelsViewController: SWSelectionWheelDelegate {
                     self.current = self.bases
                 case .veggies:
                     self.current = self.bases
-                default:
-                    fatalError("could not switch to \(next)")
                 }
                 self.bases.state = new
                 self.fats.state = new
@@ -1116,36 +939,34 @@ extension WheelsViewController: SWSelectionWheelDelegate {
     func onTriggerRandomIngredient(of kind: [SWIngredientKinds]) {
         if let kind = kind.random() {
             let location = getNew(of: kind, excluding: selectionController.getSelected())
-            selectionController.push([location.location])
+            UIView.animate(withDuration: 0.225, animations: {
+                location.move()
+            }, completion: {
+                (success) -> Void in
+                self.selectionController.push([location.location])
+                UIView.animate(withDuration: 0.225, animations: {
+                    self.setActiveState(to: self.getWheel(of: kind) ?? self.current)
+                })
+            })
         }
-//        if !adding {
-//            let shuffle = { () -> Void in
-//                self.bases.moveToRandomPin()
-//                self.fats.moveToRandomPin()
-//                self.veggies.moveToRandomPin()
-//                self.proteins.moveToRandomPin()
-//                self.selectionController.clear()
-//            }
-//
-//            let select = { (_: Bool) -> Void in
-//                var focus: [Floatable] = [self.proteins.focused, self.veggies.focused, self.fats.focused, self.bases.focused]
-//                if let fruit = self.filter.filterByOptionsAnd(by: .fruits).random() {
-//                    self.toFruits.selection = fruit
-//                    focus.append(self.toFruits)
-//                }
-//                if let unexpected = self.filter.filterByOptionsAnd(by: .unexpected).random() {
-//                    self.toUnexpected.selection = unexpected
-//                    focus.append(self.toUnexpected)
-//                }
-//                if let dressing = self.filter.filterByOptionsAnd(by: .dressing).random() {
-//                    self.toDressing.selection = dressing
-//                    focus.append(self.toDressing)
-//                }
-//                self.add(focus)
-//            }
-//            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle, completion: select)
-//        }
     }
+    
+}
+
+extension WheelsViewController: SWAnimationSemaphor {
+    
+    func couldAnimate(sender: Any) -> Bool {
+        return !self.adding
+    }
+    
+    func onAnimationStart(sender: Any) {
+        self.adding = true
+    }
+    
+    func onAnimationEnd(sender: Any) {
+        self.adding = false
+    }
+    
     
 }
 

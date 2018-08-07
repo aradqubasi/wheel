@@ -49,6 +49,6 @@ extension SWWheelIngredientLocation: Floatable {
     }
     
     func convert(_ point: CGPoint, to coordinateSpace: UICoordinateSpace) -> CGPoint {
-        return scene.convert(point, to: coordinateSpace)
+        return scene.convert(self.point, to: coordinateSpace)
     }
 }

@@ -35,6 +35,6 @@ protocol SWWheelsAssembler {
     
     func resolve(using background: UIView) -> SWSubwheelAssembler
     
-    func resolve() -> SWSelectionWheelAssembler
+    func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler
     
 }

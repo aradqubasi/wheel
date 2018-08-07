@@ -17,6 +17,8 @@ protocol SWSelectionWheelProtocol {
     
     func pop(_ ingredient: SWIngredient)
     
+    func pop(_ ingredients: [SWIngredient])
+    
     func getFocusedKind() -> [SWIngredientKinds]
     
     func getFocusedIngredient() -> SWIngredient?
@@ -28,4 +30,9 @@ protocol SWSelectionWheelProtocol {
     func contains(_ touch: UITouch) -> Bool
     
     func getSelected() -> [SWIngredient]
+    
+    func move(to ingredient: SWIngredient)
+    
+    func moveToFirstOpen(of kind: SWIngredientKinds)
+    
 }

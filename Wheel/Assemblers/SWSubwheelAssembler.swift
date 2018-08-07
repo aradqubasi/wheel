@@ -18,6 +18,6 @@ protocol SWSubwheelAssembler {
     
     func resolve() -> SWSegueRepository
     
-    func resolve() -> SWSelectionWheelAssembler
+    func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler
     
 }

@@ -66,7 +66,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteSubwheelAssembler(background: background)
     }
     
-    func resolve() -> SWSelectionWheelAssembler {
-        return SWConcreteSelectionWheelAssembler()
+    func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler {
+        return SWConcreteSelectionWheelAssembler(semaphor: semaphor)
     }
 }

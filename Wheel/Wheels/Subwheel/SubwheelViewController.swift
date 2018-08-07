@@ -16,6 +16,8 @@ class SubwheelViewController: UIViewController {
     
     // MARK: - Private Properties
     
+    private var animating: Bool = false
+    
     private var selection: SWSelectionWheelController!
     
     private var abstractSelection: SWSelectionWheelProtocol {
@@ -33,7 +35,7 @@ class SubwheelViewController: UIViewController {
         self.view.addSubview(assembler.resolve())
         
         selection = SWSelectionWheelController()
-        selection.assembler = self.assembler.resolve()
+        selection.assembler = self.assembler.resolve(semaphor: self)
         selection.delegate = self
         let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
         selection.view.frame = rectangle
@@ -180,8 +182,21 @@ extension SubwheelViewController: SWSelectionWheelDelegate {
         view.addSubview(test)
         selection.push([test])
     }
+
+}
+
+extension SubwheelViewController: SWAnimationSemaphor {
     
+    func couldAnimate(sender: Any) -> Bool {
+        return animating
+    }
     
+    func onAnimationStart(sender: Any) {
+        animating = true
+    }
     
-    
+    func onAnimationEnd(sender: Any) {
+        animating = false
+    }
+
 }

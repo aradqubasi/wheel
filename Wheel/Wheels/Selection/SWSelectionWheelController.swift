@@ -112,6 +112,8 @@ class SWSelectionWheelController: UIViewController {
     private var tipGenerator: SWTipGenerator!
     
     private var prevFocusedKinds: SWIngredientKinds = .base
+    
+    private var semaphor: SWAnimationSemaphor!
 
     // MARK: - Initialization
 
@@ -127,6 +129,8 @@ class SWSelectionWheelController: UIViewController {
         tipGenerator.fats = count.fats.min
         tipGenerator.proteins = count.proteins.min
         tipGenerator.enhancers = count.enhancers.min
+        
+        semaphor = assembler.resolve()
         
         //pointer
         do {
@@ -255,7 +259,8 @@ class SWSelectionWheelController: UIViewController {
             cook.container.transform = CGAffineTransform.identity.translatedBy(x: radius.button * cos(CGFloat.pi * -0.360), y: radius.button * sin(CGFloat.pi * -0.360))
         }
         
-        rotateSubviews(by: 0)
+//        rotateSubviews(by: 0)
+        moveToFirstOpen(of: .base)
     }
     
     // MARK: - Private Methods
@@ -280,7 +285,10 @@ class SWSelectionWheelController: UIViewController {
                 let delta = acos(min(cos, 1.0)) * direction
                 
                 let time = next.time.timeIntervalSince(prev.time)
-                UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
+                if semaphor.couldAnimate(sender: self) {
+                    UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
+                }
+                
             }
             prev = next
             if let spot = getSpotAtFront() {
@@ -708,6 +716,8 @@ class SWSelectionWheelController: UIViewController {
     }
     
     private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
+        semaphor.onAnimationStart(sender: self)
+        
         //        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
         let sorted = sortAndFilter(floatables)
         if sorted.count == 0 {
@@ -743,11 +753,16 @@ class SWSelectionWheelController: UIViewController {
             if remainings.count != 0 {
                 self.pushTheVeggy(remainings, isfirst: false)
             }
+            else {
+                self.semaphor.onAnimationEnd(sender: self)
+            }
         })
         
     }
     
     private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval, shouldSkipOpening: Bool) {
+        semaphor.onAnimationStart(sender: self)
+        
         let sorted = sortAndFilter(ingredients)
         //        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
         if sorted.count == 0 {
@@ -799,6 +814,9 @@ class SWSelectionWheelController: UIViewController {
                 if remainings.count != 0 {
                     self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients, shouldSkipOpening: shouldSkipOpening)
                 }
+                else {
+                    self.semaphor.onAnimationEnd(sender: self)
+                }
             })
         })
     }
@@ -838,6 +856,7 @@ class SWSelectionWheelController: UIViewController {
     }
     
     private func popVeggies(_ ingredients: [SWIngredient]) {
+        
         let ingredient = ingredients.first!
         do {
             self.tipController.unanimate()
@@ -885,6 +904,8 @@ class SWSelectionWheelController: UIViewController {
                     }
                 }
                 do {
+                    semaphor.onAnimationStart(sender: self)
+                    
                     let unseen = UIView()
                     UIView.animateKeyframes(withDuration: ingredients.count == 1 ? 0.25 : 0, delay: 0, options: [], animations: {
                         self.view.addSubview(unseen)
@@ -906,6 +927,9 @@ class SWSelectionWheelController: UIViewController {
                         if remainings.count != 0 {
                             self.popVeggies(remainings)
                         }
+                        else {
+                            self.semaphor.onAnimationEnd(sender: self)
+                        }
                     })
                 }
             }
@@ -923,6 +947,9 @@ class SWSelectionWheelController: UIViewController {
     }
     
     @IBAction private func onSpotClick(sender: UIButton) {
+        if !semaphor.couldAnimate(sender: self) {
+            return
+        }
         if let first = spots.first(where: { $0.icon == sender }) {
             if let filled = first as? SWFilledSpot {
                 self.pop(filled.ingredient)
@@ -965,6 +992,10 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         popVeggies([ingredient])
     }
     
+    func pop(_ ingredients: [SWIngredient]) {
+        popVeggies(ingredients)
+    }
+    
     func getFocusedKind() -> [SWIngredientKinds] {
         var result: [SWIngredientKinds] = []
         if let focused = getSpotAtFront() as? SWOpenSpot {
@@ -1000,6 +1031,64 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     
     func getSelected() -> [SWIngredient] {
         return spots.map({ $0 as? SWFilledSpot }).filter({ $0 != nil }).map({ $0!.ingredient })
+    }
+    
+    func move(to ingredient: SWIngredient) {
+        semaphor.onAnimationStart(sender: self)
+        
+        var target: CGFloat = 0
+        forEachSpot(do: {
+            (spot, angle, index) -> Void in
+            target = (spot as? SWFilledSpot)?.ingredient == ingredient ? angle : target
+        })
+        UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [], animations: {
+            let steps = self.getRotateSubviewsSteps(rotation: self.front - target - self.rotation, steps: 25)
+            for i in 0..<25 {
+                UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
+                    let subStepAnimations = steps[i]!
+                    for j in 0..<subStepAnimations.count {
+                        let subStepAnimation = subStepAnimations[j]
+                        subStepAnimation()
+                    }
+//                    unseen.transform = CGAffineTransform.identity.rotated(by: 0.1 * CGFloat(i))
+                })
+            }
+        }, completion: {
+            (success) -> Void in
+            self.rotation = self.front - target
+            self.rotateSubviews(by: 0)
+            self.semaphor.onAnimationEnd(sender: self)
+        })
+    }
+    
+    func moveToFirstOpen(of kind: SWIngredientKinds) {
+        semaphor.onAnimationStart(sender: self)
+        
+        var target: CGFloat = 0
+        forEachSpot(do: {
+            (spot, angle, index) -> Void in
+            target = (spot as? SWOpenSpot)?.kinds.first(where: {
+                (next: SWIngredientKinds) -> Bool in
+                return next == kind
+            }) != nil ? angle : target
+        })
+        UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [], animations: {
+            let steps = self.getRotateSubviewsSteps(rotation: self.front - target - self.rotation, steps: 25)
+            for i in 0..<25 {
+                UIView.addKeyframe(withRelativeStartTime: 0.04 * TimeInterval(i), relativeDuration: 0.04, animations: {
+                    let subStepAnimations = steps[i]!
+                    for j in 0..<subStepAnimations.count {
+                        let subStepAnimation = subStepAnimations[j]
+                        subStepAnimation()
+                    }
+                })
+            }
+        }, completion: {
+            (success) -> Void in
+            self.rotation = self.front - target
+            self.rotateSubviews(by: 0)
+            self.semaphor.onAnimationEnd(sender: self)
+        })
     }
 }
 

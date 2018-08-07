@@ -52,6 +52,7 @@
 		154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */; };
 		154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B2201C5C2B00B8391A /* NSAttributedString.swift */; };
 		154DF0B5201C5CBE00B8391A /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B4201C5CBE00B8391A /* UILabel.swift */; };
+		1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */; };
 		155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */; };
 		155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */; };
 		155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */; };
@@ -256,6 +257,7 @@
 		154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDataAsset.swift; sourceTree = "<group>"; };
 		154DF0B2201C5C2B00B8391A /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		154DF0B4201C5CBE00B8391A /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAnimationSemaphor.swift; sourceTree = "<group>"; };
 		155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToOverlayButton.swift; sourceTree = "<group>"; };
 		155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsController.swift; sourceTree = "<group>"; };
 		155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsDelegate.swift; sourceTree = "<group>"; };
@@ -672,6 +674,7 @@
 				151EE43821180E010018CF52 /* SWIngredientLocation.swift */,
 				151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */,
 				151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */,
+				1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */,
 			);
 			path = Wheels;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				15AAAE2B2116D71C0022996D /* SWPlaceholderFloatable.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
+				1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
 				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,

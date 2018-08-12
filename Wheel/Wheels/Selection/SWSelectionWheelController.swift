@@ -142,6 +142,7 @@ class SWSelectionWheelController: UIViewController {
         for _ in 0..<count.leafs.max {
 //            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 42)))
             let button = UIButton()
+            button.addTarget(self, action: #selector(onSpotClick(sender:)), for: .touchUpInside)
             view.addSubview(button)
             let spot = SWHiddenSpot(icon: button, label: getLabel(), for: [.base])
             spots.append(spot)
@@ -285,7 +286,7 @@ class SWSelectionWheelController: UIViewController {
                 let delta = acos(min(cos, 1.0)) * direction
                 
                 let time = next.time.timeIntervalSince(prev.time)
-                if semaphor.couldAnimate(sender: self) {
+                if semaphor.couldAnimate(.onSelectionWheelSpinGesture, sender: self) {
                     UIView.animate(withDuration: time, delay: 0, options: [.beginFromCurrentState], animations: { self.rotateSubviews(by: delta) }, completion: nil)
                 }
                 
@@ -678,7 +679,7 @@ class SWSelectionWheelController: UIViewController {
             }
         }).sorted(by: {
             (prev, next) -> Bool in
-            return getRank(of: prev) >= getRank(of: next)
+            return getRank(of: prev) > getRank(of: next)
         })
         return result
     }
@@ -715,8 +716,8 @@ class SWSelectionWheelController: UIViewController {
         self.rotateSubviews(by: 0)
     }
     
-    private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool) {
-        semaphor.onAnimationStart(sender: self)
+    private func pushTheVeggy(_ floatables: [Floatable], isfirst: Bool, timeCorrection: TimeInterval) {
+        semaphor.onAnimationStart(.movingIngredientCopiesToSelectionWheel, sender: self)
         
         //        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
         let sorted = sortAndFilter(floatables)
@@ -733,7 +734,7 @@ class SWSelectionWheelController: UIViewController {
         
         let three = CGPoint(x: self.center.x - floatable.center.x, y: self.center.y - floatable.center.y + -self.radius.spoke)
         
-        UIView.animate(withDuration: 0.85, delay: 0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.8 + timeCorrection, delay: 0, options: [.curveEaseInOut], animations: {
             floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
         }, completion: {
             (success) -> Void in
@@ -751,21 +752,22 @@ class SWSelectionWheelController: UIViewController {
             shrouded.removeFromSuperview()
             let remainings = sorted.filter({ $0.asIngridient != ingredient })
             if remainings.count != 0 {
-                self.pushTheVeggy(remainings, isfirst: false)
+                self.pushTheVeggy(remainings, isfirst: false, timeCorrection: timeCorrection + 0.02)
             }
             else {
-                self.semaphor.onAnimationEnd(sender: self)
+                self.semaphor.onAnimationEnd(.movingIngredientCopiesToSelectionWheel, sender: self)
             }
         })
         
     }
     
     private func pushTheWheel(_ ingredients: [SWIngredient], rollTime: TimeInterval, shouldSkipOpening: Bool) {
-        semaphor.onAnimationStart(sender: self)
+        semaphor.onAnimationStart(.fetchingIngredientsIntoSelectionWheel, sender: self)
         
         let sorted = sortAndFilter(ingredients)
         //        print("wheel circle start #\(sorted.count) \(Date().timeIntervalSince(start))")
         if sorted.count == 0 {
+            self.semaphor.onAnimationEnd(.fetchingIngredientsIntoSelectionWheel, sender: self)
             return
         }
         let first = sorted.first!
@@ -775,6 +777,7 @@ class SWSelectionWheelController: UIViewController {
         let delta = self.getDeltaToFirstOpenOf(ingredient.kind)
         
         if delta == nil {
+            self.semaphor.onAnimationEnd(.fetchingIngredientsIntoSelectionWheel, sender: self)
             return
         }
         
@@ -815,7 +818,7 @@ class SWSelectionWheelController: UIViewController {
                     self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients, shouldSkipOpening: shouldSkipOpening)
                 }
                 else {
-                    self.semaphor.onAnimationEnd(sender: self)
+                    self.semaphor.onAnimationEnd(.fetchingIngredientsIntoSelectionWheel, sender: self)
                 }
             })
         })
@@ -904,7 +907,7 @@ class SWSelectionWheelController: UIViewController {
                     }
                 }
                 do {
-                    semaphor.onAnimationStart(sender: self)
+                    semaphor.onAnimationStart(.popingIngredientsAtSelectionWheel, sender: self)
                     
                     let unseen = UIView()
                     UIView.animateKeyframes(withDuration: ingredients.count == 1 ? 0.25 : 0, delay: 0, options: [], animations: {
@@ -928,7 +931,7 @@ class SWSelectionWheelController: UIViewController {
                             self.popVeggies(remainings)
                         }
                         else {
-                            self.semaphor.onAnimationEnd(sender: self)
+                            self.semaphor.onAnimationEnd(.popingIngredientsAtSelectionWheel, sender: self)
                         }
                     })
                 }
@@ -947,7 +950,7 @@ class SWSelectionWheelController: UIViewController {
     }
     
     @IBAction private func onSpotClick(sender: UIButton) {
-        if !semaphor.couldAnimate(sender: self) {
+        if !semaphor.couldAnimate(.onSelectionWheelSpotClick, sender: self) {
             return
         }
         if let first = spots.first(where: { $0.icon == sender }) {
@@ -984,7 +987,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 self.tipController.fade()
             }
         }
-        pushTheVeggy(floatables, isfirst: true)
+        pushTheVeggy(floatables, isfirst: true, timeCorrection: 0)
         pushTheWheel(floatables.map( { return $0.asIngridient } ), rollTime: self.rollTimeOfFirstOfManyIngredients, shouldSkipOpening: false)
     }
  
@@ -1034,7 +1037,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
     
     func move(to ingredient: SWIngredient) {
-        semaphor.onAnimationStart(sender: self)
+        semaphor.onAnimationStart(.moveToSelectionWheelIngredient, sender: self)
         
         var target: CGFloat = 0
         forEachSpot(do: {
@@ -1057,12 +1060,12 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             (success) -> Void in
             self.rotation = self.front - target
             self.rotateSubviews(by: 0)
-            self.semaphor.onAnimationEnd(sender: self)
+            self.semaphor.onAnimationEnd(.moveToSelectionWheelIngredient, sender: self)
         })
     }
     
     func moveToFirstOpen(of kind: SWIngredientKinds) {
-        semaphor.onAnimationStart(sender: self)
+        semaphor.onAnimationStart(.moveToSelectionWheelFirstOpenKind, sender: self)
         
         var target: CGFloat = 0
         forEachSpot(do: {
@@ -1087,7 +1090,7 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             (success) -> Void in
             self.rotation = self.front - target
             self.rotateSubviews(by: 0)
-            self.semaphor.onAnimationEnd(sender: self)
+            self.semaphor.onAnimationEnd(.moveToSelectionWheelFirstOpenKind, sender: self)
         })
     }
 }

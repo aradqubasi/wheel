@@ -10,10 +10,10 @@ import Foundation
 
 protocol SWAnimationSemaphor {
     
-    func couldAnimate(sender: Any) -> Bool
+    func couldAnimate(_ event: SWAnimatableEvents, sender: Any) -> Bool
     
-    func onAnimationStart(sender: Any)
+    func onAnimationStart(_ type: SWAnimationTypes, sender: Any)
     
-    func onAnimationEnd(sender: Any)
+    func onAnimationEnd(_ type: SWAnimationTypes, sender: Any)
     
 }

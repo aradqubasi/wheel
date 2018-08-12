@@ -187,6 +187,9 @@
 		15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2F20DE835E00A345EC /* SWConcreteIngredientsFilter.swift */; };
 		15FA4E3220DE870200A345EC /* SWConcreteOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E3120DE870200A345EC /* SWConcreteOverlayAssembler.swift */; };
 		15FA4E3420DEAAF400A345EC /* SWShowOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E3320DEAAF400A345EC /* SWShowOverlayAnimationController.swift */; };
+		15FA766A211FF95600AE6231 /* SWAnimationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA7669211FF95600AE6231 /* SWAnimationTypes.swift */; };
+		15FA766C211FFCAF00AE6231 /* SWAnimatableEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA766B211FFCAF00AE6231 /* SWAnimatableEvents.swift */; };
+		15FA766E2120000600AE6231 /* SWAnimationRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA766D2120000600AE6231 /* SWAnimationRecord.swift */; };
 		15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */; };
 		15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */; };
 		15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */; };
@@ -398,6 +401,9 @@
 		15FA4E2F20DE835E00A345EC /* SWConcreteIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteIngredientsFilter.swift; sourceTree = "<group>"; };
 		15FA4E3120DE870200A345EC /* SWConcreteOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E3320DEAAF400A345EC /* SWShowOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWShowOverlayAnimationController.swift; sourceTree = "<group>"; };
+		15FA7669211FF95600AE6231 /* SWAnimationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAnimationTypes.swift; sourceTree = "<group>"; };
+		15FA766B211FFCAF00AE6231 /* SWAnimatableEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAnimatableEvents.swift; sourceTree = "<group>"; };
+		15FA766D2120000600AE6231 /* SWAnimationRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAnimationRecord.swift; sourceTree = "<group>"; };
 		15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActOffsetAnchor.swift; sourceTree = "<group>"; };
 		15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCompleteAnimationController.swift; sourceTree = "<group>"; };
 		15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationAssembler.swift; sourceTree = "<group>"; };
@@ -675,6 +681,9 @@
 				151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */,
 				151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */,
 				1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */,
+				15FA7669211FF95600AE6231 /* SWAnimationTypes.swift */,
+				15FA766B211FFCAF00AE6231 /* SWAnimatableEvents.swift */,
+				15FA766D2120000600AE6231 /* SWAnimationRecord.swift */,
 			);
 			path = Wheels;
 			sourceTree = "<group>";
@@ -1057,6 +1066,7 @@
 				15F4AF34201344B200C486FF /* SWBowlActParams.swift in Sources */,
 				15AAAE272111766B0022996D /* SWConcreteSelectionWheelAssembler.swift in Sources */,
 				152F66DD20EDD7B70070BAA5 /* SWSubwheelAssembler.swift in Sources */,
+				15FA766C211FFCAF00AE6231 /* SWAnimatableEvents.swift in Sources */,
 				15A2589D2093933E00F738B5 /* SWOptionAligner.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
@@ -1108,6 +1118,7 @@
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */,
+				15FA766A211FF95600AE6231 /* SWAnimationTypes.swift in Sources */,
 				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */,
@@ -1124,6 +1135,7 @@
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
 				151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
+				15FA766E2120000600AE6231 /* SWAnimationRecord.swift in Sources */,
 				15F5D62C208700A100462DE7 /* SWTipController.swift in Sources */,
 				15838794202EE724001E4008 /* SWIngrigientsOptionView.swift in Sources */,
 				15BA80292041445100596CC8 /* RecipyViewController.swift in Sources */,

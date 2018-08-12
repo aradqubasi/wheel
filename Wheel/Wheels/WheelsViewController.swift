@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate, /*SelectionDelegate,*/ UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate//, UINavigationControllerDelegate
+class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate, UIGestureRecognizerDelegate, OptionsDelegate, SWTransparentViewDelegate
 {
     
     // MARK: - Outlets
@@ -41,8 +41,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     var pointer: PointerController!
     
-//    var selectionController: SelectionController!
-    
     var selected: [SWIngredient]!
     
     var options: OptionsController!
@@ -51,7 +49,37 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     var selectionController: SWSelectionWheelProtocol!
     
-//    var tips: SWTipController!
+    private var animationsHistory: [SWAnimationRecord] = []
+    
+    private var animations = Set<SWAnimationTypes>()
+    
+//    private var a: SWAnimationTypes = .;
+    
+    private let blockingAnimationsPerEvent: [SWAnimatableEvents : Set<SWAnimationTypes>] = [
+        .onSelectionWheelSpotClick: SWAnimationTypes.All(),
+        .onSelectionWheelSpinGesture: SWAnimationTypes.All(),
+        .onWheelsCreateRandomSaladClick: SWAnimationTypes.All(),
+        .onWheelMoveByPinClick : [
+            .popingIngredientsAtSelectionWheel,
+            .fetchingIngredientsIntoSelectionWheel,
+            .movingIngredientCopiesToSelectionWheel,
+            .movingAllWheels,
+            .movingOneWheel
+        ],
+        .onAddIngredientByPinClick : [
+            .popingIngredientsAtSelectionWheel,
+            .fetchingIngredientsIntoSelectionWheel,
+            .movingIngredientCopiesToSelectionWheel,
+            .movingAllWheels
+        ],
+        .onChangeWheelsState: [
+            .popingIngredientsAtSelectionWheel,
+            .fetchingIngredientsIntoSelectionWheel,
+            .movingIngredientCopiesToSelectionWheel,
+            .movingAllWheels,
+            .focusingWheel
+        ]
+    ]
     
     // MARK: - Subs
     
@@ -66,8 +94,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     var proteinsMark: UILabel!
     
     var rollButton: UIButton!
-    
-//    var selection: TransparentView!
     
     var overlay: UIView!
     
@@ -108,7 +134,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     // MARK: - SWAbstractWheelControllerDelegate
     
     func onStateChange(_ sender: SWAbstractWheelController, to state: WState) -> Void {
-        print("onStateChange")
+        
+        if !self.couldAnimate(.onChangeWheelsState, sender: self) {
+            return
+        }
+        
+        self.onAnimationStart(.focusingWheel, sender: self)
         
         _decelerating = false
         
@@ -121,7 +152,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             self.pointer.state = state
         }
         
-        let showend = { (_: Bool) -> Void in }
+        let showend = { (_: Bool) -> Void in
+            self.onAnimationEnd(.focusingWheel, sender: self)
+        }
 
         UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: follow, completion: showend)
 
@@ -135,15 +168,23 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     func onPinClick(_ sender: SWAbstractWheelController, of pin: PinView, at index: Int) -> Void {
         
+        if !self.couldAnimate(.onWheelMoveByPinClick, sender: self) {
+            return
+        }
+        
         if current.isLocked && current.focused.kind == pin.kind && current.index != index {
             shake(of: current, thoward: index > current.index ? 1 : -1)
         }
         else {
+            self.onAnimationStart(.movingOneWheel, sender: self)
             let moveto = { () -> Void in
                 sender.move(to: index)
             }
             let showend = { (_: Bool) -> Void in
-                self.selectionController.push([pin])
+                self.onAnimationEnd(.movingOneWheel, sender: self)
+                if self.couldAnimate(.onAddIngredientByPinClick, sender: self) {
+                    self.selectionController.push([pin])
+                }
             }
             
             UIView.animate(withDuration: 0.225, delay: 0, options: [], animations: moveto, completion: showend)
@@ -510,40 +551,46 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onNextMenu(_ sender: Any) {
 
-        if !adding {
-            
-            let base = getNew(of: .base, excluding: [])
-            let fat = getNew(of: .fat, excluding: [])
-            let veggy1 = getNew(of: .veggy, excluding: [])
-            let veggy2 = getNew(of: .veggy, excluding: [veggy1.ingredient])
-            let protein = getNew(of: .protein, excluding: [])
-            
-            let fruit = getNew(of: .fruits, excluding: [])
-            let unexpected = getNew(of: .unexpected, excluding: [])
-            let dressing = getNew(of: .dressing, excluding: [])
-            let enhancer = [fruit, unexpected, dressing].random()!
-            
-            
-            let shuffle1 = { () -> Void in
-                base.move()
-                fat.move()
-                veggy1.move()
-                protein.move()
-            }
-            
-            let shuffle2 = { () -> Void in
-                veggy2.move()
-            }
-            
-            let select = { (_: Bool) -> Void in
-                let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
-                self.selectionController.push(focus)
-            }
-            
-            self.selectionController.clear()
-            UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
-            UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: nil)
+        if !self.couldAnimate(.onWheelsCreateRandomSaladClick, sender: self) {
+            return
         }
+        
+        self.onAnimationStart(.movingAllWheels, sender: self)
+        
+        let base = getNew(of: .base, excluding: [])
+        let fat = getNew(of: .fat, excluding: [])
+        let veggy1 = getNew(of: .veggy, excluding: [])
+        let veggy2 = getNew(of: .veggy, excluding: [veggy1.ingredient])
+        let protein = getNew(of: .protein, excluding: [])
+        
+        let fruit = getNew(of: .fruits, excluding: [])
+        let unexpected = getNew(of: .unexpected, excluding: [])
+        let dressing = getNew(of: .dressing, excluding: [])
+        let enhancer = [fruit, unexpected, dressing].random()!
+        
+        
+        let shuffle1 = { () -> Void in
+            base.move()
+            fat.move()
+            veggy1.move()
+            protein.move()
+        }
+        
+        let shuffle2 = { () -> Void in
+            veggy2.move()
+        }
+        
+        let select = { (_: Bool) -> Void in
+            let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
+            self.selectionController.push(focus)
+        }
+        
+        self.selectionController.clear()
+        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
+        UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: {
+            (success: Bool) -> Void in
+            self.onAnimationEnd(.movingAllWheels, sender: self)
+        })
     }
     
     private var scrollLastAngle: CGFloat!
@@ -887,10 +934,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
                 overlayViewController.prefocused = selectionController.getSelected().first(where: { $0.kind == self.overlayTransitionContext! })
             }
-        case segues.getWheelsToSubwheel().identifier?:
-            if let subwheel = segue.destination as? SubwheelViewController {
-                subwheel.assembler = assembler.resolve(using: self.view.snapshotView(afterScreenUpdates: true)!)
-            }
+//        case segues.getWheelsToSubwheel().identifier?:
+//            if let subwheel = segue.destination as? SubwheelViewController {
+//                subwheel.assembler = assembler.resolve(using: self.view.snapshotView(afterScreenUpdates: true)!)
+//            }
         default:
             fatalError("Unrecognized segue")
         }
@@ -911,11 +958,11 @@ extension WheelsViewController: SWSelectionWheelDelegate {
                 case .bases:
                     self.current = self.bases
                 case .fats:
-                    self.current = self.bases
+                    self.current = self.fats
                 case .proteins:
-                    self.current = self.bases
+                    self.current = self.proteins
                 case .veggies:
-                    self.current = self.bases
+                    self.current = self.veggies
                 }
                 self.bases.state = new
                 self.fats.state = new
@@ -955,18 +1002,31 @@ extension WheelsViewController: SWSelectionWheelDelegate {
 
 extension WheelsViewController: SWAnimationSemaphor {
     
-    func couldAnimate(sender: Any) -> Bool {
-        return !self.adding
+    
+    func couldAnimate(_ event: SWAnimatableEvents, sender: Any) -> Bool {
+        let current = animations.reduce("", { (current, next) -> String in
+            return "\(current) \(next)"
+        })
+        print("\(current)")
+        guard let blockings = self.blockingAnimationsPerEvent[event] else {
+            fatalError("no blockings for couldAnimate(:sender:)")
+        }
+        return blockings.reduce(true, {
+            (result, next) -> Bool in
+            return result && !animations.contains(next)
+        })
     }
     
-    func onAnimationStart(sender: Any) {
-        self.adding = true
+    func onAnimationStart(_ type: SWAnimationTypes, sender: Any) {
+        let new = SWAnimationRecord(of: type)
+        animationsHistory.append(new)
+        animations.insert(type)
     }
     
-    func onAnimationEnd(sender: Any) {
-        self.adding = false
+    func onAnimationEnd(_ type: SWAnimationTypes, sender: Any) {
+        animationsHistory.reversed().first(where: { $0.type == type })?.endTime = Date()
+        animations.remove(type)
     }
-    
     
 }
 

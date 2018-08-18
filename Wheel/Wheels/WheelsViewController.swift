@@ -78,7 +78,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             .movingIngredientCopiesToSelectionWheel,
             .movingAllWheels,
             .focusingWheel
-        ]
+        ],
+        .onReplacingSelectionSpotByIngredientWheelMove: SWAnimationTypes.All()
     ]
     
     // MARK: - Subs
@@ -493,11 +494,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            input.layer.borderWidth = 2
 //            view.addSubview(input)
 
-//            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
-//            roll.setTitleColor(UIColor.black, for: .normal)
-//            roll.setTitle("*", for: .normal)
-//            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
-//            view.addSubview(roll)
+            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
+            roll.setTitleColor(UIColor.black, for: .normal)
+            roll.setTitle("*", for: .normal)
+            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
+            view.addSubview(roll)
         }
     }
 
@@ -517,7 +518,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onDebug(_ sender: UIButton) {
-        perform(segue: segues.getWheelsToSubwheel())
+        self.animations.forEach({
+            print("\($0)")
+        })
+        
+//        perform(segue: segues.getWheelsToSubwheel())
 //        guard let text = input.text, let number = NumberFormatter().number(from: text) else {
 //            print("invalid cgfloat value")
 //            return
@@ -639,11 +644,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                     self.current.move(by: deltaAngle)
                 }
                 let updateSelection = { (_: Bool) -> Void in
-//                    if self.selectionController.state == .hidden {
-//                        self.openSelectionBar()
-//                    }
-//                    self.selectionController.upreplace(with: self.current.focused.asIngridient)
-                    self.selectionController.push(self.current.focused.asIngridient)
+                    if self.couldAnimate(.onReplacingSelectionSpotByIngredientWheelMove, sender: self) {
+                        self.selectionController.push(self.current.focused.asIngridient)
+                    }
                 }
                 UIView.animate(withDuration: deltaTime, delay: 0, options: [], animations: follow, completion: updateSelection)
             }
@@ -986,10 +989,12 @@ extension WheelsViewController: SWSelectionWheelDelegate {
     func onTriggerRandomIngredient(of kind: [SWIngredientKinds]) {
         if let kind = kind.random() {
             let location = getNew(of: kind, excluding: selectionController.getSelected())
+            self.onAnimationStart(.movingOneWheel, sender: self)
             UIView.animate(withDuration: 0.225, animations: {
                 location.move()
             }, completion: {
                 (success) -> Void in
+                self.onAnimationEnd(.movingOneWheel, sender: self)
                 self.selectionController.push([location.location])
                 UIView.animate(withDuration: 0.225, animations: {
                     self.setActiveState(to: self.getWheel(of: kind) ?? self.current)

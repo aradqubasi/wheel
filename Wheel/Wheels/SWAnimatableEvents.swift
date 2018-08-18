@@ -14,4 +14,5 @@ enum SWAnimatableEvents {
     case onChangeWheelsState
     case onWheelMoveByPinClick
     case onAddIngredientByPinClick
+    case onReplacingSelectionSpotByIngredientWheelMove
 }

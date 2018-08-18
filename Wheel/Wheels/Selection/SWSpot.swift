@@ -225,6 +225,18 @@ class SWFilledSpot: SWSelectionSpot, SWLabeledSelectionSpot {
         icon.transform = CGAffineTransform.identity.rotated(by: angle + CGFloat.pi * 0.5).translatedBy(x: 0, y: -radius)
     }
     
+    func replace(with ingredient: SWIngredient) -> SWFilledSpot {
+        _icon.alpha = 1
+        _icon.setImage(ingredient.image, for: .normal)
+        _icon.layer.borderWidth = 0
+        _icon.layer.borderColor = UIColor.clear.cgColor
+        let replacement = SWFilledSpot(icon: _icon, label: _label, ingredient: ingredient, kinds: self.kinds)
+        replacement.label.text = replacement.ingredient.name.uppercased()
+        replacement.angle = self.angle
+        replacement.radius = self.radius
+        return replacement
+    }
+    
     func close() -> SWOpenSpot {
         let openned = SWOpenSpot(icon: _icon, label: _label, kinds: self.kinds)
 

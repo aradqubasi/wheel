@@ -722,6 +722,7 @@ class SWSelectionWheelController: UIViewController {
         //        print("veggy circle start #\(floatables.count) \(Date().timeIntervalSince(start))")
         let sorted = sortAndFilter(floatables)
         if sorted.count == 0 {
+            semaphor.onAnimationEnd(.movingIngredientCopiesToSelectionWheel, sender: self)
             return
         }
         let first = sorted.first!
@@ -859,7 +860,7 @@ class SWSelectionWheelController: UIViewController {
     }
     
     private func popVeggies(_ ingredients: [SWIngredient]) {
-        
+        semaphor.onAnimationStart(.popingIngredientsAtSelectionWheel, sender: self)
         let ingredient = ingredients.first!
         do {
             self.tipController.unanimate()
@@ -889,6 +890,9 @@ class SWSelectionWheelController: UIViewController {
                 if remainings.count != 0 {
                     self.popVeggies(remainings)
                 }
+                else {
+                    self.semaphor.onAnimationEnd(.popingIngredientsAtSelectionWheel, sender: self)
+                }
             }
             else if related.count >= 1 {
                 var poppedPositionFound = false
@@ -907,8 +911,7 @@ class SWSelectionWheelController: UIViewController {
                     }
                 }
                 do {
-                    semaphor.onAnimationStart(.popingIngredientsAtSelectionWheel, sender: self)
-                    
+
                     let unseen = UIView()
                     UIView.animateKeyframes(withDuration: ingredients.count == 1 ? 0.25 : 0, delay: 0, options: [], animations: {
                         self.view.addSubview(unseen)
@@ -936,6 +939,9 @@ class SWSelectionWheelController: UIViewController {
                     })
                 }
             }
+        }
+        else {
+            self.semaphor.onAnimationEnd(.popingIngredientsAtSelectionWheel, sender: self)
         }
     }
     
@@ -975,8 +981,15 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
                 self.tipController.fade()
             }
         }
-        if getSpotAtFront() is SWOpenSpot {
-            pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
+        if let focused = getSpotAtFront() {
+            if !getSelected().contains(ingredient) && focused.kinds.contains(ingredient.kind) {
+                if let focused = getSpotAtFront() as? SWFilledSpot {
+                    replace(focused, with: focused.replace(with: ingredient))
+                }
+                else if getSpotAtFront() is SWOpenSpot {
+                    pushTheWheel([ingredient], rollTime: self.rollTimeOfOneIngredient, shouldSkipOpening: true)
+                }
+            }
         }
     }
     

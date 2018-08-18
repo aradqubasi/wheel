@@ -11,7 +11,8 @@ import UIKit
 struct SWAreaOfInterest {
     let center: CGPoint
     let size: CGSize
-    static var zero {
+    
+    static var zero: SWAreaOfInterest {
         get {
             return SWAreaOfInterest(center: .zero, size: .zero)
         }

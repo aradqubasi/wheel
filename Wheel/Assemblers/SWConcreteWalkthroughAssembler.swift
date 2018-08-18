@@ -36,5 +36,9 @@ class SWConcreteWalkthroughAssembler: SWWalkthroughAssembler {
         return background
     }
     
+    func resolve() -> SWAreaOfInterest {
+        return rollButton
+    }
+    
 }
 

@@ -12,6 +12,7 @@ import UIKit
 enum SWTipOrientation: String {
     case right
     case center
+    case midright
 }
 
 class SWTipController {
@@ -68,10 +69,14 @@ class SWTipController {
             let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
             balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
         }
+        else if orientation == .midright {
+            let balloonX: CGFloat = anchor.x - (balloon.frame.size.width + sidePadding)
+            let balloonY: CGFloat = anchor.y - balloon.frame.size.height * 0.5
+            balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
+        }
         scene.addSubview(balloon)
         
         tip.attributedText = tipText
-//        tip.frame.size = tipText.size().raise()
         tip.frame.size = tipText.size(in: scene.bounds.width - sidePadding * 2)
         tip.alpha = 1
         let tipX: CGFloat = balloon.center.x - tip.frame.width * 0.5
@@ -82,7 +87,12 @@ class SWTipController {
         pointer.transform = CGAffineTransform.identity
         pointer.frame.size = CGSize(width: 8, height : 8)
         pointer.backgroundColor = .casablanca
-        pointer.center = CGPoint(x: anchor.x, y: balloon.frame.origin.y + balloon.frame.size.height)
+        if orientation == .midright {
+            pointer.center = CGPoint(x: anchor.x - sidePadding, y: anchor.y)
+        }
+        else {
+            pointer.center = CGPoint(x: anchor.x, y: balloon.frame.origin.y + balloon.frame.size.height)
+        }
         pointer.transform = CGAffineTransform.identity.rotated(by: CGFloat.pi * 0.25)
         pointer.alpha = 1
         scene.addSubview(pointer)

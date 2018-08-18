@@ -29,6 +29,23 @@ class WalkthroughViewController: SWViewController {
         
         navigationController?.setNavigationBarHidden(true, animated: false)
         // Do any additional setup after loading the view.
+        
+        let tipController = SWTipController()
+        
+        let area: SWAreaOfInterest = assembler.resolve()
+        let side = max(area.size.width, area.size.height) + 60
+        let circle = UIView(frame: CGRect(origin: .zero, size: CGSize(side: side)))
+        view.addSubview(circle)
+        circle.center = area.center
+        circle.layer.cornerRadius = side * 0.5
+        circle.clipsToBounds = true
+        let copyground = background.snapshotView(afterScreenUpdates: true)!
+        circle.addSubview(copyground)
+        copyground.frame.origin = view.convert(.zero, to: circle)
+        
+        let midleft = CGPoint(x: circle.frame.origin.x, y: circle.center.y)
+        tipController.orientation = .midright
+        tipController.show(tip: "Press this button to generate salad!", at: midleft, in: view)
     }
 
     override func didReceiveMemoryWarning() {

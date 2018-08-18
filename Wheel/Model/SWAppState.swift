@@ -11,4 +11,6 @@ struct SWAppState {
     
     var showOnboarding: Bool
     
+    var showWalkthrough: Bool
+    
 }

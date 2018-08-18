@@ -37,4 +37,8 @@ protocol SWWheelsAssembler {
     
     func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler
     
+    func resolve() -> SWAppStateRepository
+    
+    func resolve(from controller: UIViewController, selectionWheel: SWAreaOfInterest, rollButton: SWAreaOfInterest, filtersButton: SWAreaOfInterest, cookButton: SWAreaOfInterest) -> SWWalkthroughAssembler
+    
 }

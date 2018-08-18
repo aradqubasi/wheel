@@ -9,8 +9,18 @@
 import Foundation
 class SWInmemoryAppStateRepository: SWAppStateRepository {
     
+    private var state: SWAppState = SWAppState(showOnboarding: true, showWalkthrough: true)
+    
     func get() -> SWAppState {
-        return SWAppState(showOnboarding: true)
+        return state
+    }
+    
+    func setShowOnboarding(_ value: Bool) {
+        state = SWAppState(showOnboarding: value, showWalkthrough: state.showWalkthrough)
+    }
+    
+    func setShowWalkthrough(_ value: Bool) {
+        state = SWAppState(showOnboarding: state.showOnboarding, showWalkthrough: value)
     }
     
 }

@@ -11,4 +11,8 @@ protocol SWAppStateRepository {
     
     func get() -> SWAppState
     
+    func setShowOnboarding(_ value: Bool)
+    
+    func setShowWalkthrough(_ value: Bool)
+    
 }

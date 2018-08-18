@@ -69,4 +69,16 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve(semaphor: SWAnimationSemaphor) -> SWSelectionWheelAssembler {
         return SWConcreteSelectionWheelAssembler(semaphor: semaphor)
     }
+    
+    func resolve() -> SWAppStateRepository {
+        return SWInmemoryAppStateRepository()
+    }
+    
+    func resolve(from controller: UIViewController, selectionWheel: SWAreaOfInterest, rollButton: SWAreaOfInterest, filtersButton: SWAreaOfInterest, cookButton: SWAreaOfInterest) -> SWWalkthroughAssembler {
+        let wheels = controller.view.snapshotView(afterScreenUpdates: true)!
+        if let navbar = controller.navigationController?.view.snapshotView(afterScreenUpdates: true) {
+            wheels.addSubview(navbar)
+        }
+        return SWConcreteWalkthroughAssembler(background: wheels, selectionWheel: selectionWheel, rollButton: rollButton, filtersButton: filtersButton, cookButton: cookButton)
+    }
 }

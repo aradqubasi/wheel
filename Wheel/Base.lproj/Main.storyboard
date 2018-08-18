@@ -65,6 +65,7 @@
                         <segue destination="zk1-cU-Buj" kind="show" identifier="WheelsToRecipy" id="tTt-hq-gRy"/>
                         <segue destination="yf6-AV-UG0" kind="show" identifier="WheelsToOverlay" id="Dpn-V9-dIP"/>
                         <segue destination="X86-kb-C2n" kind="show" identifier="WheelsToSubwheel" id="s8X-8a-0AY"/>
+                        <segue destination="9Qm-n7-6oy" kind="show" identifier="WheelsToWalkthrough" id="8VK-aq-gYs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -202,6 +203,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BFy-Ca-ZUh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-63" y="-385"/>
+        </scene>
+        <!--Walkthrough-->
+        <scene sceneID="VGD-rd-9V4">
+            <objects>
+                <viewController title="Walkthrough" id="9Qm-n7-6oy" customClass="WalkthroughViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fqm-EA-i27"/>
+                        <viewControllerLayoutGuide type="bottom" id="jRu-nd-eHa"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wxW-6D-XIk">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="c2w-AR-Xhf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="669" y="-852"/>
         </scene>
         <!--AfterLaunch-->
         <scene sceneID="AAF-7d-Yri">

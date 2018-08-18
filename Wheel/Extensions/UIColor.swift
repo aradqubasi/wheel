@@ -59,6 +59,12 @@ public extension UIColor {
         }
     }
     
+    class var limedSpruceTransparent: UIColor {
+        get {
+            return UIColor(red: 60 / 255, green: 73 / 255, blue: 83 / 255, alpha: 0.8)
+        }
+    }
+    
     class var swansdown: UIColor {
         get {
             return UIColor(red: 216 / 255, green: 240 / 255, blue: 232 / 255, alpha: 1)

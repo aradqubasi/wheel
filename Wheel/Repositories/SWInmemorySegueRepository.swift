@@ -91,4 +91,12 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getWheelsToSubwheel() -> SWSegue {
         return SWSegue(identifier: "WheelsToSubwheel")
     }
+    
+    func getWheelsToWalkthrough() -> SWSegue {
+        return SWSegue(identifier: "WheelsToWalkthrough")
+    }
+    
+    func getWalkthroughToWheels() -> SWSegue {
+        return SWSegue(identifier: "WalkthroughToWheels")
+    }
 }

@@ -30,6 +30,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     private var _blockings: SWBlockingRepository!
     
     private var _options: SWOptionRepository!
+    
+    private var _appState: SWAppStateRepository!
         
     var bases: SWAbstractWheelController!
     
@@ -308,6 +310,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         segues = assembler.resolve()
         _aligner = assembler.resolve()
         filter = assembler.resolve()
+        _appState = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -441,13 +444,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         
         overlay = TransparentView(frame: self.view.bounds)
         navigationController?.view.addSubview(overlay)
-        
-//        selectionController = SelectionController()
-//        selectionController.delegate = self
-//        selection = TransparentView(frame: self.view.bounds)
-//        wheels.addSubview(selection)
-//        selectionController.view = selection
-//        selection.delegate = self
+
         do {
             let concreteSelectionController = SWSelectionWheelController()
             selectionController = concreteSelectionController
@@ -487,23 +484,34 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             navigationItem.rightBarButtonItem = filter
         }
         
-        
         do {
 //            input = UITextField(frame: CGRect(origin: CGPoint(x: 0, y: 100), size: CGSize(width: 1000, height: 20)))
 //            input.layer.borderColor = UIColor.black.cgColor
 //            input.layer.borderWidth = 2
 //            view.addSubview(input)
 
-            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
-            roll.setTitleColor(UIColor.black, for: .normal)
-            roll.setTitle("*", for: .normal)
-            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
-            view.addSubview(roll)
+//            roll = UIButton(frame: CGRect(origin: CGPoint(x: 0, y: 120), size: CGSize(side: 20)))
+//            roll.setTitleColor(UIColor.black, for: .normal)
+//            roll.setTitle("*", for: .normal)
+//            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
+//            view.addSubview(roll)
         }
+
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        if _appState.get().showWalkthrough {
+            _appState.setShowWalkthrough(false)
+            perform(segue: segues.getWheelsToWalkthrough())
+        }
+        
     }
 
     // MARK: - Actions
@@ -941,6 +949,13 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            if let subwheel = segue.destination as? SubwheelViewController {
 //                subwheel.assembler = assembler.resolve(using: self.view.snapshotView(afterScreenUpdates: true)!)
 //            }
+        case segues.getWheelsToWalkthrough().identifier?:
+            print("WheelsToWalkthrough")
+            if let walkthrough = segue.destination as? WalkthroughViewController {
+//                let filterButton = navigationItem.
+//                let filterButtonCenter = filterButton.convert
+                walkthrough.assembler = assembler.resolve(from: self, selectionWheel: SWAreaOfInterest(center: .zero, size: .zero), rollButton: SWAreaOfInterest(center: rollButton.center, size: rollButton.frame.size), filtersButton: SWAreaOfInterest(center: , size: .zero), cookButton: SWAreaOfInterest(center: .zero, size: .zero))
+            }
         default:
             fatalError("Unrecognized segue")
         }

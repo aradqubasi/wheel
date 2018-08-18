@@ -48,4 +48,8 @@ protocol SWSegueRepository {
     
     func getWheelsToSubwheel() -> SWSegue
     
+    func getWheelsToWalkthrough() -> SWSegue
+    
+    func getWalkthroughToWheels() -> SWSegue
+    
 }

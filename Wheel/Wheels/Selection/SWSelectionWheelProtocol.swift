@@ -35,4 +35,7 @@ protocol SWSelectionWheelProtocol {
     
     func moveToFirstOpen(of kind: SWIngredientKinds)
     
+    func getWholeArea() -> SWAreaOfInterest
+    
+    func getCookArea() -> SWAreaOfInterest
 }

@@ -7,9 +7,9 @@
 //
 
 import Foundation
-enum SWAreasOfInterest {
-    case selectionWheel
-    case rollButton
-    case filtersButton
-    case cookButton
+struct SWAreasOfInterest {
+    let selectionWheel: SWAreaOfInterest
+    let rollButton: SWAreaOfInterest
+    let filtersButton: SWAreaOfInterest
+    let cookButton: SWAreaOfInterest
 }

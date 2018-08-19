@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 enum SWTipOrientation: String {
-    case right
-    case center
+    case rightbottom
+    case midbottom
     case midright
 }
 
@@ -19,7 +19,7 @@ class SWTipController {
     
     // MARK: - Attributes
     
-    var orientation: SWTipOrientation = .right
+    var orientation: SWTipOrientation = .rightbottom
     
     // MARK: - Subviews
     
@@ -59,12 +59,12 @@ class SWTipController {
         balloon.backgroundColor = .casablanca
         balloon.layer.cornerRadius = 4
         balloon.alpha = 1
-        if orientation == .right {
+        if orientation == .rightbottom {
             let balloonX: CGFloat = scene.bounds.width - (balloon.frame.size.width + sidePadding)
             let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
             balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
         }
-        else if orientation == .center {
+        else if orientation == .midbottom {
             let balloonX: CGFloat = (scene.bounds.width - balloon.frame.size.width) * 0.5
             let balloonY: CGFloat = anchor.y - (balloon.frame.size.height + bottomPadding)
             balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)

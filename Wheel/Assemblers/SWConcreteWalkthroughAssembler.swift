@@ -12,20 +12,11 @@ class SWConcreteWalkthroughAssembler: SWWalkthroughAssembler {
 
     private var background: UIView
     
-    private let selectionWheel: SWAreaOfInterest
+    private let areas: SWAreasOfInterest
     
-    private let rollButton: SWAreaOfInterest
-    
-    private let filtersButton: SWAreaOfInterest
-    
-    private let cookButton: SWAreaOfInterest
-    
-    init(background: UIView, selectionWheel: SWAreaOfInterest, rollButton: SWAreaOfInterest, filtersButton: SWAreaOfInterest, cookButton: SWAreaOfInterest) {
+    init(background: UIView, areas: SWAreasOfInterest) {
         self.background = background
-        self.selectionWheel = selectionWheel
-        self.rollButton = rollButton
-        self.filtersButton = filtersButton
-        self.cookButton = cookButton
+        self.areas = areas
     }
     
     func resolve() -> SWSegueRepository {
@@ -36,8 +27,8 @@ class SWConcreteWalkthroughAssembler: SWWalkthroughAssembler {
         return background
     }
     
-    func resolve() -> SWAreaOfInterest {
-        return rollButton
+    func resolve() -> SWAreasOfInterest {
+        return areas
     }
     
 }

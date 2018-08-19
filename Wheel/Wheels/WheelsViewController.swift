@@ -956,7 +956,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //                let filterButtonCenter = filterButton.convert
                 let midright = SWAreaOfInterest(center: self.rollButton.center, size: self.rollButton.frame.size)
                 
-                walkthrough.assembler = assembler.resolve(from: self, selectionWheel: .zero, rollButton: midright, filtersButton: .zero, cookButton: .zero)
+                walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: .zero, cookButton: selectionController.getCookArea()))
             }
         default:
             fatalError("Unrecognized segue")

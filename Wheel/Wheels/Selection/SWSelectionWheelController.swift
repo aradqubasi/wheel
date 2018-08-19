@@ -121,7 +121,7 @@ class SWSelectionWheelController: UIViewController {
         super.viewDidLoad()
         
         tipController = assembler.resolve()
-        tipController.orientation = .center
+        tipController.orientation = .midbottom
         
         tipGenerator = assembler.resolve()
         tipGenerator.leafs = count.leafs.min
@@ -1105,6 +1105,19 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
             self.rotateSubviews(by: 0)
             self.semaphor.onAnimationEnd(.moveToSelectionWheelFirstOpenKind, sender: self)
         })
+    }
+    
+    func getWholeArea() -> SWAreaOfInterest {
+        return SWAreaOfInterest(center: self.view.center, size: self.view.frame.size)
+    }
+    
+    func getCookArea() -> SWAreaOfInterest {
+        guard let scene = self.view.superview else {
+            fatalError("no suprview for selection wheel")
+        }
+        let origin = cook.container.frame.origin
+        let size = cook.container.frame.size
+        return SWAreaOfInterest(center: view.convert(CGPoint(x: origin.x + size.width * 0.5, y: origin.y + size.height * 0.5), to: scene), size: size)
     }
 }
 

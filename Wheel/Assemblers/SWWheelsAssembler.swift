@@ -39,6 +39,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWAppStateRepository
     
-    func resolve(from controller: UIViewController, selectionWheel: SWAreaOfInterest, rollButton: SWAreaOfInterest, filtersButton: SWAreaOfInterest, cookButton: SWAreaOfInterest) -> SWWalkthroughAssembler
+    func resolve(from controller: UIViewController, areas: SWAreasOfInterest) -> SWWalkthroughAssembler
     
 }

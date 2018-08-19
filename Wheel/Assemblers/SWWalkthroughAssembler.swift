@@ -14,6 +14,6 @@ protocol SWWalkthroughAssembler {
     
     func resolve() -> UIView
     
-    func resolve() -> SWAreaOfInterest
+    func resolve() -> SWAreasOfInterest
     
 }

@@ -30,6 +30,10 @@ class WalkthroughViewController: SWViewController {
     
     private var filterbutton: UIView!
     
+    private var enhancerbutton: UIView!
+    
+    private var pinview: UIView!
+    
     // MARK: - Initialization
 
     override func viewDidLoad() {
@@ -48,59 +52,107 @@ class WalkthroughViewController: SWViewController {
         
         self.areas = assembler.resolve()
         
+        //random salad
+        do {
+            Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
+                do {
+                    self.rollbutton = UIView()
+                    self.initWalkthrough(as: self.rollbutton, at: self.areas.rollButton, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.rollbutton, in: self.view, with: self.tipController, text: "Press this button to generate salad!", at: .midright)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 4, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.rollbutton, in: self.view, with: self.tipController)
+                }
+            })
+        }
+
+        //selection wheel
+        do {
+            Timer.scheduledTimer(withTimeInterval: 4.5, repeats: false, block: { _ in
+                do {
+                    self.selectionWheel = UIView()
+                    self.initWalkthrough(as: self.selectionWheel, at: self.areas.selectionWheel, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.selectionWheel, in: self.view, with: self.tipController, text: "This is plate with ingredients, pan left/right to rotate it", at: .midbottom)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 7.5, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.selectionWheel, in: self.view, with: self.tipController)
+                }
+            })
+        }
+
+        //cook button
+        do {
+            Timer.scheduledTimer(withTimeInterval: 8, repeats: false, block: { _ in
+                do {
+                    self.cookbutton = UIView()
+                    self.initWalkthrough(as: self.cookbutton, at: self.areas.cookButton, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.cookbutton, in: self.view, with: self.tipController, text: "Once all ingredeitns in place, tap to navigate to recipy", at: .rightbottom)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 11, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.cookbutton, in: self.view, with: self.tipController)
+                }
+            })
+        }
+
+        //filter button
+        do {
+            Timer.scheduledTimer(withTimeInterval: 11.5, repeats: false, block: { _ in
+                do {
+                    self.filterbutton = UIView()
+                    self.initWalkthrough(as: self.filterbutton, at: self.areas.filtersButton, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.filterbutton, in: self.view, with: self.tipController, text: "Customize your food preferences here", at: .midright)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 14.5, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.filterbutton, in: self.view, with: self.tipController)
+                }
+            })
+        }
         
-//        do {
-//            cookbutton = UIView()
-//            initWalkthrough(as: cookbutton, at: areas.cookButton, in: view, with: background, margin: 60)
-//        }
+        //wheel pin
+        do {
+            Timer.scheduledTimer(withTimeInterval: 15, repeats: false, block: { _ in
+                do {
+                    self.pinview = UIView()
+                    self.initWalkthrough(as: self.pinview, at: self.areas.wheelIngredient, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.pinview, in: self.view, with: self.tipController, text: "Click to select ingredient, pan to rotate wheel", at: .midtop)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 18, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.pinview, in: self.view, with: self.tipController)
+                }
+            })
+        }
         
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: { _ in
-            do {
-                self.rollbutton = UIView()
-                self.initWalkthrough(as: self.rollbutton, at: self.areas.rollButton, in: self.view, with: background, margin: 60)
-                self.animateWalkthrough(self.rollbutton, in: self.view, with: self.tipController, text: "Press this button to generate salad!", at: .midright)
-            }
-        })
-        
-        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false, block: { _ in
-            do {
-                self.fadeWalkthrough(self.rollbutton, with: self.tipController)
-            }
-        })
-        
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { _ in
-            do {
-                self.selectionWheel = UIView()
-                self.initWalkthrough(as: self.selectionWheel, at: self.areas.selectionWheel, in: self.view, with: background, margin: 60)
-                self.animateWalkthrough(self.selectionWheel, in: self.view, with: self.tipController, text: "This is plate with ingredients, pan left/right to rotate it", at: .midbottom)
-            }
-        })
-        
-        Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false, block: { _ in
-            do {
-                self.fadeWalkthrough(self.selectionWheel, with: self.tipController)
-            }
-        })
-        
-        Timer.scheduledTimer(withTimeInterval: 3, repeats: false, block: { _ in
-            do {
-                self.cookbutton = UIView()
-                self.initWalkthrough(as: self.cookbutton, at: self.areas.cookButton, in: self.view, with: background, margin: 60)
-                self.animateWalkthrough(self.cookbutton, in: self.view, with: self.tipController, text: "Once all ingredeitns in place, tap to navigate to recipy", at: .rightbottom)
-            }
-        })
-        
-        Timer.scheduledTimer(withTimeInterval: 3.5, repeats: false, block: { _ in
-            do {
-                self.fadeWalkthrough(self.cookbutton, with: self.tipController)
-            }
-        })
-        
-//        let midleft = CGPoint(x: circle.frame.origin.x, y: circle.center.y)
-//        tipController.orientation = .midright
-//        tipController.show(tip: "Press this button to generate salad!", at: midleft, in: view)
-        
-        
+        // enhancer
+        do {
+            Timer.scheduledTimer(withTimeInterval: 18.5, repeats: false, block: { _ in
+                do {
+                    self.enhancerbutton = UIView()
+                    self.initWalkthrough(as: self.enhancerbutton, at: self.areas.enhancer, in: self.view, with: background, margin: 60)
+                    self.animateWalkthrough(self.enhancerbutton, in: self.view, with: self.tipController, text: "Variety of flavour enhancers are located here, click to see them", at: .midtop)
+                }
+            })
+            
+            Timer.scheduledTimer(withTimeInterval: 21.5, repeats: false, block: { _ in
+                do {
+                    self.fadeWalkthrough(self.enhancerbutton, in: self.view, with: self.tipController)
+                }
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -133,8 +185,10 @@ class WalkthroughViewController: SWViewController {
             anchor = CGPoint(x: circle.center.x, y: circle.frame.origin.y)
         case .midright:
             anchor = CGPoint(x: circle.frame.origin.x, y: circle.center.y)
-        default:
-            fatalError("No anchor for \(orientation)")
+        case .midtop:
+            anchor = CGPoint(x: circle.center.x, y: circle.frame.origin.y + circle.frame.height)
+//        default:
+//            fatalError("No anchor for \(orientation)")
         }
 
         tip.orientation = orientation
@@ -144,11 +198,13 @@ class WalkthroughViewController: SWViewController {
         circle.alpha = 1
         let center = circle.center
         let side = circle.frame.size.width
+        let subViewOrigin = circle.subviews.first!.frame.origin
         
         do {
             circle.frame.size = CGSize(side: side * 0.1)
             circle.layer.cornerRadius = side * 0.5 * 0.1
             circle.center = center
+            circle.subviews.first!.frame.origin = scene.convert(.zero, to: circle)
         }
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
@@ -156,6 +212,7 @@ class WalkthroughViewController: SWViewController {
                 circle.frame.size = CGSize(side: side)
                 circle.layer.cornerRadius = side * 0.5
                 circle.center = center
+                circle.subviews.first!.frame.origin = subViewOrigin
             }
             do {
                 tip.grow()
@@ -165,11 +222,12 @@ class WalkthroughViewController: SWViewController {
         })
     }
     
-    private func fadeWalkthrough(_ circle: UIView, with tip: SWTipController) {
+    private func fadeWalkthrough(_ circle: UIView, in scene: UIView, with tip: SWTipController) {
 
         circle.alpha = 1
         let center = circle.center
         let side = circle.frame.size.width
+        let subViewOrigin = circle.subviews.first!.frame.origin
         
         UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
             do {
@@ -177,6 +235,7 @@ class WalkthroughViewController: SWViewController {
                 circle.layer.cornerRadius = side * 0.5 * 0.1
                 circle.center = center
                 circle.alpha = 0
+                circle.subviews.first!.frame.origin = scene.convert(.zero, to: circle)
             }
             do {
                 tip.fade()
@@ -186,6 +245,7 @@ class WalkthroughViewController: SWViewController {
             circle.frame.size = CGSize(side: side)
             circle.layer.cornerRadius = side * 0.5
             circle.center = center
+            circle.subviews.first!.frame.origin = subViewOrigin
         })
     }
     

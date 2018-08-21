@@ -12,4 +12,6 @@ struct SWAreasOfInterest {
     let rollButton: SWAreaOfInterest
     let filtersButton: SWAreaOfInterest
     let cookButton: SWAreaOfInterest
+    let enhancer: SWAreaOfInterest
+    let wheelIngredient: SWAreaOfInterest
 }

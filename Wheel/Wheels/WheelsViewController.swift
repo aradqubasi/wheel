@@ -952,11 +952,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         case segues.getWheelsToWalkthrough().identifier?:
             print("WheelsToWalkthrough")
             if let walkthrough = segue.destination as? WalkthroughViewController {
-//                let filterButton = navigationItem.
-//                let filterButtonCenter = filterButton.convert
                 let midright = SWAreaOfInterest(center: self.rollButton.center, size: self.rollButton.frame.size)
-                
-                walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: .zero, cookButton: selectionController.getCookArea()))
+                let topright = SWAreaOfInterest(center: CGPoint(x: view.frame.width - 37 * 0.5 - 8, y: 22 + 8), size: CGSize(width: 37, height: 44))
+                let middle = SWAreaOfInterest(center: fats.focused.superview!.convert(fats.focused.center, to: view), size: fats.focused.frame.size)
+                let edge = SWAreaOfInterest(center: toFruits.center, size: toUnexpected.frame.size)
+                walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(), enhancer: edge, wheelIngredient: middle))
             }
         default:
             fatalError("Unrecognized segue")

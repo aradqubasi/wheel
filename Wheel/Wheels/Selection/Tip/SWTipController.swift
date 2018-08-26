@@ -14,6 +14,7 @@ enum SWTipOrientation: String {
     case midbottom
     case midright
     case midtop
+    case righttop
 }
 
 class SWTipController {
@@ -80,6 +81,11 @@ class SWTipController {
             let balloonY: CGFloat = anchor.y + bottomPadding
             balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
         }
+        else if orientation == .righttop {
+            let balloonX: CGFloat = scene.bounds.width - balloon.frame.size.width - sidePadding
+            let balloonY: CGFloat = anchor.y + bottomPadding
+            balloon.frame.origin = CGPoint(x: balloonX, y: balloonY)
+        }
         scene.addSubview(balloon)
         
         tip.attributedText = tipText
@@ -97,6 +103,9 @@ class SWTipController {
             pointer.center = CGPoint(x: anchor.x - sidePadding, y: anchor.y)
         }
         else if orientation == .midtop {
+            pointer.center = CGPoint(x: anchor.x, y: anchor.y + bottomPadding)
+        }
+        else if orientation == .righttop {
             pointer.center = CGPoint(x: anchor.x, y: anchor.y + bottomPadding)
         }
         else {

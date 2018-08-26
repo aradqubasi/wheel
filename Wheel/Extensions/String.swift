@@ -79,4 +79,54 @@ extension String {
             return text
         }
     }
+    
+    var toWhiteAvenir14: NSAttributedString {
+        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 14) as Any])
+    }
+    
+    var toWalkthroughFont: NSAttributedString {
+        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 21) as Any])
+    }
+    
+    static var introduction: String {
+        get {
+            return "Please spent few moments getting familiar with interface features"
+        }
+    }
+
+    static var tipForRollbutton: String {
+        get {
+            return "Press this button to generate salad!"
+        }
+    }
+    
+    static var tipForSelectionWheel: String {
+        get {
+            return "This is plate with ingredients, pan left/right to rotate it"
+        }
+    }
+    
+    static var tipForCookbutton: String {
+        get {
+            return "Once all ingredeitns in place, tap to navigate to recipy"
+        }
+    }
+    
+    static var tipForFilterbutton: String {
+        get {
+            return "Customize your food preferences here"
+        }
+    }
+    
+     static var tipForWheelpin: String {
+        get {
+            return "Click to select ingredient, pan to rotate wheel"
+        }
+    }
+    
+     static var tipForEnhancerbutton: String {
+        get {
+            return "Variety of flavour enhancers are located here, click to see them"
+        }
+    }
 }

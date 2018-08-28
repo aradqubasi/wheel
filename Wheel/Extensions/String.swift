@@ -85,13 +85,11 @@ extension String {
     }
     
     var toWalkthroughFont: NSAttributedString {
-        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 21) as Any])
-    }
-    
-    static var introduction: String {
-        get {
-            return "Please spent few moments getting familiar with interface features"
-        }
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 0
+        paragraphStyle.lineHeightMultiple = 1.25
+        
+        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 24) as Any, .paragraphStyle: paragraphStyle])
     }
 
     static var tipForRollbutton: String {
@@ -118,15 +116,21 @@ extension String {
         }
     }
     
-     static var tipForWheelpin: String {
+    static var tipForWheelpin: String {
         get {
             return "Click to select ingredient, pan to rotate wheel"
         }
     }
     
-     static var tipForEnhancerbutton: String {
+    static var tipForEnhancerbutton: String {
         get {
             return "Variety of flavour enhancers are located here, click to see them"
+        }
+    }
+    
+    static var tipForIntroduction: String {
+        get {
+            return "Please spent few moments getting familiar with interface features"
         }
     }
 }

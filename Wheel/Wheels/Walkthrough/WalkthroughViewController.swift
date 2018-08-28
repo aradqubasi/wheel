@@ -77,6 +77,8 @@ class WalkthroughViewController: SWViewController {
         let tipLayout: CGFloat
         var pagerCenterPoint: CGPoint!
         weak var controller: WalkthroughViewController?
+        var next: SWWalkthroughState?
+        var prev: SWWalkthroughState?
 
         init(parent: WalkthroughViewController, index: Int, text: String, area: SWAreaOfInterest, layout: CGFloat) {
             self.index = index
@@ -95,7 +97,7 @@ class WalkthroughViewController: SWViewController {
             
             let originalBackground: UIView = controller.background
             let scene: UIView = controller.view
-            let pagerView: UIView = controller.pager
+//            let pagerView: UIView = controller.pager
             let pagerCenterOrigin = controller.pagerCenterOrigin
             
             //highlight
@@ -114,24 +116,29 @@ class WalkthroughViewController: SWViewController {
             //tip
             do {
                 scene.addSubview(tipView)
-                if tipLayout == .bottom {
-                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
-                    tipView.frame.origin = CGPoint(x: 8, y: highlightView.frame.origin.y + highlightView.frame.size.height + 8)
-                    pagerCenterPoint = CGPoint(x: tipView.center.x, y: max(tipView.frame.origin.y + tipView.frame.height + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-                }
-                else if tipLayout == .leftward {
-                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8 + -(scene.bounds.width - areaOfInterest.center.x + areaOfInterest.size.width * 0.5))
-                    tipView.center = CGPoint(x: 8 + tipView.frame.width * 0.5, y: highlightView.center.y)
-                    pagerCenterPoint = CGPoint(x: scene.center.x, y: max(max(tipView.frame.origin.y + tipView.frame.height, highlightView.frame.origin.y + highlightView.frame.height) + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-                }
-                else if tipLayout == .top {
-                    pagerCenterPoint = CGPoint(x: scene.center.x, y: min(-8 + highlightView.frame.origin.y, pagerCenterOrigin.y))
-                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
-                    tipView.frame.origin = CGPoint(x: 8, y: -tipView.frame.height + -24 + pagerView.frame.height * 0.5 + pagerCenterPoint.y)
-                }
-                else {
-                    fatalError("Unimplemented tip layout \(tipLayout)")
-                }
+                tipView.asWalkthrough(text: tipText, width: 240)
+                tipView.center = controller.view.getBoundsCenter()
+//                tipView.center = CGPoint(x: controller.view.getBoundsCenter().x, y: controller.view.bounds.height * 0.333)
+                pagerCenterPoint = pagerCenterOrigin
+                
+//                if tipLayout == .bottom {
+//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
+//                    tipView.frame.origin = CGPoint(x: 8, y: highlightView.frame.origin.y + highlightView.frame.size.height + 8)
+//                    pagerCenterPoint = CGPoint(x: tipView.center.x, y: max(tipView.frame.origin.y + tipView.frame.height + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
+//                }
+//                else if tipLayout == .leftward {
+//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8 + -(scene.bounds.width - areaOfInterest.center.x + areaOfInterest.size.width * 0.5))
+//                    tipView.center = CGPoint(x: 8 + tipView.frame.width * 0.5, y: highlightView.center.y)
+//                    pagerCenterPoint = CGPoint(x: scene.center.x, y: max(max(tipView.frame.origin.y + tipView.frame.height, highlightView.frame.origin.y + highlightView.frame.height) + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
+//                }
+//                else if tipLayout == .top {
+//                    pagerCenterPoint = CGPoint(x: scene.center.x, y: min(-8 + highlightView.frame.origin.y, pagerCenterOrigin.y))
+//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
+//                    tipView.frame.origin = CGPoint(x: 8, y: -tipView.frame.height + -24 + pagerView.frame.height * 0.5 + pagerCenterPoint.y)
+//                }
+//                else {
+//                    fatalError("Unimplemented tip layout \(tipLayout)")
+//                }
                 tipView.alpha = 0
                 tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
             }
@@ -214,6 +221,75 @@ class WalkthroughViewController: SWViewController {
                 controller.fading = false
             })
         }
+        
+        func transition(forward: Bool) -> SWWalkthroughState {
+            guard let controller = self.controller else {
+                fatalError("WalkthroughViewController is unavaialble")
+            }
+            guard let destanation = forward ? next : prev else {
+                return self
+            }
+            if controller.isAnimating {
+                return self
+            }
+            if forward {
+                fade()
+                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: {
+                    (timer) in
+                    destanation.show()
+                    controller.animatePager(anchor: destanation.pagerCenterPoint, from: self.index, to: destanation.index)
+                })
+            }
+            else {
+                fade()
+                controller.animatePager(anchor: destanation.pagerCenterPoint, from: self.index, to: destanation.index)
+                Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: {
+                    (timer) in
+                    destanation.show()
+                })
+            }
+            return destanation
+        }
+    }
+    
+    private class SWIntroductionState: SWWalkthroughState {
+        
+        let skip: UIButton!
+        
+        init(parent: WalkthroughViewController, index: Int, text: String, layout: CGFloat) {
+            skip = UIButton.skip
+            let area = SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero)
+            super.init(parent: parent, index: index, text: text, area: area, layout: layout)
+        }
+        
+        override func align() {
+            super.align()
+            skip.center = CGPoint(x: controller!.view.getBoundsCenter().x, y: controller!.view.bounds.height - 48)
+            skip.addTarget(controller!, action: #selector(controller!.onSkip(sender:)), for: .touchUpInside)
+            skip.alpha = 0
+            skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+            controller!.view.addSubview(skip)
+        }
+        
+        override func show() {
+            super.show()
+            UIView.animate(withDuration: 0.224, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                self.skip.alpha = 1
+                self.skip.transform = CGAffineTransform.identity
+            }, completion: nil)
+        }
+        
+        override func fade() {
+            super.fade()
+            UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
+                self.skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: CGFloat.pi * 0.15)
+                self.skip.alpha = 0
+            }, completion: {
+                (ok:Bool) in
+                self.skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+            })
+        }
+        
     }
     
     private var states: [SWWalkthroughState] = []
@@ -233,6 +309,8 @@ class WalkthroughViewController: SWViewController {
     private var fadeCurrent: [(WalkthroughViewController) -> Void] = []
     
     private var state: Int = 0
+    
+    private var current: SWWalkthroughState!
     
     // MARK: - Transition
     
@@ -302,56 +380,41 @@ class WalkthroughViewController: SWViewController {
         
         //introduction
         do {
-            let state = SWWalkthroughState(parent: self, index: 0, text: "Placeholder text for introduction", area: .zero, layout: .bottom)
+//            let state = SWWalkthroughState(parent: self, index: 0, text: "Placeholder text for introduction", area: .zero, layout: .bottom)
+            let state = SWIntroductionState(parent: self, index: 0, text: .tipForIntroduction, layout: .bottom)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({ (controller) -> Void in })
-            fadeCurrent.append({ (controller) -> Void in })
+            states.append(state)
+            current = state
         }
         
         //random salad
         do {
             let state = SWWalkthroughState(parent: self, index: 1, text: String.tipForRollbutton, area: areas.rollButton, layout: CGFloat.leftward)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
 
         //selection wheel
         do {
             let state = SWWalkthroughState(parent: self, index: 2, text: String.tipForSelectionWheel, area: areas.selectionWheel, layout: CGFloat.top)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
 
         //cook button
         do {
             let state = SWWalkthroughState(parent: self, index: 3, text: String.tipForCookbutton, area: areas.cookButton, layout: CGFloat.top)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
 
 
@@ -359,46 +422,33 @@ class WalkthroughViewController: SWViewController {
         do {
             let state = SWWalkthroughState(parent: self, index: 4, text: String.tipForFilterbutton, area: areas.filtersButton, layout: CGFloat.bottom)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
         
         //wheel pin
         do {
             let state = SWWalkthroughState(parent: self, index: 5, text: String.tipForWheelpin, area: areas.wheelIngredient, layout: CGFloat.bottom)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
         
         // enhancer
         do {
             let state = SWWalkthroughState(parent: self, index: 6, text: String.tipForEnhancerbutton, area: areas.enhancer, layout: CGFloat.bottom)
             state.align()
-            pagerCenterPerState.append(state.pagerCenterPoint)
-            showNext.append({
-                (controller) -> Void in
-                state.show()
-            })
-            fadeCurrent.append({
-                (controller) -> Void in
-                state.fade()
-            })
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
         }
+        
+        states.first!.show()
     }
 
     override func didReceiveMemoryWarning() {
@@ -407,135 +457,11 @@ class WalkthroughViewController: SWViewController {
     }
     
     // MARK: - Animation Methods
-
-//    private func align(highlightView: UIView, highlightArea: SWAreaOfInterest, background: UIView, tipView: UILabel, tipText: String, tipLayout: CGFloat, pagerView: UIView) -> Void {
-    private func align(state: Int, background: UIView, pagerView: UIView) -> Void {
-        let highlightView = highlightViewPerState[state]
-        let highlightArea = areaOfInterestPerState[state]
-        let tipView = tipViewPerState[state]
-        let tipText = tipTextPerState[state]
-        let tipLayout = tipLayoutPerState[state]
-        
-        //highlight
-        do {
-            let side = max(highlightArea.size.width, highlightArea.size.height) + 60
-            highlightView.frame = CGRect(origin: .zero, size: CGSize(side: side))
-            view.addSubview(highlightView)
-            highlightView.center = highlightArea.center
-            highlightView.layer.cornerRadius = side * 0.5
-            highlightView.clipsToBounds = true
-            let copyground = background.snapshotView(afterScreenUpdates: false)!
-            highlightView.addSubview(copyground)
-            copyground.frame.origin = view.convert(.zero, to: highlightView)
-            highlightView.alpha = 0
-        }
-        //tip
-        do {
-            view.addSubview(tipView)
-            var newPagerCenter: CGPoint!
-            if tipLayout == .bottom {
-                tipView.asWalkthrough(text: tipText, width: -8 + view.bounds.width + -8)
-                tipView.frame.origin = CGPoint(x: 8, y: highlightView.frame.origin.y + highlightView.frame.size.height + 8)
-                newPagerCenter = CGPoint(x: tipView.center.x, y: max(tipView.frame.origin.y + tipView.frame.height + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-            }
-            else if tipLayout == .leftward {
-                tipView.asWalkthrough(text: tipText, width: -8 + view.bounds.width + -8 + -(view.bounds.width - highlightArea.center.x + highlightArea.size.width * 0.5))
-                tipView.center = CGPoint(x: 8 + tipView.frame.width * 0.5, y: highlightView.center.y)
-                newPagerCenter = CGPoint(x: view.center.x, y: max(max(tipView.frame.origin.y + tipView.frame.height, highlightView.frame.origin.y + highlightView.frame.height) + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-            }
-            else {
-                fatalError("Uknown tip layout")
-            }
-            tipView.alpha = 0
-            tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
-            pagerCenterPerState.append(newPagerCenter)
-        }
-    }
     
-    private func animateShow(highlightView: UIView, tipView: UIView) {
-        showing = true
-        
-        highlightView.alpha = 1
-        let center = highlightView.center
-        let side = highlightView.frame.size.width
-        do {
-            highlightView.frame.size = CGSize(side: side * 0.1)
-            highlightView.layer.cornerRadius = side * 0.5 * 0.1
-            highlightView.center = center
-            highlightView.subviews.first!.frame.origin = view.convert(.zero, to: highlightView)
-        }
-        
-        UIView.animate(withDuration: 0.224, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-            tipView.alpha = 1
-            tipView.transform = CGAffineTransform.identity
-        }, completion: nil)
-        
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
-            highlightView.frame.size = CGSize(side: side)
-            highlightView.layer.cornerRadius = side * 0.5
-            highlightView.center = center
-            highlightView.subviews.first!.frame.origin = self.view.convert(.zero, to: highlightView)
-        }, completion: {
-            (ok:Bool) in
-            self.showing = false
-        })
-    }
-    
-    private func animateFade(highlightView: UIView, tipView: UIView) {
-        fading = true
-        
-        highlightView.alpha = 1
-        let center = highlightView.center
-        let side = highlightView.frame.size.width
-        let subViewOrigin = highlightView.subviews.first!.frame.origin
-        
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
-            do {
-                highlightView.frame.size = CGSize(side: side * 0.1)
-                highlightView.layer.cornerRadius = side * 0.5 * 0.1
-                highlightView.center = center
-                highlightView.alpha = 0
-                highlightView.subviews.first!.frame.origin = self.view.convert(.zero, to: highlightView)
-            }
-            do {
-                tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: CGFloat.pi * 0.15)
-                tipView.alpha = 0
-            }
-        }, completion: {
-            (ok:Bool) in
-            do {
-                highlightView.frame.size = CGSize(side: side)
-                highlightView.layer.cornerRadius = side * 0.5
-                highlightView.center = center
-                highlightView.subviews.first!.frame.origin = subViewOrigin
-            }
-            do {
-                tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
-            }
-            self.fading = false
-        })
-        
-        
-    }
-    
-    private func initWalkthrough(as circle: UIView, at area: SWAreaOfInterest, in scene: UIView, with background: UIView, margin: CGFloat) {
-        let side = max(area.size.width, area.size.height) + margin
-        circle.frame = CGRect(origin: .zero, size: CGSize(side: side))
-        scene.addSubview(circle)
-        circle.center = area.center
-        circle.layer.cornerRadius = side * 0.5
-        circle.clipsToBounds = true
-        let copyground = background.snapshotView(afterScreenUpdates: false)!
-        circle.addSubview(copyground)
-        copyground.frame.origin = scene.convert(.zero, to: circle)
-        circle.alpha = 0
-    }
-    
-    private func animatePager() {
+    private func animatePager(anchor: CGPoint, from prev: Int, to next: Int) {
         paging = true
-        let anchor = pagerCenterPerState[state]
         UIView.animateKeyframes(withDuration: 0.225, delay: 0, options: [], animations: {
-            let forward = self.floating.frame.origin.x < self.dots[self.state].frame.origin.x
+            let forward = next > prev
             let middleway = CGPoint(x: (anchor.x + self.pager.center.x) * 0.5, y: (anchor.y + self.pager.center.y) * 0.5)
             UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 0.5, animations: {
                 self.pager.center = middleway
@@ -544,7 +470,7 @@ class WalkthroughViewController: SWViewController {
             })
             UIView.addKeyframe(withRelativeStartTime: 0.5, relativeDuration: 0.5, animations: {
                 self.pager.center = anchor
-                self.floating.frame.origin = self.dots[self.state].frame.origin
+                self.floating.frame.origin = self.dots[next].frame.origin
                 self.floating.frame.size = CGSize(side: 8)
             })
         }, completion: {
@@ -553,120 +479,18 @@ class WalkthroughViewController: SWViewController {
         })
     }
     
-    private func animateTip() {
-        
-    }
-
-    private func animateWalkthrough(_ circle: UIView, in scene: UIView, with tip: SWTipController, text: String, at orientation: SWTipOrientation) {
-        showing = true
-        
-        var anchor: CGPoint = .zero
-        switch orientation {
-        case .midbottom, .rightbottom:
-            anchor = CGPoint(x: circle.center.x, y: circle.frame.origin.y)
-        case .midright:
-            anchor = CGPoint(x: circle.frame.origin.x, y: circle.center.y)
-        case .midtop, .righttop:
-            anchor = CGPoint(x: circle.center.x, y: circle.frame.origin.y + circle.frame.height)
-//        default:
-//            fatalError("No anchor for \(orientation)")
-        }
-
-        tip.orientation = orientation
-        tip.show(tip: text, at: anchor, in: view)
-        tip.shrink()
-        
-        circle.alpha = 1
-        let center = circle.center
-        let side = circle.frame.size.width
-        let subViewOrigin = circle.subviews.first!.frame.origin
-        
-        do {
-            circle.frame.size = CGSize(side: side * 0.1)
-            circle.layer.cornerRadius = side * 0.5 * 0.1
-            circle.center = center
-            circle.subviews.first!.frame.origin = scene.convert(.zero, to: circle)
-        }
-        
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
-            do {
-                circle.frame.size = CGSize(side: side)
-                circle.layer.cornerRadius = side * 0.5
-                circle.center = center
-                circle.subviews.first!.frame.origin = subViewOrigin
-            }
-            do {
-                tip.grow()
-            }
-        }, completion: {
-            (success:Bool) in
-        })
-        
-        showing = false
-    }
-    
-    private func fadeWalkthrough(_ circle: UIView, in scene: UIView, with tip: SWTipController) {
-        fading = true
-        
-        circle.alpha = 1
-        let center = circle.center
-        let side = circle.frame.size.width
-        let subViewOrigin = circle.subviews.first!.frame.origin
-        
-        UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
-            do {
-                circle.frame.size = CGSize(side: side * 0.1)
-                circle.layer.cornerRadius = side * 0.5 * 0.1
-                circle.center = center
-                circle.alpha = 0
-                circle.subviews.first!.frame.origin = scene.convert(.zero, to: circle)
-            }
-            do {
-                tip.fade()
-            }
-        }, completion: {
-            (success:Bool) in
-            circle.frame.size = CGSize(side: side)
-            circle.layer.cornerRadius = side * 0.5
-            circle.center = center
-            circle.subviews.first!.frame.origin = subViewOrigin
-        })
-        
-        fading = false
-    }
-
     @IBAction private func onSwipeForward(sender: UISwipeGestureRecognizer) {
         print("swipe forward")
-        if !isAnimating && state != showNext.count - 1 {
-//            fadeCurrent[state](self)
-//            state += 1
-//            Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {
-//                (timer) -> Void in
-//                self.showNext[self.state](self)
-//                self.animatePager()
-//            })
-            fadeCurrent[state](self)
-            state += 1
-            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: {
-                (timer) -> Void in
-                self.showNext[self.state](self)
-                self.animatePager()
-            })
-        }
+        current = current.transition(forward: true)
     }
     
     @IBAction private func onSwipeBack(sender: UISwipeGestureRecognizer) {
         print("swipe back")
-        if !isAnimating && state != 0 {
-            fadeCurrent[state](self)
-            state -= 1
-            self.animatePager()
-            Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false, block: {
-                (timer) -> Void in
-                self.showNext[self.state](self)
-//                self.animatePager()
-            })
-        }
+        current = current.transition(forward: false)
+    }
+    
+    @IBAction private func onSkip(sender: UIButton) {
+        print("skip")
     }
 
     /*

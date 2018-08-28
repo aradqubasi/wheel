@@ -945,17 +945,21 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
                 overlayViewController.prefocused = selectionController.getSelected().first(where: { $0.kind == self.overlayTransitionContext! })
             }
-//        case segues.getWheelsToSubwheel().identifier?:
-//            if let subwheel = segue.destination as? SubwheelViewController {
-//                subwheel.assembler = assembler.resolve(using: self.view.snapshotView(afterScreenUpdates: true)!)
-//            }
         case segues.getWheelsToWalkthrough().identifier?:
             print("WheelsToWalkthrough")
             if let walkthrough = segue.destination as? WalkthroughViewController {
+                
                 let midright = SWAreaOfInterest(center: self.rollButton.center, size: self.rollButton.frame.size)
+                
                 let topright = SWAreaOfInterest(center: CGPoint(x: view.frame.width - 37 * 0.5 - 8, y: 22 + 8), size: CGSize(width: 37, height: 44))
-                let middle = SWAreaOfInterest(center: fats.focused.superview!.convert(fats.focused.center, to: view), size: fats.focused.frame.size)
+                
+                guard let pin = bases.getPinAt(bases.index + 2) else {
+                    fatalError("pin unavaialble")
+                }
+                let middle = SWAreaOfInterest(center: pin.superview!.convert(pin.center, to: view), size: pin.frame.size)
+
                 let edge = SWAreaOfInterest(center: toFruits.center, size: toUnexpected.frame.size)
+                
                 walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(), enhancer: edge, wheelIngredient: middle))
             }
         default:

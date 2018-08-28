@@ -490,6 +490,10 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         return spoke.pin.asIngridient
     }
 
+    func getPinAt(_ index: Int) -> PinView? {
+        let spoke = _spokes[index]
+        return spoke.pin
+    }
     
     // MARK: - SWRingMaskDelegate Methods
     

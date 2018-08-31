@@ -495,6 +495,10 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         return spoke.pin
     }
     
+    func getSize() -> CGSize {
+        return CGSize(side: _settings[state]!.radius * 2)
+    }
+    
     // MARK: - SWRingMaskDelegate Methods
     
     func onHit(_ sender: SWRingMaskView, with event: UIEvent?, on receiver: UIView?) {

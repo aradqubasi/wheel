@@ -152,4 +152,10 @@ extension UIButton {
             return cook
         }
     }
+    
+    func invertTextColors() {
+        setAttributedTitle(self.attributedTitle(for: .normal)?.invert(), for: .normal)
+        setAttributedTitle(self.attributedTitle(for: .highlighted)?.invert(), for: .highlighted)
+    }
+    
 }

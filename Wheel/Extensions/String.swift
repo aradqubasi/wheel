@@ -94,19 +94,19 @@ extension String {
 
     static var tipForRollbutton: String {
         get {
-            return "Press this button to generate salad!"
+            return "Quick start by pressing Roll button - App will get you recipy in no time"
         }
     }
     
     static var tipForSelectionWheel: String {
         get {
-            return "This is plate with ingredients, pan left/right to rotate it"
+            return "You can check current selection here, rotate to see all what you picked"
         }
     }
     
     static var tipForCookbutton: String {
         get {
-            return "Once all ingredeitns in place, tap to navigate to recipy"
+            return "Once right ingredients are in place proceed to recipy details"
         }
     }
     
@@ -116,9 +116,21 @@ extension String {
         }
     }
     
+    static var tipForWheel: String {
+        get {
+            return "You can hand-pick ingredients too! Rotate wheels to see what we have in list"
+        }
+    }
+    
     static var tipForWheelpin: String {
         get {
-            return "Click to select ingredient, pan to rotate wheel"
+            return "Click on icon or rotate it to focus position to select ingredient"
+        }
+    }
+    
+    static var tipForSelectedpin: String {
+        get {
+            return "Click on filled icon to remove ingredient from selection, click on empty spot to let App suggest you something"
         }
     }
     
@@ -130,7 +142,14 @@ extension String {
     
     static var tipForIntroduction: String {
         get {
-            return "Please spent few moments getting familiar with interface features"
+            return "This App will help you combine right ingredients to make a well-balanced salad"
         }
     }
+    
+    static var tipForOutro: String {
+        get {
+            return "Happy cooking!"
+        }
+    }
+    
 }

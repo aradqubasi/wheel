@@ -18,11 +18,25 @@ extension NSAttributedString {
             var inverted: UIColor!
             switch original {
             case .white: inverted = .gray
+            case .gray: inverted = .white
             default: inverted = original
             }
             let linewise = NSRange(location: 0, length: text.length)
             text.removeAttribute(.foregroundColor, range: linewise)
             text.addAttribute(.foregroundColor, value: inverted, range: linewise)
+            return text
+        }
+        else {
+            return self
+        }
+    }
+    
+    func blackify() -> NSAttributedString {
+        let text = NSMutableAttributedString(attributedString: self)
+        if text.attribute(.foregroundColor, at: 0, effectiveRange: nil) as? UIColor != nil {
+            let linewise = NSRange(location: 0, length: text.length)
+            text.removeAttribute(.foregroundColor, range: linewise)
+            text.addAttribute(.foregroundColor, value: UIColor.black, range: linewise)
             return text
         }
         else {

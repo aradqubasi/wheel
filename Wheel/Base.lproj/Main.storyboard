@@ -217,8 +217,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="H6I-rm-SRY" kind="unwind" identifier="WheelsToWalkthrough" unwindAction="unwindToWheelsWithSegue:" id="8G1-KW-JGD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c2w-AR-Xhf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="H6I-rm-SRY" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="669" y="-852"/>
         </scene>
@@ -317,6 +321,6 @@
         <image name="wheelgui/launchicon" width="208" height="167"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="JsK-hI-aH2"/>
+        <segue reference="X2M-VB-YeA"/>
     </inferredMetricsTieBreakers>
 </document>

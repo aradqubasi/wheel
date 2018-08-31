@@ -1111,13 +1111,15 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
         return SWAreaOfInterest(center: self.view.center, size: self.view.frame.size)
     }
     
-    func getCookArea() -> SWAreaOfInterest {
-        guard let scene = self.view.superview else {
-            fatalError("no suprview for selection wheel")
-        }
+    func getCookArea(in scene: UIView) -> SWAreaOfInterest {
         let origin = cook.container.frame.origin
         let size = cook.container.frame.size
         return SWAreaOfInterest(center: view.convert(CGPoint(x: origin.x + size.width * 0.5, y: origin.y + size.height * 0.5), to: scene), size: size)
+    }
+    
+    func getPinArea(in scene: UIView) -> SWAreaOfInterest {
+        let spot = spots.first(where: { ($0 as? SWOpenSpot)?.kinds.contains(.fat) ?? false })!
+        return SWAreaOfInterest(center: spot.icon.convert(spot.icon.getBoundsCenter(), to: scene), size: spot.icon.frame.size)
     }
 }
 

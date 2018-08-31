@@ -195,6 +195,7 @@
 		15FA76752127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA76742127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift */; };
 		15FA76772127F02800AE6231 /* SWAreasOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA76762127F02800AE6231 /* SWAreasOfInterest.swift */; };
 		15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA76782127F13E00AE6231 /* SWAreaOfInterest.swift */; };
+		15FA767B21366A8600AE6231 /* SWNoAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */; };
 		15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */; };
 		15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */; };
 		15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */; };
@@ -414,6 +415,7 @@
 		15FA76742127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteWalkthroughAssembler.swift; sourceTree = "<group>"; };
 		15FA76762127F02800AE6231 /* SWAreasOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAreasOfInterest.swift; sourceTree = "<group>"; };
 		15FA76782127F13E00AE6231 /* SWAreaOfInterest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAreaOfInterest.swift; sourceTree = "<group>"; };
+		15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNoAnimationController.swift; sourceTree = "<group>"; };
 		15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActOffsetAnchor.swift; sourceTree = "<group>"; };
 		15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCompleteAnimationController.swift; sourceTree = "<group>"; };
 		15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationAssembler.swift; sourceTree = "<group>"; };
@@ -771,6 +773,7 @@
 				15FA4E3320DEAAF400A345EC /* SWShowOverlayAnimationController.swift */,
 				152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */,
 				152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */,
+				15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -1083,6 +1086,7 @@
 				1508EEC71FF4C90C003CF526 /* SWWheelSettings.swift in Sources */,
 				15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */,
 				151AFE451F8A858200CC5357 /* WSettings.swift in Sources */,
+				15FA767B21366A8600AE6231 /* SWNoAnimationController.swift in Sources */,
 				156B0BEA2039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift in Sources */,
 				156B0BE62039709000CFEEA4 /* SWWheelsAssembler.swift in Sources */,
 				1583879D2033FEA7001E4008 /* SWOptionType.swift in Sources */,

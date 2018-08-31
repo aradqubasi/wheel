@@ -37,5 +37,7 @@ protocol SWSelectionWheelProtocol {
     
     func getWholeArea() -> SWAreaOfInterest
     
-    func getCookArea() -> SWAreaOfInterest
+    func getCookArea(in scene: UIView) -> SWAreaOfInterest
+    
+    func getPinArea(in scene: UIView) -> SWAreaOfInterest
 }

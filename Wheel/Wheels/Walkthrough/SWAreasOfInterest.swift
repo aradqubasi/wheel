@@ -14,4 +14,6 @@ struct SWAreasOfInterest {
     let cookButton: SWAreaOfInterest
     let enhancer: SWAreaOfInterest
     let wheelIngredient: SWAreaOfInterest
+    let selectionIngredient: SWAreaOfInterest
+    let wheel: SWAreaOfInterest
 }

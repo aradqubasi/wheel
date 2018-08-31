@@ -72,6 +72,9 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             else if fromVC is FilterViewController && toVC is WheelsViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
             }
+            else if fromVC is WheelsViewController && toVC is WalkthroughViewController {
+                return SWNoAnimationController()
+            }
             else {
                 return nil
             }

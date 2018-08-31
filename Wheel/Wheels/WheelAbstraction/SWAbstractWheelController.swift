@@ -48,4 +48,6 @@ protocol SWAbstractWheelController {
     
     func getPinAt(_ index: Int) -> PinView?
     
+    func getSize() -> CGSize
+    
 }

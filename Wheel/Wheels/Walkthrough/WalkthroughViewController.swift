@@ -28,29 +28,7 @@ class WalkthroughViewController: SWViewController {
     
     // MARK: - Subviews
     
-    private var introduction: UILabel!
-    
-    private var rollbutton: UIView!
-    
-    private var tipForRollbutton: UILabel!
-    
-    private var selectionWheel: UIView!
-    
-    private var tipForSelectionWheel: UILabel!
-    
-    private var cookbutton: UIView!
-    
-    private var tipCookbutton: UILabel!
-    
-    private var filterbutton: UIView!
-    
-    private var tipForFilterbutton: UILabel!
-    
-    private var enhancerbutton: UIView!
-    
-    private var tipForEnhancerbutton: UILabel!
-    
-    private var pinview: UIView!
+    private var skip: UIButton!
     
     private var background: UIView!
     
@@ -79,6 +57,7 @@ class WalkthroughViewController: SWViewController {
         weak var controller: WalkthroughViewController?
         var next: SWWalkthroughState?
         var prev: SWWalkthroughState?
+        
 
         init(parent: WalkthroughViewController, index: Int, text: String, area: SWAreaOfInterest, layout: CGFloat) {
             self.index = index
@@ -111,6 +90,7 @@ class WalkthroughViewController: SWViewController {
                 let copyground = originalBackground.snapshotView(afterScreenUpdates: false)!
                 highlightView.addSubview(copyground)
                 copyground.frame.origin = scene.convert(.zero, to: highlightView)
+//                let revert = highlightView.convert(copyground.frame.origin, to: scene)
                 highlightView.alpha = 0
             }
             //tip
@@ -118,29 +98,23 @@ class WalkthroughViewController: SWViewController {
                 scene.addSubview(tipView)
                 tipView.asWalkthrough(text: tipText, width: 240)
                 tipView.center = controller.view.getBoundsCenter()
-//                tipView.center = CGPoint(x: controller.view.getBoundsCenter().x, y: controller.view.bounds.height * 0.333)
                 pagerCenterPoint = pagerCenterOrigin
-                
-//                if tipLayout == .bottom {
-//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
-//                    tipView.frame.origin = CGPoint(x: 8, y: highlightView.frame.origin.y + highlightView.frame.size.height + 8)
-//                    pagerCenterPoint = CGPoint(x: tipView.center.x, y: max(tipView.frame.origin.y + tipView.frame.height + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-//                }
-//                else if tipLayout == .leftward {
-//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8 + -(scene.bounds.width - areaOfInterest.center.x + areaOfInterest.size.width * 0.5))
-//                    tipView.center = CGPoint(x: 8 + tipView.frame.width * 0.5, y: highlightView.center.y)
-//                    pagerCenterPoint = CGPoint(x: scene.center.x, y: max(max(tipView.frame.origin.y + tipView.frame.height, highlightView.frame.origin.y + highlightView.frame.height) + 8 + pagerView.frame.height * 0.5, pagerCenterOrigin.y))
-//                }
-//                else if tipLayout == .top {
-//                    pagerCenterPoint = CGPoint(x: scene.center.x, y: min(-8 + highlightView.frame.origin.y, pagerCenterOrigin.y))
-//                    tipView.asWalkthrough(text: tipText, width: -8 + scene.bounds.width + -8)
-//                    tipView.frame.origin = CGPoint(x: 8, y: -tipView.frame.height + -24 + pagerView.frame.height * 0.5 + pagerCenterPoint.y)
-//                }
-//                else {
-//                    fatalError("Unimplemented tip layout \(tipLayout)")
-//                }
                 tipView.alpha = 0
                 tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+            }
+        }
+        
+        private func getFrameOrigins(of subviews: [UIView], in scene: UIView) -> [CGPoint] {
+//            return subviews.map({ $0.superview!.convert($0.frame.origin, to: scene) })
+            return subviews.map({ $0.convert(.zero, to: scene) })
+        }
+        
+        private func setFrameOrigins(_ origins: [CGPoint], of subviews: [UIView], from scene: UIView, to container: UIView) {
+            for i in 0..<subviews.count {
+                let subview = subviews[i]
+                let origin = origins[i]
+                
+                subview.frame.origin = scene.convert(origin, to: container)
             }
         }
         
@@ -157,11 +131,14 @@ class WalkthroughViewController: SWViewController {
             highlightView.alpha = 1
             let center = highlightView.center
             let side = highlightView.frame.size.width
+            var origins: [CGPoint] = []
             do {
+                origins = getFrameOrigins(of: highlightView.subviews, in: scene)
                 highlightView.frame.size = CGSize(side: side * 0.1)
                 highlightView.layer.cornerRadius = side * 0.5 * 0.1
                 highlightView.center = center
-                highlightView.subviews.first!.frame.origin = scene.convert(.zero, to: highlightView)
+//                highlightView.subviews.first!.frame.origin = scene.convert(.zero, to: highlightView)
+                setFrameOrigins(origins, of: highlightView.subviews, from: scene, to: highlightView)
             }
             
             UIView.animate(withDuration: 0.224, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
@@ -173,7 +150,8 @@ class WalkthroughViewController: SWViewController {
                 self.highlightView.frame.size = CGSize(side: side)
                 self.highlightView.layer.cornerRadius = side * 0.5
                 self.highlightView.center = center
-                self.highlightView.subviews.first!.frame.origin = scene.convert(.zero, to: self.highlightView)
+//                self.highlightView.subviews.first!.frame.origin = scene.convert(.zero, to: self.highlightView)
+                self.setFrameOrigins(origins, of: self.highlightView.subviews, from: scene, to: self.highlightView)
             }, completion: {
                 (ok:Bool) in
                 controller.showing = false
@@ -252,42 +230,45 @@ class WalkthroughViewController: SWViewController {
         }
     }
     
-    private class SWIntroductionState: SWWalkthroughState {
-        
-        let skip: UIButton!
-        
-        init(parent: WalkthroughViewController, index: Int, text: String, layout: CGFloat) {
-            skip = UIButton.skip
-            let area = SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero)
-            super.init(parent: parent, index: index, text: text, area: area, layout: layout)
-        }
-        
-        override func align() {
-            super.align()
-            skip.center = CGPoint(x: controller!.view.getBoundsCenter().x, y: controller!.view.bounds.height - 48)
-            skip.addTarget(controller!, action: #selector(controller!.onSkip(sender:)), for: .touchUpInside)
-            skip.alpha = 0
-            skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
-            controller!.view.addSubview(skip)
-        }
-        
+    private class SWSelectionWheelState: SWWalkthroughState {
+
         override func show() {
             super.show()
-            UIView.animate(withDuration: 0.224, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
-                self.skip.alpha = 1
-                self.skip.transform = CGAffineTransform.identity
-            }, completion: nil)
+            UIView.animate(withDuration: 0.224, animations: {
+                let controller = self.controller!
+                controller.skip.center = CGPoint(x: controller.pager.center.x, y: controller.pager.center.y + 48)
+            })
         }
         
         override func fade() {
             super.fade()
-            UIView.animate(withDuration: 0.225, delay: 0, options: [.curveEaseOut], animations: {
-                self.skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: CGFloat.pi * 0.15)
-                self.skip.alpha = 0
-            }, completion: {
-                (ok:Bool) in
-                self.skip.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+            UIView.animate(withDuration: 0.224, animations: {
+                let controller = self.controller!
+                controller.skip.center = CGPoint(x: controller.pager.center.x, y: controller.view.bounds.height - 48)
             })
+        }
+        
+    }
+    
+    private class SWWheelviewState: SWWalkthroughState {
+        
+        override func align() {
+            super.align()
+            
+            let pagerCenterOrigin = controller!.pagerCenterOrigin
+            pagerCenterPoint = CGPoint(x: pagerCenterOrigin.x, y: highlightView.frame.origin.y + highlightView.frame.size.height + 24)
+            
+            highlightView.removeFromSuperview()
+            controller?.view.addSubview(highlightView)
+            
+            let transform = tipView.transform
+            tipView.transform = CGAffineTransform.identity
+            let blackfont = UILabel()
+            blackfont.asWalkthrough(text: tipText, width: tipView.frame.width)
+            blackfont.attributedText = tipView.attributedText!.blackify()
+            highlightView.addSubview(blackfont)
+            blackfont.frame.origin = controller!.view.convert(tipView.frame.origin, to: highlightView)
+            tipView.transform = transform
         }
         
     }
@@ -343,6 +324,8 @@ class WalkthroughViewController: SWViewController {
         
         self.areas = assembler.resolve()
         
+        self.segues = assembler.resolve()
+        
         // pan gesture recognizer
         do {
             forward = UISwipeGestureRecognizer(target: self, action: #selector(onSwipeForward(sender:)))
@@ -357,7 +340,7 @@ class WalkthroughViewController: SWViewController {
         // pagination
         do {
             pagerCenterOrigin = CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0.66)
-            let dotCount = 7
+            let dotCount = 10
             pager = UIView()
             for i in 0..<dotCount {
                 let dot = UIView(frame: CGRect(origin: CGPoint(x: i * 24, y: 0), size: CGSize(width: 8, height: 8)))
@@ -380,8 +363,8 @@ class WalkthroughViewController: SWViewController {
         
         //introduction
         do {
-//            let state = SWWalkthroughState(parent: self, index: 0, text: "Placeholder text for introduction", area: .zero, layout: .bottom)
-            let state = SWIntroductionState(parent: self, index: 0, text: .tipForIntroduction, layout: .bottom)
+            let state = SWWalkthroughState(parent: self, index: 0, text: .tipForIntroduction, area: SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero), layout: .bottom)
+//            let state = SWIntroductionState(parent: self, index: 0, text: .tipForIntroduction, layout: .bottom)
             state.align()
             states.append(state)
             current = state
@@ -399,7 +382,7 @@ class WalkthroughViewController: SWViewController {
 
         //selection wheel
         do {
-            let state = SWWalkthroughState(parent: self, index: 2, text: String.tipForSelectionWheel, area: areas.selectionWheel, layout: CGFloat.top)
+            let state = SWSelectionWheelState(parent: self, index: 2, text: String.tipForSelectionWheel, area: areas.selectionWheel, layout: CGFloat.top)
             state.align()
             let prev = states.last!
             state.prev = prev
@@ -416,18 +399,17 @@ class WalkthroughViewController: SWViewController {
             prev.next = state
             states.append(state)
         }
-
-
-        //filter button
+        
+        //wheel
         do {
-            let state = SWWalkthroughState(parent: self, index: 4, text: String.tipForFilterbutton, area: areas.filtersButton, layout: CGFloat.bottom)
+            let state = SWWheelviewState(parent: self, index: 4, text: String.tipForWheel, area: areas.wheel, layout: CGFloat.top)
             state.align()
             let prev = states.last!
             state.prev = prev
             prev.next = state
             states.append(state)
         }
-        
+
         //wheel pin
         do {
             let state = SWWalkthroughState(parent: self, index: 5, text: String.tipForWheelpin, area: areas.wheelIngredient, layout: CGFloat.bottom)
@@ -438,9 +420,9 @@ class WalkthroughViewController: SWViewController {
             states.append(state)
         }
         
-        // enhancer
+        //selection pin
         do {
-            let state = SWWalkthroughState(parent: self, index: 6, text: String.tipForEnhancerbutton, area: areas.enhancer, layout: CGFloat.bottom)
+            let state = SWWalkthroughState(parent: self, index: 6, text: String.tipForSelectedpin, area: areas.selectionIngredient, layout: CGFloat.bottom)
             state.align()
             let prev = states.last!
             state.prev = prev
@@ -448,7 +430,49 @@ class WalkthroughViewController: SWViewController {
             states.append(state)
         }
         
+        // enhancer
+        do {
+            let state = SWWalkthroughState(parent: self, index: 7, text: String.tipForEnhancerbutton, area: areas.enhancer, layout: CGFloat.bottom)
+            state.align()
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
+        }
+        
+        //filter button
+        do {
+            let state = SWWalkthroughState(parent: self, index: 8, text: String.tipForFilterbutton, area: areas.filtersButton, layout: CGFloat.bottom)
+            state.align()
+            let prev = states.last!
+            state.prev = prev
+            prev.next = state
+            states.append(state)
+        }
+        
+        //outro
+        do {
+            let state = SWWalkthroughState(parent: self, index: 9, text: .tipForOutro, area: SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero), layout: .bottom)
+            state.align()
+            let prev = states.last!
+            prev.next = state
+            states.append(state)
+        }
+        
+        // skip
+        do {
+            skip = UIButton.skip
+            skip.addTarget(self, action: #selector(onSkip(sender:)), for: .touchUpInside)
+            skip.center = CGPoint(x: view.getBoundsCenter().x, y: view.bounds.height - 48)
+            view.addSubview(skip)
+        }
+
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
         states.first!.show()
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -491,6 +515,7 @@ class WalkthroughViewController: SWViewController {
     
     @IBAction private func onSkip(sender: UIButton) {
         print("skip")
+        perform(segue: segues.getWalkthroughToWheels())
     }
 
     /*

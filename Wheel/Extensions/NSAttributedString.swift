@@ -382,4 +382,74 @@ extension NSAttributedString {
         
         return manager.usedRect(for: container).size.raise()
     }
+    
+    class var tipForRollbutton: NSAttributedString {
+        get {
+            return "Quick start by pressing Roll button, App will come with recipy in no time".toWalkthroughFont
+        }
+    }
+    
+    class var tipForSelectionWheel: NSAttributedString {
+        get {
+            return "You can check current selection here, rotate to see all what you picked".toWalkthroughFont
+        }
+    }
+    
+    class var tipForCookbutton: NSAttributedString {
+        get {
+            return "Once right ingredients are in place proceed to recipy details".toWalkthroughFont
+        }
+    }
+    
+    class var tipForFilterbutton: NSAttributedString {
+        get {
+            return "Customize your food preferences here".toWalkthroughFont
+        }
+    }
+    
+    class var tipForWheel: NSAttributedString {
+        get {
+            return "You can hand-pick ingredients too! Rotate wheels to see what we have in list".toWalkthroughFont
+        }
+    }
+    
+    class var tipForWheelpin: NSAttributedString {
+        get {
+            return "Click on icon or rotate wheel to select ingredient".toWalkthroughFont
+        }
+    }
+    
+    class var tipForSelectedpin: NSAttributedString {
+        get {
+            return "Click to remove or add ingredient from selection".toWalkthroughFont
+        }
+    }
+    
+    class var tipForEnhancerbutton: NSAttributedString {
+        get {
+            return "Variety of flavour enhancers are located here, click to see them".toWalkthroughFont
+        }
+    }
+    
+    class var tipForIntroduction: NSAttributedString {
+        get {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 0
+            paragraphStyle.lineHeightMultiple = 1.25
+            
+            let bold = UIFont(name: "Avenir-Heavy", size: 24)
+            
+            let usual = UIFont(name: "Avenir-Book", size: 24)
+            
+            let text = NSMutableAttributedString(string: "This App could assist you with choosing right ingredients to cook Power Salad", attributes: [.foregroundColor: UIColor.white, .font: usual as Any, .paragraphStyle: paragraphStyle])
+            text.addAttributes([.font: bold as Any], range: NSMakeRange(66, 11))
+            return text
+        }
+    }
+    
+    class var tipForOutro: NSAttributedString {
+        get {
+            return "Happy cooking!".toWalkthroughFont
+        }
+    }
 }

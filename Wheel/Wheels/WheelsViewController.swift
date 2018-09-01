@@ -478,6 +478,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            hamburger.action = #selector(onHamburgerButtonClick(_:))
 //            navigationItem.leftBarButtonItem = hamburger
             
+            let question = UIBarButtonItem.question
+            question.target = self
+            question.action = #selector(onQuestionButtonClick(_:))
+            navigationItem.leftBarButtonItem = question
+            
             let filter = UIBarButtonItem.filter
             filter.target = self
             filter.action = #selector(onFilterButtonClick(_:))
@@ -523,6 +528,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
  
     @IBAction func onHamburgerButtonClick(_ sender: UIBarButtonItem) {
         print("onHamburgerButtonClick")
+    }
+    
+    @IBAction func onQuestionButtonClick(_ sender: UIBarButtonItem) {
+        perform(segue: segues.getWheelsToWalkthrough())
     }
     
     @IBAction func onDebug(_ sender: UIButton) {
@@ -961,9 +970,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 let edge = SWAreaOfInterest(center: toFruits.center, size: toUnexpected.frame.size)
                 
                 let bigmidright = SWAreaOfInterest(center: self.bases.center, size: self.bases.getSize())
-                
-//                walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(), enhancer: edge, wheelIngredient: middle))
-                
+                                
                 walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(in: view), enhancer: edge, wheelIngredient: middle, selectionIngredient: selectionController.getPinArea(in: view), wheel: bigmidright))
             }
         default:

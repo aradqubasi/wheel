@@ -291,12 +291,13 @@ extension UILabel {
         }
     }
     
-    func asWalkthrough(text: String, width: CGFloat) -> Void {
+    func asWalkthrough(text: NSAttributedString, width: CGFloat) -> Void {
         let label = self
         label.numberOfLines = 0
-        let attributed = text.toWalkthroughFont
-        label.frame.size = CGSize(width: width, height: attributed.height(in: width))
-        label.attributedText = attributed
+//        let attributed = text.toWalkthroughFont
+        label.frame.size = CGSize(width: width, height: text.height(in: width))
+//        label.attributedText = attributed
+        label.attributedText = text
         label.textAlignment = .center
     }
 }

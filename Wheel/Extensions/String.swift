@@ -89,67 +89,7 @@ extension String {
         paragraphStyle.lineSpacing = 0
         paragraphStyle.lineHeightMultiple = 1.25
         
-        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Medium", size: 24) as Any, .paragraphStyle: paragraphStyle])
-    }
-
-    static var tipForRollbutton: String {
-        get {
-            return "Quick start by pressing Roll button - App will get you recipy in no time"
-        }
-    }
-    
-    static var tipForSelectionWheel: String {
-        get {
-            return "You can check current selection here, rotate to see all what you picked"
-        }
-    }
-    
-    static var tipForCookbutton: String {
-        get {
-            return "Once right ingredients are in place proceed to recipy details"
-        }
-    }
-    
-    static var tipForFilterbutton: String {
-        get {
-            return "Customize your food preferences here"
-        }
-    }
-    
-    static var tipForWheel: String {
-        get {
-            return "You can hand-pick ingredients too! Rotate wheels to see what we have in list"
-        }
-    }
-    
-    static var tipForWheelpin: String {
-        get {
-            return "Click on icon or rotate it to focus position to select ingredient"
-        }
-    }
-    
-    static var tipForSelectedpin: String {
-        get {
-            return "Click on filled icon to remove ingredient from selection, click on empty spot to let App suggest you something"
-        }
-    }
-    
-    static var tipForEnhancerbutton: String {
-        get {
-            return "Variety of flavour enhancers are located here, click to see them"
-        }
-    }
-    
-    static var tipForIntroduction: String {
-        get {
-            return "This App will help you combine right ingredients to make a well-balanced salad"
-        }
-    }
-    
-    static var tipForOutro: String {
-        get {
-            return "Happy cooking!"
-        }
+        return NSAttributedString(string: self, attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Book", size: 24) as Any, .paragraphStyle: paragraphStyle])
     }
     
 }

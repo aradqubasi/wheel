@@ -75,10 +75,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve(from controller: UIViewController, areas: SWAreasOfInterest) -> SWWalkthroughAssembler {
-        let wheels = controller.view.snapshotView(afterScreenUpdates: true)!
-        if let navbar = controller.navigationController?.view.snapshotView(afterScreenUpdates: true) {
-            wheels.addSubview(navbar)
-        }
-        return SWConcreteWalkthroughAssembler(background: wheels, areas: areas)
+        let wheels = controller.navigationController?.view.snapshotView(afterScreenUpdates: true)
+        return SWConcreteWalkthroughAssembler(background: wheels!, areas: areas)
     }
 }

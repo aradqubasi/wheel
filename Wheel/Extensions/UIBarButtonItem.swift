@@ -24,6 +24,13 @@ extension UIBarButtonItem {
         }
     }
     
+    class var question: UIBarButtonItem {
+        get {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "wheelgui/question-mark"), style: .plain, target: nil, action: nil)
+            return button
+        }
+    }
+    
     class var back: UIBarButtonItem {
         get {
             let button = UIBarButtonItem(image: .back, style: .plain, target: nil, action: nil)

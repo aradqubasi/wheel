@@ -218,7 +218,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="H6I-rm-SRY" kind="unwind" identifier="WheelsToWalkthrough" unwindAction="unwindToWheelsWithSegue:" id="8G1-KW-JGD"/>
+                        <segue destination="H6I-rm-SRY" kind="unwind" identifier="WalkthroughToWheels" unwindAction="unwindToWheelsWithSegue:" id="8G1-KW-JGD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="c2w-AR-Xhf" userLabel="First Responder" sceneMemberID="firstResponder"/>

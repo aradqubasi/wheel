@@ -341,6 +341,7 @@ extension WalkthroughViewController {
         let index: Int
         let highlightView: UIView
         let tipView: UILabel
+        let invertTipView: UILabel
         let areaOfInterest: SWAreaOfInterest
         let tipText: NSAttributedString
         let tipLayout: CGFloat
@@ -354,6 +355,7 @@ extension WalkthroughViewController {
             self.index = index
             highlightView = UIView()
             tipView = UILabel()
+            invertTipView = UILabel()
             areaOfInterest = area
             tipText = text
             tipLayout = layout
@@ -370,6 +372,16 @@ extension WalkthroughViewController {
             //            let pagerView: UIView = controller.pager
             let pagerCenterOrigin = controller.pagerCenterOrigin
             
+            //tip
+            do {
+                scene.addSubview(tipView)
+                tipView.asWalkthrough(text: tipText, width: 240)
+                tipView.center = controller.view.getBoundsCenter()
+                pagerCenterPoint = pagerCenterOrigin
+                tipView.alpha = 0
+                tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+            }
+            
             //highlight
             do {
                 let side = max(areaOfInterest.size.width, areaOfInterest.size.height) + 60
@@ -384,15 +396,16 @@ extension WalkthroughViewController {
                 copyground.frame.origin = scene.convert(.zero, to: highlightView)
                 highlightView.alpha = 0
             }
-            //tip
+            
+            //invert tip
             do {
-                scene.addSubview(tipView)
-                tipView.asWalkthrough(text: tipText, width: 240)
-                tipView.center = controller.view.getBoundsCenter()
-                pagerCenterPoint = pagerCenterOrigin
-                tipView.alpha = 0
-                tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+                let blackfont = UILabel()
+                blackfont.asWalkthrough(text: tipText, width: 240)
+                blackfont.attributedText = tipText.blackify()
+                highlightView.addSubview(blackfont)
+                blackfont.center = controller.view.convert(controller.view.getBoundsCenter(), to: highlightView)
             }
+            
         }
         
         private func getFrameOrigins(of subviews: [UIView], in scene: UIView) -> [CGPoint] {
@@ -564,15 +577,6 @@ extension WalkthroughViewController {
             
             highlightView.removeFromSuperview()
             controller?.view.addSubview(highlightView)
-            
-            let transform = tipView.transform
-            tipView.transform = CGAffineTransform.identity
-            let blackfont = UILabel()
-            blackfont.asWalkthrough(text: tipText, width: tipView.frame.width)
-            blackfont.attributedText = tipView.attributedText!.blackify()
-            highlightView.addSubview(blackfont)
-            blackfont.frame.origin = controller!.view.convert(tipView.frame.origin, to: highlightView)
-            tipView.transform = transform
         }
         
     }

@@ -71,7 +71,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWAppStateRepository {
-        return SWInmemoryAppStateRepository()
+        return SWUserDefaultsAppStateRepository()
     }
     
     func resolve(from controller: UIViewController, areas: SWAreasOfInterest) -> SWWalkthroughAssembler {

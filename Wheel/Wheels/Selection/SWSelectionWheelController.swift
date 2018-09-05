@@ -1118,8 +1118,16 @@ extension SWSelectionWheelController: SWSelectionWheelProtocol {
     }
     
     func getPinArea(in scene: UIView) -> SWAreaOfInterest {
-        let spot = spots.first(where: { ($0 as? SWOpenSpot)?.kinds.contains(.fat) ?? false })!
-        return SWAreaOfInterest(center: spot.icon.convert(spot.icon.getBoundsCenter(), to: scene), size: spot.icon.frame.size)
+        var icon: UIView!
+        let spots = self.spots.filter({ !($0 is SWDelimeterSpot) })
+        let index = spots.index(where: { $0.icon === getSpotAtFront()?.icon })!
+        if index + 1 >= spots.count {
+            icon = spots[index - 1].icon
+        }
+        else {
+            icon = spots[index + 1].icon
+        }
+        return SWAreaOfInterest(center: icon.convert(icon.getBoundsCenter(), to: scene), size: icon.frame.size)
     }
 }
 

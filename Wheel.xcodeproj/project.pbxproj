@@ -57,6 +57,7 @@
 		155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */; };
 		155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */; };
 		155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC321FF0300000E749B5 /* OptionsActions.swift */; };
+		1562307C213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */; };
 		156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */; };
 		156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */; };
 		156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD0203961FB00CFEEA4 /* SWAppState.swift */; };
@@ -272,6 +273,7 @@
 		155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsController.swift; sourceTree = "<group>"; };
 		155BEC301FF02F5800E749B5 /* OptionsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsDelegate.swift; sourceTree = "<group>"; };
 		155BEC321FF0300000E749B5 /* OptionsActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsActions.swift; sourceTree = "<group>"; };
+		1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserDefaultsAppStateRepository.swift; sourceTree = "<group>"; };
 		156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BD0203961FB00CFEEA4 /* SWAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAppState.swift; sourceTree = "<group>"; };
@@ -608,6 +610,7 @@
 				156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */,
 				156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */,
 				156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */,
+				1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */,
 				156B0BE120396E1A00CFEEA4 /* SWSegueRepository.swift */,
 				156B0BE320396E7E00CFEEA4 /* SWInmemorySegueRepository.swift */,
 				15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */,
@@ -1200,6 +1203,7 @@
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
 				15AAAE25211175E00022996D /* SWSelectionWheelAssembler.swift in Sources */,
 				1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */,
+				1562307C213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift in Sources */,
 				15456D5E1FC0292F0018A1CD /* UIButton.swift in Sources */,
 				15BA8024203D3ABD00596CC8 /* SWAbstractWheelControllerDelegate.swift in Sources */,
 				156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */,

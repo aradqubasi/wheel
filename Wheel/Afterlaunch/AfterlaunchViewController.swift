@@ -18,11 +18,14 @@ class AfterlaunchViewController: SWViewController {
         
         super.viewDidAppear(animated)
         
-        let appState: SWAppState = assembler.resolve().get()
+        let appStateRepository: SWAppStateRepository = assembler.resolve()
+        
+        let appState: SWAppState = appStateRepository.get()
         
         segues = assembler.resolve()
         
         if appState.showOnboarding {
+            appStateRepository.setShowOnboarding(false)
             perform(segue: segues.getAfterlaunchToOnboarding())
         }
         else {

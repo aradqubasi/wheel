@@ -501,6 +501,21 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            roll.addTarget(self, action: #selector(onDebug(_:)), for: .touchUpInside)
 //            view.addSubview(roll)
         }
+        
+        do {
+            let ingredients = SWInmemoryIngredientRepository()
+            let measures = SWInmemoryMeasuresmentRepository()
+            let stats = SWInmemoryIngredientStatsRepository()
+            let recipy = SWConcreteRecipyListGenerator(measuresment: measures)
+            let servings = SWConcreteServingsGenerator(measuresment: measures, stats: stats)
+            for ingredient in ingredients.getAll() {
+                print("\(recipy.getName(for: ingredient));\(recipy.getKind(for: ingredient));\(recipy.getQuantity(for: ingredient, per: 1));\(servings.getEnergy(for: [ingredient], per: 1));\(servings.getCarbs(for: [ingredient], per: 1));\(servings.getFats(for: [ingredient], per: 1));\(servings.getProteins(for: [ingredient], per: 1))")
+            }
+        }
+        
+        do {
+            
+        }
 
     }
 

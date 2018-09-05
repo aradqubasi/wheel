@@ -19,6 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let afterlaunch = window?.rootViewController as? AfterlaunchViewController {
             afterlaunch.assembler = SWConcreteAfterlaunchAssembler()
         }
+        UserDefaults.standard.register(defaults: SWUserDefaultsAppStateRepository.defaults)
         return true
     }
 

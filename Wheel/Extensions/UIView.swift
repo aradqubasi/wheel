@@ -36,10 +36,12 @@ extension UIView {
     func addSizeConstraints() {
 //        translatesAutoresizingMaskIntoConstraints = false
         if let widthConstraint = self.constraints.first(where: { $0.firstAttribute == NSLayoutAttribute.width }) {
+            widthConstraint.isActive = false
             self.removeConstraint(widthConstraint)
         }
         
         if let heightConstraint = self.constraints.first(where: { $0.firstAttribute == NSLayoutAttribute.height }) {
+            heightConstraint.isActive = false
             self.removeConstraint(heightConstraint)
         }
         

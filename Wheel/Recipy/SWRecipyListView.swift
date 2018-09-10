@@ -29,6 +29,8 @@ class SWRecipyListView: UIView {
             _quantityPreIngredient.forEach({
                 $0.value.setRecipyListQuantity(_generator.getQuantity(for: $0.key, per: _servings))
                 $0.value.addSizeConstraints()
+                print("\($0.key.name) \($0.value.constraints.count)")
+//                $0.value.ali
             })
         }
     }

@@ -38,4 +38,31 @@ extension CGFloat {
         return self * self
     }
     
+    func getFractionString() -> String {
+        let quantity = self
+        let fullPieces = quantity.rounded(.down)
+        let extra = quantity - fullPieces
+        let extraString = ( {
+            () -> String in
+            switch extra {
+            case 0: return ""
+            case 0.25: return "1/4"
+            case 0.5: return "1/2"
+            default: return String(format: "0.2f", extra)
+            }
+        })()
+        if fullPieces == 0 && extraString == "" {
+            return ""
+        }
+        else if fullPieces == 0 && extraString != "" {
+            return "\(extraString)"
+        }
+        else if fullPieces != 0 && extraString == "" {
+            return "\(Int(fullPieces))"
+        }
+        else /*if fullPieces != 0 && extraString != ""*/ {
+            return "\(Int(fullPieces)) \(extraString)"
+        }
+    }
+    
 }

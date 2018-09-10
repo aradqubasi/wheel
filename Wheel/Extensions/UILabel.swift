@@ -227,7 +227,7 @@ extension UILabel {
     func setRecipyListQuantity(_ text: String) {
         let text = text.toRecipyListQuantity
         attributedText = text
-        frame.size = text.size().wider(by: 2)
+        frame.size = text.size().raise()
         textAlignment = .left
     }
     

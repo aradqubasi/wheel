@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
     
     private var _measuresment: SWMeasuresmentRepository!
@@ -22,10 +23,13 @@ class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "leaves")"
         }
         else if unit.id == 7 {
-            return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : unit.short + "s")"
+            return "\((CGFloat(ingredient.quantity) * CGFloat(servings)).getFractionString()) \(CGFloat(ingredient.quantity) * CGFloat(servings) > 1 ? unit.short : unit.short + "s")"
         }
         else if unit.id == 8 {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "pieces")"
+        }
+        else if unit.id == 10 {
+            return (CGFloat(ingredient.quantity) * CGFloat(servings)).getFractionString() + " " + unit.short
         }
         else {
             return "\(Int(ingredient.quantity) * servings) \(unit.short)"

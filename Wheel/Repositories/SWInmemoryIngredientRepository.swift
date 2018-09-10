@@ -73,7 +73,8 @@ class SWInmemoryIngredientRepository: SWIngredientRepository {
             SWIngredient(id: 51, "meat", of: .protein, as: #imageLiteral(resourceName: "wheels/proteins/active/meat"), #imageLiteral(resourceName: "wheels/proteins/inactive/meat"), quantity: 100, unit: 1),
             SWIngredient(id: 52, "salmon", of: .protein, as: #imageLiteral(resourceName: "wheels/proteins/active/salmon"), #imageLiteral(resourceName: "wheels/proteins/inactive/salmon"), quantity: 100, unit: 1),
             
-            SWIngredient(id: 53, "cucumber", of: .veggy, as: #imageLiteral(resourceName: "cucumber-1"), #imageLiteral(resourceName: "_cucumber"), quantity: 0.5, unit: 7)
+            SWIngredient(id: 53, "cucumber", of: .veggy, as: #imageLiteral(resourceName: "cucumber-1"), #imageLiteral(resourceName: "_cucumber"), quantity: 0.5, unit: 7),
+            SWIngredient(id: 54, "bacon", of: .unexpected, as: #imageLiteral(resourceName: "bacon"), #imageLiteral(resourceName: "bacon"), quantity: 2, unit: 11)
         ]
 
     }

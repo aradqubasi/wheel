@@ -161,7 +161,10 @@ class SWInmemoryIngredientStatsRepository : SWIngredientStatsRepository {
         SWIngredientStats(id: 93, ingredientId: 52, measuresmentId: 4 /*100g*/, proteins: 21.62, carbohydrates: 0, fats: 5.93, calories: 146),
         //cucumber
         SWIngredientStats(id: 94, ingredientId: 53, measuresmentId: 7 /*cup ±50g*/, proteins: 0.7 * 0.5, carbohydrates: 1.5 * 0.5, fats: 0.1 * 0.5, calories: 10 * 0.5),
-        SWIngredientStats(id: 95, ingredientId: 53, measuresmentId: 4 /*100g*/, proteins: 0.7, carbohydrates: 1.5, fats: 0.1, calories: 10)
+        SWIngredientStats(id: 95, ingredientId: 53, measuresmentId: 4 /*100g*/, proteins: 0.7, carbohydrates: 1.5, fats: 0.1, calories: 10),
+        //bacon
+        SWIngredientStats(id: 96, ingredientId: 54, measuresmentId: 11 /*slice ±8g*/, proteins: 37 * 0.08, carbohydrates: 1.4 * 0.08, fats: 42 * 0.08, calories: 541 * 0.08),
+        SWIngredientStats(id: 97, ingredientId: 54, measuresmentId: 4 /*100g*/, proteins: 37, carbohydrates: 1.4, fats: 42, calories: 541)
     ]
 
     func get(by ingredient: SWIngredient, and measuresment: SWMeasuresment) -> SWIngredientStats {

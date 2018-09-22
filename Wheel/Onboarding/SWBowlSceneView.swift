@@ -74,7 +74,8 @@ class SWBowlSceneView {
             offset = actual.offset
             if actual.autooffset ?? SWBowlActParams.defaultAutooffset {
                 offset.x *= size.width / 414
-                offset.y *= size.height / 736
+//                offset.y *= size.height / 736
+                offset.y *= size.width / 414
             }
         }
         var scale: CGPoint!
@@ -82,7 +83,8 @@ class SWBowlSceneView {
             scale = actual.scale
             if actual.autoscale ?? SWBowlActParams.defaultAutoscale {
                 scale.x *= size.width / 414
-                scale.y *= size.height / 736
+//                scale.y *= size.height / 736
+                scale.y *= size.width / 414
             }
         }
         let alpha = actual.alpha

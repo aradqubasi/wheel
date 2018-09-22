@@ -14,7 +14,8 @@ class SWConcreteAfterlaunchAssembler: SWAfterlaunchAssembler {
     }
     
     func resolve() -> SWAppStateRepository {
-        return SWUserDefaultsAppStateRepository()
+//        return SWUserDefaultsAppStateRepository()
+        return SWInmemoryAppStateRepository()
     }
     
     func resolve() -> SWWheelsAssembler {

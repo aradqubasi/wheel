@@ -1,20 +1,21 @@
 //
-//  SWNarrowWheelsAligner.swift
+//  SWXWheelsAligner.swift
 //  Wheel
 //
-//  Created by Oleg Sokolansky on 13/03/2018.
+//  Created by Oleg Sokolansky on 22/09/2018.
 //  Copyright © 2018 Oleg Sokolansky. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class SWNarrowWheelsAligner: SWWheelsAligner {
-    
+
+class SWTallWheelsAligner: SWWheelsAligner {
+
     private func align(_ view: UIView, at index: Int) {
         guard let superview = view.superview else {
             fatalError("can not align view which is not attached to superview")
         }
-        var central = CGPoint(x: superview.bounds.width * 0.5 - 56 * 0.5, y: 44 + 8 + 56 * 0.5)
+        var central = CGPoint(x: superview.bounds.width * 0.5 - 56 * 0.5, y: 64 + 8 + 56 * 0.5)
         switch (index) {
         case 0:
             central.x = central.x - 24 - 56
@@ -41,7 +42,7 @@ class SWNarrowWheelsAligner: SWWheelsAligner {
     }
     
     func align(subwheel: UIView, with button: UIView) {
-
+        
         if let scene = subwheel.superview {
             let projection = button.convert(button.bounds, to: scene)
             

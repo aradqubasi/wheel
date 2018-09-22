@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -18,21 +18,21 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchbackground" translatesAutoresizingMaskIntoConstraints="NO" id="98E-30-DzZ" userLabel="background">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="wheelgui/launchicon" translatesAutoresizingMaskIntoConstraints="NO" id="Dpj-Yr-tqa" userLabel="icon">
-                                <rect key="frame" x="82" y="219" width="211" height="168"/>
+                                <rect key="frame" x="82" y="292" width="211" height="168"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="168" id="P93-Ij-uxq"/>
                                     <constraint firstAttribute="width" constant="211" id="Y2u-Mb-vec"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JSJ-NN-wAF">
-                                <rect key="frame" x="24" y="437" width="327" height="31"/>
+                                <rect key="frame" x="24" y="510" width="327" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="327" id="RVa-N7-Ql7"/>
                                     <constraint firstAttribute="height" constant="31" id="tZ5-jQ-mYf"/>
@@ -81,10 +81,10 @@
                             <constraint firstItem="aJK-t1-xhs" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="28" id="BeM-tA-4xC"/>
                             <constraint firstItem="Dpj-Yr-tqa" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Jxn-3e-h4t"/>
                             <constraint firstItem="JSJ-NN-wAF" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="TCT-Uf-365"/>
-                            <constraint firstItem="Dpj-Yr-tqa" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="219" id="Uso-Dw-bYC"/>
                             <constraint firstItem="JSJ-NN-wAF" firstAttribute="top" secondItem="Dpj-Yr-tqa" secondAttribute="bottom" constant="50" id="n2O-fT-vqa"/>
                             <constraint firstItem="98E-30-DzZ" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="oqL-ob-Gem"/>
                             <constraint firstItem="98E-30-DzZ" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="qph-8j-84b"/>
+                            <constraint firstItem="Dpj-Yr-tqa" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="txn-xJ-QUx"/>
                             <constraint firstItem="98E-30-DzZ" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" id="vf8-gb-WBz"/>
                             <constraint firstItem="aJK-t1-xhs" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="ycr-w2-hP5"/>
                         </constraints>

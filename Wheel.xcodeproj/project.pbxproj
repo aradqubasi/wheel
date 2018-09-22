@@ -135,6 +135,7 @@
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
+		15C5B67D21561C7F004B0C18 /* SWTallWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */; };
 		15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */; };
 		15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */; };
 		15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */; };
@@ -351,6 +352,7 @@
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
+		15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTallWheelsAligner.swift; sourceTree = "<group>"; };
 		15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissAnimationController.swift; sourceTree = "<group>"; };
 		15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationController.swift; sourceTree = "<group>"; };
 		15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -753,6 +755,7 @@
 				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
 				15D13D472054135600D44923 /* SWWideWheelsAligner.swift */,
 				15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */,
+				15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */,
 				1511929D207CC6E400D93751 /* SWFeedbackService.swift */,
 				1511929F207CC79700D93751 /* SWFeedbackOverHttpService.swift */,
 				15A25811208B133200F738B5 /* SWTipGenerator.swift */,
@@ -1109,6 +1112,7 @@
 				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */,
+				15C5B67D21561C7F004B0C18 /* SWTallWheelsAligner.swift in Sources */,
 				15F5D6272084981D00462DE7 /* SWBowlTimelineRepository.swift in Sources */,
 				15D13D3C20529BED00D44923 /* SWRecipyStatsView.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,

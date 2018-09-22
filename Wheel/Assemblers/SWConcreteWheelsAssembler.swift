@@ -38,7 +38,10 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         let size = UIScreen.main.bounds.size
         switch size.width {
         case 0..<414:
-            return SWNarrowWheelsAligner()
+            switch size.height {
+            case 0..<700: return SWNarrowWheelsAligner()
+            default: return SWTallWheelsAligner()
+            }
         case 414..<1000:
             return SWWideWheelsAligner()
         default:

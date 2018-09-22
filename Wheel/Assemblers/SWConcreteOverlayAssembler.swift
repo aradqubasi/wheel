@@ -20,6 +20,7 @@ class SWConcreteOverlayAssembler: SWOverlayAssembler {
     
     func resolve() -> SWWheelsAligner {
         let size = UIScreen.main.bounds.size
+//        UIDevice.current.model
         switch size.width {
         case 0..<414:
             return SWNarrowWheelsAligner()

@@ -452,7 +452,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             concreteSelectionController.delegate = self
             let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
             concreteSelectionController.view.frame = rectangle
-            concreteSelectionController.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height * 1.3)
+//            concreteSelectionController.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.width * 1.77 * 1.3)
+            concreteSelectionController.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height + view.frame.width * (1.7 * 0.5 - 0.36))
             view.addSubview(concreteSelectionController.view)
             self.addChildViewController(concreteSelectionController)
             concreteSelectionController.didMove(toParentViewController: self)

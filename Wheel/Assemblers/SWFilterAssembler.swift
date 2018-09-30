@@ -13,4 +13,6 @@ protocol SWFilterAssembler {
     
     func resolve() -> SWSegueRepository
     
+    func resolve() -> SWFilterAligner
+    
 }

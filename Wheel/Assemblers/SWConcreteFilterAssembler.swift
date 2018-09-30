@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 class SWConcreteFilterAssembler: SWFilterAssembler {
     
     func resolve() -> SWOptionRepository {
@@ -15,6 +16,15 @@ class SWConcreteFilterAssembler: SWFilterAssembler {
     
     func resolve() -> SWSegueRepository {
         return SWInmemorySegueRepository()
+    }
+    
+    func resolve() -> SWFilterAligner {
+        if UIScreen.main.bounds.size.height > 700 {
+            return SWXPhoneFilterAligner()
+        }
+        else {
+            return SWConcreteFilterAligner()
+        }
     }
     
 }

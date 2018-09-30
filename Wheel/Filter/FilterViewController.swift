@@ -44,6 +44,8 @@ class FilterViewController: SWViewController, SWDismissableViewController {
     
     private var _options: SWOptionRepository!
     
+    private var _aligner: SWFilterAligner!
+    
 //    var ancestor: UIImage!
 //
 //    var ancestorNavigationBar: UIImage!
@@ -57,21 +59,8 @@ class FilterViewController: SWViewController, SWDismissableViewController {
         _options = assembler.resolve()
         
         segues = assembler.resolve()
-
-//        do {
-//            let background = UIView(frame: view.bounds)
-//            let image = UIImageView(image: ancestor)
-//            background.addSubview(image)
-//            _shroud = UIView(frame: view.bounds)
-//            _shroud.backgroundColor = .limedSpruce
-//            _shroud.alpha = 0.8
-//            background.addSubview(_shroud)
-//            view.addSubview(background)
-//
-//            _prevNavigationBar = UIImageView(image: ancestorNavigationBar)
-//            print("\(navigationController!.navigationBar.superview!)")
-//            _navigationBar = UIImageView(image: navigationController!.navigationBar.superview!.toImage())
-//        }
+        
+        _aligner = assembler.resolve()
         
         let headerRectangle = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 35))
         
@@ -139,7 +128,8 @@ class FilterViewController: SWViewController, SWDismissableViewController {
         _scroll.addSubview(_stack)
         _scroll.translatesAutoresizingMaskIntoConstraints = false
         _stack.leadingAnchor.constraint(equalTo: _scroll.leadingAnchor).isActive = true
-        _scroll.addBoundsConstraints()
+        
+        _aligner.alignAtScreen(scroll: _scroll, in: view)
         
         _stack.trailingAnchor.constraint(equalTo: _scroll.trailingAnchor).isActive = true
         _stack.bottomAnchor.constraint(equalTo: _scroll.bottomAnchor).isActive = true
@@ -156,30 +146,15 @@ class FilterViewController: SWViewController, SWDismissableViewController {
         navigationItem.titleView = UILabel.filterTitle
         
         _ok = UIButton.ok
-        _ok.frame.size.width = view.bounds.width
+        _aligner.alignAtBottom(button: _ok, in: view.bounds)
         view.addSubview(_ok)
-        do {
-            _ok.frame.size.width = view.bounds.width
-            _ok.frame.origin = CGPoint(x: 0, y: view.bounds.height - _ok.frame.height)
-        }
         _ok.addTarget(self, action: #selector(onOkButtonClick(_:)), for: .touchUpInside)
         
-        view.constraints.filter({ $0.firstAttribute == .bottom && $0.firstItem === _scroll }).first!.isActive = false
-        _scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -_ok.frame.height).isActive = true
+//        view.constraints.filter({ $0.firstAttribute == .bottom && $0.firstItem === _scroll }).first!.isActive = false
+//        _scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -_ok.frame.height).isActive = true
         
         _ingredients.forEach({ $0.key.checked = $0.value.checked })
         noPreferences.checked = _ingredients.first(where: { $0.key.checked }) == nil
-        
-//        do {
-//            _swiper = SWSwipeGestureRecognizer()
-//            _scroll.addGestureRecognizer(_swiper)
-//            _scroll.gestureRecognizers?.forEach({
-//                if $0 !== _swiper {
-//                    $0.require(toFail: _swiper)
-//                }
-//            })
-//            _swiper.Delegate = self
-//        }
         
         do {
             _dismisser = SWSwipeInteractiveTransition({() -> Void in
@@ -233,27 +208,10 @@ class FilterViewController: SWViewController, SWDismissableViewController {
     }
     
     @IBAction private func onBackButtonClick(_ sender: UIBarButtonItem) {
-//        _shroud.alpha = 0
-//        UIView.animate(withDuration: 0.225, animations: {
-//            self._scroll.frame.origin.x = self.view.bounds.width
-//            self._ok.frame.origin.x = self.view.bounds.width
-//        }, completion: { (_:Bool) -> Void in
-//            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
-//        })
         perform(segue: segues.getFilterToWheels())
     }
     
     @IBAction private func onSwipeBack(_ sender: Any) {
-//        UIView.animate(withDuration: 0.225, animations: {
-//            self._scroll.frame.origin.x = self.view.bounds.width
-//            self._ok.frame.origin.x = self.view.bounds.width
-//            self._shroud.alpha = 0
-//        }, completion: { (_:Bool) -> Void in
-//            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
-//        })
-        
-//        self._segues.set(current: _segues.getFilterToWheelsWithConfirm())
-//        print("call segue")
         perform(segue: segues.getFilterToWheels())
     }
     
@@ -271,49 +229,8 @@ class FilterViewController: SWViewController, SWDismissableViewController {
             model.checked = view.checked
             _options.save(model)
         })
-        
-//        _shroud.alpha = 0
-//        navigationController?.isNavigationBarHidden = true
-//        view.addSubview(_navigationBar)
-//        view.addSubview(_prevNavigationBar)
-//        view.constraints.first(where: { $0.firstAttribute == .top && $0.firstItem! === self._scroll })!.constant = -view.bounds.height
-//        view.constraints.first(where: { $0.firstAttribute == .bottom && $0.firstItem! === self._scroll })!.constant = -view.bounds.height
-//        UIView.animate(withDuration: 5, delay: 0, options: [], animations: {
-//            self.view.layoutSubviews()
-//            self._ok.frame.origin.y = -self._ok.frame.height
-//            self._prevNavigationBar.alpha = 0
-//        }, completion: { (done:Bool) -> Void in
-//            self.performSegue(withIdentifier: self._segues.getFilterToWheels().identifier, sender: self)
-//        })
-//        _swiper.forceCompletion()
         perform(segue: segues.getFilterToWheelsWithConfirm())
     }
-    
-    // MARK: - SWSwipeDelegate
-    
-//    func onBegin(_ sender: SWSwipeGestureRecognizer) {
-//
-//    }
-//
-//    func onMove(_ sender: SWSwipeGestureRecognizer) {
-//        print("onMove")
-//        let distance = sender.Current.x - sender.Initial.x
-//        _ok.frame.origin.x = max(_ok.frame.origin.x, distance)
-//        _scroll.frame.origin.x = max(_scroll.frame.origin.x, distance)
-//    }
-//
-//    func onFinish(_ sender: SWSwipeGestureRecognizer) {
-//        print("onFinish")
-//        onSwipeBack(sender)
-//    }
-//
-//    func onCancel(_ sender: SWSwipeGestureRecognizer) {
-//        print("onCancel")
-//        UIView.animate(withDuration: 0.225, animations: {
-//            self._scroll.frame.origin.x = 0
-//            self._ok.frame.origin.x = 0
-//        })
-//    }
     
     // MARK: - Navigation
     

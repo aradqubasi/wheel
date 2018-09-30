@@ -136,6 +136,9 @@
 		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
 		15C5B67D21561C7F004B0C18 /* SWTallWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */; };
+		15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */; };
+		15C5B6812160D01A004B0C18 /* SWConcreteFilterAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */; };
+		15C5B6832160D134004B0C18 /* SWXPhoneFilterAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */; };
 		15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */; };
 		15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */; };
 		15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */; };
@@ -353,6 +356,9 @@
 		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
 		15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTallWheelsAligner.swift; sourceTree = "<group>"; };
+		15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFilterAligner.swift; sourceTree = "<group>"; };
+		15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteFilterAligner.swift; sourceTree = "<group>"; };
+		15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXPhoneFilterAligner.swift; sourceTree = "<group>"; };
 		15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissAnimationController.swift; sourceTree = "<group>"; };
 		15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationController.swift; sourceTree = "<group>"; };
 		15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
@@ -765,6 +771,9 @@
 				15A2589E2093942500F738B5 /* SWConcreteOptionAligner.swift */,
 				15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */,
 				15FA4E2F20DE835E00A345EC /* SWConcreteIngredientsFilter.swift */,
+				15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */,
+				15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */,
+				15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1026,6 +1035,7 @@
 				15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */,
 				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
+				15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */,
 				15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */,
 				15BA803920414EFF00596CC8 /* SWInmemoryComponentRepository.swift in Sources */,
 				15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */,
@@ -1041,6 +1051,7 @@
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
 				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
+				15C5B6812160D01A004B0C18 /* SWConcreteFilterAligner.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
@@ -1139,6 +1150,7 @@
 				15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */,
 				15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */,
 				15FA76712127DF2C00AE6231 /* WalkthroughViewController.swift in Sources */,
+				15C5B6832160D134004B0C18 /* SWXPhoneFilterAligner.swift in Sources */,
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
 				159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */,

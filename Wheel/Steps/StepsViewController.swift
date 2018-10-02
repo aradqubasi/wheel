@@ -28,6 +28,8 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
     
     private var _feedback: SWFeedbackService!
     
+    private var aligner: SWStepsAligner!
+    
     // MARK: - Outlets
     
     private var email: UITextField!
@@ -46,6 +48,8 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
         segues = assembler.resolve()
         
         _feedback = assembler.resolve()
+        
+        aligner = assembler.resolve()
         
         //swipe to recipy
         do {
@@ -149,15 +153,16 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
         
         //i want button
         do {
-            let button = UIButton.iwant
-            button.addTarget(self, action: #selector(onIWantButtonClick(_:)), for: .touchUpInside)
-            _container.addSubview(button)
+            let iwant = UIButton.iwant
+            _container.addSubview(iwant)
+            aligner.alignAtBottom(button: iwant, in: _container)
+            iwant.addTarget(self, action: #selector(onIWantButtonClick(_:)), for: .touchUpInside)
             
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.heightAnchor.constraint(equalToConstant: button.frame.height).isActive = true
-            button.centerXAnchor.constraint(equalTo: _container.centerXAnchor).isActive = true
-            button.bottomAnchor.constraint(equalTo: _container.bottomAnchor).isActive = true
-            button.widthAnchor.constraint(equalTo: _container.widthAnchor).isActive = true
+//            iwant.translatesAutoresizingMaskIntoConstraints = false
+//            iwant.heightAnchor.constraint(equalToConstant: iwant.frame.height).isActive = true
+//            iwant.centerXAnchor.constraint(equalTo: _container.centerXAnchor).isActive = true
+//            iwant.bottomAnchor.constraint(equalTo: _container.bottomAnchor).isActive = true
+//            iwant.widthAnchor.constraint(equalTo: _container.widthAnchor).isActive = true
         }
         
         validateForm()
@@ -258,23 +263,6 @@ class StepsViewController: SWViewController, UITextFieldDelegate, SWDismissableV
             inactivate()
         }
     }
-    
-    // MARK: - UIViewControllerTransitioningDelegate Methods
-    
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return SWDismissAnimationContorller()
-//    }
-//
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return SWDismissAnimationContorller()
-//    }
-//
-//    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-//        if navigationController?.presentedViewController is StepsViewController {
-//            print("presentedViewController is StepsViewController")
-//        }
-//        return nil
-//    }
     
     // MARK: - Navigation
     

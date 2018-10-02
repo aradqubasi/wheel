@@ -384,15 +384,10 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     // MARK: - UIScrollViewDelegate Methods
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print("\(scrollView.contentOffset.y) - abs(\(scrollView.contentSize.height) - \(scrollView.frame.size.height)")
         if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - scrollView.frame.size.height)) < 5 {
             popUpBroccoli()
         }
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.beginFromCurrentState], animations: {
-//            self._broccoli.showed = 0
-        }, completion: nil)
     }
     
     // MARK: - Animations

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 class SWConcreteStepsAssembler: SWStepsAssembler {
     
     func resolve() -> SWSegueRepository {
@@ -15,6 +17,15 @@ class SWConcreteStepsAssembler: SWStepsAssembler {
     
     func resolve() -> SWFeedbackService {
         return SWFeedbackOverHttpService()
+    }
+    
+    func resolve() -> SWStepsAligner {
+        if UIScreen.main.bounds.size.height > 700 {
+            return SWXPhoneStepsAligner()
+        }
+        else {
+            return SWConcreteStepsAligner()
+        }
     }
     
 }

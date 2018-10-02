@@ -52,6 +52,9 @@
 		154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */; };
 		154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B2201C5C2B00B8391A /* NSAttributedString.swift */; };
 		154DF0B5201C5CBE00B8391A /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B4201C5CBE00B8391A /* UILabel.swift */; };
+		155679A8216334A1005B019B /* SWStepsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155679A7216334A1005B019B /* SWStepsAligner.swift */; };
+		155679AA21633523005B019B /* SWConcreteStepsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155679A921633523005B019B /* SWConcreteStepsAligner.swift */; };
+		155679AC21633561005B019B /* SWXPhoneStepsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */; };
 		1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */; };
 		155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */; };
 		155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */; };
@@ -272,6 +275,9 @@
 		154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDataAsset.swift; sourceTree = "<group>"; };
 		154DF0B2201C5C2B00B8391A /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		154DF0B4201C5CBE00B8391A /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		155679A7216334A1005B019B /* SWStepsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWStepsAligner.swift; sourceTree = "<group>"; };
+		155679A921633523005B019B /* SWConcreteStepsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteStepsAligner.swift; sourceTree = "<group>"; };
+		155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWXPhoneStepsAligner.swift; sourceTree = "<group>"; };
 		1559A4F1211A0487006C093A /* SWAnimationSemaphor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAnimationSemaphor.swift; sourceTree = "<group>"; };
 		155BEC2B1FEB8C6E00E749B5 /* ToOverlayButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToOverlayButton.swift; sourceTree = "<group>"; };
 		155BEC2E1FEFC93E00E749B5 /* OptionsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsController.swift; sourceTree = "<group>"; };
@@ -774,6 +780,9 @@
 				15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */,
 				15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */,
 				15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */,
+				155679A7216334A1005B019B /* SWStepsAligner.swift */,
+				155679A921633523005B019B /* SWConcreteStepsAligner.swift */,
+				155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1154,6 +1163,7 @@
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
 				159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */,
+				155679A8216334A1005B019B /* SWStepsAligner.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
 				15BA802B204144C200596CC8 /* SWRecipyAssembler.swift in Sources */,
 				156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */,
@@ -1202,8 +1212,10 @@
 				15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
 				1583879F2033FEE8001E4008 /* SWOption.swift in Sources */,
+				155679AA21633523005B019B /* SWConcreteStepsAligner.swift in Sources */,
 				156B0BD9203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift in Sources */,
 				15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */,
+				155679AC21633561005B019B /* SWXPhoneStepsAligner.swift in Sources */,
 				15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */,
 				15FA4E3220DE870200A345EC /* SWConcreteOverlayAssembler.swift in Sources */,
 				15AAAE1F20F9B5B70022996D /* SWSelectionWheelProtocol.swift in Sources */,

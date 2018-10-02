@@ -13,4 +13,6 @@ protocol SWStepsAssembler {
     
     func resolve() -> SWFeedbackService
     
+    func resolve() -> SWStepsAligner
+    
 }

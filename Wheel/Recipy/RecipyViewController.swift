@@ -290,13 +290,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
             back.action = #selector(onBackButtonClick(_:))
             back.target = self
         }
-        
-        //swipe to wheels
-//        do {
-//            _swiper = SWSwipeGestureRecognizer(target: self, action: #selector(onSwipeBack(_:)))
-//            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
-//            _scroller.addGestureRecognizer(_swiper)
-//        }
+
         do {
             _dismisser = SWSwipeInteractiveTransition({() -> Void in
                 self.perform(segue: self.segues.getRecipyToWheelsWithSwipe())
@@ -331,10 +325,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     // MARK: - Actions
     
-//    @IBAction func onSwipeBack(_ sender: Any) {
-//        performSegue(withIdentifier: _segues.getRecipyToWheels().identifier, sender: self)
-//    }
-    
     @IBAction func onBackButtonClick(_ sender: Any) {
         if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
             perform(segue: segues.getRecipyToWheels())
@@ -343,15 +333,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     @IBAction func onShowStepsClick(_ sender: Any) {
         print("state is \(_swiper.state.rawValue)")
-//        if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
-//            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
-//        }
-        
-//        if _swiper.IsIdle {
-//            performSegue(withIdentifier: _segues.getRecipyToSteps().identifier, sender: self)
-//        }
-//        print("\(_dismisser?.percentComplete)")
-//        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(transit), userInfo: nil, repeats: false)
         transit()
     }
     
@@ -384,8 +365,12 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     // MARK: - UIScrollViewDelegate Methods
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print("\(scrollView.contentOffset.y) - abs(\(scrollView.contentSize.height) - \(scrollView.frame.size.height)")
-        if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - scrollView.frame.size.height)) < 5 {
+        var insets: CGFloat = 0
+        if #available(iOS 11.0, *) {
+            insets = scrollView.adjustedContentInset.bottom + scrollView.adjustedContentInset.top
+        }
+                print("\(scrollView.contentOffset.y) - abs(\(scrollView.contentSize.height) - \(insets) - \(scrollView.frame.size.height)), \(view.frame.height) \(scrollView.bounds.height)")
+        if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - (scrollView.frame.size.height - insets))) < 5 {
             popUpBroccoli()
         }
     }

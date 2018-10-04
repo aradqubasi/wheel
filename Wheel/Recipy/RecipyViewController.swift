@@ -18,8 +18,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     // MARK: - Private Properties
     
-//    private var _swiper: UISwipeGestureRecognizer!
-    
     private var _swiper: SWSwipeGestureRecognizer!
     
     private var _servings: Int!

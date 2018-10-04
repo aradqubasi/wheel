@@ -24,6 +24,10 @@ class SWInmemoryMeasuresmentRepository: SWMeasuresmentRepository {
         SWMeasuresment(id: 12, name: "cube", short: "cube")
     ]
     
+    func getAll() -> [SWMeasuresment] {
+        return SWInmemoryMeasuresmentRepository._measuresments
+    }
+    
     func get(by id: Int) -> SWMeasuresment {
         return SWInmemoryMeasuresmentRepository._measuresments.first(where: { $0.id == id })!
     }

@@ -30,4 +30,15 @@ extension Array {
         return groups
     }
     
+    func join<T1, T2>(with collection: [T1], on predicate: (Element, T1) -> Bool, as select: (Element, T1) -> T2) -> [T2] {
+        var result: [T2] = []
+        for i in 0..<self.count {
+            for j in 0..<collection.count {
+                if predicate(self[i], collection[j]) {
+                    result.append(select(self[i], collection[j]))
+                }
+            }
+        }
+        return result
+    }
 }

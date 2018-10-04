@@ -9,6 +9,8 @@
 import Foundation
 protocol SWMeasuresmentRepository {
     
+    func getAll() -> [SWMeasuresment]
+    
     func get(by id: Int) -> SWMeasuresment
     
     func get100g() -> SWMeasuresment

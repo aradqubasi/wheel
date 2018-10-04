@@ -55,7 +55,7 @@ class SWConcreteServingsGenerator: SWServingsGenerator {
             for ingredient in selection {
                 let unit = _measuresment.get(by: ingredient.unit)
                 let stats = _stats.get(by: ingredient, and: unit)
-                quantity += selector(stats) * Double(servings)
+                quantity += selector(stats) * ingredient.quantity * Double(servings)
             }
         }
         return quantity

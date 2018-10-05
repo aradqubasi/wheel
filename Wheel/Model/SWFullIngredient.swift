@@ -19,6 +19,4 @@ struct SWFullIngredient {
     
     var isBlocked: Bool
     
-    var blockedBy: SWOption
-    
 }

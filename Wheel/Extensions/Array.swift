@@ -41,4 +41,32 @@ extension Array {
         }
         return result
     }
+    
+//    func query<T1,T2,T3>(_ t1: T1.Type, _ t2: T2.Type, _ t3: T3.Type) -> SWQuery<T1,T2,T3> {
+//        return SWQuery<T1,T2,T3>().arrayjoin(from: self as! [T1])
+//    }
+    
 }
+
+//class SWQuery<T1,T2,T3> {
+//    private func innerjoin(from inner: [T1], with outer: [T2], on predicate: (T1, T2) -> Bool, as select: (T1, T2) -> T3) -> [T3] {
+//        var result: [T3] = []
+//        for i in 0..<inner.count {
+//            for j in 0..<outer.count {
+//                if predicate(inner[i], outer[j]) {
+//                    result.append(select(inner[i], outer[j]))
+//                }
+//            }
+//        }
+//        return result
+//    }
+//
+//    func arrayjoin (from inner: [T1]) -> (_: [T2], _: (T1, T2) -> Bool, _: (T1, T2) -> T3) -> [T3] {
+//        let join: (_: [T2], _: (T1, T2) -> Bool, _: (T1, T2) -> T3) -> [T3] = {
+//            outer, predicate, selector in
+//            return self.innerjoin(from: inner, with: outer, on: predicate, as: selector)
+//        }
+//        return join
+//    }
+//}
+

@@ -63,7 +63,7 @@
 		1562307C213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */; };
 		1568A6672165D6DF00CDC2B0 /* SWCheifCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */; };
 		1568A6692165D77A00CDC2B0 /* SWCarelessCheifCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */; };
-		1568A66B2165DC1200CDC2B0 /* SWExtendedIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66A2165DC1200CDC2B0 /* SWExtendedIngredient.swift */; };
+		1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66A2165DC1200CDC2B0 /* SWFullIngredient.swift */; };
 		1568A66D2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */; };
 		1568A66F2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */; };
 		156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */; };
@@ -291,7 +291,7 @@
 		1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserDefaultsAppStateRepository.swift; sourceTree = "<group>"; };
 		1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCheifCook.swift; sourceTree = "<group>"; };
 		1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCarelessCheifCook.swift; sourceTree = "<group>"; };
-		1568A66A2165DC1200CDC2B0 /* SWExtendedIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWExtendedIngredient.swift; sourceTree = "<group>"; };
+		1568A66A2165DC1200CDC2B0 /* SWFullIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFullIngredient.swift; sourceTree = "<group>"; };
 		1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFullIngredientRepository.swift; sourceTree = "<group>"; };
 		1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteFullIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientRepository.swift; sourceTree = "<group>"; };
@@ -621,7 +621,7 @@
 				15BA8030204147C700596CC8 /* SWComponent.swift */,
 				15D13D29204E79B400D44923 /* SWMeasuresment.swift */,
 				15D13D2F204E7BA100D44923 /* SWIngredientStats.swift */,
-				1568A66A2165DC1200CDC2B0 /* SWExtendedIngredient.swift */,
+				1568A66A2165DC1200CDC2B0 /* SWFullIngredient.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1120,7 +1120,7 @@
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
 				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
 				15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */,
-				1568A66B2165DC1200CDC2B0 /* SWExtendedIngredient.swift in Sources */,
+				1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
 				15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,

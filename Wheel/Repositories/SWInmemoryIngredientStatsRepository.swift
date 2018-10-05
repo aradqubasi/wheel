@@ -176,4 +176,10 @@ class SWInmemoryIngredientStatsRepository : SWIngredientStatsRepository {
         }
     }
     
+    func getAll() -> [SWIngredientStats] {
+        var all: [SWIngredientStats] = []
+        all.append(contentsOf: SWInmemoryIngredientStatsRepository._stats)
+        return all
+    }
+    
 }

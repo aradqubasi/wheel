@@ -11,4 +11,6 @@ protocol SWIngredientStatsRepository {
     
     func get(by ingredient: SWIngredient, and: SWMeasuresment) -> SWIngredientStats
     
+    func getAll() -> [SWIngredientStats]
+    
 }

@@ -32,6 +32,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     private var _options: SWOptionRepository!
     
     private var _appState: SWAppStateRepository!
+    
+    private var _chiefCook: SWCheifCook!
         
     var bases: SWAbstractWheelController!
     
@@ -311,6 +313,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         _aligner = assembler.resolve()
         filter = assembler.resolve()
         _appState = assembler.resolve()
+        _chiefCook = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         

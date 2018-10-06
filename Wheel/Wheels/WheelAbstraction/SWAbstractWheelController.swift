@@ -50,4 +50,6 @@ protocol SWAbstractWheelController {
     
     func getSize() -> CGSize
     
+    func getIndexesOf(_ ingredient: SWIngredient) -> [Int]
+    
 }

@@ -41,4 +41,7 @@ protocol SWWheelsAssembler {
     
     func resolve(from controller: UIViewController, areas: SWAreasOfInterest) -> SWWalkthroughAssembler
     
+    func resolve() -> SWCheifCook
+    
+    func resolve(bases: SWAbstractWheelController, fats: SWAbstractWheelController, veggies: SWAbstractWheelController, proteins: SWAbstractWheelController, unexpected: UIButton, fruits: UIButton, dressings: UIButton, scene: UIView) -> SWWheelsAnimationHelper
 }

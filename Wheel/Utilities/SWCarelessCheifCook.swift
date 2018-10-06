@@ -9,24 +9,48 @@
 import Foundation
 class SWCarelessCheifCook: SWCheifCook {
     
-    private let ingredients: SWIngredientRepository
+    private var repository: SWFullIngredientRepository
     
-    private let measuresments: SWMeasuresmentRepository
-    
-    private let stats: SWIngredientStats
-    
-    private let blockings: SWBlockingRepository
-    
-    init(ingredients: SWIngredientRepository, measuresments: SWMeasuresmentRepository, stats: SWIngredientStats, blockings: SWBlockingRepository) {
-        self.ingredients = ingredients
-        self.measuresments = measuresments
-        self.stats = stats
-        self.blockings = blockings
+    init(ingredients: SWFullIngredientRepository) {
+        self.repository = ingredients
     }
     
     func suggest() -> [SWIngredient] {
-//        ingredients.getAll().join(with: measuresments., on: <#T##(SWIngredient, T1) -> Bool#>, as: <#T##(SWIngredient, T1) -> T2#>)
-        return []
+        var selection: [SWIngredient] = []
+        
+        let ingredients = repository.getAll()
+        
+        selection.append(ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }).random()!.ingredient)
+        
+        selection.append(ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false}).random()!.ingredient)
+        
+        do {
+            var veggies = ingredients.filter({ $0.ingredient.kind == .veggy && $0.isBlocked == false })
+            let first = veggies.random()!.ingredient
+            veggies.remove(at: veggies.index(where: { $0.ingredient == first })!)
+            let second = veggies.random()!.ingredient
+            veggies.remove(at: veggies.index(where: { $0.ingredient == second })!)
+            let third = veggies.random()!.ingredient
+            selection.append(contentsOf: [first, second, third])
+        }
+        
+        selection.append(ingredients.filter({ $0.ingredient.kind == .protein && $0.isBlocked == false }).random()!.ingredient)
+        
+        do {
+            var enhancers = ingredients.filter({ $0.isBlocked == false && ($0.ingredient.kind == .fruits || $0.ingredient.kind == .dressing || $0.ingredient.kind == .unexpected) })
+            let first = enhancers.random()!.ingredient
+            enhancers.remove(at: enhancers.index(where: { $0.ingredient == first })!)
+            let second = enhancers.random()!.ingredient
+            selection.append(contentsOf: [first, second])
+        }
+        
+        return selection
     }
     
+    func suggest(_ kind: SWIngredientKinds, for selection: [SWIngredient]) -> SWIngredient {
+        
+        let ingredient = repository.getAll().filter({ $0.isBlocked == false && $0.ingredient.kind == kind && selection.contains($0.ingredient) == false }).random()!.ingredient
+        return ingredient
+        
+    }
 }

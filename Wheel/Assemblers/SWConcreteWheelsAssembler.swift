@@ -81,4 +81,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         let wheels = controller.navigationController?.view.snapshotView(afterScreenUpdates: true)
         return SWConcreteWalkthroughAssembler(background: wheels!, areas: areas)
     }
+    
+    func resolve() -> SWCheifCook {
+        return SWCarelessCheifCook(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository()))
+    }
 }

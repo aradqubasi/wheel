@@ -489,6 +489,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
         let spoke = _spokes[index]
         return spoke.pin.asIngridient
     }
+    
+    func getIndexesOf(_ ingredient: SWIngredient) -> [Int] {
+        let indexes = _spokes.filter({ $0.pin.asIngridient == ingredient }).map({ $0.index })
+        return indexes
+    }
 
     func getPinAt(_ index: Int) -> PinView? {
         let spoke = _spokes[index]

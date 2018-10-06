@@ -66,6 +66,8 @@
 		1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66A2165DC1200CDC2B0 /* SWFullIngredient.swift */; };
 		1568A66D2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */; };
 		1568A66F2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */; };
+		1568A671216887E100CDC2B0 /* SWWheelsAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */; };
+		1568A673216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */; };
 		156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */; };
 		156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */; };
 		156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD0203961FB00CFEEA4 /* SWAppState.swift */; };
@@ -294,6 +296,8 @@
 		1568A66A2165DC1200CDC2B0 /* SWFullIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFullIngredient.swift; sourceTree = "<group>"; };
 		1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFullIngredientRepository.swift; sourceTree = "<group>"; };
 		1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteFullIngredientRepository.swift; sourceTree = "<group>"; };
+		1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelsAnimationHelper.swift; sourceTree = "<group>"; };
+		1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteWheelsAnimationHelper.swift; sourceTree = "<group>"; };
 		156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BD0203961FB00CFEEA4 /* SWAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAppState.swift; sourceTree = "<group>"; };
@@ -798,6 +802,8 @@
 				155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */,
 				1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */,
 				1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */,
+				1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */,
+				1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1075,6 +1081,7 @@
 				1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
 				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
+				1568A673216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				15C5B6812160D01A004B0C18 /* SWConcreteFilterAligner.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
@@ -1202,6 +1209,7 @@
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */,
 				15FA766A211FF95600AE6231 /* SWAnimationTypes.swift in Sources */,
+				1568A671216887E100CDC2B0 /* SWWheelsAnimationHelper.swift in Sources */,
 				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */,

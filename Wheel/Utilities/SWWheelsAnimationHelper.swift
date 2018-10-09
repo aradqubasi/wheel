@@ -10,6 +10,10 @@ import Foundation
 import UIKit
 protocol SWWheelsAnimationHelper {
     
+    func getLocation(_ ingredient: SWIngredient) -> SWIngredientLocation
+    
     func getLocations(of ingredients: [SWIngredient]) -> [SWIngredientLocation]
+    
+    func getKindComparer() -> (_: SWIngredient, _: SWIngredient) -> Bool
     
 }

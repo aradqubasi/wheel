@@ -28,8 +28,13 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
     }
     
     func getAll() -> [SWFullIngredient] {
+        return get(by: { _ in return true })
+    }
+
+    func get(by predicate: (_:SWIngredientKinds) -> Bool) -> [SWFullIngredient] {
         let full = ingredients
             .getAll()
+            .filter({ return predicate($0.kind) })
             .join(with: measuresments.getAll(), on: {
                 (inner: SWIngredient, outer: SWMeasuresment) -> Bool in
                 return inner.unit == outer.id
@@ -59,5 +64,4 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
             })
         return full
     }
-
 }

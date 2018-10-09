@@ -11,4 +11,6 @@ protocol SWFullIngredientRepository {
     
     func getAll() -> [SWFullIngredient]
     
+    func get(by predicate: (_:SWIngredientKinds) -> Bool) -> [SWFullIngredient]
+    
 }

@@ -97,6 +97,7 @@
 		158387A920340DBC001E4008 /* SWContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387A820340DBC001E4008 /* SWContext.swift */; };
 		158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */; };
 		158387AD203554A7001E4008 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AC203554A7001E4008 /* String.swift */; };
+		159253812169D5B4004276BB /* SWBalancedCheifCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253802169D5B4004276BB /* SWBalancedCheifCook.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -327,6 +328,7 @@
 		158387A820340DBC001E4008 /* SWContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWContext.swift; sourceTree = "<group>"; };
 		158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRootAssembler.swift; sourceTree = "<group>"; };
 		158387AC203554A7001E4008 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		159253802169D5B4004276BB /* SWBalancedCheifCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBalancedCheifCook.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -802,6 +804,7 @@
 				155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */,
 				1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */,
 				1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */,
+				159253802169D5B4004276BB /* SWBalancedCheifCook.swift */,
 				1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */,
 				1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */,
 			);
@@ -1257,6 +1260,7 @@
 				152F66E320F084200070BAA5 /* SWSpot.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
+				159253812169D5B4004276BB /* SWBalancedCheifCook.swift in Sources */,
 				15AAAE25211175E00022996D /* SWSelectionWheelAssembler.swift in Sources */,
 				1511929E207CC6E500D93751 /* SWFeedbackService.swift in Sources */,
 				1562307C213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift in Sources */,

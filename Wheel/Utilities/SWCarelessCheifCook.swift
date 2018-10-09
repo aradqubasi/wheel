@@ -47,10 +47,9 @@ class SWCarelessCheifCook: SWCheifCook {
         return selection
     }
     
-    func suggest(_ kind: SWIngredientKinds, for selection: [SWIngredient]) -> SWIngredient {
-        
-        let ingredient = repository.getAll().filter({ $0.isBlocked == false && $0.ingredient.kind == kind && selection.contains($0.ingredient) == false }).random()!.ingredient
+    func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
+        let ingredient = repository.getAll().filter({ $0.isBlocked == false && kinds.contains($0.ingredient.kind) && selection.contains($0.ingredient) == false }).random()!.ingredient
         return ingredient
-        
     }
+    
 }

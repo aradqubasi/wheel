@@ -34,6 +34,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     private var _appState: SWAppStateRepository!
     
     private var _chiefCook: SWCheifCook!
+    
+    private var _helper: SWWheelsAnimationHelper!
         
     var bases: SWAbstractWheelController!
     
@@ -517,9 +519,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             }
         }
         
-        do {
-            
-        }
+        _helper = assembler.resolve(bases: self.bases, fats: self.fats, veggies: self.veggies, proteins: self.proteins, unexpected: self.toUnexpected, fruits: self.toFruits, dressings: self.toDressing, scene: self.view)
 
     }
 
@@ -592,46 +592,77 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onNextMenu(_ sender: Any) {
 
+//        if !self.couldAnimate(.onWheelsCreateRandomSaladClick, sender: self) {
+//            return
+//        }
+//
+//        self.onAnimationStart(.movingAllWheels, sender: self)
+//
+//        let selection = _chiefCook.suggest()
+//
+//        let base = _helper.getLocation(selection.first(where: { $0.kind == .base })!)
+//        let fat = _helper.getLocation(selection.first(where: { $0.kind == .fat })!)
+//        let veggy1 = _helper.getLocation(selection.first(where: { $0.kind == .veggy })!)
+//        let veggy2 = _helper.getLocation(selection.first(where: { $0.kind == .veggy && $0 != veggy1.ingredient })!)
+//        let protein = _helper.getLocation(selection.first(where: { $0.kind == .protein })!)
+//        let enhancer = _helper.getLocation(selection.first(where: { $0.kind == .unexpected || $0.kind == .fruits || $0.kind == .dressing })!)
+//
+//
+//        let shuffle1 = { () -> Void in
+//            base.move()
+//            fat.move()
+//            veggy1.move()
+//            protein.move()
+//        }
+//
+//        let shuffle2 = { () -> Void in
+//            veggy2.move()
+//        }
+//
+//        let select = { (_: Bool) -> Void in
+//            let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
+//            self.selectionController.push(focus)
+//        }
+//
+//        self.selectionController.clear()
+//        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
+//        UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: {
+//            (success: Bool) -> Void in
+//            self.onAnimationEnd(.movingAllWheels, sender: self)
+//        })
+        
         if !self.couldAnimate(.onWheelsCreateRandomSaladClick, sender: self) {
             return
         }
         
         self.onAnimationStart(.movingAllWheels, sender: self)
         
-        let base = getNew(of: .base, excluding: [])
-        let fat = getNew(of: .fat, excluding: [])
-        let veggy1 = getNew(of: .veggy, excluding: [])
-        let veggy2 = getNew(of: .veggy, excluding: [veggy1.ingredient])
-        let protein = getNew(of: .protein, excluding: [])
+        let selection = _chiefCook
+            .suggest()
+            .sorted(by: _helper.getKindComparer())
+            .map({ self._helper.getLocation($0) })
         
-        let fruit = getNew(of: .fruits, excluding: [])
-        let unexpected = getNew(of: .unexpected, excluding: [])
-        let dressing = getNew(of: .dressing, excluding: [])
-        let enhancer = [fruit, unexpected, dressing].random()!
-        
-        
-        let shuffle1 = { () -> Void in
-            base.move()
-            fat.move()
-            veggy1.move()
-            protein.move()
-        }
-        
-        let shuffle2 = { () -> Void in
-            veggy2.move()
-        }
-        
-        let select = { (_: Bool) -> Void in
-            let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
-            self.selectionController.push(focus)
-        }
+        let f = selection
+            .reversed()
+            .reduce({
+                () -> Void in
+                    self.onAnimationEnd(.movingAllWheels, sender: self)
+            }, {
+                (result: @escaping () -> Void, next: SWIngredientLocation) -> () -> Void in
+                return {
+                    UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
+                        next.move()
+                    }, completion: {
+                        (_:Bool) -> Void in
+                        result()
+                    })
+                }
+            })
         
         self.selectionController.clear()
-        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
-        UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: {
-            (success: Bool) -> Void in
-            self.onAnimationEnd(.movingAllWheels, sender: self)
-        })
+        self.selectionController.push(selection.map({ $0.location }))
+        
+        f()
     }
     
     private var scrollLastAngle: CGFloat!
@@ -730,63 +761,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             return self.proteins
         default:
             return nil
-        }
-    }
-    
-    private func getNew(of kind: SWIngredientKinds, excluding existing: [SWIngredient]) -> SWIngredientLocation {
-        
-        switch kind {
-        case .base, .fat, .protein, .veggy:
-            var wheel: SWAbstractWheelController!
-            switch kind {
-            case .base:
-                wheel = bases
-            case .fat:
-                wheel = fats
-            case .protein:
-                wheel = proteins
-            case .veggy:
-                wheel = veggies
-            default:
-                fatalError("there is no wheel for kind \(kind)")
-            }
-            var random = wheel.count.random()
-            for _ in 0..<wheel.count {
-                if existing.first(where: { $0 == wheel.getIngredientAt(random) }) == nil {
-                    break
-                }
-                random += 1
-                if random == wheel.count {
-                    random = 0
-                }
-            }
-            return SWWheelIngredientLocation(ingredient: wheel.getIngredientAt(random)!, index: random, wheel: wheel, scene: view)
-        case .dressing, .fruits, .unexpected:
-            var button: UIButton!
-            switch kind {
-            case .dressing:
-                button = self.toDressing
-            case .fruits:
-                button = self.toFruits
-            case .unexpected:
-                button = self.toUnexpected
-            default:
-                fatalError("there is no button for kind \(kind)")
-            }
-            let ingredients = filter.filterByOptionsAnd(by: kind)
-            var random = ingredients.count.random()
-            for _ in 0..<ingredients.count {
-                if ingredients.first(where: { $0 == ingredients[random] }) == nil {
-                    break
-                }
-                random += 1
-                if random == ingredients.count {
-                    random = 0
-                }
-            }
-            return SWButtonIngredientLocation(ingredient: ingredients[random], button: button)
-//        default:
-//            fatalError("can not getNew(of:excluding:) for kind: \(kind)")
         }
     }
     
@@ -1038,20 +1012,18 @@ extension WheelsViewController: SWSelectionWheelDelegate {
     }
     
     func onTriggerRandomIngredient(of kind: [SWIngredientKinds]) {
-        if let kind = kind.random() {
-            let location = getNew(of: kind, excluding: selectionController.getSelected())
-            self.onAnimationStart(.movingOneWheel, sender: self)
+        let location = _helper.getLocation(_chiefCook.suggestOne(of: kind, for: selectionController.getSelected()))
+        self.onAnimationStart(.movingOneWheel, sender: self)
+        UIView.animate(withDuration: 0.225, animations: {
+            location.move()
+        }, completion: {
+            (success) -> Void in
+            self.onAnimationEnd(.movingOneWheel, sender: self)
+            self.selectionController.push([location.location])
             UIView.animate(withDuration: 0.225, animations: {
-                location.move()
-            }, completion: {
-                (success) -> Void in
-                self.onAnimationEnd(.movingOneWheel, sender: self)
-                self.selectionController.push([location.location])
-                UIView.animate(withDuration: 0.225, animations: {
-                    self.setActiveState(to: self.getWheel(of: kind) ?? self.current)
-                })
+                self.setActiveState(to: self.getWheel(of: location.ingredient.kind) ?? self.current)
             })
-        }
+        })
     }
     
 }

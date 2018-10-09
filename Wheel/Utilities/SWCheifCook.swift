@@ -11,6 +11,6 @@ protocol SWCheifCook {
     
     func suggest() -> [SWIngredient]
     
-    func suggest(_ kind: SWIngredientKinds, for selection: [SWIngredient]) -> SWIngredient
+    func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient
     
 }

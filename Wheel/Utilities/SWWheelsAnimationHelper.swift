@@ -14,6 +14,4 @@ protocol SWWheelsAnimationHelper {
     
     func getLocations(of ingredients: [SWIngredient]) -> [SWIngredientLocation]
     
-    func getKindComparer() -> (_: SWIngredient, _: SWIngredient) -> Bool
-    
 }

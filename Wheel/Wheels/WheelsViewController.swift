@@ -36,6 +36,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     private var _chiefCook: SWCheifCook!
     
     private var _helper: SWWheelsAnimationHelper!
+    
+    private var _modeler: SWModelHelper!
         
     var bases: SWAbstractWheelController!
     
@@ -316,6 +318,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         filter = assembler.resolve()
         _appState = assembler.resolve()
         _chiefCook = assembler.resolve()
+        _modeler = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -639,30 +642,38 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         
         let selection = _chiefCook
             .suggest()
-            .sorted(by: _helper.getKindComparer())
+            .sorted(by: _modeler.getKindComparer())
             .map({ self._helper.getLocation($0) })
         
-        let f = selection
-            .reversed()
+//        selection.forEach({ print($0.ingredient.name) })
+//
+//        print("--------------")
+        
+        let select = selection
+//            .reversed()
             .reduce({
                 () -> Void in
                     self.onAnimationEnd(.movingAllWheels, sender: self)
             }, {
                 (result: @escaping () -> Void, next: SWIngredientLocation) -> () -> Void in
                 return {
+                    print("\(next.ingredient.name)")
                     UIView.animate(withDuration: 0.5, delay: 0, options: [], animations: {
                         next.move()
                     }, completion: {
-                        (_:Bool) -> Void in
+                        (success:Bool) -> Void in
+                        print("\(success)")
                         result()
                     })
                 }
             })
         
         self.selectionController.clear()
-        self.selectionController.push(selection.map({ $0.location }))
-        
-        f()
+        Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: {_ in
+            self.selectionController.push(selection.map({ $0.location }))
+        })
+
+        select()
     }
     
     private var scrollLastAngle: CGFloat!

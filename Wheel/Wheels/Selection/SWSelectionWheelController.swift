@@ -114,6 +114,8 @@ class SWSelectionWheelController: UIViewController {
     private var prevFocusedKinds: SWIngredientKinds = .base
     
     private var semaphor: SWAnimationSemaphor!
+    
+    private var modeler: SWModelHelper!
 
     // MARK: - Initialization
 
@@ -131,6 +133,7 @@ class SWSelectionWheelController: UIViewController {
         tipGenerator.enhancers = count.enhancers.min
         
         semaphor = assembler.resolve()
+        modeler = assembler.resolve()
         
         //pointer
         do {
@@ -606,31 +609,6 @@ class SWSelectionWheelController: UIViewController {
         return angles.reduce(CGFloat.infinity, { abs($0) > abs($1) ? $1 : $0 })
     }
     
-    private func getRank(of ingredient: SWIngredient) -> Int {
-        if ingredient.kind == .fruits {
-            return 0
-        }
-        else if ingredient.kind == .dressing {
-            return 0
-        }
-        else if ingredient.kind == .unexpected {
-            return 0
-        }
-        else if ingredient.kind == .protein {
-            return 1
-        }
-        else if ingredient.kind == .veggy {
-            return 2
-        }
-        else if ingredient.kind == .fat {
-            return 3
-        }
-        else if ingredient.kind == .base {
-            return 4
-        }
-        return 0
-    }
-    
     private func sortAndFilter(_ ingredients: [SWIngredient]) -> [SWIngredient] {
         var enhancers = count.enhancers.max
         var leafs = count.leafs.max
@@ -656,7 +634,7 @@ class SWSelectionWheelController: UIViewController {
                 }
             }
         }
-        let result = ingredients.filter({
+        let result: [SWIngredient] = ingredients.filter({
             if $0.kind == .base  {
                 leafs = leafs - 1
                 return leafs >= 0
@@ -677,10 +655,7 @@ class SWSelectionWheelController: UIViewController {
                 enhancers = enhancers - 1
                 return enhancers >= 0
             }
-        }).sorted(by: {
-            (prev, next) -> Bool in
-            return getRank(of: prev) > getRank(of: next)
-        })
+        }).sorted(by: modeler.getKindComparer()).reversed()
         return result
     }
     
@@ -949,10 +924,6 @@ class SWSelectionWheelController: UIViewController {
     
     @IBAction private func onCookClick(sender: UIButton) -> Void {
         delegate?.onCook()
-    }
-    
-    @IBAction private func onFoodClick(sender: FloatingSelectedView) {
-//        delegate?.onRemove(of: sender, in: self)
     }
     
     @IBAction private func onSpotClick(sender: UIButton) {

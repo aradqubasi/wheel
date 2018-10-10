@@ -90,4 +90,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve(bases: SWAbstractWheelController, fats: SWAbstractWheelController, veggies: SWAbstractWheelController, proteins: SWAbstractWheelController, unexpected: UIButton, fruits: UIButton, dressings: UIButton, scene: UIView) -> SWWheelsAnimationHelper {
         return SWConcreteWheelsAnimationHelper(bases: bases, fats: fats, veggies: veggies, proteins: proteins, unexpected: unexpected, fruits: fruits, dressings: dressings, scene: scene)
     }
+    
+    func resolve() -> SWModelHelper {
+        return SWConcreteModelHelper()
+    }
 }

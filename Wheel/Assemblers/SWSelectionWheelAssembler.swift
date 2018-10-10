@@ -15,4 +15,6 @@ protocol SWSelectionWheelAssembler {
     
     func resolve() -> SWAnimationSemaphor
     
+    func resolve() -> SWModelHelper
+    
 }

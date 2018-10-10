@@ -24,7 +24,6 @@
 		151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43821180E010018CF52 /* SWIngredientLocation.swift */; };
 		151EE43B21180F6F0018CF52 /* SWWheelIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */; };
 		151EE43D211812320018CF52 /* SWButtonIngredientLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */; };
-		1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */; };
 		152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */; };
 		152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */; };
 		152F66D820EB37070070BAA5 /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 152F66D720EB37070070BAA5 /* Array.swift */; };
@@ -40,12 +39,9 @@
 		15456D661FC978C60018A1CD /* UIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D651FC978C60018A1CD /* UIFont.swift */; };
 		15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D691FCAB8670018A1CD /* SWIngredientKinds.swift */; };
 		15456D6C1FCB0DA10018A1CD /* SWIngredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6B1FCB0DA10018A1CD /* SWIngredient.swift */; };
-		15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D6D1FCBD9910018A1CD /* SelectionController.swift */; };
 		15456D731FD2862B0018A1CD /* TransparentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D721FD2862B0018A1CD /* TransparentView.swift */; };
 		15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D741FD692C10018A1CD /* UIScrollView.swift */; };
-		15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */; };
 		15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D781FD7E0880018A1CD /* CGPoint.swift */; };
-		15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
 		154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */; };
 		154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */; };
@@ -98,6 +94,8 @@
 		158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */; };
 		158387AD203554A7001E4008 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 158387AC203554A7001E4008 /* String.swift */; };
 		159253812169D5B4004276BB /* SWBalancedCheifCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253802169D5B4004276BB /* SWBalancedCheifCook.swift */; };
+		15925383216DC16B004276BB /* SWModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925382216DC16B004276BB /* SWModelHelper.swift */; };
+		15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925384216DC19C004276BB /* SWConcreteModelHelper.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -144,7 +142,6 @@
 		15BA80402041F5B200596CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803F2041F5B200596CC8 /* Int.swift */; };
 		15BA8044204813CC00596CC8 /* SWRecipyIngridientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */; };
 		15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4A1FE6513A003816AF /* SelectionState.swift */; };
-		15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */; };
 		15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BBE174200A80D20050878B /* SWConfiguration.swift */; };
 		15C5B67D21561C7F004B0C18 /* SWTallWheelsAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */; };
 		15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */; };
@@ -255,7 +252,6 @@
 		151EE43821180E010018CF52 /* SWIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientLocation.swift; sourceTree = "<group>"; };
 		151EE43A21180F6F0018CF52 /* SWWheelIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelIngredientLocation.swift; sourceTree = "<group>"; };
 		151EE43C211812320018CF52 /* SWButtonIngredientLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWButtonIngredientLocation.swift; sourceTree = "<group>"; };
-		1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedView.swift; sourceTree = "<group>"; };
 		152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideOverlayAnimationController.swift; sourceTree = "<group>"; };
 		152F66D520E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPickingOverlayAnimationController.swift; sourceTree = "<group>"; };
 		152F66D720EB37070070BAA5 /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
@@ -271,12 +267,9 @@
 		15456D651FC978C60018A1CD /* UIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFont.swift; sourceTree = "<group>"; };
 		15456D691FCAB8670018A1CD /* SWIngredientKinds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientKinds.swift; sourceTree = "<group>"; };
 		15456D6B1FCB0DA10018A1CD /* SWIngredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredient.swift; sourceTree = "<group>"; };
-		15456D6D1FCBD9910018A1CD /* SelectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionController.swift; sourceTree = "<group>"; };
 		15456D721FD2862B0018A1CD /* TransparentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparentView.swift; sourceTree = "<group>"; };
 		15456D741FD692C10018A1CD /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
-		15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedHolderView.swift; sourceTree = "<group>"; };
 		15456D781FD7E0880018A1CD /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
-		15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSelectedViewStates.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskDelegate.swift; sourceTree = "<group>"; };
 		154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelViewAbstracted.swift; sourceTree = "<group>"; };
@@ -329,6 +322,8 @@
 		158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRootAssembler.swift; sourceTree = "<group>"; };
 		158387AC203554A7001E4008 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		159253802169D5B4004276BB /* SWBalancedCheifCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBalancedCheifCook.swift; sourceTree = "<group>"; };
+		15925382216DC16B004276BB /* SWModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWModelHelper.swift; sourceTree = "<group>"; };
+		15925384216DC19C004276BB /* SWConcreteModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteModelHelper.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -375,7 +370,6 @@
 		15BA803F2041F5B200596CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
 		15BA8043204813CC00596CC8 /* SWRecipyIngridientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyIngridientView.swift; sourceTree = "<group>"; };
 		15BB5A4A1FE6513A003816AF /* SelectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionState.swift; sourceTree = "<group>"; };
-		15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionDelegate.swift; sourceTree = "<group>"; };
 		15BBE174200A80D20050878B /* SWConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConfiguration.swift; sourceTree = "<group>"; };
 		15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTallWheelsAligner.swift; sourceTree = "<group>"; };
 		15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWFilterAligner.swift; sourceTree = "<group>"; };
@@ -565,11 +559,6 @@
 			isa = PBXGroup;
 			children = (
 				15F5D62A2087003E00462DE7 /* Tip */,
-				15456D6D1FCBD9910018A1CD /* SelectionController.swift */,
-				15BB5A4C1FE6714D003816AF /* SelectionDelegate.swift */,
-				15456D761FD6D82E0018A1CD /* SelectedHolderView.swift */,
-				15456D7C1FD9E0130018A1CD /* FloatingSelectedViewStates.swift */,
-				1525FE611FDA6BA0001CABF6 /* FloatingSelectedView.swift */,
 				15DF420B1FE1352B00B6CC62 /* Floatable.swift */,
 				15AAAE282116D69B0022996D /* SWFakeFloatable.swift */,
 				15AAAE2A2116D71C0022996D /* SWPlaceholderFloatable.swift */,
@@ -807,6 +796,8 @@
 				159253802169D5B4004276BB /* SWBalancedCheifCook.swift */,
 				1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */,
 				1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */,
+				15925382216DC16B004276BB /* SWModelHelper.swift */,
+				15925384216DC19C004276BB /* SWConcreteModelHelper.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1066,7 +1057,6 @@
 				158387A220340371001E4008 /* SWOptionRepository.swift in Sources */,
 				15BB5A4B1FE6513A003816AF /* SelectionState.swift in Sources */,
 				15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */,
-				15456D7D1FD9E0130018A1CD /* FloatingSelectedViewStates.swift in Sources */,
 				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
 				15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */,
 				15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */,
@@ -1090,7 +1080,6 @@
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
-				15BB5A4D1FE6714D003816AF /* SelectionDelegate.swift in Sources */,
 				15BA8020203BF57F00596CC8 /* SWBlockingRepository.swift in Sources */,
 				152F66E120EDDCD20070BAA5 /* SWSelectionWheelController.swift in Sources */,
 				15A258992093835000F738B5 /* SWMoreButton.swift in Sources */,
@@ -1099,7 +1088,6 @@
 				15FA76772127F02800AE6231 /* SWAreasOfInterest.swift in Sources */,
 				15BA80402041F5B200596CC8 /* Int.swift in Sources */,
 				156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */,
-				1525FE621FDA6BA0001CABF6 /* FloatingSelectedView.swift in Sources */,
 				15D13D462054128700D44923 /* SWWheelsAligner.swift in Sources */,
 				15BA8026203FDAF900596CC8 /* SWWheelPositionCalculator.swift in Sources */,
 				158387AB20340F2A001E4008 /* SWConcreteRootAssembler.swift in Sources */,
@@ -1156,7 +1144,6 @@
 				15FA766C211FFCAF00AE6231 /* SWAnimatableEvents.swift in Sources */,
 				15A2589D2093933E00F738B5 /* SWOptionAligner.swift in Sources */,
 				15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */,
-				15456D771FD6D82E0018A1CD /* SelectedHolderView.swift in Sources */,
 				15456D661FC978C60018A1CD /* UIFont.swift in Sources */,
 				15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */,
 				15C5B67D21561C7F004B0C18 /* SWTallWheelsAligner.swift in Sources */,
@@ -1173,10 +1160,10 @@
 				151AFE491FA119FD00CC5357 /* UIImage.swift in Sources */,
 				15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */,
 				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
-				15456D6E1FCBD9910018A1CD /* SelectionController.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
 				1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */,
+				15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */,
@@ -1226,6 +1213,7 @@
 				151192A0207CC79700D93751 /* SWFeedbackOverHttpService.swift in Sources */,
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
+				15925383216DC16B004276BB /* SWModelHelper.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
 				151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,

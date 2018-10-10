@@ -94,7 +94,7 @@ class SWBalancedCheifCook: SWCheifCook {
             }
             counter += 1
         }
-        print("found in \(counter) attempts")
+        print("found in \(counter) attempts \(suggestion.count) elements")
         return suggestion
     }
 }

@@ -27,4 +27,8 @@ class SWConcreteSelectionWheelAssembler: SWSelectionWheelAssembler {
         return self.semaphor
     }
     
+    func resolve() -> SWModelHelper {
+        return SWConcreteModelHelper()
+    }
+    
 }

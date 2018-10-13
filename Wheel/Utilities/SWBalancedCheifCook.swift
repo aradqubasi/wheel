@@ -9,12 +9,75 @@
 import Foundation
 class SWBalancedCheifCook: SWCheifCook {
     
-    private var calloriesPerServing: Double = 333
+    private let attempts = 10
+    
+    private let dailyCalories: Double = 1800
+    
+    private let energyByServingByDayHour: [(start: Int, end: Int, min: Double, max: Double)] = [
+        (0, 10, 0.167, 0.222),
+        (11, 19, 0.278, 0.389),
+        (20, 24, 0.167, 0.222),
+    ]
+    
+    private let energyByNutrient: (carbohydrates: (min: Double, max: Double), proteins: (min: Double, max: Double), fats: (min: Double, max: Double)) = ((0.45, 0.65), (0.1, 0.35), (0.2, 0.35))
     
     private var repository: SWFullIngredientRepository
     
     init(ingredients: SWFullIngredientRepository) {
         self.repository = ingredients
+    }
+    
+    private func getRaeIndex(actual: [Double], expected: [Double]) -> Double {
+        if actual.count != expected.count {
+            fatalError("can't calculate rae index for array of unequal length actual.count = \(actual) expected.count = \(expected)")
+        }
+        var index: Double = 0
+        for i in 0..<actual.count {
+            index += abs(actual[i] - expected[i])
+        }
+        index /= Double(actual.count)
+        return index
+    }
+    
+    private func rate(ingredients: [SWFullIngredient]) -> Double {
+        let zero: (fats: Double, proteins: Double, carbohydrates: Double, energy: Double) = (0, 0, 0, 0)
+        let stats = ingredients.map({
+            (next: SWFullIngredient) -> (fats: Double, proteins: Double, carbohydrates: Double, energy: Double) in
+            return (
+                next.stats.fats * next.ingredient.quantity * 6.0,
+                next.stats.proteins * 4.0 * next.ingredient.quantity,
+                next.stats.carbohydrates * 4.0 * next.ingredient.quantity,
+                next.stats.calories * next.ingredient.quantity
+            )
+        }).reduce(zero, {
+            (current, next) -> (fats: Double, proteins: Double, carbohydrates: Double, energy: Double) in
+            return (
+                current.fats + next.carbohydrates,
+                current.proteins + next.proteins,
+                current.carbohydrates + next.carbohydrates,
+                current.energy + next.energy
+            )
+        })
+        let hour = Calendar.current.component(.hour, from: Date())
+        guard let share = energyByServingByDayHour.first(where: { hour >= $0.start && hour < $0.end }) else {
+            fatalError("hour \(hour) is out of bounds 0..<24")
+        }
+        let mealEnergyShare = (share.max - share.min) * 0.5
+        let expected = [
+            (energyByNutrient.fats.max - energyByNutrient.fats.min) * 0.5 * mealEnergyShare,
+            (energyByNutrient.proteins.max - energyByNutrient.proteins.min) * 0.5 * mealEnergyShare,
+            (energyByNutrient.carbohydrates.max - energyByNutrient.carbohydrates.min) * 0.5 * mealEnergyShare
+        ]
+        print("expected = [\(expected[0]), \(expected[1]), \(expected[2])]")
+        let actual = [
+            stats.fats / dailyCalories,
+            stats.proteins / dailyCalories,
+            stats.carbohydrates / dailyCalories
+        ]
+        print("actual = [\(actual[0]), \(actual[1]), \(actual[2])]")
+        let rank = getRaeIndex(actual: actual, expected: expected)
+        print("rank = \(rank)")
+        return rank
     }
     
     private func random() -> [SWFullIngredient] {
@@ -61,7 +124,7 @@ class SWBalancedCheifCook: SWCheifCook {
             (prev, current) -> Double in
             return prev + current
         })
-        let leftover = self.calloriesPerServing - calories
+        let leftover = 1800 * 0.333 - calories
         let acceptable = ingredients
             .filter({ kinds.contains($0.ingredient.kind) })
             .filter({ $0.stats.calories < leftover })
@@ -83,19 +146,22 @@ class SWBalancedCheifCook: SWCheifCook {
     }
     
     func suggest() -> [SWIngredient] {
-        var match = false
-        var counter = 0
-        var suggestion: [SWIngredient] = []
-        while !match {
-            let next = random()
-            match = next.map({ $0.stats.calories }).reduce(0, {sum, current in return sum + current}) <= self.calloriesPerServing
-            if match {
-                suggestion = next.map({ $0.ingredient })
+        var selections: [(rank: Double, suggestion: [SWFullIngredient])] = []
+        for _ in 0..<self.attempts {
+            let ingredients = self.random()
+            let rank = self.rate(ingredients: ingredients)
+            var logLine = ""
+            for j in 0..<ingredients.count {
+                logLine += (j != 0 ? ", " : "") + ingredients[j].ingredient.name
             }
-            counter += 1
+            print("\(rank) = [\(logLine)]")
+            selections.append((rank, ingredients))
         }
-        print("found in \(counter) attempts \(suggestion.count) elements")
-        return suggestion
+        let lowest = selections.map({ $0.rank }).min()!
+        return selections
+            .first(where: { $0.rank == lowest })!
+            .suggestion
+            .map({ $0.ingredient })
     }
 }
 

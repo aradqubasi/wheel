@@ -96,6 +96,7 @@
 		159253812169D5B4004276BB /* SWBalancedCheifCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253802169D5B4004276BB /* SWBalancedCheifCook.swift */; };
 		15925383216DC16B004276BB /* SWModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925382216DC16B004276BB /* SWModelHelper.swift */; };
 		15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925384216DC19C004276BB /* SWConcreteModelHelper.swift */; };
+		1592538721706106004276BB /* SWLowenergyChiefCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592538621706106004276BB /* SWLowenergyChiefCook.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -324,6 +325,7 @@
 		159253802169D5B4004276BB /* SWBalancedCheifCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBalancedCheifCook.swift; sourceTree = "<group>"; };
 		15925382216DC16B004276BB /* SWModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWModelHelper.swift; sourceTree = "<group>"; };
 		15925384216DC19C004276BB /* SWConcreteModelHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteModelHelper.swift; sourceTree = "<group>"; };
+		1592538621706106004276BB /* SWLowenergyChiefCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWLowenergyChiefCook.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -798,6 +800,7 @@
 				1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */,
 				15925382216DC16B004276BB /* SWModelHelper.swift */,
 				15925384216DC19C004276BB /* SWConcreteModelHelper.swift */,
+				1592538621706106004276BB /* SWLowenergyChiefCook.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1202,6 +1205,7 @@
 				1568A671216887E100CDC2B0 /* SWWheelsAnimationHelper.swift in Sources */,
 				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
+				1592538721706106004276BB /* SWLowenergyChiefCook.swift in Sources */,
 				151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
 				15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */,

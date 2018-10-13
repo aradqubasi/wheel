@@ -594,45 +594,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     @IBAction func onNextMenu(_ sender: Any) {
-
-//        if !self.couldAnimate(.onWheelsCreateRandomSaladClick, sender: self) {
-//            return
-//        }
-//
-//        self.onAnimationStart(.movingAllWheels, sender: self)
-//
-//        let selection = _chiefCook.suggest()
-//
-//        let base = _helper.getLocation(selection.first(where: { $0.kind == .base })!)
-//        let fat = _helper.getLocation(selection.first(where: { $0.kind == .fat })!)
-//        let veggy1 = _helper.getLocation(selection.first(where: { $0.kind == .veggy })!)
-//        let veggy2 = _helper.getLocation(selection.first(where: { $0.kind == .veggy && $0 != veggy1.ingredient })!)
-//        let protein = _helper.getLocation(selection.first(where: { $0.kind == .protein })!)
-//        let enhancer = _helper.getLocation(selection.first(where: { $0.kind == .unexpected || $0.kind == .fruits || $0.kind == .dressing })!)
-//
-//
-//        let shuffle1 = { () -> Void in
-//            base.move()
-//            fat.move()
-//            veggy1.move()
-//            protein.move()
-//        }
-//
-//        let shuffle2 = { () -> Void in
-//            veggy2.move()
-//        }
-//
-//        let select = { (_: Bool) -> Void in
-//            let focus: [Floatable] = [base.location, fat.location, veggy1.location, veggy2.location, protein.location, enhancer.location]
-//            self.selectionController.push(focus)
-//        }
-//
-//        self.selectionController.clear()
-//        UIView.animate(withDuration: 0.5, delay: 0, options: [.curveEaseInOut], animations: shuffle1, completion: select)
-//        UIView.animate(withDuration: 0.5, delay: 1.5, options: [.curveEaseInOut], animations: shuffle2, completion: {
-//            (success: Bool) -> Void in
-//            self.onAnimationEnd(.movingAllWheels, sender: self)
-//        })
         
         if !self.couldAnimate(.onWheelsCreateRandomSaladClick, sender: self) {
             return
@@ -645,12 +606,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             .sorted(by: _modeler.getKindComparer())
             .map({ self._helper.getLocation($0) })
         
-//        selection.forEach({ print($0.ingredient.name) })
-//
-//        print("--------------")
-        
         let select = selection
-//            .reversed()
             .reduce({
                 () -> Void in
                     self.onAnimationEnd(.movingAllWheels, sender: self)

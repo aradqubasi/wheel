@@ -44,7 +44,7 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
             })
             .join(with: stats.getAll(), on: {
                 (inner: (SWIngredient, SWMeasuresment), outer: SWIngredientStats) -> Bool in
-                return inner.0.id == outer.ingredientId
+                return inner.0.id == outer.ingredientId && inner.1.id == outer.measuresmentId
             }, as: {
                 (inner: (SWIngredient, SWMeasuresment), outer: SWIngredientStats) -> (SWIngredient, SWMeasuresment, SWIngredientStats) in
                 return (inner.0, inner.1, outer)

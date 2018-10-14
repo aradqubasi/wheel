@@ -19,7 +19,7 @@ class SWUserDefaultsAppStateRepository: SWAppStateRepository {
     ]
     
     func get() -> SWAppState {
-        return SWAppState(showOnboarding: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowOnboarding), showWalkthrough: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowWalkthrough))
+        return SWAppState(showOnboarding: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowOnboarding), showWalkthrough: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowWalkthrough), activeCookId: -1)
     }
     
     func setShowOnboarding(_ value: Bool) {

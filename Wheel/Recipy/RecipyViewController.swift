@@ -50,6 +50,8 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     private var _dismisser: SWSwipeInteractiveTransition?
     
+    private let _servingsCountForNutritionStats: Int = 1
+    
     // MARK: - Initialization
 
     override func viewDidLoad() {
@@ -122,10 +124,10 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                 
                 do {
                     
-                    let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servings)
-                    let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servings)
-                    let fats: Double = _servingsGenerator.getFats(for: selection, per: _servings)
-                    let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servings)
+                    let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servingsCountForNutritionStats)
+                    let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servingsCountForNutritionStats)
+                    let fats: Double = _servingsGenerator.getFats(for: selection, per: _servingsCountForNutritionStats)
+                    let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servingsCountForNutritionStats)
                     
                     let gram = _measuresmentRepository.getGram()
                     let calories = _measuresmentRepository.getCalories()
@@ -340,10 +342,10 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     @IBAction func onMore(_ sender: Any) {
         _servings = _servings + 1
-        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servings)
-        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servings)
-        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servings)
-        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servings)
+        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servingsCountForNutritionStats)
+        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servingsCountForNutritionStats)
+        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servingsCountForNutritionStats)
+        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servingsCountForNutritionStats)
         _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
         _list.servings = _servings
         _counter.servings = _servings

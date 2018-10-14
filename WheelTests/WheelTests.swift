@@ -25,15 +25,7 @@ class WheelTests: XCTestCase {
     }
     
     func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let ingredients = SWInmemoryIngredientRepository()
-        let measures = SWInmemoryMeasuresmentRepository()
-//        let stats = SWInmemoryIngredientStatsRepository()
-        let recipy = SWConcreteRecipyListGenerator(measuresment: measures)
-        for ingredient in ingredients.getAll() {
-            print("\(recipy.getName(for: ingredient));\(recipy.getKind(for: ingredient));\(recipy.getQuantity(for: ingredient, per: 1))")
-        }
+
     }
     
     func testPerformanceExample() {

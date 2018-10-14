@@ -13,4 +13,6 @@ struct SWAppState {
     
     var showWalkthrough: Bool
     
+    var activeCookId: Int?
+    
 }

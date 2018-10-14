@@ -59,24 +59,24 @@ class SWBalancedCheifCook: SWCheifCook {
             )
         })
         let hour = Calendar.current.component(.hour, from: Date())
-        guard let share = energyByServingByDayHour.first(where: { hour >= $0.start && hour < $0.end }) else {
+        guard let share = energyByServingByDayHour.first(where: { hour >= $0.start && hour <= $0.end }) else {
             fatalError("hour \(hour) is out of bounds 0..<24")
         }
         let mealEnergyShare = (share.max - share.min) * 0.5
         let expected = [
-            (energyByNutrient.fats.max - energyByNutrient.fats.min) * 0.5 * mealEnergyShare,
-            (energyByNutrient.proteins.max - energyByNutrient.proteins.min) * 0.5 * mealEnergyShare,
-            (energyByNutrient.carbohydrates.max - energyByNutrient.carbohydrates.min) * 0.5 * mealEnergyShare
+            (energyByNutrient.fats.max + energyByNutrient.fats.min) * 0.5 * mealEnergyShare,
+            (energyByNutrient.proteins.max + energyByNutrient.proteins.min) * 0.5 * mealEnergyShare,
+            (energyByNutrient.carbohydrates.max + energyByNutrient.carbohydrates.min) * 0.5 * mealEnergyShare
         ]
-        print("expected = [\(expected[0]), \(expected[1]), \(expected[2])]")
+        //print("expected = [\(expected[0]), \(expected[1]), \(expected[2])]")
         let actual = [
             stats.fats / dailyCalories,
             stats.proteins / dailyCalories,
             stats.carbohydrates / dailyCalories
         ]
-        print("actual = [\(actual[0]), \(actual[1]), \(actual[2])]")
+        //print("actual = [\(actual[0]), \(actual[1]), \(actual[2])]")
         let rank = getRaeIndex(actual: actual, expected: expected)
-        print("rank = \(rank)")
+        //print("rank = \(rank)")
         return rank
     }
     
@@ -110,58 +110,55 @@ class SWBalancedCheifCook: SWCheifCook {
         return selection
     }
     
-    func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
-        
-        let ingredients = repository
-            .getAll()
-        let calories = ingredients.join(with: selection, on: {
-            (inner: SWFullIngredient, outer: SWIngredient) -> Bool in
-            return inner.ingredient == outer
-        }, as: {
-            (inner: SWFullIngredient, outer: SWIngredient) -> Double in
-            return inner.stats.calories
-        }).reduce(0, {
-            (prev, current) -> Double in
-            return prev + current
-        })
-        let leftover = 1800 * 0.333 - calories
-        let acceptable = ingredients
-            .filter({ kinds.contains($0.ingredient.kind) })
-            .filter({ $0.stats.calories < leftover })
-        if acceptable.count > 0 {
-            return acceptable.random()!.ingredient
-        }
-        else {
-            let forced: [SWIngredient] = Array(
-                ingredients
-                    .filter({ kinds.contains($0.ingredient.kind) })
-                    .sorted(by: {
-                        (prev, next) -> Bool in
-                        return next.stats.calories > prev.stats.calories
-                    })
-                    .map({ $0.ingredient })
-                    .prefix(10))
-            return forced.random()!
-        }
-    }
-    
-    func suggest() -> [SWIngredient] {
+    private func suggest(_ random: () -> [SWFullIngredient]) -> [SWIngredient] {
         var selections: [(rank: Double, suggestion: [SWFullIngredient])] = []
         for _ in 0..<self.attempts {
             let ingredients = self.random()
             let rank = self.rate(ingredients: ingredients)
-            var logLine = ""
-            for j in 0..<ingredients.count {
-                logLine += (j != 0 ? ", " : "") + ingredients[j].ingredient.name
-            }
-            print("\(rank) = [\(logLine)]")
             selections.append((rank, ingredients))
+            do {
+                var logLine = ""
+                for j in 0..<ingredients.count {
+                    logLine += (j != 0 ? ", " : "") + ingredients[j].ingredient.name
+                }
+                print("\(rank) = [\(logLine)]")
+            }
         }
         let lowest = selections.map({ $0.rank }).min()!
         return selections
             .first(where: { $0.rank == lowest })!
             .suggestion
             .map({ $0.ingredient })
+    }
+    
+    func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
+        let presuggestion = suggest({
+            var random = self.random().map({
+                return (fullIngredient: $0, replaced: false)
+            })
+            for existing in selection {
+                let existingFullIngredient = (repository.getAll().first(where: { $0.ingredient.id == existing.id }))!
+                if let index = random.index(where: {
+                    $0.fullIngredient.ingredient.kind == existing.kind && $0.replaced == false
+                }) {
+                    random[index] = (fullIngredient: existingFullIngredient, replaced: true)
+                }
+                else {
+                    random.append((fullIngredient: existingFullIngredient, replaced: true))
+                }
+            }
+            return random.map({ $0.fullIngredient })
+        })
+        guard let suggestion = presuggestion.first(where: {
+            kinds.contains($0.kind) && !selection.contains($0)
+        }) else {
+            fatalError("error during suggestOne")
+        }
+        return suggestion
+    }
+    
+    func suggest() -> [SWIngredient] {
+        return suggest({ return self.random() })
     }
 }
 

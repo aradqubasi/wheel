@@ -100,6 +100,10 @@
 		159253892171DEE9004276BB /* SWCook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253882171DEE8004276BB /* SWCook.swift */; };
 		1592538B2171DF85004276BB /* SWIngredientBias.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592538A2171DF85004276BB /* SWIngredientBias.swift */; };
 		1592538D2171E0B6004276BB /* SWMealEnergySharePerHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592538C2171E0B6004276BB /* SWMealEnergySharePerHour.swift */; };
+		15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925392217335C5004276BB /* SWRandomIngredientProvider.swift */; };
+		159253952173361B004276BB /* SWBiasedRandomIngredientProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253942173361B004276BB /* SWBiasedRandomIngredientProvider.swift */; };
+		1592539821733712004276BB /* SWIngredientBiasRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592539721733712004276BB /* SWIngredientBiasRepository.swift */; };
+		1592539A217341D1004276BB /* SWPersistantIngredientBiasRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15925399217341D1004276BB /* SWPersistantIngredientBiasRepository.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -332,6 +336,10 @@
 		159253882171DEE8004276BB /* SWCook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCook.swift; sourceTree = "<group>"; };
 		1592538A2171DF85004276BB /* SWIngredientBias.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientBias.swift; sourceTree = "<group>"; };
 		1592538C2171E0B6004276BB /* SWMealEnergySharePerHour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMealEnergySharePerHour.swift; sourceTree = "<group>"; };
+		15925392217335C5004276BB /* SWRandomIngredientProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRandomIngredientProvider.swift; sourceTree = "<group>"; };
+		159253942173361B004276BB /* SWBiasedRandomIngredientProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBiasedRandomIngredientProvider.swift; sourceTree = "<group>"; };
+		1592539721733712004276BB /* SWIngredientBiasRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientBiasRepository.swift; sourceTree = "<group>"; };
+		15925399217341D1004276BB /* SWPersistantIngredientBiasRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantIngredientBiasRepository.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -656,6 +664,8 @@
 				15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */,
 				1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */,
 				1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */,
+				1592539721733712004276BB /* SWIngredientBiasRepository.swift */,
+				15925399217341D1004276BB /* SWPersistantIngredientBiasRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -690,6 +700,48 @@
 				15FA76742127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift */,
 			);
 			path = Assemblers;
+			sourceTree = "<group>";
+		};
+		1592538E217334BF004276BB /* FilterAligners */ = {
+			isa = PBXGroup;
+			children = (
+				15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */,
+				15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */,
+				15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */,
+			);
+			path = FilterAligners;
+			sourceTree = "<group>";
+		};
+		1592538F217334F4004276BB /* StepAligners */ = {
+			isa = PBXGroup;
+			children = (
+				155679A7216334A1005B019B /* SWStepsAligner.swift */,
+				155679A921633523005B019B /* SWConcreteStepsAligner.swift */,
+				155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */,
+			);
+			path = StepAligners;
+			sourceTree = "<group>";
+		};
+		1592539021733523004276BB /* WheelsAligners */ = {
+			isa = PBXGroup;
+			children = (
+				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
+				15D13D472054135600D44923 /* SWWideWheelsAligner.swift */,
+				15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */,
+				15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */,
+			);
+			path = WheelsAligners;
+			sourceTree = "<group>";
+		};
+		159253912173355D004276BB /* CheifCooks */ = {
+			isa = PBXGroup;
+			children = (
+				1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */,
+				1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */,
+				159253802169D5B4004276BB /* SWBalancedCheifCook.swift */,
+				1592538621706106004276BB /* SWLowenergyChiefCook.swift */,
+			);
+			path = CheifCooks;
 			sourceTree = "<group>";
 		};
 		159C87DF209ACD33004436FE /* GestureRecognizers */ = {
@@ -776,6 +828,10 @@
 		15BA803A2041F1D800596CC8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				159253912173355D004276BB /* CheifCooks */,
+				1592539021733523004276BB /* WheelsAligners */,
+				1592538F217334F4004276BB /* StepAligners */,
+				1592538E217334BF004276BB /* FilterAligners */,
 				15BA803B2041F23800596CC8 /* SWNameGenerator.swift */,
 				15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */,
 				15A2581A208CA9D200F738B5 /* SWProtebaseNameGenerator.swift */,
@@ -783,10 +839,6 @@
 				15D13D39204EEC4C00D44923 /* SWConcreteServingsGenerator.swift */,
 				15D13D3D2052C68B00D44923 /* SWRecipyListGenerator.swift */,
 				15D13D3F2052C7C300D44923 /* SWConcreteRecipyListGenerator.swift */,
-				15D13D452054128700D44923 /* SWWheelsAligner.swift */,
-				15D13D472054135600D44923 /* SWWideWheelsAligner.swift */,
-				15D13D4B2057A03700D44923 /* SWNarrowWheelsAligner.swift */,
-				15C5B67C21561C7F004B0C18 /* SWTallWheelsAligner.swift */,
 				1511929D207CC6E400D93751 /* SWFeedbackService.swift */,
 				1511929F207CC79700D93751 /* SWFeedbackOverHttpService.swift */,
 				15A25811208B133200F738B5 /* SWTipGenerator.swift */,
@@ -796,20 +848,12 @@
 				15A2589E2093942500F738B5 /* SWConcreteOptionAligner.swift */,
 				15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */,
 				15FA4E2F20DE835E00A345EC /* SWConcreteIngredientsFilter.swift */,
-				15C5B67E2160CF2E004B0C18 /* SWFilterAligner.swift */,
-				15C5B6802160D01A004B0C18 /* SWConcreteFilterAligner.swift */,
-				15C5B6822160D134004B0C18 /* SWXPhoneFilterAligner.swift */,
-				155679A7216334A1005B019B /* SWStepsAligner.swift */,
-				155679A921633523005B019B /* SWConcreteStepsAligner.swift */,
-				155679AB21633561005B019B /* SWXPhoneStepsAligner.swift */,
-				1568A6662165D6DF00CDC2B0 /* SWCheifCook.swift */,
-				1568A6682165D77A00CDC2B0 /* SWCarelessCheifCook.swift */,
-				159253802169D5B4004276BB /* SWBalancedCheifCook.swift */,
 				1568A670216887E100CDC2B0 /* SWWheelsAnimationHelper.swift */,
 				1568A672216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift */,
 				15925382216DC16B004276BB /* SWModelHelper.swift */,
 				15925384216DC19C004276BB /* SWConcreteModelHelper.swift */,
-				1592538621706106004276BB /* SWLowenergyChiefCook.swift */,
+				15925392217335C5004276BB /* SWRandomIngredientProvider.swift */,
+				159253942173361B004276BB /* SWBiasedRandomIngredientProvider.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1074,6 +1118,7 @@
 				15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */,
 				15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */,
 				15BA803920414EFF00596CC8 /* SWInmemoryComponentRepository.swift in Sources */,
+				1592539821733712004276BB /* SWIngredientBiasRepository.swift in Sources */,
 				15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */,
 				15A25821208CBA6D00F738B5 /* SWDebugger.swift in Sources */,
 				1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */,
@@ -1090,6 +1135,7 @@
 				1568A673216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift in Sources */,
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				15C5B6812160D01A004B0C18 /* SWConcreteFilterAligner.swift in Sources */,
+				1592539A217341D1004276BB /* SWPersistantIngredientBiasRepository.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
@@ -1237,6 +1283,7 @@
 				15F5D62C208700A100462DE7 /* SWTipController.swift in Sources */,
 				15838794202EE724001E4008 /* SWIngrigientsOptionView.swift in Sources */,
 				15BA80292041445100596CC8 /* RecipyViewController.swift in Sources */,
+				159253952173361B004276BB /* SWBiasedRandomIngredientProvider.swift in Sources */,
 				15FA767D213A571800AE6231 /* SWHideWalkthroughAnimationController.swift in Sources */,
 				15BBE175200A80D20050878B /* SWConfiguration.swift in Sources */,
 				154DF0B5201C5CBE00B8391A /* UILabel.swift in Sources */,
@@ -1260,6 +1307,7 @@
 				15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */,
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
+				15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */,
 				152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */,
 				152F66E320F084200070BAA5 /* SWSpot.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,

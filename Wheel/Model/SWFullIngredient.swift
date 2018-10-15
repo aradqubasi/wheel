@@ -19,4 +19,6 @@ struct SWFullIngredient {
     
     var isBlocked: Bool
     
+    var bias: Double
+    
 }

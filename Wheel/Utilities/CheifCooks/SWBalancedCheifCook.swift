@@ -23,8 +23,12 @@ class SWBalancedCheifCook: SWCheifCook {
     
     private var repository: SWFullIngredientRepository
     
-    init(ingredients: SWFullIngredientRepository) {
+    private var randomizer: SWRandomIngredientProvider
+    
+    init(ingredients: SWFullIngredientRepository, randomizer: SWRandomIngredientProvider) {
         self.repository = ingredients
+        
+        self.randomizer = randomizer
     }
     
     private func getRaeIndex(actual: [Double], expected: [Double]) -> Double {
@@ -85,25 +89,31 @@ class SWBalancedCheifCook: SWCheifCook {
         
         let ingredients = repository.getAll()
         
-        selection.append(ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }).random()!)
+        selection.append(
+            randomizer.random(ingredients: ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }))
+//            ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }).random()!
+        )
         
-        selection.append(ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false}).random()!)
-        
+//        selection.append(ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false}).random()!)
+        selection.append(randomizer.random(ingredients: ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false})))
+
         do {
             var veggies = ingredients.filter({ $0.ingredient.kind == .veggy && $0.isBlocked == false })
-            let first = veggies.random()!
+            let first = randomizer.random(ingredients: veggies)
             veggies.remove(at: veggies.index(where: { $0.ingredient == first.ingredient })!)
-            let second = veggies.random()!
-            selection.append(contentsOf: [first, second])
+            let second = randomizer.random(ingredients: veggies)
+            veggies.remove(at: veggies.index(where: { $0.ingredient == second.ingredient })!)
+            let third = randomizer.random(ingredients: veggies)
+            selection.append(contentsOf: [first, second, third])
         }
         
         selection.append(ingredients.filter({ $0.ingredient.kind == .protein && $0.isBlocked == false }).random()!)
         
         do {
             var enhancers = ingredients.filter({ $0.isBlocked == false && ($0.ingredient.kind == .fruits || $0.ingredient.kind == .dressing || $0.ingredient.kind == .unexpected) })
-            let first = enhancers.random()!
+            let first = randomizer.random(ingredients: enhancers)
             enhancers.remove(at: enhancers.index(where: { $0.ingredient == first.ingredient })!)
-            let second = enhancers.random()!
+            let second = randomizer.random(ingredients: enhancers)
             selection.append(contentsOf: [first, second])
         }
         

@@ -19,12 +19,18 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
     
     private let options: SWOptionRepository
     
-    init(ingredients: SWIngredientRepository, measuresments: SWMeasuresmentRepository, stats: SWIngredientStatsRepository, blockings: SWBlockingRepository, options: SWOptionRepository) {
+    private let biases: SWIngredientBiasRepository
+    
+    private let state: SWAppStateRepository
+    
+    init(ingredients: SWIngredientRepository, measuresments: SWMeasuresmentRepository, stats: SWIngredientStatsRepository, blockings: SWBlockingRepository, options: SWOptionRepository, biases: SWIngredientBiasRepository, state: SWAppStateRepository) {
         self.ingredients = ingredients
         self.measuresments = measuresments
         self.stats = stats
         self.blockings = blockings
         self.options = options
+        self.biases = biases
+        self.state = state
     }
     
     func getAll() -> [SWFullIngredient] {
@@ -49,8 +55,20 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
                 (inner: (SWIngredient, SWMeasuresment), outer: SWIngredientStats) -> (SWIngredient, SWMeasuresment, SWIngredientStats) in
                 return (inner.0, inner.1, outer)
             })
+            .leftjoin(with: biases
+                .getAll()
+                .filter({
+                    $0.cookId == self.state.get().activeCookId
+                }
+            ), on: {
+                (inner: (SWIngredient, SWMeasuresment, SWIngredientStats), outer: SWIngredientBias?) -> Bool in
+                return inner.0.id == outer?.ingredientId
+            }, as: {
+                (inner: (SWIngredient, SWMeasuresment, SWIngredientStats), outer: SWIngredientBias?) -> (SWIngredient, SWMeasuresment, SWIngredientStats, SWIngredientBias?) in
+                return (inner.0, inner.1, inner.2, outer)
+            })
             .map({
-                (tuple: (SWIngredient, SWMeasuresment, SWIngredientStats)) -> SWFullIngredient in
+                (tuple: (SWIngredient, SWMeasuresment, SWIngredientStats, SWIngredientBias?)) -> SWFullIngredient in
                 let isBlocked = self.blockings.getAll(by: tuple.0).contains(where: {
                     block in
                     self.options.getAll().contains(where: {
@@ -60,8 +78,10 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
                             && block.ingredientId == tuple.0.id
                     })
                 })
-                return SWFullIngredient(ingredient: tuple.0, measure: tuple.1, stats: tuple.2, isBlocked: isBlocked)
+                let bias = tuple.3?.value ?? 1
+                return SWFullIngredient(ingredient: tuple.0, measure: tuple.1, stats: tuple.2, isBlocked: isBlocked, bias: bias)
             })
+        
         return full
     }
 }

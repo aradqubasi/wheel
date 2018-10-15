@@ -28,6 +28,18 @@ class WheelTests: XCTestCase {
 
     }
     
+    func testSWPersistantIngredientBiasRepository() {
+        let repository = SWPersistantIngredientBiasRepository()
+        
+        let all1 = repository.getAll()
+        
+        repository.saveOne(SWIngredientBias(id: 3, ingredientId: 1, cookId: 1, value: 5))
+        
+        let all2 = repository.getAll()
+        
+        print("success before \(all1.count) after \(all2.count)")
+    }
+    
     func testPerformanceExample() {
         // This is an example of a performance test case.
         self.measure {

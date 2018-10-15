@@ -42,6 +42,23 @@ extension Array {
         return result
     }
     
+    func leftjoin<T1, T2>(with collection: [T1], on predicate: (Element, T1) -> Bool, as select: (Element, T1?) -> T2) -> [T2] {
+        var result: [T2] = []
+        for i in 0..<self.count {
+            var hitted = false
+            for j in 0..<collection.count {
+                if predicate(self[i], collection[j]) {
+                    result.append(select(self[i], collection[j]))
+                    hitted = true
+                }
+            }
+            if !hitted {
+                result.append(select(self[i], nil))
+            }
+        }
+        return result
+    }
+    
 //    func query<T1,T2,T3>(_ t1: T1.Type, _ t2: T2.Type, _ t3: T3.Type) -> SWQuery<T1,T2,T3> {
 //        return SWQuery<T1,T2,T3>().arrayjoin(from: self as! [T1])
 //    }

@@ -7,7 +7,7 @@
 //
 
 import Foundation
-struct SWIngredientBias {
+struct SWIngredientBias: Codable {
     
     var id: Int?
     

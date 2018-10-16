@@ -66,6 +66,7 @@
                         <segue destination="yf6-AV-UG0" kind="show" identifier="WheelsToOverlay" id="Dpn-V9-dIP"/>
                         <segue destination="X86-kb-C2n" kind="show" identifier="WheelsToSubwheel" id="s8X-8a-0AY"/>
                         <segue destination="9Qm-n7-6oy" kind="show" identifier="WheelsToWalkthrough" id="8VK-aq-gYs"/>
+                        <segue destination="IhP-sc-3Nb" kind="show" identifier="WheelsToHamburger" id="ex4-oy-JMu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -112,6 +113,28 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hvg-9C-Dkd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1783" y="-845"/>
+        </scene>
+        <!--Hamburger View Controller-->
+        <scene sceneID="uU6-hF-9yb">
+            <objects>
+                <viewController id="IhP-sc-3Nb" customClass="HamburgerViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="O51-cU-NaG"/>
+                        <viewControllerLayoutGuide type="bottom" id="5XM-WT-H0X"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="EV0-cj-jDu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="yTo-mw-emM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mMt-Ei-ul6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="C39-fp-2fu" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-838" y="575"/>
         </scene>
         <!--Filter-->
         <scene sceneID="de4-Ub-Gip">

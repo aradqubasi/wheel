@@ -93,4 +93,9 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     func resolve() -> SWModelHelper {
         return SWConcreteModelHelper()
     }
+    
+    func resolve(using background: UIView) -> SWHamburgerAssembler {
+        return SWConcreteHamburgerAssembler(background)
+    }
+    
 }

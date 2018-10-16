@@ -64,6 +64,8 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWPickingOverlayAnimationController()
         case segues.getWalkthroughToWheels:
             return SWHideWalkthroughAnimationController()
+        case segues.getWheelsToHamburger:
+            return SWShowHamburgerController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
@@ -77,6 +79,9 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             else if fromVC is WheelsViewController && toVC is WalkthroughViewController {
                 return SWNoAnimationController()
             }
+//            else if fromVC is WheelsViewController && toVC is HamburgerViewController {
+//
+//            }
             else {
                 return nil
             }

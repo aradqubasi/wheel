@@ -482,15 +482,15 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             navigationItem.titleView = UILabel.wheelTitle
             
-//            let hamburger = UIBarButtonItem.hamburger
-//            hamburger.target = self
-//            hamburger.action = #selector(onHamburgerButtonClick(_:))
-//            navigationItem.leftBarButtonItem = hamburger
+            let hamburger = UIBarButtonItem.hamburger
+            hamburger.target = self
+            hamburger.action = #selector(onHamburgerButtonClick(_:))
+            navigationItem.leftBarButtonItem = hamburger
             
-            let question = UIBarButtonItem.question
-            question.target = self
-            question.action = #selector(onQuestionButtonClick(_:))
-            navigationItem.leftBarButtonItem = question
+//            let question = UIBarButtonItem.question
+//            question.target = self
+//            question.action = #selector(onQuestionButtonClick(_:))
+//            navigationItem.leftBarButtonItem = question
             
             let filter = UIBarButtonItem.filter
             filter.target = self
@@ -544,12 +544,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     // MARK: - Actions
     
     @IBAction func onFilterButtonClick(_ sender: UIBarButtonItem) {
-        print("onFilterButtonClick")
         perform(segue: segues.getWheelsToFilter())
     }
  
     @IBAction func onHamburgerButtonClick(_ sender: UIBarButtonItem) {
-        print("onHamburgerButtonClick")
+        perform(segue: segues.getWheelsToHamburger())
     }
     
     @IBAction func onQuestionButtonClick(_ sender: UIBarButtonItem) {
@@ -932,6 +931,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 let bigmidright = SWAreaOfInterest(center: self.bases.center, size: self.bases.getSize())
                                 
                 walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(in: view), enhancer: edge, wheelIngredient: middle, selectionIngredient: selectionController.getPinArea(in: view), wheel: bigmidright))
+            }
+        case segues.getWheelsToHamburger().identifier?:
+            if let hamburger = segue.destination as? HamburgerViewController {
+                let wheelsView = view.snapshotView(afterScreenUpdates: true)!
+                wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
+                hamburger.assembler = self.assembler.resolve(using: wheelsView)
             }
         default:
             fatalError("Unrecognized segue")

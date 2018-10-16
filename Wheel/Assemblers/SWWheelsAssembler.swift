@@ -47,4 +47,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWModelHelper
     
+    func resolve(using background: UIView) -> SWHamburgerAssembler
+    
 }

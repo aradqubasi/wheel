@@ -28,7 +28,6 @@ class SWSwipeInteractiveTransition: UIPercentDrivenInteractiveTransition, SWSwip
     }
     
     func onMove(_ sender: SWSwipeGestureRecognizer) {
-//        update(min(abs(sender.Current.x - sender.Initial.x) / pathToComplete, 1))
         update(sender.Progress)
     }
     

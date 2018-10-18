@@ -68,62 +68,40 @@ class SWSwipeGestureRecognizer: UIGestureRecognizer {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
         initial = location(ofTouch: 0, in: view!)
         IsInProgress = false
-//        current = initial
-//        Delegate?.onBegin(self)
-//        state = .began
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         self.current = location(ofTouch: 0, in: view!)
         if IsTooSmallToCheck {
-            print("IsTooSmallToCheck")
-//            state = .changed
         }
         else if !IsInProgress && !IsRightDownDirection {
-            print("!IsInProgress && !IsRightDownDirection")
             state = .cancelled
             Delegate?.onCancel(self)
         }
         else if !IsInProgress && IsRightDownDirection {
-            print("!IsInProgress && IsRightDownDirection")
             IsInProgress = true
             state = .changed
             Delegate?.onBegin(self)
         }
         else {
-            print("!IsTooSmallToCheck && IsInProgress")
             if Progress < 0 {
                 state = .cancelled
-                print("SWSwipe cancel")
                 Delegate?.onCancel(self)
             }
             else {
                 state = .changed
                 Delegate?.onMove(self)
             }
-//            else if Progress < ProgressToRecognize {
-//                state = .changed
-//                Delegate?.onMove(self)
-//            }
-//            else if Progress >= ProgressToRecognize {
-//                print("SWSwipe finish")
-//                state = .changed
-//                Delegate?.onFinish(self, true)
-//            }
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
-        //super.touchesEnded(touches, with: event)
         if state != .cancelled && Progress >= ProgressToRecognize {
-            print("SWSwipe from \(initial) to \(current)")
             state = .recognized
-            print("SWSwipe finish")
             Delegate?.onFinish(self, Progress >= ProgressToRecognize)
         }
         else {
             state = .cancelled
-            print("SWSwipe cancel")
             Delegate?.onCancel(self)
         }
     }

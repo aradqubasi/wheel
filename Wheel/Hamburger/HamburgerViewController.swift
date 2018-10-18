@@ -22,12 +22,16 @@ class HamburgerViewController: SWViewController {
     
     var background: UIView!
     
+    var swiper: UISwipeGestureRecognizer!
+    
     //MARK: - Bootstraping
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+        segues = assembler.resolve()
         
         do {
             self.background = assembler.resolve()
@@ -45,16 +49,29 @@ class HamburgerViewController: SWViewController {
             self.menu.layer.shadowOffset = CGSize(width: 0, height: 2)
         }
         
+        do {
+            self.swiper = UISwipeGestureRecognizer()
+            self.swiper.addTarget(self, action: #selector(onSwipeLeft))
+            self.swiper.direction = .left
+            self.view.addGestureRecognizer(swiper)
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //MARK: - Action Methods
+    
+    @IBAction func onSwipeLeft() {
+        print("onSwipeLeft")
+        perform(segue: segues.getHamburgerToWheelsWithSwipe())
+    }
 
     //MARK: - Animation Methods
     
-    func setForPopup() -> Void {
+    func hide() -> Void {
         self.menu.transform = CGAffineTransform.identity.translatedBy(x: -self.menu.frame.width, y: 0)
     }
     

@@ -838,7 +838,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     // MARK: - Navigation
     
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
-        SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
+//        SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
         var ingredients: [SWIngredientKinds:[SWIngredient]] = [
             .base: [],

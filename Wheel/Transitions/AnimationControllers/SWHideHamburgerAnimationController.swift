@@ -1,49 +1,53 @@
 //
-//  SWHideOverlayAnimationController.swift
+//  SWHideHamburgerAnimationController.swift
 //  Wheel
 //
-//  Created by Oleg Sokolansky on 30/06/2018.
+//  Created by Oleg Sokolansky on 18/10/2018.
 //  Copyright © 2018 Oleg Sokolansky. All rights reserved.
 //
 
 import Foundation
 import UIKit
-class SWHideOverlayAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
+
+class SWHideHamburgerAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return 0.2
+        return 0.225
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-        guard let overlay = transitionContext.viewController(forKey: .from) as? OverlayViewController,
-            let wheels = transitionContext.viewController(forKey: .to) as? WheelsViewController
+        guard let hamburger = transitionContext.viewController(forKey: .from) as? HamburgerViewController, let wheels = transitionContext.viewController(forKey: .to) as? WheelsViewController
             else {
                 return
         }
-
+        
         let containerView = transitionContext.containerView
         containerView.addSubview(wheels.view)
-        containerView.addSubview(overlay.view)
-//        overlay.view.isHidden = true
+        wheels.view.isHidden = true
+        containerView.addSubview(hamburger.view)
         
         let duration = transitionDuration(using: transitionContext)
         
+        hamburger.popup()
         UIView.animateKeyframes(
             withDuration: duration,
             delay: 0,
             options: .calculationModeCubic,
             animations: {
                 UIView.addKeyframe(withRelativeStartTime: 0, relativeDuration: 1) {
-                    overlay.close()
+                    hamburger.hide()
                 }
-        },
+            },
             completion: { _ in
                 if transitionContext.transitionWasCancelled {
                     wheels.view.removeFromSuperview()
                 }
+                else {
+                    hamburger.view.removeFromSuperview()
+                    wheels.view.isHidden = false
+                    wheels.navigationController?.setNavigationBarHidden(false, animated: false)
+                }
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
-                wheels.navigationController?.isNavigationBarHidden = transitionContext.transitionWasCancelled
         })
     }
 }
-

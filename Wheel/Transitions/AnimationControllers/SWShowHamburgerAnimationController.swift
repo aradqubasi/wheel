@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SWShowHamburgerController: NSObject, UIViewControllerAnimatedTransitioning {
+class SWShowHamburgerAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.225
@@ -30,23 +30,7 @@ class SWShowHamburgerController: NSObject, UIViewControllerAnimatedTransitioning
         
         let duration = transitionDuration(using: transitionContext)
         
-//        var real: UIButton!
-//        switch toVC.kind {
-//        case .unexpected:
-//            real = fromVC.toUnexpected!
-//        case .fruits:
-//            real = fromVC.toFruits
-//        case .dressing:
-//            real = fromVC.toDressing
-//        default:
-//            return
-//        }
-//        let fake = UIButton(frame: containerView.convert(real.frame, from: real.superview!))
-//        fake.alpha = 0
-//        containerView.addSubview(fake)
-//        toVC.discharge()
-//        toVC.set(for: fake)
-        toVC.setForPopup()
+        toVC.hide()
         UIView.animateKeyframes(
             withDuration: duration,
             delay: 0,

@@ -107,7 +107,8 @@
 		1592539D2175A574004276BB /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592539C2175A574004276BB /* HamburgerViewController.swift */; };
 		1592539F2175A723004276BB /* SWHamburgerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1592539E2175A723004276BB /* SWHamburgerAssembler.swift */; };
 		159253A12175A75C004276BB /* SWConcreteHamburgerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */; };
-		159253A42175AAB3004276BB /* SWShowHamburgerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A32175AAB3004276BB /* SWShowHamburgerController.swift */; };
+		159253A42175AAB3004276BB /* SWShowHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */; };
+		159253A621785195004276BB /* SWHideHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -347,7 +348,8 @@
 		1592539C2175A574004276BB /* HamburgerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
 		1592539E2175A723004276BB /* SWHamburgerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHamburgerAssembler.swift; sourceTree = "<group>"; };
 		159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHamburgerAssembler.swift; sourceTree = "<group>"; };
-		159253A32175AAB3004276BB /* SWShowHamburgerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWShowHamburgerController.swift; sourceTree = "<group>"; };
+		159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWShowHamburgerAnimationController.swift; sourceTree = "<group>"; };
+		159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHamburgerAnimationController.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -772,7 +774,8 @@
 				15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */,
 				15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */,
 				15FA767C213A571800AE6231 /* SWHideWalkthroughAnimationController.swift */,
-				159253A32175AAB3004276BB /* SWShowHamburgerController.swift */,
+				159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */,
+				159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */,
 			);
 			path = AnimationControllers;
 			sourceTree = "<group>";
@@ -1200,6 +1203,7 @@
 				159253A12175A75C004276BB /* SWConcreteHamburgerAssembler.swift in Sources */,
 				15B00C3F200B3E89002B93A8 /* SWPagerStates.swift in Sources */,
 				15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */,
+				159253A621785195004276BB /* SWHideHamburgerAnimationController.swift in Sources */,
 				15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */,
 				152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */,
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
@@ -1286,7 +1290,7 @@
 				1568A6672165D6DF00CDC2B0 /* SWCheifCook.swift in Sources */,
 				154DF0B3201C5C2B00B8391A /* NSAttributedString.swift in Sources */,
 				1508EEC91FF4E995003CF526 /* SWSpoke.swift in Sources */,
-				159253A42175AAB3004276BB /* SWShowHamburgerController.swift in Sources */,
+				159253A42175AAB3004276BB /* SWShowHamburgerAnimationController.swift in Sources */,
 				15456D581FC0116C0018A1CD /* UIView.swift in Sources */,
 				15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */,
 				15FA766A211FF95600AE6231 /* SWAnimationTypes.swift in Sources */,

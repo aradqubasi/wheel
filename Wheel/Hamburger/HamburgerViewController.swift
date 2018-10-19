@@ -9,7 +9,7 @@
 import UIKit
 
 class HamburgerViewController: SWViewController {
-    
+
     //MARK: - Public Properties
     
     var assembler: SWHamburgerAssembler!
@@ -22,7 +22,9 @@ class HamburgerViewController: SWViewController {
     
     var background: UIView!
     
-    var swiper: UISwipeGestureRecognizer!
+    var swiper: SWDismissHamburgerGestureRecognizer!
+    
+    var transitioning: UIPercentDrivenInteractiveTransition!
     
     //MARK: - Bootstraping
 
@@ -50,10 +52,10 @@ class HamburgerViewController: SWViewController {
         }
         
         do {
-            self.swiper = UISwipeGestureRecognizer()
-            self.swiper.addTarget(self, action: #selector(onSwipeLeft))
-            self.swiper.direction = .left
-            self.view.addGestureRecognizer(swiper)
+            self.swiper = SWDismissHamburgerGestureRecognizer()
+            self.view.addGestureRecognizer(self.swiper)
+            self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
+            self.transitioning = UIPercentDrivenInteractiveTransition()
         }
     }
 
@@ -67,6 +69,25 @@ class HamburgerViewController: SWViewController {
     @IBAction func onSwipeLeft() {
         print("onSwipeLeft")
         perform(segue: segues.getHamburgerToWheelsWithSwipe())
+    }
+    
+    @IBAction func onSwipe(sender: SWDismissHamburgerGestureRecognizer) {
+        if sender.state == .began {
+            print("began")
+            perform(segue: segues.getHamburgerToWheelsWithSwipe())
+        }
+        else if sender.state == .changed {
+            print("changed \(sender.Progress)")
+            self.transitioning.update(sender.Progress)
+        }
+        else if sender.state == .cancelled {
+            print("cancelled")
+            self.transitioning.cancel()
+        }
+        else if sender.state == .ended {
+            print("ended")
+            self.transitioning.finish()
+        }
     }
 
     //MARK: - Animation Methods
@@ -90,3 +111,12 @@ class HamburgerViewController: SWViewController {
     */
 
 }
+
+extension HamburgerViewController: SWDismissableViewController {
+    
+    func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
+        return self.transitioning
+    }
+
+}
+

@@ -11,6 +11,13 @@ import UIKit
 
 class SWHideHamburgerAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
     
+    let controller: HamburgerViewController
+    
+    init(_ controller: HamburgerViewController) {
+        self.controller = controller
+        super.init()
+    }
+    
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return 0.225
     }
@@ -49,5 +56,9 @@ class SWHideHamburgerAnimationController: NSObject, UIViewControllerAnimatedTran
                 }
                 transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         })
+    }
+    
+    func interactionController() -> UIViewControllerInteractiveTransitioning? {
+        return self.controller.transitioning
     }
 }

@@ -109,6 +109,7 @@
 		159253A12175A75C004276BB /* SWConcreteHamburgerAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */; };
 		159253A42175AAB3004276BB /* SWShowHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */; };
 		159253A621785195004276BB /* SWHideHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */; };
+		159253A821799700004276BB /* SWDismissHamburgerGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159253A721799700004276BB /* SWDismissHamburgerGestureRecognizer.swift */; };
 		159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */; };
 		15A25812208B133200F738B5 /* SWTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25811208B133200F738B5 /* SWTipGenerator.swift */; };
 		15A25814208B134500F738B5 /* SWConcreteTipGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */; };
@@ -350,6 +351,7 @@
 		159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHamburgerAssembler.swift; sourceTree = "<group>"; };
 		159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWShowHamburgerAnimationController.swift; sourceTree = "<group>"; };
 		159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHamburgerAnimationController.swift; sourceTree = "<group>"; };
+		159253A721799700004276BB /* SWDismissHamburgerGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissHamburgerGestureRecognizer.swift; sourceTree = "<group>"; };
 		159C87E420A98F0B004436FE /* SWSwipeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeDelegate.swift; sourceTree = "<group>"; };
 		15A25811208B133200F738B5 /* SWTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipGenerator.swift; sourceTree = "<group>"; };
 		15A25813208B134500F738B5 /* SWConcreteTipGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteTipGenerator.swift; sourceTree = "<group>"; };
@@ -760,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				1592539C2175A574004276BB /* HamburgerViewController.swift */,
+				159253A721799700004276BB /* SWDismissHamburgerGestureRecognizer.swift */,
 			);
 			path = Hamburger;
 			sourceTree = "<group>";
@@ -1301,6 +1304,7 @@
 				151EE43921180E010018CF52 /* SWIngredientLocation.swift in Sources */,
 				15456D6A1FCAB8670018A1CD /* SWIngredientKinds.swift in Sources */,
 				15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */,
+				159253A821799700004276BB /* SWDismissHamburgerGestureRecognizer.swift in Sources */,
 				15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */,
 				1592538D2171E0B6004276BB /* SWMealEnergySharePerHour.swift in Sources */,
 				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,

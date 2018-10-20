@@ -59,6 +59,6 @@ class SWHideHamburgerAnimationController: NSObject, UIViewControllerAnimatedTran
     }
     
     func interactionController() -> UIViewControllerInteractiveTransitioning? {
-        return self.controller.transitioning
+        return self.controller.interactionControllerForDismissal()
     }
 }

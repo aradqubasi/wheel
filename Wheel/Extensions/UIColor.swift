@@ -166,4 +166,10 @@ public extension UIColor {
             return UIColor(red: 248 / 255, green: 189 / 255, blue: 65 / 255, alpha: 1)
         }
     }
+    
+    class var dovegray: UIColor {
+        get {
+            return UIColor(red: 107 / 255, green: 107 / 255, blue: 107 / 255, alpha: 1)
+        }
+    }
 }

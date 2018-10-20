@@ -19,7 +19,7 @@ class SWDismissHamburgerGestureRecognizer: UIGestureRecognizer {
     
     private var current: CGPoint = .zero
     
-    private var progressToRecognize: CGFloat = 0.3
+    private var progressToRecognize: CGFloat = 0.5
     
     var Progress: CGFloat {
         get {
@@ -44,7 +44,7 @@ class SWDismissHamburgerGestureRecognizer: UIGestureRecognizer {
         if !(state == .possible && IsTooSmallToCheck) {
             state = .began
         }
-        else {
+        else if state == .began || state == .changed {
             if Progress < 0 {
                 state = .cancelled
             }

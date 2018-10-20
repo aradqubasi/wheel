@@ -16,15 +16,21 @@ class HamburgerViewController: SWViewController {
     
     //MARK: - Private Properties
     
-    let width: CGFloat = 300
+    private let width: CGFloat = 300
     
-    let menu: UIView = UIView()
+    private let menu: UIView = UIView()
     
-    var background: UIView!
+    private var background: UIView!
     
-    var swiper: SWDismissHamburgerGestureRecognizer!
+    private var swiper: SWDismissHamburgerGestureRecognizer!
     
-    var transitioning: UIPercentDrivenInteractiveTransition!
+    private var transitioning: UIPercentDrivenInteractiveTransition!
+    
+    private var walkthrough: UIButton!
+    
+    private var diet: UIButton!
+    
+    private var history: UIButton!
     
     //MARK: - Bootstraping
 
@@ -57,6 +63,66 @@ class HamburgerViewController: SWViewController {
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
             self.transitioning = UIPercentDrivenInteractiveTransition()
         }
+        
+        do {
+            diet = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
+            diet.setAttributedTitle(.hamburgerDietLabel, for: .normal)
+            diet.contentHorizontalAlignment = .left
+            diet.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
+            diet.addTarget(self, action: #selector(onDietClick), for: .touchUpInside)
+            self.menu.addSubview(diet)
+            do {
+                let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/diet preferences"))
+                diet.addSubview(icon)
+                icon.center = CGPoint(x: 36, y: 40)
+            }
+            do {
+                let goto = UIImageView(image: #imageLiteral(resourceName: "Hamburger/goto"))
+                diet.addSubview(goto)
+                goto.center = CGPoint(x: diet.frame.width - 35, y: 40)
+            }
+            diet.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 97)
+        }
+        
+        do {
+            history = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
+            history.setAttributedTitle(.hamburgerHistoryLabel, for: .normal)
+            history.contentHorizontalAlignment = .left
+            history.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
+            history.addTarget(self, action: #selector(onHistoryClick), for: .touchUpInside)
+            self.menu.addSubview(history)
+            do {
+                let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/history"))
+                history.addSubview(icon)
+                icon.center = CGPoint(x: 36, y: 40)
+            }
+            do {
+                let goto = UIImageView(image: #imageLiteral(resourceName: "Hamburger/goto"))
+                history.addSubview(goto)
+                goto.center = CGPoint(x: history.frame.width - 35, y: 40)
+            }
+            history.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 97 + 80)
+        }
+        
+        do {
+            walkthrough = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
+            walkthrough.setAttributedTitle(.hamburgerWalkthroughLabel, for: .normal)
+            walkthrough.contentHorizontalAlignment = .left
+            walkthrough.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
+            walkthrough.addTarget(self, action: #selector(onWalkthroughClick), for: .touchUpInside)
+            self.menu.addSubview(walkthrough)
+            do {
+                let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/walkthrough"))
+                walkthrough.addSubview(icon)
+                icon.center = CGPoint(x: 36, y: 40)
+            }
+            do {
+                let goto = UIImageView(image: #imageLiteral(resourceName: "Hamburger/goto"))
+                walkthrough.addSubview(goto)
+                goto.center = CGPoint(x: walkthrough.frame.width - 35, y: 40)
+            }
+            walkthrough.transform = CGAffineTransform.identity.translatedBy(x: 0, y: 97 + 80 + 80)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +135,18 @@ class HamburgerViewController: SWViewController {
     @IBAction func onSwipeLeft() {
         print("onSwipeLeft")
         perform(segue: segues.getHamburgerToWheelsWithSwipe())
+    }
+    
+    @IBAction func onHistoryClick() {
+        print("onHistoryClick")
+    }
+    
+    @IBAction func onDietClick() {
+        print("onDietClick")
+    }
+    
+    @IBAction func onWalkthroughClick() {
+        print("onWalkthroughClick")
     }
     
     @IBAction func onSwipe(sender: SWDismissHamburgerGestureRecognizer) {

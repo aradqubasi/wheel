@@ -452,4 +452,31 @@ extension NSAttributedString {
             return "Happy cooking!".toWalkthroughFont
         }
     }
+    
+    class var hamburgerHistoryLabel: NSAttributedString {
+        get {
+            let color = UIColor.dovegray
+            let font = UIFont(name: "Avenir-Roman", size: 17)!
+            let text = "History"
+            return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+        }
+    }
+    
+    class var hamburgerDietLabel: NSAttributedString {
+        get {
+            let color = UIColor.dovegray
+            let font = UIFont(name: "Avenir-Roman", size: 17)!
+            let text = "Diet preferences"
+            return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+        }
+    }
+    
+    class var hamburgerWalkthroughLabel: NSAttributedString {
+        get {
+            let color = UIColor.dovegray
+            let font = UIFont(name: "Avenir-Roman", size: 17)!
+            let text = "Walkthrough"
+            return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+        }
+    }
 }

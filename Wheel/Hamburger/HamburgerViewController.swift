@@ -66,10 +66,14 @@ class HamburgerViewController: SWViewController {
         
         do {
             diet = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
+            let text = NSAttributedString.hamburgerDietLabel
             diet.setAttributedTitle(.hamburgerDietLabel, for: .normal)
+            diet.setAttributedTitle(text.whitify(), for: .highlighted)
             diet.contentHorizontalAlignment = .left
             diet.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
-            diet.addTarget(self, action: #selector(onDietClick), for: .touchUpInside)
+            diet.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
+            diet.addTarget(self, action: #selector(unHighlightButton(sender:)), for: .touchUpOutside)
+            diet.addTarget(self, action: #selector(onDietClick(sender:)), for: .touchUpInside)
             self.menu.addSubview(diet)
             do {
                 let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/diet preferences"))
@@ -86,10 +90,14 @@ class HamburgerViewController: SWViewController {
         
         do {
             history = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
+            let text = NSAttributedString.hamburgerHistoryLabel
             history.setAttributedTitle(.hamburgerHistoryLabel, for: .normal)
+            history.setAttributedTitle(text.whitify(), for: .highlighted)
             history.contentHorizontalAlignment = .left
             history.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
-            history.addTarget(self, action: #selector(onHistoryClick), for: .touchUpInside)
+            history.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
+            history.addTarget(self, action: #selector(unHighlightButton(sender:)), for: .touchUpOutside)
+            history.addTarget(self, action: #selector(onHistoryClick(sender:)), for: .touchUpInside)
             self.menu.addSubview(history)
             do {
                 let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/history"))
@@ -106,10 +114,14 @@ class HamburgerViewController: SWViewController {
         
         do {
             walkthrough = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: menu.bounds.width, height: 80)))
-            walkthrough.setAttributedTitle(.hamburgerWalkthroughLabel, for: .normal)
+            let text = NSAttributedString.hamburgerWalkthroughLabel
+            walkthrough.setAttributedTitle(text, for: .normal)
+            walkthrough.setAttributedTitle(text.whitify(), for: .highlighted)
             walkthrough.contentHorizontalAlignment = .left
             walkthrough.contentEdgeInsets = UIEdgeInsetsMake(0, 72, 0, 0)
-            walkthrough.addTarget(self, action: #selector(onWalkthroughClick), for: .touchUpInside)
+            walkthrough.addTarget(self, action: #selector(highlightButton(sender:)), for: .touchDown)
+            walkthrough.addTarget(self, action: #selector(unHighlightButton(sender:)), for: .touchUpOutside)
+            walkthrough.addTarget(self, action: #selector(onWalkthroughClick(sender:)), for: .touchUpInside)
             self.menu.addSubview(walkthrough)
             do {
                 let icon = UIImageView(image: #imageLiteral(resourceName: "Hamburger/walkthrough"))
@@ -137,21 +149,36 @@ class HamburgerViewController: SWViewController {
         perform(segue: segues.getHamburgerToWheelsWithSwipe())
     }
     
-    @IBAction func onHistoryClick() {
+    @IBAction func highlightButton(sender: UIButton) {
+        sender.backgroundColor = .gray
+    }
+
+    @IBAction func unHighlightButton(sender: UIButton) {
+        sender.backgroundColor = .white
+    }
+    
+    @IBAction func onHistoryClick(sender: UIButton) {
         print("onHistoryClick")
+        unHighlightButton(sender: sender)
     }
     
-    @IBAction func onDietClick() {
+    @IBAction func onDietClick(sender: UIButton) {
         print("onDietClick")
+        unHighlightButton(sender: sender)
     }
     
-    @IBAction func onWalkthroughClick() {
+    @IBAction func onWalkthroughClick(sender: UIButton) {
         print("onWalkthroughClick")
+        unHighlightButton(sender: sender)
+        perform(segue: segues.getHamburgerToWheelsForWalkthrough())
     }
     
     @IBAction func onSwipe(sender: SWDismissHamburgerGestureRecognizer) {
         if sender.state == .began {
             print("began")
+            unHighlightButton(sender: diet)
+            unHighlightButton(sender: history)
+            unHighlightButton(sender: walkthrough)
             perform(segue: segues.getHamburgerToWheelsWithSwipe())
         }
         else if sender.state == .changed {

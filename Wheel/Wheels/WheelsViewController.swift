@@ -538,6 +538,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             _appState.setShowWalkthrough(false)
             perform(segue: segues.getWheelsToWalkthrough())
         }
+        else if segues.getCurrent()?.identifier == segues.getHamburgerToWheelsForWalkthrough().identifier {
+            perform(segue: segues.getWheelsToWalkthrough())
+        }
         
     }
 
@@ -886,6 +889,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         if filtered.count > 0 {
             selectionController.pop(filtered)
         }
+        
+//        if segue.identifier == segues.getHamburgerToWheelsForWalkthrough().identifier {
+//            perform(segue: segues.getWheelsToWalkthrough())
+//        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -208,6 +208,7 @@
 		15F5D629208498E400462DE7 /* SWInmemoryBowlTimelineRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F5D628208498E400462DE7 /* SWInmemoryBowlTimelineRepository.swift */; };
 		15F5D62C208700A100462DE7 /* SWTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F5D62B208700A100462DE7 /* SWTipController.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
+		15F9104C21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -456,6 +457,7 @@
 		15F5D628208498E400462DE7 /* SWInmemoryBowlTimelineRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryBowlTimelineRepository.swift; sourceTree = "<group>"; };
 		15F5D62B208700A100462DE7 /* SWTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipController.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
+		15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingHamburgerAnimationController.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -779,6 +781,7 @@
 				15FA767C213A571800AE6231 /* SWHideWalkthroughAnimationController.swift */,
 				159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */,
 				159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */,
+				15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */,
 			);
 			path = AnimationControllers;
 			sourceTree = "<group>";
@@ -1343,6 +1346,7 @@
 				15AAAE1F20F9B5B70022996D /* SWSelectionWheelProtocol.swift in Sources */,
 				155BEC311FF02F5800E749B5 /* OptionsDelegate.swift in Sources */,
 				152F66D820EB37070070BAA5 /* Array.swift in Sources */,
+				15F9104C21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift in Sources */,
 				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,
 				15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */,
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,

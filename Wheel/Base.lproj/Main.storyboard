@@ -129,6 +129,7 @@
                     </view>
                     <connections>
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="yTo-mw-emM"/>
+                        <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForWalkthrough" unwindAction="unwindToWheelsWithSegue:" id="O3W-Ad-HUQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMt-Ei-ul6" userLabel="First Responder" sceneMemberID="firstResponder"/>

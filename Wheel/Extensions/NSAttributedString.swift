@@ -479,4 +479,18 @@ extension NSAttributedString {
             return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
         }
     }
+    
+    func whitify() -> NSAttributedString {
+        let font = self.attribute(.font, at: 0, effectiveRange: nil)
+        let text = self.string
+        let color = UIColor.white
+        return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+    }
+    
+    func dovegraytify() -> NSAttributedString {
+        let font = self.attribute(.font, at: 0, effectiveRange: nil)
+        let text = self.string
+        let color = UIColor.dovegray
+        return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+    }
 }

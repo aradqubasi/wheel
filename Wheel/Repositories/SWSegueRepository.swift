@@ -56,4 +56,6 @@ protocol SWSegueRepository {
     
     func getHamburgerToWheelsWithSwipe() -> SWSegue
     
+    func getHamburgerToWheelsForWalkthrough() -> SWSegue
+    
 }

@@ -107,4 +107,8 @@ class SWInmemorySegueRepository: SWSegueRepository {
     func getHamburgerToWheelsWithSwipe() -> SWSegue {
         return SWSegue(identifier: "HamburgerToWheelsWithSwipe")
     }
+    
+    func getHamburgerToWheelsForWalkthrough() -> SWSegue {
+        return SWSegue(identifier: "HamburgerToWheelsForWalkthrough")
+    }
 }

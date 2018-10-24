@@ -67,7 +67,9 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
         case segues.getWheelsToHamburger:
             return SWShowHamburgerAnimationController()
         case segues.getHamburgerToWheelsWithSwipe:
-            return SWHideHamburgerAnimationController(fromVC as! HamburgerViewController)
+            return SWHidingHamburgerAnimationController(fromVC as! HamburgerViewController)
+        case segues.getHamburgerToWheelsForWalkthrough:
+            return SWHideHamburgerAnimationController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
@@ -91,7 +93,7 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
         if let dismiss = animationController as? SWDismissAnimationContorller {
             return dismiss.interactionController()
         }
-        else if let dismiss = animationController as? SWHideHamburgerAnimationController {
+        else if let dismiss = animationController as? SWHidingHamburgerAnimationController {
             return dismiss.interactionController()
         }
         return nil

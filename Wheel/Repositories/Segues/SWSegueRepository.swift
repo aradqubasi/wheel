@@ -58,4 +58,10 @@ protocol SWSegueRepository {
     
     func getHamburgerToWheelsForWalkthrough() -> SWSegue
     
+    func getWheelsToHistory() -> SWSegue
+    
+    func getHistoryToWheels() -> SWSegue
+    
+    func getHamburgerToWheelsForHistory() -> SWSegue
+    
 }

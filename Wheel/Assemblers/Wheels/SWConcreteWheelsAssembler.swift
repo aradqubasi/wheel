@@ -98,4 +98,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteHamburgerAssembler(background)
     }
     
+    func resolve() -> SWHistoryAssembler {
+        return SWConcreteHistoryAssembler()
+    }
+    
 }

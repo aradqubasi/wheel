@@ -15,6 +15,6 @@ protocol SWRecipyRepository {
     
     func save(_ recipy: SWRecipy) -> Void
     
-    func create(_ recipy: SWRecipy) -> SWRecipy
+    func create() -> SWRecipy
     
 }

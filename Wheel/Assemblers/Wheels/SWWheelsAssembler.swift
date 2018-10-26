@@ -49,4 +49,6 @@ protocol SWWheelsAssembler {
     
     func resolve(using background: UIView) -> SWHamburgerAssembler
     
+    func resolve() -> SWHistoryAssembler
+    
 }

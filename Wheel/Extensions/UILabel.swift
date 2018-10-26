@@ -175,6 +175,17 @@ extension UILabel {
         }
     }
     
+    class var historyTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 133, height: 32)
+            label.attributedText = NSAttributedString.historyTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
+    
     static func getRecipyTitle(_ name: String) -> UILabel {
         let label = UILabel()
         label.numberOfLines = 0

@@ -263,6 +263,13 @@ extension NSAttributedString {
 //        }
 //    }
     
+    class var historyTitle: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "History", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Heavy", size: 16) as Any])
+            return text
+        }
+    }
+    
     class var filterTitle: NSAttributedString {
         get {
             let text = NSAttributedString(string: "Food preferences", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Heavy", size: 16) as Any])

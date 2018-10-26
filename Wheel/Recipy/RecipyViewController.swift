@@ -29,10 +29,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     private var _recipyHeaderContainer: UIView!
     
     private var _name: String!
-
-    private var _measuresmentRepository: SWMeasuresmentRepository!
-    
-    private var _ingredientStatsRepository: SWIngredientStatsRepository!
     
     private var _servingsGenerator: SWServingsGenerator!
     
@@ -52,12 +48,22 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     private let _servingsCountForNutritionStats: Int = 1
     
+    // MARK - Repositories
+    
+    private var _measuresmentRepository: SWMeasuresmentRepository!
+    
+    private var _ingredientStatsRepository: SWIngredientStatsRepository!
+    
+    private var recipies: SWRecipyRepository!
+    
     // MARK: - Initialization
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         _name = assembler.resolve().getName(for: selection)
+        
+        print(_name)
         
         segues = assembler.resolve()
 
@@ -68,8 +74,8 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
         _servingsGenerator = assembler.resolve()
         
         _listGenerator = assembler.resolve()
-
-//        view.backgroundColor = UIColor.aquaHaze
+        
+        self.recipies = assembler.resolve()
         
         _servings = 2
         
@@ -304,7 +310,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillLayoutSubviews() {
@@ -332,7 +337,17 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     }
     
     @IBAction func onShowStepsClick(_ sender: Any) {
-        print("state is \(_swiper.state.rawValue)")
+        do {
+            var recipy = recipies.create()
+            recipy.name = self._name
+            recipy.servings = self._servings
+            recipy.calories = self._servingsGenerator.getEnergy(for: self.selection, per: 1)
+            recipy.fats = self._servingsGenerator.getFats(for: self.selection, per: 1)
+            recipy.proteins = self._servingsGenerator.getProteins(for: self.selection, per: 1)
+            recipy.carbohydrates = self._servingsGenerator.getCarbs(for: self.selection, per: 1)
+            recipy.ingredients = self.selection
+            self.recipies.save(recipy)
+        }
         transit()
     }
     
@@ -369,7 +384,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
         if #available(iOS 11.0, *) {
             insets = scrollView.adjustedContentInset.bottom + scrollView.adjustedContentInset.top
         }
-                print("\(scrollView.contentOffset.y) - abs(\(scrollView.contentSize.height) - \(insets) - \(scrollView.frame.size.height)), \(view.frame.height) \(scrollView.bounds.height)")
         if abs(scrollView.contentOffset.y - abs(scrollView.contentSize.height - (scrollView.frame.size.height - insets))) < 5 {
             popUpBroccoli()
         }

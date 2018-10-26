@@ -541,7 +541,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         else if segues.getCurrent()?.identifier == segues.getHamburgerToWheelsForWalkthrough().identifier {
             perform(segue: segues.getWheelsToWalkthrough())
         }
-        
+        else if segues.getCurrent()?.identifier == segues.getHamburgerToWheelsForHistory().identifier {
+            perform(segue: segues.getWheelsToHistory())
+        }
     }
 
     // MARK: - Actions

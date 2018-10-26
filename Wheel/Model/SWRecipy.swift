@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 struct SWRecipy {
     
     let id: Int?
@@ -14,5 +16,21 @@ struct SWRecipy {
     var name: String
     
     var servings: Int
+    
+    var ingredients: [SWIngredient]
+    
+    var calories: Double
+    
+    var fats: Double
+    
+    var carbohydrates: Double
+    
+    var proteins: Double
+    
+    var timestamp: Date
+    
+    var liked: Bool
+    
+    var photo: UIImage?
     
 }

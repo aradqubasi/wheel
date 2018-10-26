@@ -13,12 +13,7 @@ class SWConcreteRecipyAssembler: SWRecipyAssembler {
         return SWInmemoryRecipyRepository()
     }
     
-    func resolve() -> SWComponentRepository {
-        return SWInmemoryComponentRepository()
-    }
-    
     func resolve() -> SWNameGenerator {
-//        return SWConcreteNameGenerator()
         return SWProtebaseNameGenerator()
     }
     

@@ -149,8 +149,6 @@
 		15BA8031204147C700596CC8 /* SWComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8030204147C700596CC8 /* SWComponent.swift */; };
 		15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803220414B5000596CC8 /* SWRecipyRepository.swift */; };
 		15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */; };
-		15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803620414E8F00596CC8 /* SWComponentRepository.swift */; };
-		15BA803920414EFF00596CC8 /* SWInmemoryComponentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */; };
 		15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803B2041F23800596CC8 /* SWNameGenerator.swift */; };
 		15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */; };
 		15BA80402041F5B200596CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803F2041F5B200596CC8 /* Int.swift */; };
@@ -209,6 +207,9 @@
 		15F5D62C208700A100462DE7 /* SWTipController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F5D62B208700A100462DE7 /* SWTipController.swift */; };
 		15F6D0F11FE4F46C00200E45 /* NamedPinState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */; };
 		15F9104C21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */; };
+		15F910592182DA3900F1F1F0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910582182DA3900F1F1F0 /* HistoryViewController.swift */; };
+		15F9105B2182DDD400F1F1F0 /* SWHistoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */; };
+		15F9105E2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -392,8 +393,6 @@
 		15BA8030204147C700596CC8 /* SWComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWComponent.swift; sourceTree = "<group>"; };
 		15BA803220414B5000596CC8 /* SWRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyRepository.swift; sourceTree = "<group>"; };
 		15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryRecipyRepository.swift; sourceTree = "<group>"; };
-		15BA803620414E8F00596CC8 /* SWComponentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWComponentRepository.swift; sourceTree = "<group>"; };
-		15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryComponentRepository.swift; sourceTree = "<group>"; };
 		15BA803B2041F23800596CC8 /* SWNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNameGenerator.swift; sourceTree = "<group>"; };
 		15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNameGenerator.swift; sourceTree = "<group>"; };
 		15BA803F2041F5B200596CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -458,6 +457,9 @@
 		15F5D62B208700A100462DE7 /* SWTipController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTipController.swift; sourceTree = "<group>"; };
 		15F6D0F01FE4F46C00200E45 /* NamedPinState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinState.swift; sourceTree = "<group>"; };
 		15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingHamburgerAnimationController.swift; sourceTree = "<group>"; };
+		15F910582182DA3900F1F1F0 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHistoryAssembler.swift; sourceTree = "<group>"; };
+		15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHistoryAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -657,29 +659,16 @@
 		158387A020340321001E4008 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
-				158387A120340371001E4008 /* SWOptionRepository.swift */,
-				158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */,
-				156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */,
-				156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */,
-				156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */,
-				156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */,
-				1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */,
-				156B0BE120396E1A00CFEEA4 /* SWSegueRepository.swift */,
-				156B0BE320396E7E00CFEEA4 /* SWInmemorySegueRepository.swift */,
-				15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */,
-				15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */,
-				15BA803220414B5000596CC8 /* SWRecipyRepository.swift */,
-				15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */,
-				15BA803620414E8F00596CC8 /* SWComponentRepository.swift */,
-				15BA803820414EFF00596CC8 /* SWInmemoryComponentRepository.swift */,
-				15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */,
-				15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */,
-				15D13D31204E88D400D44923 /* SWIngredientStatsRepository.swift */,
-				15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */,
-				1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */,
-				1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */,
-				1592539721733712004276BB /* SWIngredientBiasRepository.swift */,
-				15925399217341D1004276BB /* SWPersistantIngredientBiasRepository.swift */,
+				15F9104F218037B100F1F1F0 /* AppState */,
+				15F91051218037DE00F1F1F0 /* Blockings */,
+				15F9105521803AC400F1F1F0 /* FullIngredients */,
+				15F9104E218037A200F1F1F0 /* Ingredients */,
+				15F9105621803ADE00F1F1F0 /* IngredientBiases */,
+				15F9105421803AA000F1F1F0 /* IngredientStats */,
+				15F9105321803A8D00F1F1F0 /* Measurements */,
+				15F9104D2180378300F1F1F0 /* Options */,
+				15F91052218037FD00F1F1F0 /* Recipies */,
+				15F91050218037C600F1F1F0 /* Segues */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -687,6 +676,7 @@
 		158387A5203408A2001E4008 /* Assemblers */ = {
 			isa = PBXGroup;
 			children = (
+				15F9105C2182DE1100F1F1F0 /* Wheels */,
 				158387A6203409B9001E4008 /* SWRootAssembler.swift */,
 				158387A820340DBC001E4008 /* SWContext.swift */,
 				158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */,
@@ -694,8 +684,6 @@
 				156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */,
 				156B0BDD20396CF700CFEEA4 /* SWOnboardingAssembler.swift */,
 				156B0BE92039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift */,
-				156B0BE52039709000CFEEA4 /* SWWheelsAssembler.swift */,
-				156B0BE72039717500CFEEA4 /* SWConcreteWheelsAssembler.swift */,
 				15BA802A204144C200596CC8 /* SWRecipyAssembler.swift */,
 				15BA802C2041450D00596CC8 /* SWConcreteRecipyAssembler.swift */,
 				15119299207C748400D93751 /* SWStepsAssembler.swift */,
@@ -714,6 +702,8 @@
 				15FA76742127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift */,
 				1592539E2175A723004276BB /* SWHamburgerAssembler.swift */,
 				159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */,
+				15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */,
+				15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */,
 			);
 			path = Assemblers;
 			sourceTree = "<group>";
@@ -807,6 +797,7 @@
 		15B00C3A200B3AA3002B93A8 /* Wheels */ = {
 			isa = PBXGroup;
 			children = (
+				15F910572182DA0A00F1F1F0 /* History */,
 				15FA766F2127DEF100AE6231 /* Walkthrough */,
 				152F66D920EDD6E60070BAA5 /* Subwheel */,
 				15A25815208B2AFC00F738B5 /* TransparentView */,
@@ -995,6 +986,114 @@
 			path = Tip;
 			sourceTree = "<group>";
 		};
+		15F9104D2180378300F1F1F0 /* Options */ = {
+			isa = PBXGroup;
+			children = (
+				158387A120340371001E4008 /* SWOptionRepository.swift */,
+				158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */,
+			);
+			path = Options;
+			sourceTree = "<group>";
+		};
+		15F9104E218037A200F1F1F0 /* Ingredients */ = {
+			isa = PBXGroup;
+			children = (
+				156B0BCC20395E0900CFEEA4 /* SWIngredientRepository.swift */,
+				156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */,
+			);
+			path = Ingredients;
+			sourceTree = "<group>";
+		};
+		15F9104F218037B100F1F1F0 /* AppState */ = {
+			isa = PBXGroup;
+			children = (
+				156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */,
+				156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */,
+				1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */,
+			);
+			path = AppState;
+			sourceTree = "<group>";
+		};
+		15F91050218037C600F1F1F0 /* Segues */ = {
+			isa = PBXGroup;
+			children = (
+				156B0BE120396E1A00CFEEA4 /* SWSegueRepository.swift */,
+				156B0BE320396E7E00CFEEA4 /* SWInmemorySegueRepository.swift */,
+			);
+			path = Segues;
+			sourceTree = "<group>";
+		};
+		15F91051218037DE00F1F1F0 /* Blockings */ = {
+			isa = PBXGroup;
+			children = (
+				15BA801F203BF57F00596CC8 /* SWBlockingRepository.swift */,
+				15BA8021203C01F200596CC8 /* SWInmemoryBlockingRepository.swift */,
+			);
+			path = Blockings;
+			sourceTree = "<group>";
+		};
+		15F91052218037FD00F1F1F0 /* Recipies */ = {
+			isa = PBXGroup;
+			children = (
+				15BA803220414B5000596CC8 /* SWRecipyRepository.swift */,
+				15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */,
+			);
+			path = Recipies;
+			sourceTree = "<group>";
+		};
+		15F9105321803A8D00F1F1F0 /* Measurements */ = {
+			isa = PBXGroup;
+			children = (
+				15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */,
+				15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */,
+			);
+			path = Measurements;
+			sourceTree = "<group>";
+		};
+		15F9105421803AA000F1F1F0 /* IngredientStats */ = {
+			isa = PBXGroup;
+			children = (
+				15D13D31204E88D400D44923 /* SWIngredientStatsRepository.swift */,
+				15D13D33204E894600D44923 /* SWInmemoryIngredientStatsRepository.swift */,
+			);
+			path = IngredientStats;
+			sourceTree = "<group>";
+		};
+		15F9105521803AC400F1F1F0 /* FullIngredients */ = {
+			isa = PBXGroup;
+			children = (
+				1568A66C2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift */,
+				1568A66E2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift */,
+			);
+			path = FullIngredients;
+			sourceTree = "<group>";
+		};
+		15F9105621803ADE00F1F1F0 /* IngredientBiases */ = {
+			isa = PBXGroup;
+			children = (
+				1592539721733712004276BB /* SWIngredientBiasRepository.swift */,
+				15925399217341D1004276BB /* SWPersistantIngredientBiasRepository.swift */,
+			);
+			path = IngredientBiases;
+			sourceTree = "<group>";
+		};
+		15F910572182DA0A00F1F1F0 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				15F910582182DA3900F1F1F0 /* HistoryViewController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		15F9105C2182DE1100F1F1F0 /* Wheels */ = {
+			isa = PBXGroup;
+			children = (
+				156B0BE52039709000CFEEA4 /* SWWheelsAssembler.swift */,
+				156B0BE72039717500CFEEA4 /* SWConcreteWheelsAssembler.swift */,
+			);
+			path = Wheels;
+			sourceTree = "<group>";
+		};
 		15FA766F2127DEF100AE6231 /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
@@ -1154,7 +1253,6 @@
 				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
 				15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */,
 				15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */,
-				15BA803920414EFF00596CC8 /* SWInmemoryComponentRepository.swift in Sources */,
 				1592539821733712004276BB /* SWIngredientBiasRepository.swift in Sources */,
 				15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */,
 				15A25821208CBA6D00F738B5 /* SWDebugger.swift in Sources */,
@@ -1173,6 +1271,7 @@
 				15F43C411FA99CA700732CED /* PinView.swift in Sources */,
 				15C5B6812160D01A004B0C18 /* SWConcreteFilterAligner.swift in Sources */,
 				1592539A217341D1004276BB /* SWPersistantIngredientBiasRepository.swift in Sources */,
+				15F9105E2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift in Sources */,
 				151AFE3F1F77B92E00CC5357 /* SVState.swift in Sources */,
 				15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */,
 				156B0BE220396E1A00CFEEA4 /* SWSegueRepository.swift in Sources */,
@@ -1211,6 +1310,7 @@
 				15A25817208B2B2A00F738B5 /* SWTransparentViewDelegate.swift in Sources */,
 				159253A621785195004276BB /* SWHideHamburgerAnimationController.swift in Sources */,
 				15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */,
+				15F9105B2182DDD400F1F1F0 /* SWHistoryAssembler.swift in Sources */,
 				152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */,
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
@@ -1333,6 +1433,7 @@
 				1592538B2171DF85004276BB /* SWIngredientBias.swift in Sources */,
 				1583879620303F51001E4008 /* SWHeaderOptionView.swift in Sources */,
 				15838798203043B8001E4008 /* SWAlignableProtocol.swift in Sources */,
+				15F910592182DA3900F1F1F0 /* HistoryViewController.swift in Sources */,
 				15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */,
 				15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
@@ -1348,7 +1449,6 @@
 				152F66D820EB37070070BAA5 /* Array.swift in Sources */,
 				15F9104C21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift in Sources */,
 				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,
-				15BA803720414E8F00596CC8 /* SWComponentRepository.swift in Sources */,
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
 				15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */,

@@ -210,6 +210,7 @@
 		15F910592182DA3900F1F1F0 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910582182DA3900F1F1F0 /* HistoryViewController.swift */; };
 		15F9105B2182DDD400F1F1F0 /* SWHistoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */; };
 		15F9105E2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */; };
+		15F9106021843EC000F1F1F0 /* SWHistoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9105F21843EC000F1F1F0 /* SWHistoryViewCell.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -460,6 +461,7 @@
 		15F910582182DA3900F1F1F0 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 		15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHistoryAssembler.swift; sourceTree = "<group>"; };
 		15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHistoryAssembler.swift; sourceTree = "<group>"; };
+		15F9105F21843EC000F1F1F0 /* SWHistoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHistoryViewCell.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -1081,6 +1083,7 @@
 			isa = PBXGroup;
 			children = (
 				15F910582182DA3900F1F1F0 /* HistoryViewController.swift */,
+				15F9105F21843EC000F1F1F0 /* SWHistoryViewCell.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1409,6 +1412,7 @@
 				15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */,
 				159253A821799700004276BB /* SWDismissHamburgerGestureRecognizer.swift in Sources */,
 				15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */,
+				15F9106021843EC000F1F1F0 /* SWHistoryViewCell.swift in Sources */,
 				1592538D2171E0B6004276BB /* SWMealEnergySharePerHour.swift in Sources */,
 				15BA801C203A9BE900596CC8 /* CGFloat.swift in Sources */,
 				15FDD3A820D95D470077557B /* SWViewController.swift in Sources */,

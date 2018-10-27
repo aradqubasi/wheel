@@ -947,6 +947,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
                 hamburger.assembler = self.assembler.resolve(using: wheelsView)
             }
+        case segues.getWheelsToHistory().identifier?:
+            if let history = segue.destination as? HistoryViewController {
+                let wheelsView = view.snapshotView(afterScreenUpdates: true)!
+                wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
+                history.assembler = self.assembler.resolve()
+            }
         default:
             fatalError("Unrecognized segue")
         }

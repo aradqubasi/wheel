@@ -70,6 +70,8 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWHidingHamburgerAnimationController(fromVC as! HamburgerViewController)
         case segues.getHamburgerToWheelsForWalkthrough:
             return SWHideHamburgerAnimationController()
+        case segues.getHamburgerToWheelsForHistory:
+            return SWHideHamburgerAnimationController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)

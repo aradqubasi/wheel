@@ -17,6 +17,10 @@ class HistoryViewController: SWViewController {
     private var history: UITableView!
     
     private var recipies: SWRecipyRepository!
+    
+    private var stringifier: SWDateStringifier!
+    
+    private var tableIndex: [Int] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,15 @@ class HistoryViewController: SWViewController {
         self.segues = assembler.resolve()
         
         self.recipies = assembler.resolve()
+        
+        self.stringifier = assembler.resolve()
+        
+        self.tableIndex = recipies.getAll().sorted(by: {
+            (prev, next) -> Bool in
+            return prev.timestamp > next.timestamp
+        }).map({
+            $0.id!
+        })
         
         do {
             navigationItem.titleView = UILabel.historyTitle
@@ -33,6 +46,7 @@ class HistoryViewController: SWViewController {
             history = UITableView(frame: CGRect(origin: CGPoint(x: 0, y: 40), size: CGSize(width: self.view.bounds.width, height: self.view.bounds.height - 40)))
             history.register(SWHistoryViewCell.self, forCellReuseIdentifier: String(describing: SWHistoryViewCell.self))
             history.dataSource = self
+            history.delegate = self
             self.view.addSubview(history)
         }
     }
@@ -63,13 +77,22 @@ extension HistoryViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return self.recipies.getAll().count
-        return 16
+        return self.tableIndex.count
+//        return 16
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SWHistoryViewCell.self), for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SWHistoryViewCell.self), for: indexPath) as! SWHistoryViewCell
+        cell.setRecipy(self.recipies.get(by: tableIndex[indexPath.row])!, self.stringifier)
         return cell
+    }
+    
+}
+
+extension HistoryViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
     }
     
 }

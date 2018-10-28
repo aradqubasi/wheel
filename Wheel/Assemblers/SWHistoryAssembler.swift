@@ -13,4 +13,6 @@ protocol SWHistoryAssembler {
     
     func resolve() -> SWRecipyRepository
     
+    func resolve() -> SWDateStringifier
+    
 }

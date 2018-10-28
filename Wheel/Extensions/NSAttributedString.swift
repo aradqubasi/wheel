@@ -487,6 +487,25 @@ extension NSAttributedString {
         }
     }
     
+    private func unfy() -> (font: Any?, text: String, color: Any?) {
+        return (
+            self.attribute(.font, at: 0, effectiveRange: nil),
+            self.string,
+            self.attribute(.foregroundColor, at: 0, effectiveRange: nil)
+        )
+    }
+    
+    private func fy(_ fyAttibutes: (font: Any?, text: String, color: Any?)) -> NSAttributedString {
+        var attributes: [NSAttributedStringKey: Any] = [:]
+        if fyAttibutes.font != nil {
+            attributes[NSAttributedStringKey.font] = fyAttibutes.font
+        }
+        if fyAttibutes.color != nil {
+            attributes[NSAttributedStringKey.foregroundColor] = fyAttibutes.color
+        }
+        return NSMutableAttributedString(string: fyAttibutes.text, attributes: attributes)
+    }
+    
     func whitify() -> NSAttributedString {
         let font = self.attribute(.font, at: 0, effectiveRange: nil)
         let text = self.string
@@ -499,5 +518,11 @@ extension NSAttributedString {
         let text = self.string
         let color = UIColor.dovegray
         return NSMutableAttributedString(string: text, attributes: [.foregroundColor: color as Any, .font: font as Any])
+    }
+    
+    func avenirLightify(_ size: CGFloat) -> NSAttributedString {
+        let unfy = self.unfy()
+        let font = UIFont(name: "Avenir-Light", size: size)
+        return fy((font: font, text: unfy.text, color: unfy.color))
     }
 }

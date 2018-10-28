@@ -23,11 +23,16 @@ class SWInmemoryRecipyRepository: SWRecipyRepository {
         if let index = SWInmemoryRecipyRepository.recipies.index(where: { $0.id == recipy.id }) {
             SWInmemoryRecipyRepository.recipies[index] = recipy
         }
+        else {
+            let id = SWInmemoryRecipyRepository.recipies.map({ $0.id ?? 0 }).max() ?? 1
+            let newRecipy = SWRecipy(id: id, name: recipy.name, servings: recipy.servings, ingredients: recipy.ingredients, calories: recipy.calories, fats: recipy.fats, carbohydrates: recipy.carbohydrates, proteins: recipy.proteins, timestamp: recipy.timestamp, liked: recipy.liked/*, photo: recipy.photo*/)
+            SWInmemoryRecipyRepository.recipies.append(newRecipy)
+        }
     }
 
     func create() -> SWRecipy {
         let next = (SWInmemoryRecipyRepository.recipies.map({ $0.id ?? 0}).max() ?? 0) + 1
-        let new = SWRecipy(id: next, name: "", servings: 0, ingredients: [], calories: 0, fats: 0, carbohydrates: 0, proteins: 0, timestamp: Date(), liked: false, photo: nil)
+        let new = SWRecipy(id: next, name: "", servings: 0, ingredients: [], calories: 0, fats: 0, carbohydrates: 0, proteins: 0, timestamp: Date(), liked: false/*, photo: nil*/)
         SWInmemoryRecipyRepository.recipies.append(new)
         return new
     }

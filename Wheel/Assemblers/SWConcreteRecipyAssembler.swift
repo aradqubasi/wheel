@@ -10,7 +10,7 @@ import Foundation
 class SWConcreteRecipyAssembler: SWRecipyAssembler {
     
     func resolve() -> SWRecipyRepository {
-        return SWInmemoryRecipyRepository()
+        return SWPersistantRecipyRepository()
     }
     
     func resolve() -> SWNameGenerator {

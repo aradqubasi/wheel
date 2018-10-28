@@ -345,7 +345,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
             recipy.fats = self._servingsGenerator.getFats(for: self.selection, per: 1)
             recipy.proteins = self._servingsGenerator.getProteins(for: self.selection, per: 1)
             recipy.carbohydrates = self._servingsGenerator.getCarbs(for: self.selection, per: 1)
-            recipy.ingredients = self.selection
+            recipy.ingredients = self.selection.map({ $0.id! })
             self.recipies.save(recipy)
         }
         transit()

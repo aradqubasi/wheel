@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-struct SWRecipy {
+struct SWRecipy: Codable {
     
     let id: Int?
     
@@ -17,7 +17,7 @@ struct SWRecipy {
     
     var servings: Int
     
-    var ingredients: [SWIngredient]
+    var ingredients: [Int]
     
     var calories: Double
     
@@ -31,6 +31,6 @@ struct SWRecipy {
     
     var liked: Bool
     
-    var photo: UIImage?
+//    var photo: UIImage?
     
 }

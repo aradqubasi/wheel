@@ -311,4 +311,5 @@ extension UILabel {
         label.attributedText = text
         label.textAlignment = .center
     }
+    
 }

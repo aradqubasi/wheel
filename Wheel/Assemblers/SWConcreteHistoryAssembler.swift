@@ -14,7 +14,11 @@ class SWConcreteHistoryAssembler: SWHistoryAssembler {
     }
     
     func resolve() -> SWRecipyRepository {
-        return SWInmemoryRecipyRepository()
+        return SWPersistantRecipyRepository()
+    }
+    
+    func resolve() -> SWDateStringifier {
+        return SWConcreteDateStringifier()
     }
 }
 

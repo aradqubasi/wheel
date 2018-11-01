@@ -36,6 +36,10 @@ class SWInmemoryRecipyRepository: SWRecipyRepository {
         SWInmemoryRecipyRepository.recipies.append(new)
         return new
     }
+    
+    func removeBy(id: Int) -> Void {
+        
+    }
 
 }
 

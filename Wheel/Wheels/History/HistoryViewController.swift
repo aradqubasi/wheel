@@ -42,15 +42,15 @@ class HistoryViewController: SWViewController {
             $0.id!
         })
         
-//        do {
-//            history = UITableView(frame: CGRect(origin: CGPoint(x: 0, y: 40), size: CGSize(width: self.view.bounds.width, height: self.view.bounds.height - 40)))
-//            history.register(SWHistoryViewCell.self, forCellReuseIdentifier: String(describing: SWHistoryViewCell.self))
-//            history.separatorStyle = .none
-//            history.dataSource = self
-//            history.delegate = self
-//            self.view.addSubview(history)
-//        }
-//
+        do {
+            history = UITableView(frame: CGRect(origin: CGPoint(x: 0, y: 40), size: CGSize(width: self.view.bounds.width, height: self.view.bounds.height - 40)))
+            history.register(SWHistoryViewCell.self, forCellReuseIdentifier: String(describing: SWHistoryViewCell.self))
+            history.separatorStyle = .none
+            history.dataSource = self
+            history.delegate = self
+            self.view.addSubview(history)
+        }
+
         do {
             navigationItem.titleView = UILabel.historyTitle
             
@@ -74,6 +74,8 @@ class HistoryViewController: SWViewController {
         
         
     }
+    
+    // MARK: - Private Methods
     
     // MARK: - Actions
     
@@ -126,7 +128,13 @@ extension HistoryViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SWHistoryViewCell.self), for: indexPath) as! SWHistoryViewCell
-        cell.setRecipy(self.recipies.get(by: tableIndex[indexPath.row])!, cellAligner)
+        cell.setRecipy(self.recipies.get(by: tableIndex[indexPath.row])!, cellAligner, {
+            (recipy) -> Void in
+            var recipy = recipy
+            recipy.liked = !recipy.liked
+            self.recipies.save(recipy)
+            tableView.reloadRows(at: [indexPath], with: .none)
+        })
         return cell
     }
     
@@ -137,6 +145,19 @@ extension HistoryViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let calculated = self.cellAligner.calculatePositions(for: self.cellAligner.generateView(for: self.recipies.get(by: tableIndex[indexPath.row])!), width: self.view.bounds.width).height
         return calculated
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            self.recipies.removeBy(id: tableIndex[indexPath.row])
+            self.tableIndex = recipies.getAll().sorted(by: {
+                (prev, next) -> Bool in
+                return prev.timestamp > next.timestamp
+            }).map({
+                $0.id!
+            })
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        }
     }
     
 }

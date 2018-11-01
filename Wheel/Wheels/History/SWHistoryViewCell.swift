@@ -20,6 +20,8 @@ class SWHistoryViewCell: UITableViewCell {
     
     private var delete: UIButton?
     
+    private var callback: (() -> Void)?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -32,7 +34,14 @@ class SWHistoryViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setRecipy(_ recipy: SWRecipy, _ aligner: SWHistoryCellAligner) {
+    func setRecipy(_ recipy: SWRecipy, _ aligner: SWHistoryCellAligner, _ callback: @escaping (SWRecipy) -> Void) {
+        
+        do {
+            self.callback = {
+                () -> Void in
+                callback(recipy)
+            }
+        }
         
         do {
             
@@ -57,7 +66,10 @@ class SWHistoryViewCell: UITableViewCell {
                 self.name = views.name
                 self.stats = views.stats
                 self.timestamp = views.timestamp
-                self.like = views.like
+                do {
+                    self.like = views.like
+                    self.like?.addTarget(self, action: #selector(onLikeClick(_:)), for: .touchUpInside)
+                }
                 
                 self.contentView.addSubview(self.name!)
                 self.stats.forEach({ self.contentView.addSubview($0) })
@@ -77,6 +89,12 @@ class SWHistoryViewCell: UITableViewCell {
 
         }
         
+    }
+    
+    //MARK: - Actions
+    
+    @IBAction private func onLikeClick(_ sender: UIButton) {
+        self.callback?()
     }
 
 }

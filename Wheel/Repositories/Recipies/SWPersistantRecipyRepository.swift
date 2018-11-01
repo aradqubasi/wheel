@@ -68,4 +68,8 @@ class SWPersistantRecipyRepository: SWRecipyRepository {
         return new
     }
     
+    func removeBy(id: Int) -> Void {
+        self.setEntities(self.getEntities().filter({ $0.id != id }))
+    }
+    
 }

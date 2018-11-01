@@ -17,4 +17,6 @@ protocol SWRecipyRepository {
     
     func create() -> SWRecipy
     
+    func removeBy(id: Int) -> Void 
+    
 }

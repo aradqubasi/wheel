@@ -48,7 +48,12 @@ class SWDismissHistoryGestureRecognizer: UIGestureRecognizer {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
         self.current = location(ofTouch: 0, in: view!)
         if (state == .possible && !IsTooSmallToCheck) {
-            state = .began
+            if IsRightDownDirection {
+                state = .began
+            }
+            else {
+                state = .failed
+            }
         }
         else if state == .began || state == .changed {
             if !IsRightDownDirection {

@@ -13,6 +13,6 @@ protocol SWHistoryAssembler {
     
     func resolve() -> SWRecipyRepository
     
-    func resolve() -> SWDateStringifier
+    func resolve() -> SWHistoryCellAligner
     
 }

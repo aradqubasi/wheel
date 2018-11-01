@@ -17,8 +17,8 @@ class SWConcreteHistoryAssembler: SWHistoryAssembler {
         return SWPersistantRecipyRepository()
     }
     
-    func resolve() -> SWDateStringifier {
-        return SWConcreteDateStringifier()
+    func resolve() -> SWHistoryCellAligner {
+        return SWConcreteHistoryCellAligner(SWConcreteDateStringifier())
     }
 }
 

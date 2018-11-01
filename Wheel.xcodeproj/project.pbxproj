@@ -214,6 +214,11 @@
 		15F910622185D0A600F1F1F0 /* SWPersistantRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910612185D0A600F1F1F0 /* SWPersistantRecipyRepository.swift */; };
 		15F910642185E03600F1F1F0 /* SWDateStringifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910632185E03600F1F1F0 /* SWDateStringifier.swift */; };
 		15F910662185E07D00F1F1F0 /* SWConcreteDateStringifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910652185E07D00F1F1F0 /* SWConcreteDateStringifier.swift */; };
+		15F910682187208000F1F1F0 /* SWHistoryCellAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910672187208000F1F1F0 /* SWHistoryCellAligner.swift */; };
+		15F9106B218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */; };
+		15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */; };
+		15F9106F218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */; };
+		15F91071218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -468,6 +473,11 @@
 		15F910612185D0A600F1F1F0 /* SWPersistantRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantRecipyRepository.swift; sourceTree = "<group>"; };
 		15F910632185E03600F1F1F0 /* SWDateStringifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDateStringifier.swift; sourceTree = "<group>"; };
 		15F910652185E07D00F1F1F0 /* SWConcreteDateStringifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteDateStringifier.swift; sourceTree = "<group>"; };
+		15F910672187208000F1F1F0 /* SWHistoryCellAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHistoryCellAligner.swift; sourceTree = "<group>"; };
+		15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHistoryCellAligner.swift; sourceTree = "<group>"; };
+		15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissHistoryGestureRecognizer.swift; sourceTree = "<group>"; };
+		15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHistoryAnimationController.swift; sourceTree = "<group>"; };
+		15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingHistoryAnimationController.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -780,6 +790,8 @@
 				159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */,
 				159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */,
 				15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */,
+				15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */,
+				15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */,
 			);
 			path = AnimationControllers;
 			sourceTree = "<group>";
@@ -869,6 +881,7 @@
 		15BA803A2041F1D800596CC8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				15F910692187208A00F1F1F0 /* HistoryCellAlighners */,
 				159253912173355D004276BB /* CheifCooks */,
 				1592539021733523004276BB /* WheelsAligners */,
 				1592538F217334F4004276BB /* StepAligners */,
@@ -1093,6 +1106,7 @@
 			children = (
 				15F910582182DA3900F1F1F0 /* HistoryViewController.swift */,
 				15F9105F21843EC000F1F1F0 /* SWHistoryViewCell.swift */,
+				15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -1104,6 +1118,15 @@
 				156B0BE72039717500CFEEA4 /* SWConcreteWheelsAssembler.swift */,
 			);
 			path = Wheels;
+			sourceTree = "<group>";
+		};
+		15F910692187208A00F1F1F0 /* HistoryCellAlighners */ = {
+			isa = PBXGroup;
+			children = (
+				15F910672187208000F1F1F0 /* SWHistoryCellAligner.swift */,
+				15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */,
+			);
+			path = HistoryCellAlighners;
 			sourceTree = "<group>";
 		};
 		15FA766F2127DEF100AE6231 /* Walkthrough */ = {
@@ -1362,6 +1385,7 @@
 				15D13D3C20529BED00D44923 /* SWRecipyStatsView.swift in Sources */,
 				1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */,
 				15FA4E3420DEAAF400A345EC /* SWShowOverlayAnimationController.swift in Sources */,
+				15F9106B218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift in Sources */,
 				15BA802F204146A900596CC8 /* SWRecipy.swift in Sources */,
 				15F4AF2E2011E6AD00C486FF /* SWBowlSceneController.swift in Sources */,
 				15F43C451FAF655100732CED /* CGSize.swift in Sources */,
@@ -1376,8 +1400,10 @@
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
 				1592539F2175A723004276BB /* SWHamburgerAssembler.swift in Sources */,
 				1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */,
+				15F9106F218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */,
 				15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
+				15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */,
 				1592539D2175A574004276BB /* HamburgerViewController.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
 				15B00C41200B489F002B93A8 /* SWPagerController.swift in Sources */,
@@ -1415,6 +1441,7 @@
 				15FA4E3020DE835E00A345EC /* SWConcreteIngredientsFilter.swift in Sources */,
 				15FA766A211FF95600AE6231 /* SWAnimationTypes.swift in Sources */,
 				1568A671216887E100CDC2B0 /* SWWheelsAnimationHelper.swift in Sources */,
+				15F91071218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift in Sources */,
 				15D13D3A204EEC4C00D44923 /* SWConcreteServingsGenerator.swift in Sources */,
 				15F4AF39201702E100C486FF /* SWBowlActStory.swift in Sources */,
 				1592538721706106004276BB /* SWLowenergyChiefCook.swift in Sources */,
@@ -1435,6 +1462,7 @@
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
 				15925383216DC16B004276BB /* SWModelHelper.swift in Sources */,
 				15456D641FC94B320018A1CD /* PointerController.swift in Sources */,
+				15F910682187208000F1F1F0 /* SWHistoryCellAligner.swift in Sources */,
 				151C425C20CCF18F00582268 /* SWSwipeGestureRecognizer.swift in Sources */,
 				150FB1CA1FFA2C05003F2601 /* SWAbstractWheelDelegate.swift in Sources */,
 				1568A66F2165DDAD00CDC2B0 /* SWConcreteFullIngredientRepository.swift in Sources */,

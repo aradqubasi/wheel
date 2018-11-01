@@ -179,6 +179,7 @@
                     </view>
                     <connections>
                         <segue destination="Mr9-jb-N8r" kind="unwind" identifier="HistoryToWheels" unwindAction="unwindToWheelsWithSegue:" id="vgC-2e-VNX"/>
+                        <segue destination="Mr9-jb-N8r" kind="unwind" identifier="HistoryToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="hoi-cg-gOE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWJ-58-dEf" userLabel="First Responder" sceneMemberID="firstResponder"/>

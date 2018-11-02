@@ -219,6 +219,8 @@
 		15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */; };
 		15F9106F218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */; };
 		15F91071218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */; };
+		15F91075218CAF5B00F1F1F0 /* SWRecipyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91074218CAF5B00F1F1F0 /* SWRecipyGenerator.swift */; };
+		15F91077218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91076218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -478,6 +480,8 @@
 		15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissHistoryGestureRecognizer.swift; sourceTree = "<group>"; };
 		15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHistoryAnimationController.swift; sourceTree = "<group>"; };
 		15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingHistoryAnimationController.swift; sourceTree = "<group>"; };
+		15F91074218CAF5B00F1F1F0 /* SWRecipyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyGenerator.swift; sourceTree = "<group>"; };
+		15F91076218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRecipyGenerator.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -694,6 +698,8 @@
 		158387A5203408A2001E4008 /* Assemblers */ = {
 			isa = PBXGroup;
 			children = (
+				15F91073218C2C1F00F1F1F0 /* Recipy */,
+				15F91072218C2C0B00F1F1F0 /* History */,
 				15F9105C2182DE1100F1F1F0 /* Wheels */,
 				158387A6203409B9001E4008 /* SWRootAssembler.swift */,
 				158387A820340DBC001E4008 /* SWContext.swift */,
@@ -702,8 +708,6 @@
 				156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */,
 				156B0BDD20396CF700CFEEA4 /* SWOnboardingAssembler.swift */,
 				156B0BE92039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift */,
-				15BA802A204144C200596CC8 /* SWRecipyAssembler.swift */,
-				15BA802C2041450D00596CC8 /* SWConcreteRecipyAssembler.swift */,
 				15119299207C748400D93751 /* SWStepsAssembler.swift */,
 				1511929B207C74C900D93751 /* SWConcreteStepsAssembler.swift */,
 				15A2581C208CACF800F738B5 /* SWFilterAssembler.swift */,
@@ -720,8 +724,6 @@
 				15FA76742127DFD000AE6231 /* SWConcreteWalkthroughAssembler.swift */,
 				1592539E2175A723004276BB /* SWHamburgerAssembler.swift */,
 				159253A02175A75C004276BB /* SWConcreteHamburgerAssembler.swift */,
-				15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */,
-				15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */,
 			);
 			path = Assemblers;
 			sourceTree = "<group>";
@@ -910,6 +912,8 @@
 				159253942173361B004276BB /* SWBiasedRandomIngredientProvider.swift */,
 				15F910632185E03600F1F1F0 /* SWDateStringifier.swift */,
 				15F910652185E07D00F1F1F0 /* SWConcreteDateStringifier.swift */,
+				15F91074218CAF5B00F1F1F0 /* SWRecipyGenerator.swift */,
+				15F91076218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -1127,6 +1131,24 @@
 				15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */,
 			);
 			path = HistoryCellAlighners;
+			sourceTree = "<group>";
+		};
+		15F91072218C2C0B00F1F1F0 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				15F9105A2182DDD400F1F1F0 /* SWHistoryAssembler.swift */,
+				15F9105D2182DE2500F1F1F0 /* SWConcreteHistoryAssembler.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		15F91073218C2C1F00F1F1F0 /* Recipy */ = {
+			isa = PBXGroup;
+			children = (
+				15BA802A204144C200596CC8 /* SWRecipyAssembler.swift */,
+				15BA802C2041450D00596CC8 /* SWConcreteRecipyAssembler.swift */,
+			);
+			path = Recipy;
 			sourceTree = "<group>";
 		};
 		15FA766F2127DEF100AE6231 /* Walkthrough */ = {
@@ -1457,6 +1479,7 @@
 				15BA8044204813CC00596CC8 /* SWRecipyIngridientView.swift in Sources */,
 				156B0BE020396DE100CFEEA4 /* SWSegue.swift in Sources */,
 				151192A0207CC79700D93751 /* SWFeedbackOverHttpService.swift in Sources */,
+				15F91077218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift in Sources */,
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
 				15F910662185E07D00F1F1F0 /* SWConcreteDateStringifier.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
@@ -1498,6 +1521,7 @@
 				15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */,
 				152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */,
 				152F66E320F084200070BAA5 /* SWSpot.swift in Sources */,
+				15F91075218CAF5B00F1F1F0 /* SWRecipyGenerator.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,
 				15D13D4A20564A8B00D44923 /* SWLocksController.swift in Sources */,
 				159253812169D5B4004276BB /* SWBalancedCheifCook.swift in Sources */,

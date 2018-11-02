@@ -14,7 +14,9 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     var assembler: SWRecipyAssembler!
     
-    var selection: [SWIngredient]!
+//    var selection: [SWIngredient]!
+    
+    var selection: SWRecipy!
     
     // MARK: - Private Properties
     
@@ -28,7 +30,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     private var _recipyHeaderContainer: UIView!
     
-    private var _name: String!
+//    private var _name: String!
     
     private var _servingsGenerator: SWServingsGenerator!
     
@@ -46,13 +48,15 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     private var _dismisser: SWSwipeInteractiveTransition?
     
-    private let _servingsCountForNutritionStats: Int = 1
+//    private let _servingsCountForNutritionStats: Int = 1
     
     // MARK - Repositories
     
-    private var _measuresmentRepository: SWMeasuresmentRepository!
+    private var measuresments: SWMeasuresmentRepository!
     
-    private var _ingredientStatsRepository: SWIngredientStatsRepository!
+//    private var _ingredientStatsRepository: SWIngredientStatsRepository!
+    
+    private var ingredients: SWIngredientRepository!
     
     private var recipies: SWRecipyRepository!
     
@@ -61,21 +65,23 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _name = assembler.resolve().getName(for: selection)
+//        _name = assembler.resolve().getName(for: selection)
         
-        print(_name)
+//        print(_name)
         
-        segues = assembler.resolve()
+        self.segues = assembler.resolve()
 
-        _measuresmentRepository = assembler.resolve()
+        self.measuresments = assembler.resolve()
         
-        _ingredientStatsRepository = assembler.resolve()
+//        _ingredientStatsRepository = assembler.resolve()
         
-        _servingsGenerator = assembler.resolve()
+        self._servingsGenerator = assembler.resolve()
         
-        _listGenerator = assembler.resolve()
+        self._listGenerator = assembler.resolve()
         
         self.recipies = assembler.resolve()
+        
+        self.ingredients = assembler.resolve()
         
         _servings = 2
         
@@ -95,7 +101,19 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                 var line: Int = 0
                 var position: Int = 0
                 
-                selection?.forEach({
+                self
+                    .selection
+                    .ingredients
+                    .join(
+                        with: ingredients.getAll(), on: {
+                            (inner: Int, outer: SWIngredient) -> Bool in
+                            return inner == outer.id
+                        }, as: {
+                            (inner: Int, outer: SWIngredient) -> SWIngredient in
+                            return outer
+                        }
+                    )
+                    .forEach({
                     if position >= perLine && position != 0 {
                         position = 0
                         line = line + 1
@@ -121,7 +139,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
             do {
                 _recipyHeaderContainer = UIView()
                 
-                let recipyHeader = UILabel.getRecipyHeader(_name, width: view.bounds.width - 16 * 2)
+                let recipyHeader = UILabel.getRecipyHeader(self.selection.name, width: view.bounds.width - 16 * 2)
                 _recipyHeaderContainer.addSubview(recipyHeader)
                 recipyHeader.translatesAutoresizingMaskIntoConstraints = false
                 recipyHeader.addSizeConstraints()
@@ -129,18 +147,17 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                 recipyHeader.topAnchor.constraint(equalTo: _recipyHeaderContainer.topAnchor, constant: 24).isActive = true
                 
                 do {
-                    
-                    let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servingsCountForNutritionStats)
-                    let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servingsCountForNutritionStats)
-                    let fats: Double = _servingsGenerator.getFats(for: selection, per: _servingsCountForNutritionStats)
-                    let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servingsCountForNutritionStats)
-                    
-                    let gram = _measuresmentRepository.getGram()
-                    let calories = _measuresmentRepository.getCalories()
+                
+                    let gram = self.measuresments.getGram()
+                    let calories = self.measuresments.getCalories()
                     
                     _subheader = SWRecipyStatsView(energyUnit: calories.short, weightUnit: gram.short)
                     
-                    _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+                    _subheader.set(
+                        energy: self.selection.calories,
+                        carbohydrates: self.selection.carbohydrates,
+                        fats: self.selection.fats,
+                        proteins: self.selection.proteins)
                     
                 }
                 _recipyHeaderContainer.addSubview(_subheader)
@@ -215,7 +232,18 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                 }
                 
                 do {
-                    _list = SWRecipyListView(for: selection, with: _listGenerator)
+                    _list = SWRecipyListView(
+                        for: self
+                            .selection
+                            .ingredients
+                            .join(with: self.ingredients.getAll(), on: {
+                                (inner: Int, outer: SWIngredient) -> Bool in
+                                return inner == outer.id
+                            }, as: {
+                                (inner: Int, outer: SWIngredient) -> SWIngredient in
+                                return outer
+                            }),
+                        with: _listGenerator)
                     _recipyHeaderContainer.addSubview(_list)
                     _list.translatesAutoresizingMaskIntoConstraints = false
                     _list.topAnchor.constraint(equalTo: listTitle.bottomAnchor, constant: 8).isActive = true
@@ -289,7 +317,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
         }
         
         do {
-            navigationItem.titleView = UILabel.getRecipyTitle(_name)
+            navigationItem.titleView = UILabel.getRecipyTitle(self.selection.name)
             
             let back = UIBarButtonItem.back
             navigationItem.leftBarButtonItem = back
@@ -338,14 +366,8 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     @IBAction func onShowStepsClick(_ sender: Any) {
         do {
-            var recipy = recipies.create()
-            recipy.name = self._name
+            var recipy = self.selection!
             recipy.servings = self._servings
-            recipy.calories = self._servingsGenerator.getEnergy(for: self.selection, per: 1)
-            recipy.fats = self._servingsGenerator.getFats(for: self.selection, per: 1)
-            recipy.proteins = self._servingsGenerator.getProteins(for: self.selection, per: 1)
-            recipy.carbohydrates = self._servingsGenerator.getCarbs(for: self.selection, per: 1)
-            recipy.ingredients = self.selection.map({ $0.id! })
             self.recipies.save(recipy)
         }
         transit()
@@ -357,22 +379,22 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     @IBAction func onMore(_ sender: Any) {
         _servings = _servings + 1
-        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servingsCountForNutritionStats)
-        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servingsCountForNutritionStats)
-        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servingsCountForNutritionStats)
-        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servingsCountForNutritionStats)
-        _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+        _subheader.set(
+            energy: self.selection.calories,
+            carbohydrates: self.selection.carbohydrates,
+            fats: self.selection.fats,
+            proteins: self.selection.proteins)
         _list.servings = _servings
         _counter.servings = _servings
     }
     
     @IBAction func onLess(_ sender: Any) {
         _servings = _servings - 1
-        let energy: Double = _servingsGenerator.getEnergy(for: selection, per: _servingsCountForNutritionStats)
-        let proteins: Double = _servingsGenerator.getProteins(for: selection, per: _servingsCountForNutritionStats)
-        let fats: Double = _servingsGenerator.getFats(for: selection, per: _servingsCountForNutritionStats)
-        let carbohydrates: Double = _servingsGenerator.getCarbs(for: selection, per: _servingsCountForNutritionStats)
-        _subheader.set(energy: energy, carbohydrates: carbohydrates, fats: fats, proteins: proteins)
+        _subheader.set(
+            energy: self.selection.calories,
+            carbohydrates: self.selection.carbohydrates,
+            fats: self.selection.fats,
+            proteins: self.selection.proteins)
         _list.servings = _servings
         _counter.servings = _servings
     }

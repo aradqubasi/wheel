@@ -51,4 +51,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWHistoryAssembler
     
+    func resolve() -> SWRecipyGenerator
+    
 }

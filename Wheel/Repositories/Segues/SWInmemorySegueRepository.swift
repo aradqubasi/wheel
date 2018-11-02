@@ -128,4 +128,16 @@ class SWInmemorySegueRepository: SWSegueRepository {
         return SWSegue(identifier: "HistoryToWheelsWithSwipe")
     }
     
+    func getHistoryToRecipy() -> SWSegue {
+        return SWSegue(identifier: "HistoryToRecipy")
+    }
+    
+    func getRecipyToHistory() -> SWSegue {
+        return SWSegue(identifier: "RecipyToHistory")
+    }
+    
+    func getRecipyToHistoryWithSwipe() -> SWSegue {
+        return SWSegue(identifier: "RecipyToHistoryWithSwipe")
+    }
+    
 }

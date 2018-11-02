@@ -19,6 +19,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - Private Properties
     
+    private var generator: SWRecipyGenerator!
+    
     private var filter: SWIngredientsFilter!
     
     private var _tipster: SWTipGenerator!
@@ -319,6 +321,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         _appState = assembler.resolve()
         _chiefCook = assembler.resolve()
         _modeler = assembler.resolve()
+        generator = assembler.resolve()
         
         view.backgroundColor = UIColor.aquaHaze
         
@@ -906,12 +909,13 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         case segues.getWheelsToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
-                recipyViewController.selection = []
-                selected.forEach({
-                    if let ingredient = _ingredients.get(by: $0.name) {
-                        recipyViewController.selection.append(ingredient)
-                    }
-                })
+                recipyViewController.selection = self.generator.generate(selected, servings: 2)
+//                recipyViewController.selection = []
+//                selected.forEach({
+//                    if let ingredient = _ingredients.get(by: $0.name) {
+//                        recipyViewController.selection.append(ingredient)
+//                    }
+//                })
             }
         case segues.getWheelsToOverlay().identifier?:
             print("to \(String(describing: overlayTransitionContext))")

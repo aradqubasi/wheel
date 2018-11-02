@@ -12,13 +12,17 @@ class HistoryViewController: SWViewController {
     
     var assembler: SWHistoryAssembler!
     
-    // MARK: - Private Properties
-    
-    private var history: UITableView!
+    // MARK: - Dependencies
     
     private var recipies: SWRecipyRepository!
     
     private var cellAligner: SWHistoryCellAligner!
+    
+    private var ingredients: SWIngredientRepository!
+    
+    // MARK: - Private Properties
+    
+    private var history: UITableView!
     
     private var tableIndex: [Int] = []
     
@@ -28,6 +32,8 @@ class HistoryViewController: SWViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.ingredients = assembler.resolve()
 
         self.segues = assembler.resolve()
         
@@ -103,15 +109,37 @@ class HistoryViewController: SWViewController {
             self.transitioning.finish()
         }
     }
-    /*
+    
     // MARK: - Navigation
+    @IBAction func unwindToHistory(segue: UIStoryboardSegue) {
+        
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        switch segue.identifier {
+        case segues.getHistoryToRecipy().identifier?:
+            if let recipyViewController = (segue.destination as? RecipyViewController) {
+                recipyViewController.assembler = assembler.resolve()
+//                recipyViewController.selection = self
+//                    .recipies
+//                    .get(by: self.tableIndex[self.history.indexPathForSelectedRow!.row])!
+//                    .ingredients
+//                    .join(with: ingredients.getAll(), on: {
+//                        (inner: Int, outer: SWIngredient) -> Bool in
+//                        return inner == outer.id
+//                    }, as: {
+//                        (inner: Int, outer: SWIngredient) -> SWIngredient in
+//                        return outer
+//                    })
+                recipyViewController.selection = self
+                    .recipies
+                    .get(by: self.tableIndex[self.history.indexPathForSelectedRow!.row])!
+            }
+        default:
+            fatalError("Unhandled segue \(segue.identifier ?? "")")
+        }
     }
-    */
 
 }
 
@@ -158,6 +186,10 @@ extension HistoryViewController: UITableViewDelegate {
             })
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        perform(segue: self.segues.getHistoryToRecipy())
     }
     
 }

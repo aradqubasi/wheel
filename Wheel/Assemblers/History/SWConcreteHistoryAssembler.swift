@@ -20,5 +20,13 @@ class SWConcreteHistoryAssembler: SWHistoryAssembler {
     func resolve() -> SWHistoryCellAligner {
         return SWConcreteHistoryCellAligner(SWConcreteDateStringifier())
     }
+    
+    func resolve() -> SWRecipyAssembler {
+        return SWConcreteRecipyAssembler()
+    }
+    
+    func resolve() -> SWIngredientRepository {
+        return SWInmemoryIngredientRepository()
+    }
 }
 

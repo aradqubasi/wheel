@@ -180,6 +180,7 @@
                     <connections>
                         <segue destination="Mr9-jb-N8r" kind="unwind" identifier="HistoryToWheels" unwindAction="unwindToWheelsWithSegue:" id="vgC-2e-VNX"/>
                         <segue destination="Mr9-jb-N8r" kind="unwind" identifier="HistoryToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="hoi-cg-gOE"/>
+                        <segue destination="zk1-cU-Buj" kind="show" identifier="HistoryToRecipy" id="I1U-M9-36e"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWJ-58-dEf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -204,6 +205,8 @@
                         <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToWheels" unwindAction="unwindToWheelsWithSegue:" id="cTB-Z4-Gw6"/>
                         <segue destination="Ji8-3L-Gmx" kind="show" identifier="RecipyToSteps" id="bzS-Ls-CUF"/>
                         <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="jGD-Io-7DJ"/>
+                        <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToHistory" unwindAction="unwindToHistoryWithSegue:" id="LhX-93-a85"/>
+                        <segue destination="t2j-i1-jHY" kind="unwind" identifier="RecipyToHistoryWithSwipe" unwindAction="unwindToHistoryWithSegue:" id="IHj-hZ-ugK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="60i-sn-fiS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -371,5 +374,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JsK-hI-aH2"/>
+        <segue reference="I1U-M9-36e"/>
     </inferredMetricsTieBreakers>
 </document>

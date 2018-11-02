@@ -11,18 +11,20 @@ protocol SWRecipyAssembler {
     
     func resolve() -> SWRecipyRepository
     
-    func resolve() -> SWNameGenerator
+//    func resolve() -> SWNameGenerator
     
     func resolve() -> SWSegueRepository
     
     func resolve() -> SWMeasuresmentRepository
     
-    func resolve() -> SWIngredientStatsRepository
+//    func resolve() -> SWIngredientStatsRepository
     
     func resolve() -> SWServingsGenerator
     
     func resolve() -> SWRecipyListGenerator
     
     func resolve() -> SWStepsAssembler
+    
+    func resolve() -> SWIngredientRepository
     
 }

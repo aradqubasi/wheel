@@ -15,4 +15,8 @@ protocol SWHistoryAssembler {
     
     func resolve() -> SWHistoryCellAligner
     
+    func resolve() -> SWRecipyAssembler
+    
+    func resolve() -> SWIngredientRepository
+    
 }

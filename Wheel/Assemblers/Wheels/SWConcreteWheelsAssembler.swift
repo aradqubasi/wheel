@@ -102,4 +102,13 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteHistoryAssembler()
     }
     
+    func resolve() -> SWRecipyGenerator {
+        return SWConcreteRecipyGenerator(
+            SWPersistantRecipyRepository(),
+            SWConcreteNameGenerator(),
+            SWConcreteServingsGenerator(
+                measuresment: SWInmemoryMeasuresmentRepository(),
+                stats: SWInmemoryIngredientStatsRepository()))
+    }
+    
 }

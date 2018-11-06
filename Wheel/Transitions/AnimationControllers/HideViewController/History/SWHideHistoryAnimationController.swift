@@ -1,5 +1,5 @@
 //
-//  SWHideHistoryAnimationController.swift
+//  SWHideHistoryAnimationConttoller.swift
 //  Wheel
 //
 //  Created by Oleg Sokolansky on 06/11/2018.
@@ -7,3 +7,9 @@
 //
 
 import Foundation
+import UIKit
+
+class SWHideHistoryAnimationController: SWHideAnimationController {
+
+}
+

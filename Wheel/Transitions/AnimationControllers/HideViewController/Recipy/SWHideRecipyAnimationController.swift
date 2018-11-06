@@ -1,5 +1,5 @@
 //
-//  SWHideHistoryAnimationController.swift
+//  SWHideRecipyAnimationController.swift
 //  Wheel
 //
 //  Created by Oleg Sokolansky on 06/11/2018.
@@ -7,3 +7,6 @@
 //
 
 import Foundation
+class SWHideRecipyAnimationController: SWHideAnimationController {
+    
+}

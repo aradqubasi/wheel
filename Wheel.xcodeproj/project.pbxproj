@@ -184,6 +184,10 @@
 		15D13D4E2057CFE900D44923 /* SWOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D4D2057CFE800D44923 /* SWOverlayController.swift */; };
 		15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */; };
 		15DF420C1FE1352B00B6CC62 /* Floatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15DF420B1FE1352B00B6CC62 /* Floatable.swift */; };
+		15E5394621918C760046EDF7 /* SWHidingRecipyAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5394521918C760046EDF7 /* SWHidingRecipyAnimationController.swift */; };
+		15E5394821918D460046EDF7 /* SWDismissRecipyGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5394721918D460046EDF7 /* SWDismissRecipyGestureRecognizer.swift */; };
+		15E5394A21918E430046EDF7 /* SWTransitioningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5394921918E430046EDF7 /* SWTransitioningViewController.swift */; };
+		15E5394C2191901B0046EDF7 /* SWHidingAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5394B2191901B0046EDF7 /* SWHidingAnimationController.swift */; };
 		15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB331F404FCC006F646E /* AppDelegate.swift */; };
 		15F0BB361F404FCC006F646E /* WheelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F0BB351F404FCC006F646E /* WheelsViewController.swift */; };
 		15F0BB391F404FCC006F646E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15F0BB371F404FCC006F646E /* Main.storyboard */; };
@@ -217,10 +221,12 @@
 		15F910682187208000F1F1F0 /* SWHistoryCellAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F910672187208000F1F1F0 /* SWHistoryCellAligner.swift */; };
 		15F9106B218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */; };
 		15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */; };
-		15F9106F218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */; };
 		15F91071218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */; };
 		15F91075218CAF5B00F1F1F0 /* SWRecipyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91074218CAF5B00F1F1F0 /* SWRecipyGenerator.swift */; };
 		15F91077218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91076218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift */; };
+		15F9107A219188EB00F1F1F0 /* SWHideAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F91079219188EB00F1F1F0 /* SWHideAnimationController.swift */; };
+		15F9107F219189FA00F1F1F0 /* SWHideRecipyAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9107E219189FA00F1F1F0 /* SWHideRecipyAnimationController.swift */; };
+		15F9108121918A6400F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15F9108021918A6400F1F1F0 /* SWHideHistoryAnimationController.swift */; };
 		15FA4E2820DE1FAA00A345EC /* OverlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */; };
 		15FA4E2A20DE7CA700A345EC /* SWOverlayAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */; };
 		15FA4E2E20DE7F4400A345EC /* SWIngredientsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */; };
@@ -439,6 +445,10 @@
 		15D13D4D2057CFE800D44923 /* SWOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayController.swift; sourceTree = "<group>"; };
 		15DF42091FDE9C2C00B6CC62 /* NamedPinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NamedPinView.swift; sourceTree = "<group>"; };
 		15DF420B1FE1352B00B6CC62 /* Floatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Floatable.swift; sourceTree = "<group>"; };
+		15E5394521918C760046EDF7 /* SWHidingRecipyAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingRecipyAnimationController.swift; sourceTree = "<group>"; };
+		15E5394721918D460046EDF7 /* SWDismissRecipyGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissRecipyGestureRecognizer.swift; sourceTree = "<group>"; };
+		15E5394921918E430046EDF7 /* SWTransitioningViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWTransitioningViewController.swift; sourceTree = "<group>"; };
+		15E5394B2191901B0046EDF7 /* SWHidingAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingAnimationController.swift; sourceTree = "<group>"; };
 		15F0BB301F404FCC006F646E /* Wheel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wheel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15F0BB331F404FCC006F646E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15F0BB351F404FCC006F646E /* WheelsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheelsViewController.swift; sourceTree = "<group>"; };
@@ -478,10 +488,13 @@
 		15F910672187208000F1F1F0 /* SWHistoryCellAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHistoryCellAligner.swift; sourceTree = "<group>"; };
 		15F9106A218720D200F1F1F0 /* SWConcreteHistoryCellAligner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteHistoryCellAligner.swift; sourceTree = "<group>"; };
 		15F9106C218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissHistoryGestureRecognizer.swift; sourceTree = "<group>"; };
-		15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHistoryAnimationController.swift; sourceTree = "<group>"; };
 		15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingHistoryAnimationController.swift; sourceTree = "<group>"; };
 		15F91074218CAF5B00F1F1F0 /* SWRecipyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyGenerator.swift; sourceTree = "<group>"; };
 		15F91076218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteRecipyGenerator.swift; sourceTree = "<group>"; };
+		15F91079219188EB00F1F1F0 /* SWHideAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideAnimationController.swift; sourceTree = "<group>"; };
+		15F9107E219189FA00F1F1F0 /* SWHideRecipyAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideRecipyAnimationController.swift; sourceTree = "<group>"; };
+		15F9108021918A6400F1F1F0 /* SWHideHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHistoryAnimationController.swift; sourceTree = "<group>"; };
+		15F9108221918AD900F1F1F0 /* SWHideHistoryAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideHistoryAnimationController.swift; sourceTree = "<group>"; };
 		15FA4E2720DE1FAA00A345EC /* OverlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayViewController.swift; sourceTree = "<group>"; };
 		15FA4E2920DE7CA700A345EC /* SWOverlayAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWOverlayAssembler.swift; sourceTree = "<group>"; };
 		15FA4E2D20DE7F4400A345EC /* SWIngredientsFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWIngredientsFilter.swift; sourceTree = "<group>"; };
@@ -782,6 +795,7 @@
 		159253A22175A957004276BB /* AnimationControllers */ = {
 			isa = PBXGroup;
 			children = (
+				15F91078219188A700F1F1F0 /* HideViewController */,
 				15C91AE720AFF06F003AD754 /* SWDismissAnimationController.swift */,
 				15FA4E3320DEAAF400A345EC /* SWShowOverlayAnimationController.swift */,
 				152F66D320E7A8740070BAA5 /* SWHideOverlayAnimationController.swift */,
@@ -792,8 +806,7 @@
 				159253A32175AAB3004276BB /* SWShowHamburgerAnimationController.swift */,
 				159253A521785195004276BB /* SWHideHamburgerAnimationController.swift */,
 				15F9104B21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift */,
-				15F9106E218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift */,
-				15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */,
+				15F9108221918AD900F1F1F0 /* SWHideHistoryAnimationController.swift */,
 			);
 			path = AnimationControllers;
 			sourceTree = "<group>";
@@ -876,6 +889,7 @@
 				15D13D432053EF4200D44923 /* SWRecipyBroccoliView.swift */,
 				15A258982093835000F738B5 /* SWMoreButton.swift */,
 				15A2589A20938DB200F738B5 /* SWLessButton.swift */,
+				15E5394721918D460046EDF7 /* SWDismissRecipyGestureRecognizer.swift */,
 			);
 			path = Recipy;
 			sourceTree = "<group>";
@@ -926,6 +940,7 @@
 				15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */,
 				15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */,
 				15FDD3A720D95D470077557B /* SWViewController.swift */,
+				15E5394921918E430046EDF7 /* SWTransitioningViewController.swift */,
 			);
 			path = Transitions;
 			sourceTree = "<group>";
@@ -1151,6 +1166,43 @@
 			path = Recipy;
 			sourceTree = "<group>";
 		};
+		15F91078219188A700F1F1F0 /* HideViewController */ = {
+			isa = PBXGroup;
+			children = (
+				15F91079219188EB00F1F1F0 /* SWHideAnimationController.swift */,
+				15E5394B2191901B0046EDF7 /* SWHidingAnimationController.swift */,
+				15F9107D219189BA00F1F1F0 /* History */,
+				15F9107B2191897800F1F1F0 /* Recipy */,
+				15F9107C219189A800F1F1F0 /* Concrete */,
+			);
+			path = HideViewController;
+			sourceTree = "<group>";
+		};
+		15F9107B2191897800F1F1F0 /* Recipy */ = {
+			isa = PBXGroup;
+			children = (
+				15F9107E219189FA00F1F1F0 /* SWHideRecipyAnimationController.swift */,
+				15E5394521918C760046EDF7 /* SWHidingRecipyAnimationController.swift */,
+			);
+			path = Recipy;
+			sourceTree = "<group>";
+		};
+		15F9107C219189A800F1F1F0 /* Concrete */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Concrete;
+			sourceTree = "<group>";
+		};
+		15F9107D219189BA00F1F1F0 /* History */ = {
+			isa = PBXGroup;
+			children = (
+				15F9108021918A6400F1F1F0 /* SWHideHistoryAnimationController.swift */,
+				15F91070218A28D100F1F1F0 /* SWHidingHistoryAnimationController.swift */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
 		15FA766F2127DEF100AE6231 /* Walkthrough */ = {
 			isa = PBXGroup;
 			children = (
@@ -1308,11 +1360,13 @@
 				15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */,
 				159253892171DEE9004276BB /* SWCook.swift in Sources */,
 				15F4AF322013426F00C486FF /* SWBowlActSteps.swift in Sources */,
+				15E5394621918C760046EDF7 /* SWHidingRecipyAnimationController.swift in Sources */,
 				15C5B67F2160CF2E004B0C18 /* SWFilterAligner.swift in Sources */,
 				15FA76792127F13E00AE6231 /* SWAreaOfInterest.swift in Sources */,
 				1592539821733712004276BB /* SWIngredientBiasRepository.swift in Sources */,
 				15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */,
 				15A25821208CBA6D00F738B5 /* SWDebugger.swift in Sources */,
+				15F9107F219189FA00F1F1F0 /* SWHideRecipyAnimationController.swift in Sources */,
 				1583879A203045A8001E4008 /* SWAllergiesOptionView.swift in Sources */,
 				155BEC331FF0300000E749B5 /* OptionsActions.swift in Sources */,
 				1568A66D2165DD7F00CDC2B0 /* SWFullIngredientRepository.swift in Sources */,
@@ -1375,6 +1429,7 @@
 				15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */,
 				1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,
+				15E5394821918D460046EDF7 /* SWDismissRecipyGestureRecognizer.swift in Sources */,
 				15A2581D208CACF800F738B5 /* SWFilterAssembler.swift in Sources */,
 				15F0BB341F404FCC006F646E /* AppDelegate.swift in Sources */,
 				15AAAE292116D69B0022996D /* SWFakeFloatable.swift in Sources */,
@@ -1422,7 +1477,6 @@
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
 				1592539F2175A723004276BB /* SWHamburgerAssembler.swift in Sources */,
 				1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */,
-				15F9106F218A27C500F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */,
 				15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
 				15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */,
@@ -1450,9 +1504,11 @@
 				15FDD3A420D930B30077557B /* SWConcreteNavigationAssembler.swift in Sources */,
 				158387AD203554A7001E4008 /* String.swift in Sources */,
 				15BA8022203C01F200596CC8 /* SWInmemoryBlockingRepository.swift in Sources */,
+				15F9108121918A6400F1F1F0 /* SWHideHistoryAnimationController.swift in Sources */,
 				15D13D32204E88D400D44923 /* SWIngredientStatsRepository.swift in Sources */,
 				1511929C207C74C900D93751 /* SWConcreteStepsAssembler.swift in Sources */,
 				15AAAE1D20F9B58D0022996D /* SWSelectionWheelDelegate.swift in Sources */,
+				15E5394C2191901B0046EDF7 /* SWHidingAnimationController.swift in Sources */,
 				15F5D629208498E400462DE7 /* SWInmemoryBowlTimelineRepository.swift in Sources */,
 				15DF420A1FDE9C2C00B6CC62 /* NamedPinView.swift in Sources */,
 				1568A6672165D6DF00CDC2B0 /* SWCheifCook.swift in Sources */,
@@ -1517,7 +1573,9 @@
 				15F9104C21802F9500F1F1F0 /* SWHidingHamburgerAnimationController.swift in Sources */,
 				154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */,
 				15F5D6202080747B00462DE7 /* SWValidationLine.swift in Sources */,
+				15E5394A21918E430046EDF7 /* SWTransitioningViewController.swift in Sources */,
 				156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */,
+				15F9107A219188EB00F1F1F0 /* SWHideAnimationController.swift in Sources */,
 				15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */,
 				152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */,
 				152F66E320F084200070BAA5 /* SWSpot.swift in Sources */,

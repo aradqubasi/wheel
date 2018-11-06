@@ -910,6 +910,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
                 recipyViewController.selection = self.generator.generate(selected, servings: 2)
+                recipyViewController.backSegue = self.segues.getRecipyToWheels()
+                recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
 //                recipyViewController.selection = []
 //                selected.forEach({
 //                    if let ingredient = _ingredients.get(by: $0.name) {

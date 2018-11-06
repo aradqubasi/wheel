@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissableViewController {
+class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate {
     
     // MARK: - Public Properties
     
@@ -20,17 +20,15 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     // MARK: - Private Properties
     
-    private var _swiper: SWSwipeGestureRecognizer!
+    private var swiper: UIGestureRecognizer!
     
-    private var _servings: Int!
+//    private var _swiper: SWSwipeGestureRecognizer!
     
     private var _selectionViews: [SWRecipyIngridientView]!
     
     private var _selectionContainer: UIView!
     
     private var _recipyHeaderContainer: UIView!
-    
-//    private var _name: String!
     
     private var _servingsGenerator: SWServingsGenerator!
     
@@ -46,15 +44,11 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     
     private var _broccoli: SWRecipyBroccoliView!
     
-    private var _dismisser: SWSwipeInteractiveTransition?
-    
-//    private let _servingsCountForNutritionStats: Int = 1
+//    private var _dismisser: SWSwipeInteractiveTransition?
     
     // MARK - Repositories
     
     private var measuresments: SWMeasuresmentRepository!
-    
-//    private var _ingredientStatsRepository: SWIngredientStatsRepository!
     
     private var ingredients: SWIngredientRepository!
     
@@ -65,15 +59,9 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        _name = assembler.resolve().getName(for: selection)
-        
-//        print(_name)
-        
         self.segues = assembler.resolve()
 
         self.measuresments = assembler.resolve()
-        
-//        _ingredientStatsRepository = assembler.resolve()
         
         self._servingsGenerator = assembler.resolve()
         
@@ -82,8 +70,6 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
         self.recipies = assembler.resolve()
         
         self.ingredients = assembler.resolve()
-        
-        _servings = 2
         
         // scroll
         do {
@@ -180,7 +166,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                 
                 do {
                     _counter = SWRecipyServingsCounter.usual(with: _servingsGenerator)
-                    _counter.servings = _servings
+                    _counter.servings = self.selection.servings
                     _recipyHeaderContainer.addSubview(_counter)
                     _counter.translatesAutoresizingMaskIntoConstraints = false
                     _counter.addSizeConstraints()
@@ -249,7 +235,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
                     _list.topAnchor.constraint(equalTo: listTitle.bottomAnchor, constant: 8).isActive = true
                     _list.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
                     _list.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
-                    _list.servings = _servings
+                    _list.servings = self.selection.servings
                 }
                 
                 var line3: UIView!
@@ -321,18 +307,21 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
             
             let back = UIBarButtonItem.back
             navigationItem.leftBarButtonItem = back
-            back.action = #selector(onBackButtonClick(_:))
+            back.action = #selector(onBackClick(sender:))
             back.target = self
         }
 
         do {
-            _dismisser = SWSwipeInteractiveTransition({() -> Void in
-                self.perform(segue: self.segues.getRecipyToWheelsWithSwipe())
-            })
-            _swiper = SWSwipeGestureRecognizer()
-            _swiper.Delegate = _dismisser
-            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
-            _scroller.addGestureRecognizer(_swiper)
+//            _dismisser = SWSwipeInteractiveTransition({() -> Void in
+//                self.perform(segue: self.segues.getRecipyToWheelsWithSwipe())
+//            })
+//            _swiper = SWSwipeGestureRecognizer()
+//            _swiper.Delegate = _dismisser
+//            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
+//            _scroller.addGestureRecognizer(_swiper)
+            self.swiper = SWDismissRecipyGestureRecognizer(target: self, action: #selector(onSwipe(sender:)))
+            self._scroller.gestureRecognizers?.forEach({ $0.require(toFail: self.swiper) })
+            self._scroller.addGestureRecognizer(self.swiper)
         }
     }
 
@@ -357,46 +346,44 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     }
     
     // MARK: - Actions
-    
-    @IBAction func onBackButtonClick(_ sender: Any) {
-        if _swiper.state != .began && _swiper.state != .changed && _swiper.state != .ended {
-            perform(segue: segues.getRecipyToWheels())
-        }
-    }
-    
+//
+//    @IBAction func onBackButtonClick(_ sender: Any) {
+//        perform(segue: segues.getRecipyToWheels())
+//    }
+//
     @IBAction func onShowStepsClick(_ sender: Any) {
         do {
             var recipy = self.selection!
-            recipy.servings = self._servings
+            recipy.servings = self.selection.servings
             self.recipies.save(recipy)
         }
-        transit()
+//        transit()
     }
     
-    @IBAction func transit() {
-        perform(segue: segues.getRecipyToSteps())
-    }
+//    @IBAction func transit() {
+//        perform(segue: segues.getRecipyToSteps())
+//    }
     
     @IBAction func onMore(_ sender: Any) {
-        _servings = _servings + 1
+        self.selection.servings = self.selection.servings + 1
         _subheader.set(
             energy: self.selection.calories,
             carbohydrates: self.selection.carbohydrates,
             fats: self.selection.fats,
             proteins: self.selection.proteins)
-        _list.servings = _servings
-        _counter.servings = _servings
+        _list.servings = self.selection.servings
+        _counter.servings = self.selection.servings
     }
     
     @IBAction func onLess(_ sender: Any) {
-        _servings = _servings - 1
+        self.selection.servings = self.selection.servings + 1
         _subheader.set(
             energy: self.selection.calories,
             carbohydrates: self.selection.carbohydrates,
             fats: self.selection.fats,
             proteins: self.selection.proteins)
-        _list.servings = _servings
-        _counter.servings = _servings
+        _list.servings = self.selection.servings
+        _counter.servings = self.selection.servings
     }
 
     // MARK: - UIScrollViewDelegate Methods
@@ -423,7 +410,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
         switch segue.identifier ?? "" {
         case segues.getRecipyToSteps().identifier:
             print("RecipyToSteps")
-            _dismisser = nil
+//            _dismisser = nil
             (segue.destination as? StepsViewController)?.assembler = self.assembler.resolve()
             break
         case segues.getRecipyToWheelsWithSwipe().identifier:
@@ -431,7 +418,7 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
             break
         case segues.getRecipyToWheels().identifier:
             print("RecipyToWheels")
-            _dismisser = nil
+//            _dismisser = nil
             break
         default:
             fatalError("Unrecognized segue \(segue.identifier ?? "empty")")
@@ -441,10 +428,5 @@ class RecipyViewController: SWViewController, UIScrollViewDelegate, SWDismissabl
     @IBAction func unwindToRecipy(segue: UIStoryboardSegue) {
         print("unwindToRecipy")
     }
-    
-    // MARK: - SWDismissableViewController Methods
-    
-    func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
-        return _dismisser
-    }
+
 }

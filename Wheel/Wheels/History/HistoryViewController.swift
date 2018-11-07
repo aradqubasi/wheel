@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HistoryViewController: SWViewController {
+class HistoryViewController: SWTransitioningViewController {
     
     var assembler: SWHistoryAssembler!
     
@@ -62,7 +62,7 @@ class HistoryViewController: SWViewController {
             
             let back = UIBarButtonItem.back
             navigationItem.leftBarButtonItem = back
-            back.action = #selector(onBackButtonClick(sender:))
+            back.action = #selector(onBackClick(sender:))
             back.target = self
         }
         
@@ -71,7 +71,7 @@ class HistoryViewController: SWViewController {
             self.swiper = SWDismissHistoryGestureRecognizer()
             self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
-            self.transitioning = UIPercentDrivenInteractiveTransition()
+//            self.transitioning = UIPercentDrivenInteractiveTransition()
         }
     }
 
@@ -85,30 +85,30 @@ class HistoryViewController: SWViewController {
     
     // MARK: - Actions
     
-    @IBAction func onBackButtonClick(sender: Any) {
-        perform(segue: segues.getHistoryToWheels())
-    }
+//    @IBAction func onBackButtonClick(sender: Any) {
+//        perform(segue: segues.getHistoryToWheels())
+//    }
     
 //    var lastChanged: Date = Date()
     
-    @IBAction func onSwipe(sender: SWDismissHistoryGestureRecognizer) {
-        if sender.state == .began {
-            print("began")
-            perform(segue: segues.getHistoryToWheelsWithSwipe())
-        }
-        else if sender.state == .changed {
-            print("changed \(sender.Progress)")
-            self.transitioning.update(sender.Progress)
-        }
-        else if sender.state == .cancelled {
-            print("cancelled")
-            self.transitioning.cancel()
-        }
-        else if sender.state == .ended {
-            print("ended")
-            self.transitioning.finish()
-        }
-    }
+//    @IBAction func onSwipe(sender: SWDismissHistoryGestureRecognizer) {
+//        if sender.state == .began {
+//            print("began")
+//            perform(segue: segues.getHistoryToWheelsWithSwipe())
+//        }
+//        else if sender.state == .changed {
+//            print("changed \(sender.Progress)")
+//            self.transitioning.update(sender.Progress)
+//        }
+//        else if sender.state == .cancelled {
+//            print("cancelled")
+//            self.transitioning.cancel()
+//        }
+//        else if sender.state == .ended {
+//            print("ended")
+//            self.transitioning.finish()
+//        }
+//    }
     
     // MARK: - Navigation
     @IBAction func unwindToHistory(segue: UIStoryboardSegue) {
@@ -121,21 +121,14 @@ class HistoryViewController: SWViewController {
         case segues.getHistoryToRecipy().identifier?:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
-//                recipyViewController.selection = self
-//                    .recipies
-//                    .get(by: self.tableIndex[self.history.indexPathForSelectedRow!.row])!
-//                    .ingredients
-//                    .join(with: ingredients.getAll(), on: {
-//                        (inner: Int, outer: SWIngredient) -> Bool in
-//                        return inner == outer.id
-//                    }, as: {
-//                        (inner: Int, outer: SWIngredient) -> SWIngredient in
-//                        return outer
-//                    })
                 recipyViewController.selection = self
                     .recipies
                     .get(by: self.tableIndex[self.history.indexPathForSelectedRow!.row])!
+                recipyViewController.backSegue = self.segues.getRecipyToHistory()
+                recipyViewController.backWithSwipeSegue = self.segues.getRecipyToHistoryWithSwipe()
             }
+        case segues.getHistoryToWheels().identifier?, segues.getHistoryToWheelsWithSwipe().identifier?:
+            print("back to wheels")
         default:
             fatalError("Unhandled segue \(segue.identifier ?? "")")
         }
@@ -171,7 +164,7 @@ extension HistoryViewController: UITableViewDataSource {
 extension HistoryViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let calculated = self.cellAligner.calculatePositions(for: self.cellAligner.generateView(for: self.recipies.get(by: tableIndex[indexPath.row])!), width: self.view.bounds.width).height
+        let calculated = self.cellAligner.calculatePositions(for: self.cellAligner.generateView(for: self.recipies.get(by: tableIndex[indexPath.row])!)).height
         return calculated
     }
     
@@ -194,11 +187,11 @@ extension HistoryViewController: UITableViewDelegate {
     
 }
 
-extension HistoryViewController: SWDismissableViewController {
-    
-    func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
-        return self.transitioning
-    }
-    
-}
+//extension HistoryViewController: SWDismissableViewController {
+//
+//    func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
+//        return self.transitioning
+//    }
+//
+//}
 

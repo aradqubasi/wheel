@@ -420,6 +420,8 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
             print("RecipyToWheels")
 //            _dismisser = nil
             break
+        case segues.getRecipyToHistory().identifier, segues.getRecipyToHistoryWithSwipe().identifier:
+            print("back to history")
         default:
             fatalError("Unrecognized segue \(segue.identifier ?? "empty")")
         }

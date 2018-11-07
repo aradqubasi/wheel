@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 class SWConcreteHistoryAssembler: SWHistoryAssembler {
     
     func resolve() -> SWSegueRepository {
@@ -18,7 +19,7 @@ class SWConcreteHistoryAssembler: SWHistoryAssembler {
     }
     
     func resolve() -> SWHistoryCellAligner {
-        return SWConcreteHistoryCellAligner(SWConcreteDateStringifier())
+        return SWConcreteHistoryCellAligner(SWConcreteDateStringifier(), width: UIScreen.main.bounds.size.width)
     }
     
     func resolve() -> SWRecipyAssembler {

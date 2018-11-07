@@ -11,14 +11,22 @@ import UIKit
 
 class SWConcreteHistoryCellAligner: SWHistoryCellAligner {
     
+    //MARK: - Dependencies
+    
+    private let width: CGFloat
     
     private let stringifier: SWDateStringifier
     
-    init(_ stringifier: SWDateStringifier) {
+    //MARK: - Parameters
+    
+    private let margins = CGPoint(x: 16, y: 24)
+    
+    init(_ stringifier: SWDateStringifier, width: CGFloat) {
         self.stringifier = stringifier
+        self.width = width
     }
 
-    func generateView(for recipy: SWRecipy) -> (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel) {
+    func generateView(for recipy: SWRecipy) -> (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel, separator: UIView) {
         
         let name = UILabel()
         name.attributedText = NSAttributedString(string: recipy.name).avenirLightify(19).dovegraytify()
@@ -63,18 +71,20 @@ class SWConcreteHistoryCellAligner: SWHistoryCellAligner {
             like.setImage(#imageLiteral(resourceName: "History/unlike"), for: .normal)
         }
         
-        return (name, stats, like, UIButton(), timestamp)
+        let separator = UIView().getRecipySeparatorLine(for: -self.margins.x + self.width + -self.margins.x)
+        
+        return (name, stats, like, UIButton(), timestamp, separator)
     }
     
-    func calculatePositions(for views: (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel), width: CGFloat) -> (centerOfName: CGPoint, centersOfStats: [CGPoint], centerOfLike: CGPoint, centerOfDelete: CGPoint, centerOfTimeStamp: CGPoint, height: CGFloat) {
+    func calculatePositions(for views: (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel, separator: UIView)) -> (centerOfName: CGPoint, centersOfStats: [CGPoint], centerOfLike: CGPoint, centerOfDelete: CGPoint, centerOfTimeStamp: CGPoint, centerOfSeparator: CGPoint, height: CGFloat) {
         
-        let margins = CGPoint(x: 16, y: 24)
         let spacing: CGFloat = 8
         var offset: CGFloat = 16
         let high = margins.y + views.name.frame.height * 0.5
         let center = margins.y + views.name.frame.height + spacing + (views.stats.map({ $0.frame.height }).max() ?? 16) * 0.5
         let low = margins.y + views.name.frame.height + spacing + (views.stats.map({ $0.frame.height }).max() ?? 16) + spacing + views.timestamp.frame.height * 0.5
-        let height = low + views.timestamp.frame.height * 0.5 + margins.y
+        let bottom = low + views.timestamp.frame.height * 0.5 + margins.y + views.separator.frame.height * 0.5
+        let height = bottom + views.separator.frame.height * 0.5
         
         return (
             centerOfName: CGPoint(x: 16 + views.name.frame.width * 0.5, y: high),
@@ -87,6 +97,7 @@ class SWConcreteHistoryCellAligner: SWHistoryCellAligner {
             centerOfLike: CGPoint(x: width - 16 - views.like.frame.width, y: center),
             centerOfDelete: CGPoint(),
             centerOfTimeStamp: CGPoint(x: 16 + views.timestamp.frame.width * 0.5, y: low),
+            centerOfSeparator: CGPoint(x: width * 0.5, y: bottom),
             height)
     }
 }

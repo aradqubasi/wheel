@@ -76,6 +76,10 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWHideRecipyAnimationController()
         case segues.getRecipyToWheelsWithSwipe:
             return SWHidingRecipyAnimationController(fromVC as! RecipyViewController)
+        case segues.getRecipyToHistory:
+            return SWHideRecipyAnimationController()
+        case segues.getRecipyToHistoryWithSwipe:
+            return SWHidingRecipyAnimationController(fromVC as! RecipyViewController)
         case segues.getHistoryToWheels:
             print("performing HistoryToWheels")
             return SWHideHistoryAnimationController()

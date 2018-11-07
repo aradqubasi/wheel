@@ -22,6 +22,8 @@ class SWHistoryViewCell: UITableViewCell {
     
     private var callback: (() -> Void)?
     
+    private var separator: UIView?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -58,6 +60,9 @@ class SWHistoryViewCell: UITableViewCell {
                 if let like = self.like {
                     like.removeFromSuperview()
                 }
+                if let separator = self.separator {
+                    separator.removeFromSuperview()
+                }
             }
 
             do {
@@ -70,20 +75,23 @@ class SWHistoryViewCell: UITableViewCell {
                     self.like = views.like
                     self.like?.addTarget(self, action: #selector(onLikeClick(_:)), for: .touchUpInside)
                 }
+                self.separator = views.separator
                 
                 self.contentView.addSubview(self.name!)
                 self.stats.forEach({ self.contentView.addSubview($0) })
                 self.contentView.addSubview(self.timestamp!)
                 self.contentView.addSubview(self.like!)
+                self.contentView.addSubview(self.separator!)
                 
                 do {
-                    let positions = aligner.calculatePositions(for: views, width: self.contentView.bounds.width)
+                    let positions = aligner.calculatePositions(for: views)
                     self.name?.center = positions.centerOfName
                     for i in 0..<positions.centersOfStats.count {
                         self.stats[i].center = positions.centersOfStats[i]
                     }
                     self.timestamp?.center = positions.centerOfTimeStamp
                     self.like?.center = positions.centerOfLike
+                    self.separator?.center = positions.centerOfSeparator
                 }
             }
 

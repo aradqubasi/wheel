@@ -11,8 +11,8 @@ import UIKit
 
 protocol SWHistoryCellAligner {
     
-    func generateView(for recipy: SWRecipy) -> (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel)
+    func generateView(for recipy: SWRecipy) -> (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel, separator: UIView) 
     
-    func calculatePositions(for views: (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel), width: CGFloat) -> (centerOfName: CGPoint, centersOfStats: [CGPoint], centerOfLike: CGPoint, centerOfDelete: CGPoint, centerOfTimeStamp: CGPoint, height: CGFloat)
+    func calculatePositions(for views: (name: UILabel, stats: [UIView], like: UIButton, delete: UIButton, timestamp: UILabel, separator: UIView)) -> (centerOfName: CGPoint, centersOfStats: [CGPoint], centerOfLike: CGPoint, centerOfDelete: CGPoint, centerOfTimeStamp: CGPoint, centerOfSeparator: CGPoint, height: CGFloat)
 
 }

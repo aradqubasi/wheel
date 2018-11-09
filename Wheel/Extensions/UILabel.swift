@@ -312,4 +312,14 @@ extension UILabel {
         label.textAlignment = .center
     }
     
+    class var dietTitle: UILabel {
+        get {
+            let label = UILabel()
+            label.numberOfLines = 0
+            label.frame.size = CGSize(width: 133, height: 32)
+            label.attributedText = NSAttributedString.dietTitle
+            label.textAlignment = .center
+            return label
+        }
+    }
 }

@@ -26,9 +26,9 @@ class HistoryViewController: SWTransitioningViewController {
     
     private var tableIndex: [Int] = []
     
-    private var swiper: SWDismissHistoryGestureRecognizer!
+//    private var swiper: SWDismissHistoryGestureRecognizer!
     
-    private var transitioning: UIPercentDrivenInteractiveTransition!
+//    private var transitioning: UIPercentDrivenInteractiveTransition!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +71,6 @@ class HistoryViewController: SWTransitioningViewController {
             self.swiper = SWDismissHistoryGestureRecognizer()
             self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
-//            self.transitioning = UIPercentDrivenInteractiveTransition()
         }
     }
 

@@ -68,6 +68,7 @@
                         <segue destination="9Qm-n7-6oy" kind="show" identifier="WheelsToWalkthrough" id="8VK-aq-gYs"/>
                         <segue destination="IhP-sc-3Nb" kind="show" identifier="WheelsToHamburger" id="ex4-oy-JMu"/>
                         <segue destination="yJc-6s-X2P" kind="show" identifier="WheelsToHistory" id="lhU-wC-rYB"/>
+                        <segue destination="M8O-3b-TED" kind="show" identifier="WheelsToDiet" id="1dE-mz-cPx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -132,6 +133,7 @@
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="yTo-mw-emM"/>
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForWalkthrough" unwindAction="unwindToWheelsWithSegue:" id="O3W-Ad-HUQ"/>
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForHistory" unwindAction="unwindToWheelsWithSegue:" id="Rbv-2P-Pjk"/>
+                        <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForDiet" unwindAction="unwindToWheelsWithSegue:" id="0RU-7Z-WPs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMt-Ei-ul6" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -163,6 +165,29 @@
                 <exit id="Tij-yj-lQg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="-63" y="660"/>
+        </scene>
+        <!--Diet View Controller-->
+        <scene sceneID="BfG-6k-4pd">
+            <objects>
+                <viewController id="M8O-3b-TED" customClass="DietViewController" customModule="Wheel" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VcZ-P8-UZd"/>
+                        <viewControllerLayoutGuide type="bottom" id="RgC-K2-QVH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VNc-oi-RE4">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="d7h-Bv-7B4" kind="unwind" identifier="DietToWheels" unwindAction="unwindToWheelsWithSegue:" id="tWL-ym-36T"/>
+                        <segue destination="d7h-Bv-7B4" kind="unwind" identifier="DietToWheelsWithSwipe" unwindAction="unwindToWheelsWithSegue:" id="s6E-0C-Rt2"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Z8-B5-lmA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="d7h-Bv-7B4" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-363" y="1435"/>
         </scene>
         <!--History View Controller-->
         <scene sceneID="cKv-2M-vUB">
@@ -374,6 +399,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JsK-hI-aH2"/>
-        <segue reference="I1U-M9-36e"/>
+        <segue reference="tTt-hq-gRy"/>
     </inferredMetricsTieBreakers>
 </document>

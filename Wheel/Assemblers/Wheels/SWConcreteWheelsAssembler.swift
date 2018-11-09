@@ -111,4 +111,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
                 stats: SWInmemoryIngredientStatsRepository()))
     }
     
+    func resolve() -> SWDietAssembler {
+        return SWConcreteDietAssembler()
+    }
+    
 }

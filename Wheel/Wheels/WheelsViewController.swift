@@ -547,6 +547,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         else if segues.getCurrent()?.identifier == segues.getHamburgerToWheelsForHistory().identifier {
             perform(segue: segues.getWheelsToHistory())
         }
+        else if segues.getCurrent()?.identifier == segues.getHamburgerToWheelsForDiet().identifier {
+            perform(segue: segues.getWheelsToDiet())
+        }
     }
 
     // MARK: - Actions
@@ -901,12 +904,12 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        switch segue.identifier {
+        switch segue.identifier ?? "" {
         // TODO: - pass assembler
-        case segues.getWheelsToFilter().identifier?:
+        case segues.getWheelsToFilter().identifier:
             let filter = segue.destination as? FilterViewController
             filter?.assembler = assembler.resolve()
-        case segues.getWheelsToRecipy().identifier?:
+        case segues.getWheelsToRecipy().identifier:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
                 recipyViewController.selection = self.generator.generate(selected, servings: 2)
@@ -919,7 +922,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //                    }
 //                })
             }
-        case segues.getWheelsToOverlay().identifier?:
+        case segues.getWheelsToOverlay().identifier:
             print("to \(String(describing: overlayTransitionContext))")
             if let overlayViewController = segue.destination as? OverlayViewController {
                 overlayViewController.assembler = assembler.resolve()
@@ -928,7 +931,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 overlayViewController.background?.addSubview((navigationController?.view.snapshotView(afterScreenUpdates: true))!)
                 overlayViewController.prefocused = selectionController.getSelected().first(where: { $0.kind == self.overlayTransitionContext! })
             }
-        case segues.getWheelsToWalkthrough().identifier?:
+        case segues.getWheelsToWalkthrough().identifier:
             print("WheelsToWalkthrough")
             if let walkthrough = segue.destination as? WalkthroughViewController {
                 
@@ -947,19 +950,25 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                                 
                 walkthrough.assembler = assembler.resolve(from: self, areas: SWAreasOfInterest(selectionWheel: selectionController.getWholeArea(), rollButton: midright, filtersButton: topright, cookButton: selectionController.getCookArea(in: view), enhancer: edge, wheelIngredient: middle, selectionIngredient: selectionController.getPinArea(in: view), wheel: bigmidright))
             }
-        case segues.getWheelsToHamburger().identifier?:
+        case segues.getWheelsToHamburger().identifier:
             if let hamburger = segue.destination as? HamburgerViewController {
                 let wheelsView = view.snapshotView(afterScreenUpdates: true)!
                 wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
                 hamburger.assembler = self.assembler.resolve(using: wheelsView)
             }
-        case segues.getWheelsToHistory().identifier?:
+        case segues.getWheelsToHistory().identifier:
             if let history = segue.destination as? HistoryViewController {
-                let wheelsView = view.snapshotView(afterScreenUpdates: true)!
-                wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
+//                let wheelsView = view.snapshotView(afterScreenUpdates: true)!
+//                wheelsView.addSubview(navigationController!.view.snapshotView(afterScreenUpdates: true)!)
                 history.assembler = self.assembler.resolve()
                 history.backSegue = segues.getHistoryToWheels()
                 history.backWithSwipeSegue = segues.getHistoryToWheelsWithSwipe()
+            }
+        case segues.getWheelsToDiet().identifier:
+            if let diet = segue.destination as? DietViewController {
+                diet.assembler = self.assembler.resolve()
+                diet.backSegue = segues.getDietToWheels()
+                diet.backWithSwipeSegue = segues.getDietToWheelsWithSwipe()
             }
         default:
             fatalError("Unrecognized segue")

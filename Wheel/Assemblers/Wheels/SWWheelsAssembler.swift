@@ -53,4 +53,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWRecipyGenerator
     
+    func resolve() -> SWDietAssembler
+    
 }

@@ -81,11 +81,15 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
         case segues.getRecipyToHistoryWithSwipe:
             return SWHidingRecipyAnimationController(fromVC as! RecipyViewController)
         case segues.getHistoryToWheels:
-            print("performing HistoryToWheels")
             return SWHideHistoryAnimationController()
         case segues.getHistoryToWheelsWithSwipe:
-            print("performing HistoryToWheelsWithSwipe")
             return SWHidingHistoryAnimationController(fromVC as! HistoryViewController)
+        case segues.getHamburgerToWheelsForDiet:
+            return SWHideHamburgerAnimationController()
+        case segues.getDietToWheels:
+            return SWHideDietAnimationController()
+        case segues.getDietToWheelsWithSwipe:
+            return SWHidingDietAnimationController(fromVC as! DietViewController)
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
@@ -116,6 +120,9 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return dismiss.interactionController()
         }
         else if let dismiss = animationController as? SWHidingRecipyAnimationController {
+            return dismiss.interactionController()
+        }
+        else if let dismiss = animationController as? SWHidingDietAnimationController {
             return dismiss.interactionController()
         }
         return nil

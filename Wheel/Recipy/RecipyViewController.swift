@@ -20,7 +20,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
     
     // MARK: - Private Properties
     
-    private var swiper: UIGestureRecognizer!
+//    private var swiper: UIGestureRecognizer!
     
 //    private var _swiper: SWSwipeGestureRecognizer!
     

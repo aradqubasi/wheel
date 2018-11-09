@@ -163,8 +163,8 @@ class HamburgerViewController: SWViewController {
     }
     
     @IBAction func onDietClick(sender: UIButton) {
-        print("onDietClick")
         unHighlightButton(sender: sender)
+        perform(segue: segues.getHamburgerToWheelsForDiet())
     }
     
     @IBAction func onWalkthroughClick(sender: UIButton) {

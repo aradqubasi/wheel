@@ -15,9 +15,9 @@ class SWTransitioningViewController: SWViewController {
     
     var backSegue: SWSegue!
     
-    private var swiper: UIGestureRecognizer!
+    var swiper: UIGestureRecognizer!
     
-    private var transitioning = UIPercentDrivenInteractiveTransition()
+    let transitioning = UIPercentDrivenInteractiveTransition()
     
     func interactionControllerForDismissal() -> UIViewControllerInteractiveTransitioning? {
         return self.transitioning

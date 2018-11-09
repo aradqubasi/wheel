@@ -71,4 +71,12 @@ protocol SWSegueRepository {
     func getRecipyToHistory() -> SWSegue
     
     func getRecipyToHistoryWithSwipe() -> SWSegue
+    
+    func getHamburgerToWheelsForDiet() -> SWSegue
+    
+    func getWheelsToDiet() -> SWSegue
+    
+    func getDietToWheels() -> SWSegue
+    
+    func getDietToWheelsWithSwipe() -> SWSegue
 }

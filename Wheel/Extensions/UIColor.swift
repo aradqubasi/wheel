@@ -172,4 +172,46 @@ public extension UIColor {
             return UIColor(red: 107 / 255, green: 107 / 255, blue: 107 / 255, alpha: 1)
         }
     }
+    
+    /** yellow-easy */
+    class var kournikova: UIColor {
+        get {
+            return UIColor(red: 255 / 255, green: 226 / 255, blue: 118 / 255, alpha: 1)
+        }
+    }
+    
+    /** yellow-hard */
+    class var buttercup: UIColor {
+        get {
+            return UIColor(red: 239 / 255, green: 195 / 255, blue: 25 / 255, alpha: 1)
+        }
+    }
+    
+    /** green-easy */
+    class var yellowgreen: UIColor {
+        get {
+            return UIColor(red: 207 / 255, green: 226 / 255, blue: 144 / 255, alpha: 1)
+        }
+    }
+    
+    /** green-hard */
+    class var atlantis: UIColor {
+        get {
+            return UIColor(red: 150 / 255, green: 201 / 255, blue: 62 / 255, alpha: 1)
+        }
+    }
+    
+    /** red-easy */
+    class var froly: UIColor {
+        get {
+            return UIColor(red: 245 / 255, green: 138 / 255, blue: 127 / 255, alpha: 1)
+        }
+    }
+    
+    /** red-hard */
+    class var burntSienna: UIColor {
+        get {
+            return UIColor(red: 231 / 255, green: 101 / 255, blue: 84 / 255, alpha: 1)
+        }
+    }
 }

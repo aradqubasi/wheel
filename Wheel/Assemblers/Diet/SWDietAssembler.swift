@@ -13,4 +13,8 @@ protocol SWDietAssembler {
     
     func resolve() -> SWSegueRepository
     
+    func resolve() -> SWPieAssembler
+    
+    func resolve() -> SWDietSettingsRepository
+    
 }

@@ -15,4 +15,12 @@ class SWConcreteDietAssembler: SWDietAssembler {
         return SWInmemorySegueRepository()
     }
     
+    func resolve() -> SWPieAssembler {
+        return SWConcretePieAssembler()
+    }
+    
+    func resolve() -> SWDietSettingsRepository {
+        return SWInmemoryDietSettingsRepository()
+    }
+    
 }

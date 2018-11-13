@@ -15,6 +15,10 @@ class DietViewController: SWTransitioningViewController {
     
     var assembler: SWDietAssembler!
     
+    // MARK: - Dependencies
+    
+    private var settings: SWDietSettingsRepository!
+    
     // MARK: - Subviews
     
     private var pieChart: SWPieViewController!
@@ -25,6 +29,8 @@ class DietViewController: SWTransitioningViewController {
         super.viewDidLoad()
 
         self.segues = assembler.resolve()
+        
+        self.settings = self.assembler.resolve()
         
         do {
             navigationItem.titleView = UILabel.dietTitle
@@ -42,9 +48,13 @@ class DietViewController: SWTransitioningViewController {
         
         do {
             self.pieChart = SWPieViewController()
-            self.pieChart.assembler = self.assembler.resolve()
-//            concreteSelectionController.delegate = self
-            self.pieChart.view.frame = CGRect(origin: self.view.getBoundsCenter(), size: CGSize(width: 200, height: 200))
+            do {
+                self.pieChart.assembler = self.assembler.resolve()
+                self.pieChart.settings = self.settings.get()
+            }
+            //            concreteSelectionController.delegate = self
+            self.pieChart.view.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+            self.pieChart.view.center = self.view.getBoundsCenter()
             view.addSubview(self.pieChart.view)
             self.addChildViewController(self.pieChart)
             self.pieChart.didMove(toParentViewController: self)

@@ -59,6 +59,14 @@ extension Array {
         return result
     }
     
+    func zip<T1,T2>(with collection: [T1], as select: (Element, T1) -> T2) -> [T2] {
+        var result: [T2] = []
+        for i in 0..<Swift.min(self.count, collection.count) {
+            result.append(select(self[i], collection[i]))
+        }
+        return result
+    }
+    
 //    func query<T1,T2,T3>(_ t1: T1.Type, _ t2: T2.Type, _ t3: T3.Type) -> SWQuery<T1,T2,T3> {
 //        return SWQuery<T1,T2,T3>().arrayjoin(from: self as! [T1])
 //    }

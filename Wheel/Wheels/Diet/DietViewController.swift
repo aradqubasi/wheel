@@ -44,6 +44,7 @@ class DietViewController: SWTransitioningViewController {
             self.swiper = SWDismissHistoryGestureRecognizer()
             self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
+            self.swiper.delegate = self
         }
         
         do {
@@ -61,6 +62,21 @@ class DietViewController: SWTransitioningViewController {
             self.pieChart.alignSubviews()
         }
         
+    }
+    
+}
+
+extension DietViewController : UIGestureRecognizerDelegate {
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: self.pieChart.view)
+        let center = self.pieChart.view.getBoundsCenter()
+        if gestureRecognizer === self.swiper && otherGestureRecognizer === self.pieChart.spinner && (location.x - center.x).square() + (location.y - center.y).square() <= CGFloat(100).square() {
+            return true
+        }
+        else {
+            return false
+        }
     }
     
 }

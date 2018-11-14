@@ -21,7 +21,20 @@ class SWPieViewController: UIViewController {
     
     // MARK: - Subviews
     
-    var chart = (
+    var spinner: UIPanGestureRecognizer!
+    
+    private var spinning: (
+        prev: (place: CGPoint, time: Date)?,
+        first: Int?
+    )
+    
+    private let nutrients = (
+        fats: 1,
+        proteins: 2,
+        carbohydrates: 3
+    )
+
+    private var chart = (
         center: CGPoint.zero,
         inner: (
             radius: CGFloat(80),
@@ -83,6 +96,7 @@ class SWPieViewController: UIViewController {
             self.chart.inner.proteins,
             self.chart.inner.carbohydrates
         ]
+        
         //painting
         do {
             layers.forEach({
@@ -95,6 +109,12 @@ class SWPieViewController: UIViewController {
             layers.forEach({
                 self.view.layer.addSublayer($0.layer)
             })
+        }
+        
+        //gesture recognizer
+        do {
+            self.spinner = UIPanGestureRecognizer(target: self, action: #selector(onSpin(sender:)))
+            self.view.addGestureRecognizer(self.spinner)
         }
     }
     
@@ -116,17 +136,7 @@ class SWPieViewController: UIViewController {
         //draw
         do {
             self.chart.center = self.view.getBoundsCenter()
-            let layers = [
-                (layer: self.chart.inner.fats.layer, angles: self.chart.angles.fats, radius: self.chart.inner.radius, center: self.chart.center),
-                (layer: self.chart.inner.proteins.layer, angles: self.chart.angles.proteins, radius: self.chart.inner.radius, center: self.chart.center),
-                (layer: self.chart.inner.carbohydrates.layer, angles: self.chart.angles.carbohydrates, radius: self.chart.inner.radius, center: self.chart.center),
-                (layer: self.chart.outer.fats.layer, angles: self.chart.angles.fats, radius: self.chart.outer.radius, center: self.chart.center),
-                (layer: self.chart.outer.proteins.layer, angles: self.chart.angles.proteins, radius: self.chart.outer.radius, center: self.chart.center),
-                (layer: self.chart.outer.carbohydrates.layer, angles: self.chart.angles.carbohydrates, radius: self.chart.outer.radius, center: self.chart.center)
-            ]
-            layers.forEach({
-                $0.layer.path = self.drawSection($0.angles, $0.radius, $0.center).cgPath
-            })
+            self.drawChart()
         }
         
         do {
@@ -136,6 +146,41 @@ class SWPieViewController: UIViewController {
 //            animation.toValue = 1.0
 //            animation.duration = 2.5
 //            inner.add(animation, forKey: "drawLineAnimation")
+        }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction private func onSpin(sender: UIPanGestureRecognizer) {
+        switch sender.state {
+        case .began:
+            self.spinning.prev = (place: sender.location(in: self.view), time: Date())
+            
+        case .changed:
+            let next = (place: sender.location(in: self.view), time: Date())
+            if let prev = self.spinning.prev {
+                let delta = getAngleBetweenPoints(prev.place, next.place, self.chart.center)
+                
+                let time = next.time.timeIntervalSince(prev.time)
+                
+                do {
+
+                    self.chart.angles.fats.start += delta.angle
+                    self.chart.angles.fats.end += delta.angle
+                    self.chart.angles.proteins.start += delta.angle
+                    self.chart.angles.proteins.end += delta.angle
+                    self.chart.angles.carbohydrates.start += delta.angle
+                    self.chart.angles.carbohydrates.end += delta.angle
+                    
+                    self.drawChart()
+                }
+            }
+            self.spinning.prev = next
+
+        case .ended, .cancelled:
+            self.spinning.prev = nil
+        default:
+            print("default")
         }
     }
     
@@ -168,5 +213,34 @@ class SWPieViewController: UIViewController {
         path.close()
         return path
     }
+    
+    private func drawChart() {
+        let layers = [
+            (layer: self.chart.inner.fats.layer, angles: self.chart.angles.fats, radius: self.chart.inner.radius, center: self.chart.center),
+            (layer: self.chart.inner.proteins.layer, angles: self.chart.angles.proteins, radius: self.chart.inner.radius, center: self.chart.center),
+            (layer: self.chart.inner.carbohydrates.layer, angles: self.chart.angles.carbohydrates, radius: self.chart.inner.radius, center: self.chart.center),
+            (layer: self.chart.outer.fats.layer, angles: self.chart.angles.fats, radius: self.chart.outer.radius, center: self.chart.center),
+            (layer: self.chart.outer.proteins.layer, angles: self.chart.angles.proteins, radius: self.chart.outer.radius, center: self.chart.center),
+            (layer: self.chart.outer.carbohydrates.layer, angles: self.chart.angles.carbohydrates, radius: self.chart.outer.radius, center: self.chart.center)
+        ]
+        layers.forEach({
+            $0.layer.path = self.drawSection($0.angles, $0.radius, $0.center).cgPath
+        })
+    }
+    
+    private func getAngleBetweenPoints(_ a: CGPoint, _ b: CGPoint, _ center: CGPoint) -> (angle: CGFloat, clockwise: Bool) {
+        let u = CGPoint(x: a.x - center.x, y: a.y - center.y)
+        let v = CGPoint(x: b.x - center.x, y: b.y - center.y)
+        return getAngleBetweenVectors(u, v)
+    }
 
+    private func getAngleBetweenVectors(_ u: CGPoint, _ v: CGPoint) -> (angle: CGFloat, clockwise: Bool) {
+        let ulength = (u.x.square() + u.y.square()).squareRoot()
+        let vlength = (v.x.square() + v.y.square()).squareRoot()
+        let cos = (u.x * v.x + u.y * v.y) / (ulength * vlength)
+        let direction = (u.x * v.y - u.y * v.x).sign == .plus
+        let delta = acos(min(cos, 1.0)) * (direction ? CGFloat(1.0) : CGFloat(-1.0))
+        return (angle: delta, clockwise: direction)
+    }
+    
 }

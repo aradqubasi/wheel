@@ -23,15 +23,21 @@ class SWPieViewController: UIViewController {
     
     var spinner: UIPanGestureRecognizer!
     
-    private var spinning: (
-        prev: (place: CGPoint, time: Date)?,
-        first: Int?
-    )
+    private var prev: (place: CGPoint, time: Date, nutrient: (code: Int, name: String))?
     
     private let nutrients = (
-        fats: 1,
-        proteins: 2,
-        carbohydrates: 3
+        fats: (
+            code: 1,
+            name: "fats"
+        ),
+        proteins: (
+            code: 2,
+            name: "proteins"
+        ),
+        carbohydrates: (
+            code: 3,
+            name: "carbohydrates"
+        )
     )
 
     private var chart = (
@@ -154,31 +160,87 @@ class SWPieViewController: UIViewController {
     @IBAction private func onSpin(sender: UIPanGestureRecognizer) {
         switch sender.state {
         case .began:
-            self.spinning.prev = (place: sender.location(in: self.view), time: Date())
-            
+            self.prev = (
+                place: sender.location(in: self.view),
+                time: Date(),
+                nutrient: self.getNutrientBy(point: sender.location(in: self.view))
+            )
         case .changed:
-            let next = (place: sender.location(in: self.view), time: Date())
-            if let prev = self.spinning.prev {
-                let delta = getAngleBetweenPoints(prev.place, next.place, self.chart.center)
+            var next = (
+                place: sender.location(in: self.view),
+                time: Date(),
+                nutrient: self.getNutrientBy(point: sender.location(in: self.view))
+            )
+            if let prev = self.prev {
                 
+                let delta = getAngleBetweenPoints(prev.place, next.place, self.chart.center)
                 let time = next.time.timeIntervalSince(prev.time)
                 
                 do {
-
-                    self.chart.angles.fats.start += delta.angle
-                    self.chart.angles.fats.end += delta.angle
-                    self.chart.angles.proteins.start += delta.angle
-                    self.chart.angles.proteins.end += delta.angle
-                    self.chart.angles.carbohydrates.start += delta.angle
-                    self.chart.angles.carbohydrates.end += delta.angle
+                    if prev.nutrient.code != next.nutrient.code {
+                        //claim
+                        if prev.nutrient == nutrients.fats {
+                            if delta.angle < 0 {
+                                self.chart.angles.fats.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.fats.end += delta.angle
+                            }
+                        }
+                        else if prev.nutrient == nutrients.proteins {
+                            if delta.angle < 0 {
+                                self.chart.angles.proteins.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.proteins.end += delta.angle
+                            }
+                        }
+                        else if prev.nutrient == nutrients.carbohydrates {
+                            if delta.angle < 0 {
+                                self.chart.angles.carbohydrates.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.carbohydrates.end += delta.angle
+                            }
+                        }
+                        //release
+                        if next.nutrient == nutrients.fats {
+                            if delta.angle > 0 {
+                                self.chart.angles.fats.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.fats.end += delta.angle
+                            }
+                        }
+                        else if next.nutrient == nutrients.proteins {
+                            if delta.angle > 0 {
+                                self.chart.angles.proteins.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.proteins.end += delta.angle
+                            }
+                        }
+                        else if next.nutrient == nutrients.carbohydrates {
+                            if delta.angle > 0 {
+                                self.chart.angles.carbohydrates.start += delta.angle
+                            }
+                            else {
+                                self.chart.angles.carbohydrates.end += delta.angle
+                            }
+                        }
+                        next.nutrient = prev.nutrient
+                    }
+                    
+                    
+                    
                     
                     self.drawChart()
                 }
             }
-            self.spinning.prev = next
+            self.prev = next
 
         case .ended, .cancelled:
-            self.spinning.prev = nil
+            self.prev = nil
         default:
             print("default")
         }
@@ -243,4 +305,61 @@ class SWPieViewController: UIViewController {
         return (angle: delta, clockwise: direction)
     }
     
+    private func normalize(angle: CGFloat) -> CGFloat {
+        var normalized = angle
+        while abs(normalized) > CGFloat.pi * 2 {
+            normalized = (abs(normalized) - CGFloat.pi * 2) * (normalized.sign == .minus ? -1 : 1)
+        }
+        normalized = normalized < 0 ? CGFloat.pi * 2 - abs(normalized) : normalized
+        return normalized
+    }
+    
+    private func isInRange(_ angle: CGFloat, _ range: (start: CGFloat, end: CGFloat)) -> Bool {
+        let angle = self.normalize(angle: angle)
+        let start = self.normalize(angle: range.start)
+        let end = self.normalize(angle: range.end)
+        if start < end {
+            return angle >= start && angle < end
+        }
+        else if start > end {
+            return angle >= start || angle < end
+        }
+        else {
+            return angle == start
+        }
+    }
+    
+    private func getNutrientBy(point: CGPoint) -> (code: Int, name: String) {
+        let current = getAngleBetweenPoints(
+            CGPoint(x: self.chart.center.x + CGFloat(100), y: self.chart.center.y),
+            point,
+            self.chart.center
+            ).angle
+        let checklist = [(
+            nutrient: self.nutrients.fats,
+            range: self.chart.angles.fats
+            ), (
+                nutrient: self.nutrients.proteins,
+                range: self.chart.angles.proteins
+            ), (
+                nutrient: self.nutrients.carbohydrates,
+                range: self.chart.angles.carbohydrates
+            )
+        ]
+        var nutrient: (code: Int, name: String)?
+        for check in checklist {
+            if self.isInRange(current, check.range) {
+                nutrient = check.nutrient
+                break
+            }
+        }
+        guard let result = nutrient else {
+            fatalError("Could not determine nutrient")
+        }
+        return result
+    }
+//
+//    private func claim(delta: CGFloat, by range: (start: CGFloat, end: CGFloat)) -> (start: CGFloat, end: CGFloat) {
+//        return ()
+//    }
 }

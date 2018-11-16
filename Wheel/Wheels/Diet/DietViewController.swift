@@ -60,8 +60,14 @@ class DietViewController: SWTransitioningViewController {
             self.addChildViewController(self.pieChart)
             self.pieChart.didMove(toParentViewController: self)
             self.pieChart.alignSubviews()
+            self.pieChart.hide()
         }
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.pieChart.appear()
     }
     
 }

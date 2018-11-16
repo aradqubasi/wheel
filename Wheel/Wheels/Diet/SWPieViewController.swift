@@ -41,9 +41,11 @@ class SWPieViewController: UIViewController {
     )
 
     private var chart = (
+        min: 5.0,
         center: CGPoint.zero,
         inner: (
-            radius: CGFloat(80),
+            view: UIView(),
+            radius: CGFloat(130),
             fats: (
                 layer: CAShapeLayer(),
                 color: UIColor.yellowgreen
@@ -58,7 +60,8 @@ class SWPieViewController: UIViewController {
             )
         ),
         outer: (
-            radius: CGFloat(100),
+            view: UIView(),
+            radius: CGFloat(150),
             fats: (
                 layer: CAShapeLayer(),
                 color: UIColor.atlantis
@@ -86,14 +89,59 @@ class SWPieViewController: UIViewController {
                 start: CGFloat(0),
                 end: CGFloat.pi * 2
             )
+        ),
+        marks: (
+            view: UIView(),
+            radius: CGFloat(100),
+            fats: (
+                label: UILabel()
+            ),
+            proteins: (
+                label: UILabel()
+            ),
+            carbohydrates: (
+                label: UILabel()
+            )
         )
     )
+    
+    // MARK: - Access Properties
+    
+    private var subviews: [UIView] {
+        get {
+            return [
+                self.chart.outer.view,
+                self.chart.inner.view,
+                self.chart.marks.view
+            ]
+        }
+    }
+    
+    private var labels: [UILabel] {
+        get {
+            return [
+                self.chart.marks.fats.label,
+                self.chart.marks.proteins.label,
+                self.chart.marks.carbohydrates.label
+            ]
+        }
+    }
     
     // MARK: - Initialization
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let outer = [
+            self.chart.outer.fats,
+            self.chart.outer.proteins,
+            self.chart.outer.carbohydrates
+        ]
+        let inner = [
+            self.chart.inner.fats,
+            self.chart.inner.proteins,
+            self.chart.inner.carbohydrates
+        ]
         let layers = [
             self.chart.outer.fats,
             self.chart.outer.proteins,
@@ -112,8 +160,17 @@ class SWPieViewController: UIViewController {
         
         //attach
         do {
-            layers.forEach({
-                self.view.layer.addSublayer($0.layer)
+            inner.forEach({
+                self.chart.inner.view.layer.addSublayer($0.layer)
+            })
+            outer.forEach({
+                self.chart.outer.view.layer.addSublayer($0.layer)
+            })
+            self.subviews.forEach({
+                self.view.addSubview($0)
+            })
+            self.labels.forEach({
+                self.chart.marks.view.addSubview($0)
             })
         }
         
@@ -122,10 +179,30 @@ class SWPieViewController: UIViewController {
             self.spinner = UIPanGestureRecognizer(target: self, action: #selector(onSpin(sender:)))
             self.view.addGestureRecognizer(self.spinner)
         }
+        
+        //debug
+//        do {
+//            let button = UIButton(frame: CGRect(origin: CGPoint(x: 20, y: 60), size: CGSize(side: 30)))
+//            button.setTitle("*", for: .normal)
+//            button.addTarget(self, action: #selector(onDebug(sender:)), for: .touchUpInside)
+//            self.view.addSubview(button)
+//        }
     }
     
     func alignSubviews() {
-
+        do {
+            self.subviews.forEach({
+                $0.frame = self.view.bounds
+                $0.center = self.view.getBoundsCenter()
+            })
+        }
+        
+        do {
+            self.labels.forEach({
+                $0.frame = CGRect(origin: .zero, size: CGSize(side: 40))
+                $0.center = self.view.getBoundsCenter()
+            })
+        }
         
         //angles
         do {
@@ -155,7 +232,51 @@ class SWPieViewController: UIViewController {
         }
     }
     
+    // MARK: - Animation Methods
+    
+    func hide() {
+        self.subviews.forEach({
+            $0.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1)
+            $0.alpha = 0
+        })
+    }
+    
+//    func appear() {
+//        UIView.animate(withDuration: 0.4, delay: 1, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: {
+//            self.subviews.forEach({
+//                $0.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
+//                $0.alpha = 1
+//            })
+//        }, completion: {
+//            (complete: Bool) -> Void in
+//        })
+//    }
+    
+    func appear() {
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut], animations: {
+            self.subviews.forEach({
+                $0.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
+                $0.alpha = 1
+            })
+        }, completion: {
+            (complete: Bool) -> Void in
+        })
+    }
+    
     // MARK: - Actions
+    
+    private var counter = 1
+    
+    @IBAction private func onDebug(sender: Any) {
+        self.hide()
+        if counter % 2 == 0 {
+            self.appear()
+        }
+        else {
+            self.appear()
+        }
+        counter += 1
+    }
     
     @IBAction private func onSpin(sender: UIPanGestureRecognizer) {
         switch sender.state {
@@ -171,10 +292,11 @@ class SWPieViewController: UIViewController {
                 time: Date(),
                 nutrient: self.getNutrientBy(point: sender.location(in: self.view))
             )
+//            print("\(next.nutrient.name)")
             if let prev = self.prev {
                 
                 let delta = getAngleBetweenPoints(prev.place, next.place, self.chart.center)
-                let time = next.time.timeIntervalSince(prev.time)
+//                let time = next.time.timeIntervalSince(prev.time)
                 
                 do {
                     if prev.nutrient.code != next.nutrient.code {
@@ -230,10 +352,6 @@ class SWPieViewController: UIViewController {
                         }
                         next.nutrient = prev.nutrient
                     }
-                    
-                    
-                    
-                    
                     self.drawChart()
                 }
             }
@@ -260,9 +378,9 @@ class SWPieViewController: UIViewController {
     
     private func convertToShares(angles: (base: CGFloat, fats: (start: CGFloat, end: CGFloat), proteins: (start: CGFloat, end: CGFloat), carbohydrates: (start: CGFloat, end: CGFloat))) -> (fats: Double, proteins: Double, carbohydrates: Double) {
         let result = (
-            fats: Double((angles.fats.end - angles.fats.start) / CGFloat.pi),
-            proteins: Double((angles.proteins.end - angles.proteins.start) / CGFloat.pi),
-            carbohydrates: Double((angles.carbohydrates.end - angles.carbohydrates.start) / CGFloat.pi)
+            fats: Double((angles.fats.end - angles.fats.start) / (CGFloat.pi * 2)),
+            proteins: Double((angles.proteins.end - angles.proteins.start) / (CGFloat.pi * 2)),
+            carbohydrates: Double((angles.carbohydrates.end - angles.carbohydrates.start) / (CGFloat.pi * 2))
         )
         return result
     }
@@ -288,6 +406,16 @@ class SWPieViewController: UIViewController {
         layers.forEach({
             $0.layer.path = self.drawSection($0.angles, $0.radius, $0.center).cgPath
         })
+        
+        let marks = [
+            (mark: self.chart.marks.fats.label, angle: self.getMiddleOf(self.chart.angles.fats), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).fats),
+            (mark: self.chart.marks.proteins.label, angle: self.getMiddleOf(self.chart.angles.proteins), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).proteins),
+            (mark: self.chart.marks.carbohydrates.label, angle: self.getMiddleOf(self.chart.angles.carbohydrates), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).carbohydrates)
+        ]
+        marks.forEach({
+            $0.mark.text = String(Int($0.share * 100)) + "%"
+            $0.mark.transform = CGAffineTransform.identity.translatedBy(x: $0.radius * cos($0.angle), y: $0.radius * sin($0.angle))
+        })
     }
     
     private func getAngleBetweenPoints(_ a: CGPoint, _ b: CGPoint, _ center: CGPoint) -> (angle: CGFloat, clockwise: Bool) {
@@ -312,6 +440,15 @@ class SWPieViewController: UIViewController {
         }
         normalized = normalized < 0 ? CGFloat.pi * 2 - abs(normalized) : normalized
         return normalized
+    }
+    
+    private func getMiddleOf(_ range: (start: CGFloat, end: CGFloat)) -> CGFloat {
+        let start = self.normalize(angle: range.start)
+        var end = self.normalize(angle: range.end)
+        if end < start {
+            end += CGFloat.pi * 2
+        }
+        return (start + end) * 0.5
     }
     
     private func isInRange(_ angle: CGFloat, _ range: (start: CGFloat, end: CGFloat)) -> Bool {

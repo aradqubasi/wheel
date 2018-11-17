@@ -292,6 +292,10 @@ class SWPieViewController: UIViewController {
                 time: Date(),
                 nutrient: self.getNutrientBy(point: sender.location(in: self.view))
             )
+            
+            let edge = self.getClosestEdge(to: next.place)
+//            print("\(edge.from.name) | \(edge.to.name)")
+            
 //            print("\(next.nutrient.name)")
             if let prev = self.prev {
                 
@@ -299,59 +303,40 @@ class SWPieViewController: UIViewController {
 //                let time = next.time.timeIntervalSince(prev.time)
                 
                 do {
-                    if prev.nutrient.code != next.nutrient.code {
-                        //claim
-                        if prev.nutrient == nutrients.fats {
-                            if delta.angle < 0 {
-                                self.chart.angles.fats.start += delta.angle
+//                    let from = delta.clockwise ? edge.from : edge.to
+//                    let to = delta.clockwise ? edge.to : edge.from
+                    let claims = [(
+                            from: self.nutrients.fats,
+                            to: self.nutrients.carbohydrates,
+                            perform: {
+                                (_ delta: CGFloat) -> Void in
+                                self.chart.angles.fats.end += delta
+                                self.chart.angles.carbohydrates.start += delta
                             }
-                            else {
-                                self.chart.angles.fats.end += delta.angle
+                        ), (
+                            from: self.nutrients.carbohydrates,
+                            to: self.nutrients.proteins,
+                            perform: {
+                                (_ delta: CGFloat) -> Void in
+                                self.chart.angles.carbohydrates.end += delta
+                                self.chart.angles.proteins.start += delta
                             }
-                        }
-                        else if prev.nutrient == nutrients.proteins {
-                            if delta.angle < 0 {
-                                self.chart.angles.proteins.start += delta.angle
+                        ), (
+                            from: self.nutrients.proteins,
+                            to: self.nutrients.fats,
+                            perform: {
+                                (_ delta: CGFloat) -> Void in
+                                self.chart.angles.proteins.end += delta
+                                self.chart.angles.fats.start += delta
                             }
-                            else {
-                                self.chart.angles.proteins.end += delta.angle
-                            }
-                        }
-                        else if prev.nutrient == nutrients.carbohydrates {
-                            if delta.angle < 0 {
-                                self.chart.angles.carbohydrates.start += delta.angle
-                            }
-                            else {
-                                self.chart.angles.carbohydrates.end += delta.angle
-                            }
-                        }
-                        //release
-                        if next.nutrient == nutrients.fats {
-                            if delta.angle > 0 {
-                                self.chart.angles.fats.start += delta.angle
-                            }
-                            else {
-                                self.chart.angles.fats.end += delta.angle
-                            }
-                        }
-                        else if next.nutrient == nutrients.proteins {
-                            if delta.angle > 0 {
-                                self.chart.angles.proteins.start += delta.angle
-                            }
-                            else {
-                                self.chart.angles.proteins.end += delta.angle
-                            }
-                        }
-                        else if next.nutrient == nutrients.carbohydrates {
-                            if delta.angle > 0 {
-                                self.chart.angles.carbohydrates.start += delta.angle
-                            }
-                            else {
-                                self.chart.angles.carbohydrates.end += delta.angle
-                            }
-                        }
-                        next.nutrient = prev.nutrient
+                        )
+                    ]
+                    guard let claim = claims.first(where: {
+                        return $0.from.code == edge.from.code && $0.to.code == edge.to.code || $0.from.code == edge.to.code && $0.to.code == edge.from.code
+                    }) else {
+                        fatalError("Cannot find claim for edge \(edge) among claims \(claims)")
                     }
+                    claim.perform(delta.angle)
                     self.drawChart()
                 }
             }
@@ -433,6 +418,15 @@ class SWPieViewController: UIViewController {
         return (angle: delta, clockwise: direction)
     }
     
+    private func getAngleAtCircle(with center: CGPoint, for point: CGPoint) -> CGFloat {
+        let angle = getAngleBetweenPoints(
+            CGPoint(x: center.x + CGFloat(100), y: center.y),
+            point,
+            center
+            ).angle
+        return angle
+    }
+    
     private func normalize(angle: CGFloat) -> CGFloat {
         var normalized = angle
         while abs(normalized) > CGFloat.pi * 2 {
@@ -451,6 +445,34 @@ class SWPieViewController: UIViewController {
         return (start + end) * 0.5
     }
     
+    private func getClosestEdge(to point: CGPoint) -> (from: (code: Int, name: String), to: (code: Int, name: String)) {
+        let angle = self.getAngleAtCircle(with: self.chart.center, for: point)
+        let edges = [(
+                edge: (from: self.nutrients.fats, to: self.nutrients.carbohydrates),
+                range: (start: self.getMiddleOf(self.chart.angles.fats), end: self.getMiddleOf(self.chart.angles.carbohydrates))
+            ), (
+                edge: (from: self.nutrients.carbohydrates, to: self.nutrients.proteins),
+                range: (start: self.getMiddleOf(self.chart.angles.carbohydrates), end: self.getMiddleOf(self.chart.angles.proteins))
+            ), (
+                edge: (from: self.nutrients.proteins, to: self.nutrients.fats),
+                range: (start: self.getMiddleOf(self.chart.angles.proteins), end: self.getMiddleOf(self.chart.angles.fats))
+            )
+        ]
+        
+        guard let edge = edges.first(where: {
+            if self.isInRange(angle, $0.range) {
+//                print("\($0.edge.from.name) | \($0.edge.to.name) = angle \(String(format: "%.3f", Double(angle / CGFloat.pi)))pi start \(String(format: "%.3f", $0.range.start / CGFloat.pi))pi end \(String(format: "%.3f", $0.range.end / CGFloat.pi))pi")
+                return true
+            }
+            else {
+                return false
+            }
+        })?.edge else {
+            fatalError("Cannot find edge for point \(point)")
+        }
+        return edge
+    }
+    
     private func isInRange(_ angle: CGFloat, _ range: (start: CGFloat, end: CGFloat)) -> Bool {
         let angle = self.normalize(angle: angle)
         let start = self.normalize(angle: range.start)
@@ -467,11 +489,12 @@ class SWPieViewController: UIViewController {
     }
     
     private func getNutrientBy(point: CGPoint) -> (code: Int, name: String) {
-        let current = getAngleBetweenPoints(
-            CGPoint(x: self.chart.center.x + CGFloat(100), y: self.chart.center.y),
-            point,
-            self.chart.center
-            ).angle
+//        let current = getAngleBetweenPoints(
+//            CGPoint(x: self.chart.center.x + CGFloat(100), y: self.chart.center.y),
+//            point,
+//            self.chart.center
+//            ).angle
+        let current = getAngleAtCircle(with: self.chart.center, for: point)
         let checklist = [(
             nutrient: self.nutrients.fats,
             range: self.chart.angles.fats

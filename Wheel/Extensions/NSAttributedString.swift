@@ -200,27 +200,6 @@ extension NSAttributedString {
         }
     }
     
-//    class var veganOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Vegan", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
-//
-//    class var vegeterianOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Vegeterian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
-//
-//    class var percetarianOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Percetarian", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
-    
     class var noFoodPreferencesOption: NSAttributedString {
         get {
             let text = NSAttributedString(string: "No food preferences", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
@@ -241,27 +220,6 @@ extension NSAttributedString {
             return text
         }
     }
-    
-//    class var glutenIntolerantOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Gluten intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
-//    
-//    class var wheatIntolerantOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Wheat intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
-//    
-//    class var lactoseIntolerantOption: NSAttributedString {
-//        get {
-//            let text = NSAttributedString(string: "Lactose intolerant", attributes: [.foregroundColor: UIColor.oxfordblue, .font: UIFont(name: "Avenir-Light", size: 16) as Any])
-//            return text
-//        }
-//    }
     
     class var historyTitle: NSAttributedString {
         get {

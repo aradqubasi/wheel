@@ -214,4 +214,22 @@ public extension UIColor {
             return UIColor(red: 231 / 255, green: 101 / 255, blue: 84 / 255, alpha: 1)
         }
     }
+    
+    class var coral: UIColor {
+        get {
+            return UIColor(red: 255 / 255, green: 117 / 255, blue: 74 / 255, alpha: 1)
+        }
+    }
+    
+    class var curiousBlue: UIColor {
+        get {
+            return UIColor(red: 23 / 255, green: 145 / 255, blue: 74 / 208, alpha: 1)
+        }
+    }
+    
+    class var amaranth: UIColor {
+        get {
+            return UIColor(red: 236 / 255, green: 29 / 255, blue: 112 / 255, alpha: 1)
+        }
+    }
 }

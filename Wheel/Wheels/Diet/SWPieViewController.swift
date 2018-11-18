@@ -21,6 +21,8 @@ class SWPieViewController: UIViewController {
     
     // MARK: - Subviews
     
+    var shareDrawer: Timer!
+    
     var spinner: UIPanGestureRecognizer!
     
     private var prev: (place: CGPoint, time: Date, nutrient: (code: Int, name: String))?
@@ -48,15 +50,18 @@ class SWPieViewController: UIViewController {
             radius: CGFloat(130),
             fats: (
                 layer: CAShapeLayer(),
-                color: UIColor.yellowgreen
+                color: UIColor.curiousBlue
+//                color: UIColor.yellowgreen
             ),
             proteins: (
                 layer: CAShapeLayer(),
-                color: UIColor.kournikova
+                color: UIColor.coral
+//                color: UIColor.kournikova
             ),
             carbohydrates: (
                 layer: CAShapeLayer(),
-                color: UIColor.froly
+                color: UIColor.amaranth
+//                color: UIColor.froly
             )
         ),
         outer: (
@@ -94,12 +99,39 @@ class SWPieViewController: UIViewController {
             view: UIView(),
             radius: CGFloat(100),
             fats: (
+                wrapper: UIView(),
+                target: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
+                current: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
                 label: UILabel()
             ),
             proteins: (
+                wrapper: UIView(),
+                target: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
+                current: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
                 label: UILabel()
             ),
             carbohydrates: (
+                wrapper: UIView(),
+                target: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
+                current: (
+                    value: Double(0),
+                    angle: CGFloat(0)
+                ),
                 label: UILabel()
             )
         )
@@ -117,12 +149,12 @@ class SWPieViewController: UIViewController {
         }
     }
     
-    private var labels: [UILabel] {
+    private var labels: [(wrapper: UIView, label: UILabel)] {
         get {
             return [
-                self.chart.marks.fats.label,
-                self.chart.marks.proteins.label,
-                self.chart.marks.carbohydrates.label
+                (wrapper: self.chart.marks.fats.wrapper, label: self.chart.marks.fats.label),
+                (wrapper: self.chart.marks.proteins.wrapper, label: self.chart.marks.proteins.label),
+                (wrapper: self.chart.marks.carbohydrates.wrapper, label: self.chart.marks.carbohydrates.label)
             ]
         }
     }
@@ -150,7 +182,7 @@ class SWPieViewController: UIViewController {
             self.chart.inner.proteins,
             self.chart.inner.carbohydrates
         ]
-        
+
         //painting
         do {
             layers.forEach({
@@ -170,7 +202,8 @@ class SWPieViewController: UIViewController {
                 self.view.addSubview($0)
             })
             self.labels.forEach({
-                self.chart.marks.view.addSubview($0)
+                self.chart.marks.view.addSubview($0.wrapper)
+                $0.wrapper.addSubview($0.label)
             })
         }
         
@@ -199,8 +232,9 @@ class SWPieViewController: UIViewController {
         
         do {
             self.labels.forEach({
-                $0.frame = CGRect(origin: .zero, size: CGSize(side: 40))
-                $0.center = self.view.getBoundsCenter()
+                $0.wrapper.frame = CGRect(origin: .zero, size: NSAttributedString(string: "88%").avenirLightify(17).whitify().size())
+                $0.wrapper.center = self.view.getBoundsCenter()
+                $0.label.center = $0.wrapper.getBoundsCenter()
             })
         }
         
@@ -220,6 +254,32 @@ class SWPieViewController: UIViewController {
         do {
             self.chart.center = self.view.getBoundsCenter()
             self.drawChart()
+            self.shareDrawer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {
+                _ in
+//                print("hit")
+                let shares = [
+                    (mark: self.chart.marks.fats, set: { (_ current: Double) in self.chart.marks.fats.current.value = current }),
+                    (mark: self.chart.marks.proteins, set: { (_ current: Double) in self.chart.marks.proteins.current.value = current }),
+                    (mark: self.chart.marks.carbohydrates, set: { (_ current: Double) in self.chart.marks.carbohydrates.current.value = current })
+                ]
+                shares.forEach({
+                    if $0.mark.current.value != $0.mark.target.value {
+                        var step: Double = 0
+                        switch abs($0.mark.target.value - $0.mark.current.value) {
+                            case 0..<0.1: step = 0.01
+                            case 0.1..<0.5: step = 0.03
+                            default: step = 0.13
+                        }
+                        let delta = step * ($0.mark.target.value > $0.mark.current.value ? 1.0 : -1.0)
+                        let new = ($0.mark.current.value + delta).sign == delta.sign ? $0.mark.current.value + delta : $0.mark.target.value
+                        let text = NSAttributedString(string: String(Int(new * 100)) + "%").avenirLightify(17).whitify()
+                        $0.mark.label.frame.size = text.size()
+                        $0.mark.label.attributedText = text
+                        $0.mark.label.center = $0.mark.wrapper.getBoundsCenter()
+                        $0.set(new)
+                    }
+                })
+            })
         }
         
         do {
@@ -232,6 +292,13 @@ class SWPieViewController: UIViewController {
         }
     }
     
+    // MARK: - Finalize
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.shareDrawer.invalidate()
+    }
+    
     // MARK: - Animation Methods
     
     func hide() {
@@ -240,17 +307,6 @@ class SWPieViewController: UIViewController {
             $0.alpha = 0
         })
     }
-    
-//    func appear() {
-//        UIView.animate(withDuration: 0.4, delay: 1, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: {
-//            self.subviews.forEach({
-//                $0.transform = CGAffineTransform.identity.scaledBy(x: 1, y: 1)
-//                $0.alpha = 1
-//            })
-//        }, completion: {
-//            (complete: Bool) -> Void in
-//        })
-//    }
     
     func appear() {
         UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut], animations: {
@@ -287,24 +343,19 @@ class SWPieViewController: UIViewController {
                 nutrient: self.getNutrientBy(point: sender.location(in: self.view))
             )
         case .changed:
-            var next = (
+            let next = (
                 place: sender.location(in: self.view),
                 time: Date(),
                 nutrient: self.getNutrientBy(point: sender.location(in: self.view))
             )
             
             let edge = self.getClosestEdge(to: next.place)
-//            print("\(edge.from.name) | \(edge.to.name)")
-            
-//            print("\(next.nutrient.name)")
+
             if let prev = self.prev {
                 
                 let delta = getAngleBetweenPoints(prev.place, next.place, self.chart.center)
-//                let time = next.time.timeIntervalSince(prev.time)
                 
                 do {
-//                    let from = delta.clockwise ? edge.from : edge.to
-//                    let to = delta.clockwise ? edge.to : edge.from
                     let claims = [(
                             from: self.nutrients.fats,
                             to: self.nutrients.carbohydrates,
@@ -393,13 +444,17 @@ class SWPieViewController: UIViewController {
         })
         
         let marks = [
-            (mark: self.chart.marks.fats.label, angle: self.getMiddleOf(self.chart.angles.fats), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).fats),
-            (mark: self.chart.marks.proteins.label, angle: self.getMiddleOf(self.chart.angles.proteins), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).proteins),
-            (mark: self.chart.marks.carbohydrates.label, angle: self.getMiddleOf(self.chart.angles.carbohydrates), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).carbohydrates)
+            (mark: (wrapper: self.chart.marks.fats.wrapper, label: self.chart.marks.fats.label), angle: self.getMiddleOf(self.chart.angles.fats), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).fats, set: { (_ share: Double) in self.chart.marks.fats.target.value = share }),
+            (mark: (wrapper: self.chart.marks.proteins.wrapper, label: self.chart.marks.proteins.label), angle: self.getMiddleOf(self.chart.angles.proteins), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).proteins, set: { (_ share: Double) in self.chart.marks.proteins.target.value = share }),
+            (mark: (wrapper: self.chart.marks.carbohydrates.wrapper, label: self.chart.marks.carbohydrates.label), angle: self.getMiddleOf(self.chart.angles.carbohydrates), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).carbohydrates, set: { (_ share: Double) in self.chart.marks.carbohydrates.target.value = share })
         ]
         marks.forEach({
-            $0.mark.text = String(Int($0.share * 100)) + "%"
-            $0.mark.transform = CGAffineTransform.identity.translatedBy(x: $0.radius * cos($0.angle), y: $0.radius * sin($0.angle))
+            $0.set($0.share)
+//            let text = NSAttributedString(string: String(Int($0.share * 100)) + "%").avenirLightify(17).whitify()
+//            $0.mark.label.frame.size = text.size()
+//            $0.mark.label.attributedText = text
+//            $0.mark.label.center = $0.mark.wrapper.getBoundsCenter()
+            $0.mark.wrapper.transform = CGAffineTransform.identity.translatedBy(x: $0.radius * cos($0.angle), y: $0.radius * sin($0.angle))
         })
     }
     
@@ -489,15 +544,10 @@ class SWPieViewController: UIViewController {
     }
     
     private func getNutrientBy(point: CGPoint) -> (code: Int, name: String) {
-//        let current = getAngleBetweenPoints(
-//            CGPoint(x: self.chart.center.x + CGFloat(100), y: self.chart.center.y),
-//            point,
-//            self.chart.center
-//            ).angle
         let current = getAngleAtCircle(with: self.chart.center, for: point)
         let checklist = [(
-            nutrient: self.nutrients.fats,
-            range: self.chart.angles.fats
+                nutrient: self.nutrients.fats,
+                range: self.chart.angles.fats
             ), (
                 nutrient: self.nutrients.proteins,
                 range: self.chart.angles.proteins
@@ -518,8 +568,4 @@ class SWPieViewController: UIViewController {
         }
         return result
     }
-//
-//    private func claim(delta: CGFloat, by range: (start: CGFloat, end: CGFloat)) -> (start: CGFloat, end: CGFloat) {
-//        return ()
-//    }
 }

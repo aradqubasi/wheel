@@ -52,18 +52,18 @@ class SWPieViewController: UIViewController {
             radius: CGFloat(130),
             fats: (
                 layer: CAShapeLayer(),
-                color: UIColor.curiousBlue
-//                color: UIColor.yellowgreen
+//                color: UIColor.curiousBlue
+                color: UIColor.yellowgreen
             ),
             proteins: (
                 layer: CAShapeLayer(),
-                color: UIColor.coral
-//                color: UIColor.kournikova
+//                color: UIColor.coral
+                color: UIColor.kournikova
             ),
             carbohydrates: (
                 layer: CAShapeLayer(),
-                color: UIColor.amaranth
-//                color: UIColor.froly
+//                color: UIColor.amaranth
+                color: UIColor.froly
             )
         ),
         outer: (
@@ -173,12 +173,12 @@ class SWPieViewController: UIViewController {
         }
     }
     
-    private var captions: [(nutrient: (code: Int, name: String), wrapper: UIView, get: () -> [UILabel], set: ([UILabel]) -> Void)] {
+    private var captions: [(nutrient: (code: Int, name: String), wrapper: UIView, get: () -> [UILabel], set: ([UILabel]) -> Void, values: (current: (value: Double, angle: CGFloat), target: (value: Double, angle: CGFloat)))] {
         get {
             return [
-                (nutrient: self.nutrients.fats, wrapper: self.chart.marks.fats.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.fats.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.fats.caption.chars = chars }),
-                (nutrient: self.nutrients.proteins, wrapper: self.chart.marks.proteins.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.proteins.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.proteins.caption.chars = chars }),
-                (nutrient: self.nutrients.carbohydrates, wrapper: self.chart.marks.carbohydrates.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.carbohydrates.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.carbohydrates.caption.chars = chars })
+                (nutrient: self.nutrients.fats, wrapper: self.chart.marks.fats.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.fats.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.fats.caption.chars = chars }, values: (current: self.chart.marks.fats.current, target: self.chart.marks.fats.target)),
+                (nutrient: self.nutrients.proteins, wrapper: self.chart.marks.proteins.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.proteins.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.proteins.caption.chars = chars }, values: (current: self.chart.marks.proteins.current, target: self.chart.marks.proteins.target)),
+                (nutrient: self.nutrients.carbohydrates, wrapper: self.chart.marks.carbohydrates.caption.wrapper, get: { () -> [UILabel] in return self.chart.marks.carbohydrates.caption.chars }, set: { (_ chars: [UILabel]) in self.chart.marks.carbohydrates.caption.chars = chars }, values: (current: self.chart.marks.carbohydrates.current, target: self.chart.marks.carbohydrates.target))
             ]
         }
     }
@@ -238,6 +238,9 @@ class SWPieViewController: UIViewController {
                     label.attributedText = char
                     $0.wrapper.addSubview(label)
                     labels.append(label)
+//
+//                    label.layer.borderColor = UIColor.black.cgColor
+//                    label.layer.borderWidth = 1
                 }
                 $0.set(labels)
             })
@@ -280,7 +283,7 @@ class SWPieViewController: UIViewController {
                 for char in chars {
                     char.center = $0.wrapper.getBoundsCenter()
                 }
-                self.alignCaption($0)
+//                self.alignCaption($0)
             })
         }
         //angles
@@ -327,6 +330,46 @@ class SWPieViewController: UIViewController {
             self.captionDrawer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {
                 _ in
                 //TODO handle overflow
+                let base = (self.chart.outer.radius + self.chart.inner.radius) * 0.5
+                let overflow = self.chart.outer.radius * 1.5 - self.chart.inner.radius * 0.5
+                var criticals: [Double] = []
+                let captions = self.captions
+                for caption in captions {
+                    let positions = self
+                        .getCircularPositions(
+                            of: caption.get().map({ $0.bounds.size }),
+                            at: base)
+                    let critical = Double((positions.last! - positions.first!) / (CGFloat.pi * 2))
+                    criticals.append(critical)
+                }
+                
+                for i in 0..<captions.count {
+                    let caption = captions[i]
+                    let critical = criticals[i]
+                    let prev = i == 0 ? captions.count - 1 : i - 1
+                    let next = i == captions.count - 1 ? 0 : i + 1
+                    
+                    caption.wrapper.transform = CGAffineTransform.identity.rotated(by: caption.values.target.angle)
+                    UIView.animate(withDuration: 0.1, animations: {
+                        if caption.values.target.value <= critical {
+                            self.alignCaption(caption, overflow)
+                            caption.get().forEach({
+                                $0.attributedText =  $0.attributedText?.dovegraytify()
+                            })
+                        }
+                        else {
+                            self.alignCaption(caption, base)
+                            caption.get().forEach({
+                                $0.attributedText =  $0.attributedText?.whitify()
+                            })
+                        }
+                    })
+                }
+                
+//                self.captions.forEach({
+//                    $0.wrapper.transform = CGAffineTransform.identity.rotated(by: $0.values.target.angle)
+//                    self.alignCaption($0, (self.chart.outer.radius + self.chart.inner.radius) * 0.5)
+//                })
             })
         }
         
@@ -492,15 +535,43 @@ class SWPieViewController: UIViewController {
             $0.layer.path = self.drawSection($0.angles, $0.radius, $0.center).cgPath
         })
         
-        let marks = [
-            (mark: (wrapper: self.chart.marks.fats.wrapper, label: self.chart.marks.fats.label), angle: self.getMiddleOf(self.chart.angles.fats), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).fats, set: { (_ share: Double) in self.chart.marks.fats.target.value = share }, caption: self.chart.marks.fats.caption),
-            (mark: (wrapper: self.chart.marks.proteins.wrapper, label: self.chart.marks.proteins.label), angle: self.getMiddleOf(self.chart.angles.proteins), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).proteins, set: { (_ share: Double) in self.chart.marks.proteins.target.value = share }, caption: self.chart.marks.proteins.caption),
-            (mark: (wrapper: self.chart.marks.carbohydrates.wrapper, label: self.chart.marks.carbohydrates.label), angle: self.getMiddleOf(self.chart.angles.carbohydrates), radius: self.chart.marks.radius, share: self.convertToShares(angles: self.chart.angles).carbohydrates, set: { (_ share: Double) in self.chart.marks.carbohydrates.target.value = share }, caption: self.chart.marks.carbohydrates.caption)
-        ]
+        let shares = self.convertToShares(angles: self.chart.angles)
+        let marks = [(
+            share: shares.fats,
+            mark: self.chart.marks.fats,
+            angles: self.chart.angles.fats,
+            radius: self.chart.marks.radius,
+            set: {
+                (_ share: Double, _ angle: CGFloat) in
+                self.chart.marks.fats.target.value = share
+                self.chart.marks.fats.target.angle = angle
+                
+        }), (
+            share: shares.proteins,
+            mark: self.chart.marks.proteins,
+            angles: self.chart.angles.proteins,
+            radius: self.chart.marks.radius,
+            set: {
+                (_ share: Double, _ angle: CGFloat) in
+                self.chart.marks.proteins.target.value = share
+                self.chart.marks.proteins.target.angle = angle
+                
+        }), (
+            share: shares.carbohydrates,
+            mark: self.chart.marks.carbohydrates,
+            angles: self.chart.angles.carbohydrates,
+            radius: self.chart.marks.radius,
+            set: {
+                (_ share: Double, _ angle: CGFloat) in
+                self.chart.marks.carbohydrates.target.value = share
+                self.chart.marks.carbohydrates.target.angle = angle
+        })]
+        
         marks.forEach({
-            $0.set($0.share)
-            $0.mark.wrapper.transform = CGAffineTransform.identity.translatedBy(x: $0.radius * cos($0.angle), y: $0.radius * sin($0.angle))
-            $0.caption.wrapper.transform = CGAffineTransform.identity.rotated(by: $0.angle)
+            let angle = self.getMiddleOf($0.angles)
+            $0.set($0.share, angle)
+            $0.mark.wrapper.transform = CGAffineTransform.identity.translatedBy(x: $0.radius * cos(angle), y: $0.radius * sin(angle))
+//            $0.mark.caption.wrapper.transform = CGAffineTransform.identity.rotated(by: angle)
         })
         
     }
@@ -619,25 +690,47 @@ class SWPieViewController: UIViewController {
         return String(format: "%.3f", Double(angle / CGFloat.pi))
     }
     
-    private func alignCaption(_ caption: (nutrient: (code: Int, name: String), wrapper: UIView, get: () -> [UILabel], set: ([UILabel]) -> Void)) {
-//        caption.wrapper.frame = self.view.bounds
-        let radius = (self.chart.outer.radius + self.chart.inner.radius) * 0.5
+    private func getCircularPositions(of shapes: [CGSize], at radius: CGFloat) -> [CGFloat] {
         let spacing: CGFloat = 1 / radius
         var angle: CGFloat = -spacing
-        var positions: [(angle: CGFloat, char: UILabel)] = []
-        let chars = caption.get()
-        for char in chars {
-//            char.center = caption.wrapper.getBoundsCenter()
+        var positions: [CGFloat] = []
+        for shape in shapes {
             angle += spacing
-            let halfprofile = char.frame.width / radius * 0.5
+            let halfprofile = shape.width / radius * 0.5
             angle += halfprofile
-            positions.append((angle: angle, char: char))
+            positions.append(angle)
             angle += halfprofile
-            
         }
         let offset = angle * 0.5 + CGFloat.pi * 0.5
-        for position in positions {
-            position.char.transform = CGAffineTransform.identity.rotated(by: position.angle - offset).translatedBy(x: 0, y: radius)
-        }
+        positions = positions.map({ $0 - offset })
+        return positions
+    }
+    
+    private func alignCaption(_ caption: (nutrient: (code: Int, name: String), wrapper: UIView, get: () -> [UILabel], set: ([UILabel]) -> Void, values: (current: (value: Double, angle: CGFloat), target: (value: Double, angle: CGFloat))), _ radius: CGFloat) {
+//        let spacing: CGFloat = 1 / radius
+//        var angle: CGFloat = -spacing
+//        var positions: [(angle: CGFloat, char: UILabel)] = []
+//        let chars = caption.get()
+//        for char in chars {
+//            angle += spacing
+//            let halfprofile = char.frame.width / radius * 0.5
+//            angle += halfprofile
+//            positions.append((angle: angle, char: char))
+//            angle += halfprofile
+//
+//        }
+//        let offset = angle * 0.5 + CGFloat.pi * 0.5
+//        for position in positions {
+//            position.char.transform = CGAffineTransform.identity.rotated(by: position.angle - offset).translatedBy(x: 0, y: radius)
+//        }
+        let chars = caption.get()
+        chars
+            .zip(with: getCircularPositions(of: chars.map({ $0.attributedText!.size() }), at: radius), as: {
+                (char: UILabel, angle: CGFloat) -> (char: UILabel, angle: CGFloat) in
+                return (char, angle)
+            })
+            .forEach({
+                $0.char.transform = CGAffineTransform.identity.rotated(by: $0.angle).translatedBy(x: 0, y: radius)
+            })
     }
 }

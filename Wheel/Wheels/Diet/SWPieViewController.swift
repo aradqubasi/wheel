@@ -329,7 +329,6 @@ class SWPieViewController: UIViewController {
             })
             self.captionDrawer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {
                 _ in
-                //TODO handle overflow
                 let base = (self.chart.outer.radius + self.chart.inner.radius) * 0.5
                 let overflow = self.chart.outer.radius * 1.5 - self.chart.inner.radius * 0.5
                 var criticals: [Double] = []
@@ -342,14 +341,35 @@ class SWPieViewController: UIViewController {
                     let critical = Double((positions.last! - positions.first!) / (CGFloat.pi * 2))
                     criticals.append(critical)
                 }
-                
+                let angles = [
+                    self.chart.angles.fats,
+                    self.chart.angles.proteins,
+                    self.chart.angles.carbohydrates
+                ]
                 for i in 0..<captions.count {
                     let caption = captions[i]
                     let critical = criticals[i]
-                    let prev = i == 0 ? captions.count - 1 : i - 1
-                    let next = i == captions.count - 1 ? 0 : i + 1
-                    
-                    caption.wrapper.transform = CGAffineTransform.identity.rotated(by: caption.values.target.angle)
+                    var adjusted: CGFloat = 0
+                    if caption.values.target.value <= critical {
+                        let prev = i == 0 ? captions.count - 1 : i - 1
+                        let next = i == captions.count - 1 ? 0 : i + 1
+                        let positions = self.getCircularPositions(of: caption.get().map({ $0.bounds.size }), at: base)
+                        let width = (positions.max() ?? 0) - (positions.min() ?? 0)
+                        if captions[prev].values.target.value <= criticals[prev] {
+                            adjusted = self.getMiddleOf((start: angles[i].end - width, end: angles[i].end))
+                        }
+                        else if captions[next].values.target.value <= criticals[next] {
+                            adjusted = self.getMiddleOf((start: angles[i].start, end: angles[i].start + width))
+                        }
+                        else {
+                            adjusted = caption.values.target.angle
+                        }
+                    }
+                    else {
+                        adjusted = caption.values.target.angle
+                    }
+//                    caption.wrapper.transform = CGAffineTransform.identity.rotated(by: caption.values.target.angle)
+                    caption.wrapper.transform = CGAffineTransform.identity.rotated(by: adjusted)
                     UIView.animate(withDuration: 0.1, animations: {
                         if caption.values.target.value <= critical {
                             self.alignCaption(caption, overflow)

@@ -42,7 +42,7 @@ class DietViewController: SWTransitioningViewController {
         
         do {
             self.swiper = SWDismissHistoryGestureRecognizer()
-            self.view.addGestureRecognizer(self.swiper)
+//            self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
             self.swiper.delegate = self
         }

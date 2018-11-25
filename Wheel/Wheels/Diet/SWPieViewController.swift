@@ -15,6 +15,8 @@ class SWPieViewController: UIViewController {
     
     var settings: SWDietSettings!
     
+    var settingsVm: SWDietSettingsViewModel?
+    
     var assembler: SWPieAssembler!
     
     // MARK: - Dependencies
@@ -27,7 +29,15 @@ class SWPieViewController: UIViewController {
     
     var spinner: UIPanGestureRecognizer!
     
-    private var prev: (place: CGPoint, time: Date, nutrient: (code: Int, name: String))?
+    private var prev: (
+        place: CGPoint,
+        time: Date,
+        nutrient: (code: Int, name: String),
+        angles: (
+            base: CGFloat,
+            fats: (start: CGFloat, end: CGFloat),
+            proteins: (start: CGFloat, end: CGFloat),
+            carbohydrates: (start: CGFloat, end: CGFloat)))?
     
     private let nutrients = (
         fats: (
@@ -45,7 +55,7 @@ class SWPieViewController: UIViewController {
     )
 
     private var chart = (
-        min: 5.0,
+        min: 0.05,
         center: CGPoint.zero,
         inner: (
             view: UIView(),
@@ -238,9 +248,6 @@ class SWPieViewController: UIViewController {
                     label.attributedText = char
                     $0.wrapper.addSubview(label)
                     labels.append(label)
-//
-//                    label.layer.borderColor = UIColor.black.cgColor
-//                    label.layer.borderWidth = 1
                 }
                 $0.set(labels)
             })
@@ -276,6 +283,7 @@ class SWPieViewController: UIViewController {
                 $0.label.center = $0.wrapper.getBoundsCenter()
             })
         }
+        
         do {
             self.captions.forEach({
                 let chars = $0.get()
@@ -283,9 +291,9 @@ class SWPieViewController: UIViewController {
                 for char in chars {
                     char.center = $0.wrapper.getBoundsCenter()
                 }
-//                self.alignCaption($0)
             })
         }
+        
         //angles
         do {
             let calculated = self.convertToAngles(base: 0, shares: (
@@ -304,27 +312,52 @@ class SWPieViewController: UIViewController {
             self.drawChart()
             self.shareDrawer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {
                 _ in
-                let shares = [
-                    (mark: self.chart.marks.fats, set: { (_ current: Double) in self.chart.marks.fats.current.value = current }),
-                    (mark: self.chart.marks.proteins, set: { (_ current: Double) in self.chart.marks.proteins.current.value = current }),
-                    (mark: self.chart.marks.carbohydrates, set: { (_ current: Double) in self.chart.marks.carbohydrates.current.value = current })
+                let marks = [
+                    (get: {
+                        () -> (wrapper: UIView, target: (value: Double, angle: CGFloat), current: (value: Double, angle: CGFloat), label: UILabel, caption: (chars: [UILabel], wrapper: UIView)) in
+                        self.chart.marks.fats
+                    }, set: {
+                        (_ value: Double) -> Void in
+                        self.chart.marks.fats.current = (value: value, angle: self.chart.marks.fats.current.angle)
+                    }),
+                    (get: {
+                        () -> (wrapper: UIView, target: (value: Double, angle: CGFloat), current: (value: Double, angle: CGFloat), label: UILabel, caption: (chars: [UILabel], wrapper: UIView)) in
+                        self.chart.marks.proteins
+                    }, set: {
+                        (_ value: Double) -> Void in
+                        self.chart.marks.proteins.current = (value: value, angle: self.chart.marks.proteins.current.angle)
+                    }),
+                    (get: {
+                        () -> (wrapper: UIView, target: (value: Double, angle: CGFloat), current: (value: Double, angle: CGFloat), label: UILabel, caption: (chars: [UILabel], wrapper: UIView)) in
+                        self.chart.marks.carbohydrates
+                    }, set: {
+                        (_ value: Double) -> Void in
+                        self.chart.marks.carbohydrates.current = (value: value, angle: self.chart.marks.carbohydrates.current.angle)
+                    })
                 ]
-                shares.forEach({
-                    if $0.mark.current.value != $0.mark.target.value {
-                        var step: Double = 0
-                        switch abs($0.mark.target.value - $0.mark.current.value) {
-                            case 0..<0.1: step = 0.01
-                            case 0.1..<0.5: step = 0.03
-                            default: step = 0.13
-                        }
-                        let delta = step * ($0.mark.target.value > $0.mark.current.value ? 1.0 : -1.0)
-                        let new = ($0.mark.current.value + delta).sign == delta.sign ? $0.mark.current.value + delta : $0.mark.target.value
-                        let text = NSAttributedString(string: String(Int(new * 100)) + "%").avenirLightify(17).whitify()
-                        $0.mark.label.frame.size = text.size()
-                        $0.mark.label.attributedText = text
-                        $0.mark.label.center = $0.mark.wrapper.getBoundsCenter()
-                        $0.set(new)
+                var leftover: Int = 0
+                marks.forEach({
+                    let formatted = Int($0.get().target.value * 100)
+                    leftover += formatted
+                    $0.set(Double(formatted))
+                })
+                var sorted = marks.sorted(by: {
+                    (prev, next) -> Bool in
+                    return (prev.get().target.value - Double(Int(prev.get().target.value))) > (next.get().target.value - Double(Int(next.get().target.value)))
+                })
+                if leftover != 100 {
+                    for _ in 0..<100 - leftover {
+                        let closest = sorted.first!
+                        closest.set(closest.get().current.value + 1.0)
+                        sorted = sorted.filter({ $0.get().label != closest.get().label })
                     }
+                }
+                marks.forEach({
+                    let new = $0.get().current.value
+                    let text = NSAttributedString(string: String(Int(new)) + "%").avenirLightify(17).whitify()
+                    $0.get().label.frame.size = text.size()
+                    $0.get().label.attributedText = text
+                    $0.get().label.center = $0.get().wrapper.getBoundsCenter()
                 })
             })
             self.captionDrawer = Timer.scheduledTimer(withTimeInterval: 0.1, repeats: true, block: {
@@ -368,7 +401,6 @@ class SWPieViewController: UIViewController {
                     else {
                         adjusted = caption.values.target.angle
                     }
-//                    caption.wrapper.transform = CGAffineTransform.identity.rotated(by: caption.values.target.angle)
                     caption.wrapper.transform = CGAffineTransform.identity.rotated(by: adjusted)
                     UIView.animate(withDuration: 0.1, animations: {
                         if caption.values.target.value <= critical {
@@ -447,21 +479,25 @@ class SWPieViewController: UIViewController {
     }
     
     @IBAction private func onSpin(sender: UIPanGestureRecognizer) {
+//        print("\(Date())")
         switch sender.state {
         case .began:
             self.prev = (
                 place: sender.location(in: self.view),
                 time: Date(),
-                nutrient: self.getNutrientBy(point: sender.location(in: self.view))
+                nutrient: self.getNutrientBy(point: sender.location(in: self.view)),
+                angles: self.chart.angles
             )
         case .changed:
-            let next = (
+            var next = (
                 place: sender.location(in: self.view),
                 time: Date(),
-                nutrient: self.getNutrientBy(point: sender.location(in: self.view))
+                nutrient: self.getNutrientBy(point: sender.location(in: self.view)),
+                angles: self.chart.angles
             )
             
             let edge = self.getClosestEdge(to: next.place)
+//            print("\(Date()) \(edge.from.name) | \(edge.to.name)")
 
             if let prev = self.prev {
                 
@@ -500,6 +536,14 @@ class SWPieViewController: UIViewController {
                         fatalError("Cannot find claim for edge \(edge) among claims \(claims)")
                     }
                     claim.perform(delta.angle)
+                    let nextShares = self.convertToShares(angles: self.chart.angles)
+                    if [nextShares.fats, nextShares.proteins, nextShares.carbohydrates].contains(where: { $0 < self.chart.min }) {
+                        next.angles = prev.angles
+                    }
+                    else {
+                        next.angles = self.chart.angles
+                    }
+                    self.chart.angles = next.angles
                     self.drawChart()
                 }
             }

@@ -23,4 +23,8 @@ class SWConcreteDietAssembler: SWDietAssembler {
         return SWInmemoryDietSettingsRepository()
     }
     
+    func resolve() -> SWDietSettingsViewModelRepository {
+        return SWPersistantDietSettingsViewModelRepository()
+    }
+    
 }

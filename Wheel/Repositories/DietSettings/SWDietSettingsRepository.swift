@@ -11,4 +11,6 @@ protocol SWDietSettingsRepository {
     
     func get() -> SWDietSettings
     
+    func upsert(_ entity: SWDietSettings) -> Void
+    
 }

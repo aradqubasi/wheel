@@ -9,6 +9,8 @@
 import Foundation
 protocol SWPieAssembler {
     
-    func resolve() -> Int
+//    func resolve() -> Int
+    
+//    func resolve() -> SWDietSettingsViewModelRepository
     
 }

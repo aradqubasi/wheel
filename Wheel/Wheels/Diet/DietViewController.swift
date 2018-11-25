@@ -19,8 +19,11 @@ class DietViewController: SWTransitioningViewController {
     
     private var settings: SWDietSettingsRepository!
     
+    private var settingsVm: SWDietSettingsViewModelRepository!
+    
     // MARK: - Subviews
     
+    private var radius: CGFloat = 150
     private var pieChart: SWPieViewController!
     
     // MARK: - Initialization
@@ -32,6 +35,8 @@ class DietViewController: SWTransitioningViewController {
         
         self.settings = self.assembler.resolve()
         
+        self.settingsVm = self.assembler.resolve()
+        
         do {
             navigationItem.titleView = UILabel.dietTitle
             let back = UIBarButtonItem.back
@@ -42,7 +47,7 @@ class DietViewController: SWTransitioningViewController {
         
         do {
             self.swiper = SWDismissHistoryGestureRecognizer()
-//            self.view.addGestureRecognizer(self.swiper)
+            self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
             self.swiper.delegate = self
         }
@@ -51,10 +56,12 @@ class DietViewController: SWTransitioningViewController {
             self.pieChart = SWPieViewController()
             do {
                 self.pieChart.assembler = self.assembler.resolve()
-                self.pieChart.settings = self.settings.get()
+                let diet = self.settings.get()
+                self.pieChart.settings = diet
+                self.pieChart.settingsVm = self.settingsVm.get(by: diet.id)
             }
             //            concreteSelectionController.delegate = self
-            self.pieChart.view.frame = CGRect(origin: .zero, size: CGSize(width: 200, height: 200))
+            self.pieChart.view.frame = CGRect(origin: .zero, size: CGSize(side: self.radius * 2))
             self.pieChart.view.center = self.view.getBoundsCenter()
             view.addSubview(self.pieChart.view)
             self.addChildViewController(self.pieChart)
@@ -68,16 +75,36 @@ class DietViewController: SWTransitioningViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.pieChart.appear()
+        
+//        Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
+//            _ in
+//            print("\(self.lookdown(self.lookup(self.view)))")
+//        })
     }
     
+//    private func lookdown(_ view: UIView) -> Int {
+//        let qty = view.gestureRecognizers?.count ?? 0
+//        return view.subviews.map({ self.lookdown($0) }).reduce(0, { current, next in return current + next }) + qty
+//    }
+//
+//    private func lookup(_ view: UIView) -> UIView {
+//        if let superview = view.superview {
+//            return self.lookup(superview)
+//        }
+//        else {
+//            return view
+//        }
+//    }
 }
 
 extension DietViewController : UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        
         let location = gestureRecognizer.location(in: self.pieChart.view)
         let center = self.pieChart.view.getBoundsCenter()
-        if gestureRecognizer === self.swiper && otherGestureRecognizer === self.pieChart.spinner && (location.x - center.x).square() + (location.y - center.y).square() <= CGFloat(100).square() {
+        if /*gestureRecognizer === self.swiper &&*/ otherGestureRecognizer === self.pieChart.spinner && (location.x - center.x).square() + (location.y - center.y).square() <= self.radius.square() {
             return true
         }
         else {

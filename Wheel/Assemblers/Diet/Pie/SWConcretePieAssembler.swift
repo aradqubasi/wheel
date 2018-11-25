@@ -10,9 +10,12 @@ import Foundation
 import UIKit
 
 class SWConcretePieAssembler: SWPieAssembler {
+//
+//    func resolve() -> Int {
+//        return 0
+//    }
     
-    func resolve() -> Int {
-        return 0
-    }
-    
+//    func resolve() -> SWDietSettingsViewModelRepository {
+//        return SWPersistantDietSettingsViewModelRepository()
+//    }
 }

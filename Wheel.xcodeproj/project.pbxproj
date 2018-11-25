@@ -259,6 +259,10 @@
 		15FA767B21366A8600AE6231 /* SWNoAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */; };
 		15FA767D213A571800AE6231 /* SWHideWalkthroughAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FA767C213A571800AE6231 /* SWHideWalkthroughAnimationController.swift */; };
 		15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */; };
+		15FC9D0D21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D0C21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift */; };
+		15FC9D0F21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D0E21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift */; };
+		15FC9D1121AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1021AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift */; };
+		15FC9D1321AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1221AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift */; };
 		15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */; };
 		15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */; };
 		15FDD3A420D930B30077557B /* SWConcreteNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */; };
@@ -542,6 +546,10 @@
 		15FA767A21366A8600AE6231 /* SWNoAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNoAnimationController.swift; sourceTree = "<group>"; };
 		15FA767C213A571800AE6231 /* SWHideWalkthroughAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideWalkthroughAnimationController.swift; sourceTree = "<group>"; };
 		15FBE5C92068F184008F37B4 /* SWBowlActOffsetAnchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWBowlActOffsetAnchor.swift; sourceTree = "<group>"; };
+		15FC9D0C21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietSettingsViewModel.swift; sourceTree = "<group>"; };
+		15FC9D0E21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietSettingsViewModelRepository.swift; sourceTree = "<group>"; };
+		15FC9D1021AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantDietSettingsViewModelRepository.swift; sourceTree = "<group>"; };
+		15FC9D1221AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantDietSettingsRepository.swift; sourceTree = "<group>"; };
 		15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCompleteAnimationController.swift; sourceTree = "<group>"; };
 		15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationAssembler.swift; sourceTree = "<group>"; };
 		15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNavigationAssembler.swift; sourceTree = "<group>"; };
@@ -719,6 +727,7 @@
 				1592538C2171E0B6004276BB /* SWMealEnergySharePerHour.swift */,
 				15E5395021942C1F0046EDF7 /* SWImage.swift */,
 				15E5396921980B370046EDF7 /* SWDietSettings.swift */,
+				15FC9D0C21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1024,6 +1033,9 @@
 			children = (
 				15E5396C21980DB40046EDF7 /* SWDietSettingsRepository.swift */,
 				15E5396E21980E050046EDF7 /* SWInmemoryDietSettingsRepository.swift */,
+				15FC9D1221AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift */,
+				15FC9D0E21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift */,
+				15FC9D1021AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift */,
 			);
 			path = DietSettings;
 			sourceTree = "<group>";
@@ -1567,10 +1579,13 @@
 				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
+				15FC9D1321AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift in Sources */,
 				1592539F2175A723004276BB /* SWHamburgerAssembler.swift in Sources */,
+				15FC9D0F21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift in Sources */,
 				1511929A207C748400D93751 /* SWStepsAssembler.swift in Sources */,
 				15925385216DC19C004276BB /* SWConcreteModelHelper.swift in Sources */,
 				15A77A11200019150030304F /* SWRingMaskView.swift in Sources */,
+				15FC9D0D21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift in Sources */,
 				15F9106D218A255300F1F1F0 /* SWDismissHistoryGestureRecognizer.swift in Sources */,
 				1592539D2175A574004276BB /* HamburgerViewController.swift in Sources */,
 				155BEC2F1FEFC93E00E749B5 /* OptionsController.swift in Sources */,
@@ -1588,6 +1603,7 @@
 				1568A6692165D77A00CDC2B0 /* SWCarelessCheifCook.swift in Sources */,
 				158387A4203403F9001E4008 /* SWInmemoryOptionRepository.swift in Sources */,
 				15A77A0F1FFC25410030304F /* SWWheelView.swift in Sources */,
+				15FC9D1121AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift in Sources */,
 				159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */,
 				155679A8216334A1005B019B /* SWStepsAligner.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,

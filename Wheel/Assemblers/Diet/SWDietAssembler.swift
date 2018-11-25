@@ -17,4 +17,6 @@ protocol SWDietAssembler {
     
     func resolve() -> SWDietSettingsRepository
     
+    func resolve() -> SWDietSettingsViewModelRepository
+    
 }

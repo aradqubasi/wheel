@@ -19,4 +19,6 @@ protocol SWAfterlaunchAssembler {
     
     func resolve() -> SWNavigationAssembler
     
+    func resolve() -> SWDietSettingsRepository
+    
 }

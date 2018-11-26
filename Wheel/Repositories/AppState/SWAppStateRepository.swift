@@ -15,4 +15,6 @@ protocol SWAppStateRepository {
     
     func setShowWalkthrough(_ value: Bool)
     
+    func setInitializeDefaults(_ value: Bool)
+    
 }

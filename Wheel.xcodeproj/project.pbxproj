@@ -68,7 +68,6 @@
 		156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */; };
 		156B0BD1203961FB00CFEEA4 /* SWAppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD0203961FB00CFEEA4 /* SWAppState.swift */; };
 		156B0BD32039626000CFEEA4 /* SWAppStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */; };
-		156B0BD5203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */; };
 		156B0BD72039632900CFEEA4 /* SWAfterlaunchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD62039632900CFEEA4 /* SWAfterlaunchAssembler.swift */; };
 		156B0BD9203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */; };
 		156B0BDC2039673200CFEEA4 /* AfterlaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 156B0BDB2039673200CFEEA4 /* AfterlaunchViewController.swift */; };
@@ -348,7 +347,6 @@
 		156B0BCE20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryIngredientRepository.swift; sourceTree = "<group>"; };
 		156B0BD0203961FB00CFEEA4 /* SWAppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAppState.swift; sourceTree = "<group>"; };
 		156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAppStateRepository.swift; sourceTree = "<group>"; };
-		156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryAppStateRepository.swift; sourceTree = "<group>"; };
 		156B0BD62039632900CFEEA4 /* SWAfterlaunchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAfterlaunchAssembler.swift; sourceTree = "<group>"; };
 		156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteAfterlaunchAssembler.swift; sourceTree = "<group>"; };
 		156B0BDB2039673200CFEEA4 /* AfterlaunchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AfterlaunchViewController.swift; sourceTree = "<group>"; };
@@ -1145,7 +1143,6 @@
 			isa = PBXGroup;
 			children = (
 				156B0BD22039626000CFEEA4 /* SWAppStateRepository.swift */,
-				156B0BD4203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift */,
 				1562307B213BCCA90077505D /* SWUserDefaultsAppStateRepository.swift */,
 			);
 			path = AppState;
@@ -1503,7 +1500,6 @@
 				15D13D36204EEBA300D44923 /* SWRecipyServingsCounter.swift in Sources */,
 				15A73CA11FB62B0800E3BB01 /* WState.swift in Sources */,
 				156B0BCD20395E0900CFEEA4 /* SWIngredientRepository.swift in Sources */,
-				156B0BD5203962A100CFEEA4 /* SWInmemoryAppStateRepository.swift in Sources */,
 				15A2589B20938DB200F738B5 /* SWLessButton.swift in Sources */,
 				1583878C202ACFD7001E4008 /* UIBarButtonItem.swift in Sources */,
 				151EE43D211812320018CF52 /* SWButtonIngredientLocation.swift in Sources */,

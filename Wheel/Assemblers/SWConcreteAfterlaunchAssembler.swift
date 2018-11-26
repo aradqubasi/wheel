@@ -14,8 +14,8 @@ class SWConcreteAfterlaunchAssembler: SWAfterlaunchAssembler {
     }
     
     func resolve() -> SWAppStateRepository {
-//        return SWUserDefaultsAppStateRepository()
-        return SWInmemoryAppStateRepository()
+        return SWUserDefaultsAppStateRepository()
+//        return SWInmemoryAppStateRepository()
     }
     
     func resolve() -> SWWheelsAssembler {
@@ -30,4 +30,7 @@ class SWConcreteAfterlaunchAssembler: SWAfterlaunchAssembler {
         return SWConcreteNavigationAssembler()
     }
  
+    func resolve() -> SWDietSettingsRepository {
+        return SWPersistantDietSettingsRepository()
+    }
 }

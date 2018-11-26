@@ -75,26 +75,17 @@ class DietViewController: SWTransitioningViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.pieChart.appear()
-        
-//        Timer.scheduledTimer(withTimeInterval: 5, repeats: false, block: {
-//            _ in
-//            print("\(self.lookdown(self.lookup(self.view)))")
-//        })
     }
     
-//    private func lookdown(_ view: UIView) -> Int {
-//        let qty = view.gestureRecognizers?.count ?? 0
-//        return view.subviews.map({ self.lookdown($0) }).reduce(0, { current, next in return current + next }) + qty
-//    }
-//
-//    private func lookup(_ view: UIView) -> UIView {
-//        if let superview = view.superview {
-//            return self.lookup(superview)
-//        }
-//        else {
-//            return view
-//        }
-//    }
+    //MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        settings.upsert(pieChart.settings)
+        if let value = pieChart.settingsVm {
+            settingsVm.upsert(value)
+        }
+    }
 }
 
 extension DietViewController : UIGestureRecognizerDelegate {

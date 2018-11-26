@@ -296,14 +296,23 @@ class SWPieViewController: UIViewController {
         
         //angles
         do {
-            let calculated = self.convertToAngles(base: 0, shares: (
-                fats: self.settings.fatsDailyShare,
-                proteins: self.settings.proteinsDailyShare,
-                carbohydrates: self.settings.carbohydratesDailyShare
-            ))
-            self.chart.angles.fats = calculated.fats
-            self.chart.angles.proteins = calculated.proteins
-            self.chart.angles.carbohydrates = calculated.carbohydrates
+            if let settingsVm = self.settingsVm {
+                self.chart.angles.fats = (start: settingsVm.fatsStartAngle, end: settingsVm.fatsEndAngle)
+                self.chart.angles.proteins = (start: settingsVm.proteinStartAngle, end: settingsVm.proteinEndAngle)
+                self.chart.angles.carbohydrates = (start: settingsVm.carbohydratesStartAngle, end: settingsVm.carbohydratesEndAngle)
+            }
+            else {
+                let calculated = self.convertToAngles(base: 0, shares: (
+                    fats: self.settings.fatsDailyShare,
+                    proteins: self.settings.proteinsDailyShare,
+                    carbohydrates: self.settings.carbohydratesDailyShare
+                ))
+                self.chart.angles.fats = calculated.fats
+                self.chart.angles.proteins = calculated.proteins
+                self.chart.angles.carbohydrates = calculated.carbohydrates
+                let settingsVm = SWDietSettingsViewModel(id: self.settings.id, fatsStartAngle: self.chart.angles.fats.start, fatsEndAngle: self.chart.angles.fats.end, proteinStartAngle: self.chart.angles.proteins.start, proteinEndAngle: self.chart.angles.proteins.end, carbohydratesStartAngle: self.chart.angles.carbohydrates.start, carbohydratesEndAngle: self.chart.angles.carbohydrates.end)
+                self.settingsVm = settingsVm
+            }
         }
         
         //draw
@@ -545,6 +554,24 @@ class SWPieViewController: UIViewController {
                     }
                     self.chart.angles = next.angles
                     self.drawChart()
+                    
+                    //save
+                    do {
+                        if var settingsVm = self.settingsVm {
+                            settingsVm.fatsStartAngle = self.chart.angles.fats.start
+                            settingsVm.fatsEndAngle = self.chart.angles.fats.end
+                            settingsVm.proteinStartAngle = self.chart.angles.proteins.start
+                            settingsVm.proteinEndAngle = self.chart.angles.proteins.end
+                            settingsVm.carbohydratesStartAngle = self.chart.angles.carbohydrates.start
+                            settingsVm.carbohydratesEndAngle = self.chart.angles.carbohydrates.end
+                            self.settingsVm = settingsVm
+                        }
+                        let shares = self.convertToShares(angles: self.chart.angles)
+                        self.settings.fatsDailyShare = shares.fats
+                        self.settings.proteinsDailyShare = shares.proteins
+                        self.settings.carbohydratesDailyShare = shares.carbohydrates
+                    }
+                    
                 }
             }
             self.prev = next

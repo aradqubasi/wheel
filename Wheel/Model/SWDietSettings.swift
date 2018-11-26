@@ -11,11 +11,11 @@ struct SWDietSettings: Codable {
     
     let id: Int
     
-    let fatsDailyShare: Double
+    var fatsDailyShare: Double
     
-    let proteinsDailyShare: Double
+    var proteinsDailyShare: Double
     
-    let carbohydratesDailyShare: Double
+    var carbohydratesDailyShare: Double
     
     let morningEnergyIntakeShare: Double
     

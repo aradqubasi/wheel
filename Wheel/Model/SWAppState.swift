@@ -15,4 +15,6 @@ struct SWAppState {
     
     var activeCookId: Int?
     
+    var initializeDefaults: Bool
+    
 }

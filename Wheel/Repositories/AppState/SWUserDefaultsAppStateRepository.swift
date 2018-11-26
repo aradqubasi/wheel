@@ -13,13 +13,16 @@ class SWUserDefaultsAppStateRepository: SWAppStateRepository {
     
     private static let keyShowWalkthrough = "ShowWalkthrough"
     
+    private static let keyInitializeDefaults = "InitializeDefaults"
+    
     static let defaults: [String: Any] = [
         SWUserDefaultsAppStateRepository.keyShowOnboarding : true,
-        SWUserDefaultsAppStateRepository.keyShowWalkthrough : true
+        SWUserDefaultsAppStateRepository.keyShowWalkthrough : true,
+        SWUserDefaultsAppStateRepository.keyInitializeDefaults: true
     ]
     
     func get() -> SWAppState {
-        return SWAppState(showOnboarding: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowOnboarding), showWalkthrough: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowWalkthrough), activeCookId: -1)
+        return SWAppState(showOnboarding: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowOnboarding), showWalkthrough: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyShowWalkthrough), activeCookId: -1, initializeDefaults: UserDefaults.standard.bool(forKey: SWUserDefaultsAppStateRepository.keyInitializeDefaults))
     }
     
     func setShowOnboarding(_ value: Bool) {
@@ -28,6 +31,10 @@ class SWUserDefaultsAppStateRepository: SWAppStateRepository {
     
     func setShowWalkthrough(_ value: Bool) {
         UserDefaults.standard.set(value, forKey: SWUserDefaultsAppStateRepository.keyShowWalkthrough)
+    }
+    
+    func setInitializeDefaults(_ value: Bool) {
+        UserDefaults.standard.set(value, forKey: SWUserDefaultsAppStateRepository.keyInitializeDefaults)
     }
     
 }

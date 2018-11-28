@@ -95,7 +95,7 @@ extension DietViewController : UIGestureRecognizerDelegate {
         
         let location = gestureRecognizer.location(in: self.pieChart.view)
         let center = self.pieChart.view.getBoundsCenter()
-        if /*gestureRecognizer === self.swiper &&*/ otherGestureRecognizer === self.pieChart.spinner && (location.x - center.x).square() + (location.y - center.y).square() <= self.radius.square() {
+        if otherGestureRecognizer === self.pieChart.spinner && (location.x - center.x).square() + (location.y - center.y).square() <= self.radius.square() {
             return true
         }
         else {

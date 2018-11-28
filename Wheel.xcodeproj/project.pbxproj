@@ -262,6 +262,7 @@
 		15FC9D0F21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D0E21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift */; };
 		15FC9D1121AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1021AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift */; };
 		15FC9D1321AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1221AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift */; };
+		15FC9D1621AD214E005A0BDA /* SWAngularRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1521AD214E005A0BDA /* SWAngularRange.swift */; };
 		15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */; };
 		15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */; };
 		15FDD3A420D930B30077557B /* SWConcreteNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */; };
@@ -548,6 +549,7 @@
 		15FC9D0E21AA8F9A005A0BDA /* SWDietSettingsViewModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietSettingsViewModelRepository.swift; sourceTree = "<group>"; };
 		15FC9D1021AA9025005A0BDA /* SWPersistantDietSettingsViewModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantDietSettingsViewModelRepository.swift; sourceTree = "<group>"; };
 		15FC9D1221AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantDietSettingsRepository.swift; sourceTree = "<group>"; };
+		15FC9D1521AD214E005A0BDA /* SWAngularRange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWAngularRange.swift; sourceTree = "<group>"; };
 		15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCompleteAnimationController.swift; sourceTree = "<group>"; };
 		15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationAssembler.swift; sourceTree = "<group>"; };
 		15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNavigationAssembler.swift; sourceTree = "<group>"; };
@@ -1001,6 +1003,7 @@
 		15E5395421955F990046EDF7 /* Diet */ = {
 			isa = PBXGroup;
 			children = (
+				15FC9D1421AD2078005A0BDA /* ViewModel */,
 				15E5395521955FB60046EDF7 /* DietViewController.swift */,
 				15E53962219808DA0046EDF7 /* SWPieViewController.swift */,
 			);
@@ -1305,6 +1308,14 @@
 				15FA76782127F13E00AE6231 /* SWAreaOfInterest.swift */,
 			);
 			path = Walkthrough;
+			sourceTree = "<group>";
+		};
+		15FC9D1421AD2078005A0BDA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				15FC9D1521AD214E005A0BDA /* SWAngularRange.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1646,6 +1657,7 @@
 				151192A0207CC79700D93751 /* SWFeedbackOverHttpService.swift in Sources */,
 				15F91077218CAFF400F1F1F0 /* SWConcreteRecipyGenerator.swift in Sources */,
 				158387A7203409B9001E4008 /* SWRootAssembler.swift in Sources */,
+				15FC9D1621AD214E005A0BDA /* SWAngularRange.swift in Sources */,
 				15F910662185E07D00F1F1F0 /* SWConcreteDateStringifier.swift in Sources */,
 				155BEC2C1FEB8C6E00E749B5 /* ToOverlayButton.swift in Sources */,
 				15925383216DC16B004276BB /* SWModelHelper.swift in Sources */,

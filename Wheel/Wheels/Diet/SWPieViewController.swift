@@ -19,13 +19,15 @@ class SWPieViewController: UIViewController {
     
     var assembler: SWPieAssembler!
     
+    var radius: CGFloat!
+    
     // MARK: - Dependencies
     
     // MARK: - Subviews
     
-    var shareDrawer: Timer!
+    private var shareDrawer: Timer!
     
-    var captionDrawer: Timer!
+    private var captionDrawer: Timer!
     
     var spinner: UIPanGestureRecognizer!
     
@@ -35,9 +37,9 @@ class SWPieViewController: UIViewController {
         nutrient: (code: Int, name: String),
         angles: (
             base: CGFloat,
-            fats: (start: CGFloat, end: CGFloat),
-            proteins: (start: CGFloat, end: CGFloat),
-            carbohydrates: (start: CGFloat, end: CGFloat)))?
+            fats: SWAngularRange,
+            proteins: SWAngularRange,
+            carbohydrates: SWAngularRange))?
     
     private let nutrients = (
         fats: (
@@ -94,18 +96,9 @@ class SWPieViewController: UIViewController {
         ),
         angles: (
             base: CGFloat(0),
-            fats: (
-                start: CGFloat(0),
-                end: CGFloat.pi * 2
-            ),
-            proteins: (
-                start: CGFloat(0),
-                end: CGFloat.pi * 2
-            ),
-            carbohydrates: (
-                start: CGFloat(0),
-                end: CGFloat.pi * 2
-            )
+            fats: SWAngularRange(start: CGFloat(0), end: CGFloat.pi * 2),
+            proteins: SWAngularRange(start: CGFloat(0), end: CGFloat.pi * 2),
+            carbohydrates: SWAngularRange(start: CGFloat(0), end: CGFloat.pi * 2)
         ),
         marks: (
             view: UIView(),
@@ -197,6 +190,8 @@ class SWPieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        self.chart.outer = self.radius
         
         let outer = [
             self.chart.outer.fats,
@@ -297,9 +292,9 @@ class SWPieViewController: UIViewController {
         //angles
         do {
             if let settingsVm = self.settingsVm {
-                self.chart.angles.fats = (start: settingsVm.fatsStartAngle, end: settingsVm.fatsEndAngle)
-                self.chart.angles.proteins = (start: settingsVm.proteinStartAngle, end: settingsVm.proteinEndAngle)
-                self.chart.angles.carbohydrates = (start: settingsVm.carbohydratesStartAngle, end: settingsVm.carbohydratesEndAngle)
+                self.chart.angles.fats = SWAngularRange(start: settingsVm.fatsStartAngle, end: settingsVm.fatsEndAngle)
+                self.chart.angles.proteins = SWAngularRange(start: settingsVm.proteinStartAngle, end: settingsVm.proteinEndAngle)
+                self.chart.angles.carbohydrates = SWAngularRange(start: settingsVm.carbohydratesStartAngle, end: settingsVm.carbohydratesEndAngle)
             }
             else {
                 let calculated = self.convertToAngles(base: 0, shares: (
@@ -398,10 +393,10 @@ class SWPieViewController: UIViewController {
                         let positions = self.getCircularPositions(of: caption.get().map({ $0.bounds.size }), at: base)
                         let width = (positions.max() ?? 0) - (positions.min() ?? 0)
                         if captions[prev].values.target.value <= criticals[prev] {
-                            adjusted = self.getMiddleOf((start: angles[i].end - width, end: angles[i].end))
+                            adjusted = self.getMiddleOf(SWAngularRange(start: angles[i].end - width, end: angles[i].end))
                         }
                         else if captions[next].values.target.value <= criticals[next] {
-                            adjusted = self.getMiddleOf((start: angles[i].start, end: angles[i].start + width))
+                            adjusted = self.getMiddleOf(SWAngularRange(start: angles[i].start, end: angles[i].start + width))
                         }
                         else {
                             adjusted = caption.values.target.angle
@@ -518,24 +513,26 @@ class SWPieViewController: UIViewController {
                             to: self.nutrients.carbohydrates,
                             perform: {
                                 (_ delta: CGFloat) -> Void in
-                                self.chart.angles.fats.end += delta
-                                self.chart.angles.carbohydrates.start += delta
+                                self.chart.angles.fats = SWAngularRange(start: self.chart.angles.fats.start, end: self.chart.angles.fats.end + delta)
+                                self.chart.angles.carbohydrates = SWAngularRange(start: self.chart.angles.carbohydrates.start + delta, end: self.chart.angles.carbohydrates.end)
                             }
                         ), (
                             from: self.nutrients.carbohydrates,
                             to: self.nutrients.proteins,
                             perform: {
                                 (_ delta: CGFloat) -> Void in
-                                self.chart.angles.carbohydrates.end += delta
-                                self.chart.angles.proteins.start += delta
+                                self.chart.angles.carbohydrates = SWAngularRange(start: self.chart.angles.carbohydrates.start, end: self.chart.angles.carbohydrates.end + delta)
+                                self.chart.angles.proteins = SWAngularRange(start: self.chart.angles.proteins.start + delta, end: self.chart.angles.proteins.end)
                             }
                         ), (
                             from: self.nutrients.proteins,
                             to: self.nutrients.fats,
                             perform: {
                                 (_ delta: CGFloat) -> Void in
-                                self.chart.angles.proteins.end += delta
-                                self.chart.angles.fats.start += delta
+                                self.chart.angles.proteins = SWAngularRange(start: self.chart.angles.proteins.start, end: self.chart.angles.proteins.end + delta)
+//                                self.chart.angles.proteins.end += delta
+                                self.chart.angles.fats = SWAngularRange(start: self.chart.angles.fats.start + delta, end: self.chart.angles.fats.end)
+//                                self.chart.angles.fats.start += delta
                             }
                         )
                     ]
@@ -545,8 +542,8 @@ class SWPieViewController: UIViewController {
                         fatalError("Cannot find claim for edge \(edge) among claims \(claims)")
                     }
                     claim.perform(delta.angle)
-                    let nextShares = self.convertToShares(angles: self.chart.angles)
-                    if [nextShares.fats, nextShares.proteins, nextShares.carbohydrates].contains(where: { $0 < self.chart.min }) {
+                    let nextShares = self.convertToShares(angles: [self.chart.angles.fats, self.chart.angles.proteins, self.chart.angles.carbohydrates])
+                    if [nextShares[0], nextShares[1], nextShares[2]].contains(where: { $0 < self.chart.min }) {
                         next.angles = prev.angles
                     }
                     else {
@@ -566,10 +563,10 @@ class SWPieViewController: UIViewController {
                             settingsVm.carbohydratesEndAngle = self.chart.angles.carbohydrates.end
                             self.settingsVm = settingsVm
                         }
-                        let shares = self.convertToShares(angles: self.chart.angles)
-                        self.settings.fatsDailyShare = shares.fats
-                        self.settings.proteinsDailyShare = shares.proteins
-                        self.settings.carbohydratesDailyShare = shares.carbohydrates
+                        let shares = self.convertToShares(angles: [self.chart.angles.fats, self.chart.angles.proteins, self.chart.angles.carbohydrates])
+                        self.settings.fatsDailyShare = shares[0]
+                        self.settings.proteinsDailyShare = shares[1]
+                        self.settings.carbohydratesDailyShare = shares[2]
                     }
                     
                 }
@@ -585,26 +582,21 @@ class SWPieViewController: UIViewController {
     
     // MARK: - Private Methods
     
-    private func convertToAngles(base: CGFloat, shares: (fats: Double, proteins: Double, carbohydrates: Double)) -> (base: CGFloat, fats: (start: CGFloat, end: CGFloat), proteins: (start: CGFloat, end: CGFloat), carbohydrates: (start: CGFloat, end: CGFloat)) {
+    private func convertToAngles(base: CGFloat, shares: (fats: Double, proteins: Double, carbohydrates: Double)) -> (base: CGFloat, fats: SWAngularRange, proteins: SWAngularRange, carbohydrates: SWAngularRange) {
         let result = (
             base: base,
-            fats: (start: base, end: base + CGFloat.pi * 2 * CGFloat(shares.fats)),
-            proteins: (start: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates), end: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates + shares.proteins)),
-            carbohydrates: (start: base + CGFloat.pi * 2 * CGFloat(shares.fats), end: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates))
+            fats: SWAngularRange(start: base, end: base + CGFloat.pi * 2 * CGFloat(shares.fats)),
+            proteins: SWAngularRange(start: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates), end: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates + shares.proteins)),
+            carbohydrates: SWAngularRange(start: base + CGFloat.pi * 2 * CGFloat(shares.fats), end: base + CGFloat.pi * 2 * CGFloat(shares.fats + shares.carbohydrates))
         )
         return result
     }
     
-    private func convertToShares(angles: (base: CGFloat, fats: (start: CGFloat, end: CGFloat), proteins: (start: CGFloat, end: CGFloat), carbohydrates: (start: CGFloat, end: CGFloat))) -> (fats: Double, proteins: Double, carbohydrates: Double) {
-        let result = (
-            fats: Double((angles.fats.end - angles.fats.start) / (CGFloat.pi * 2)),
-            proteins: Double((angles.proteins.end - angles.proteins.start) / (CGFloat.pi * 2)),
-            carbohydrates: Double((angles.carbohydrates.end - angles.carbohydrates.start) / (CGFloat.pi * 2))
-        )
-        return result
+    private func convertToShares(angles: [SWAngularRange]) -> [Double] {
+        return angles.map({ Double(($0.end - $0.start) / (CGFloat.pi * 2)) })
     }
     
-    private func drawSection(_ angles: (start: CGFloat, end: CGFloat), _ radius: CGFloat, _ center: CGPoint) -> UIBezierPath {
+    private func drawSection(_ angles: SWAngularRange, _ radius: CGFloat, _ center: CGPoint) -> UIBezierPath {
         let path = UIBezierPath()
         path.move(to: center)
         path.addArc(withCenter: center, radius: radius, startAngle: angles.start, endAngle: angles.end, clockwise: true)
@@ -626,9 +618,9 @@ class SWPieViewController: UIViewController {
             $0.layer.path = self.drawSection($0.angles, $0.radius, $0.center).cgPath
         })
         
-        let shares = self.convertToShares(angles: self.chart.angles)
+        let shares = self.convertToShares(angles: [self.chart.angles.fats, self.chart.angles.proteins, self.chart.angles.carbohydrates])
         let marks = [(
-            share: shares.fats,
+            share: shares[0],
             mark: self.chart.marks.fats,
             angles: self.chart.angles.fats,
             radius: self.chart.marks.radius,
@@ -638,7 +630,7 @@ class SWPieViewController: UIViewController {
                 self.chart.marks.fats.target.angle = angle
                 
         }), (
-            share: shares.proteins,
+            share: shares[1],
             mark: self.chart.marks.proteins,
             angles: self.chart.angles.proteins,
             radius: self.chart.marks.radius,
@@ -648,7 +640,7 @@ class SWPieViewController: UIViewController {
                 self.chart.marks.proteins.target.angle = angle
                 
         }), (
-            share: shares.carbohydrates,
+            share: shares[2],
             mark: self.chart.marks.carbohydrates,
             angles: self.chart.angles.carbohydrates,
             radius: self.chart.marks.radius,
@@ -700,7 +692,7 @@ class SWPieViewController: UIViewController {
         return normalized
     }
     
-    private func getMiddleOf(_ range: (start: CGFloat, end: CGFloat)) -> CGFloat {
+    private func getMiddleOf(_ range: SWAngularRange) -> CGFloat {
         let start = self.normalize(angle: range.start)
         var end = self.normalize(angle: range.end)
         if end < start {
@@ -713,13 +705,13 @@ class SWPieViewController: UIViewController {
         let angle = self.getAngleAtCircle(with: self.chart.center, for: point)
         let edges = [(
                 edge: (from: self.nutrients.fats, to: self.nutrients.carbohydrates),
-                range: (start: self.getMiddleOf(self.chart.angles.fats), end: self.getMiddleOf(self.chart.angles.carbohydrates))
+                range: SWAngularRange(start: self.getMiddleOf(self.chart.angles.fats), end: self.getMiddleOf(self.chart.angles.carbohydrates))
             ), (
                 edge: (from: self.nutrients.carbohydrates, to: self.nutrients.proteins),
-                range: (start: self.getMiddleOf(self.chart.angles.carbohydrates), end: self.getMiddleOf(self.chart.angles.proteins))
+                range: SWAngularRange(start: self.getMiddleOf(self.chart.angles.carbohydrates), end: self.getMiddleOf(self.chart.angles.proteins))
             ), (
                 edge: (from: self.nutrients.proteins, to: self.nutrients.fats),
-                range: (start: self.getMiddleOf(self.chart.angles.proteins), end: self.getMiddleOf(self.chart.angles.fats))
+                range: SWAngularRange(start: self.getMiddleOf(self.chart.angles.proteins), end: self.getMiddleOf(self.chart.angles.fats))
             )
         ]
         
@@ -736,7 +728,7 @@ class SWPieViewController: UIViewController {
         return edge
     }
     
-    private func isInRange(_ angle: CGFloat, _ range: (start: CGFloat, end: CGFloat)) -> Bool {
+    private func isInRange(_ angle: CGFloat, _ range: SWAngularRange) -> Bool {
         let angle = self.normalize(angle: angle)
         let start = self.normalize(angle: range.start)
         let end = self.normalize(angle: range.end)

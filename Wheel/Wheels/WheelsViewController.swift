@@ -969,6 +969,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 diet.assembler = self.assembler.resolve()
                 diet.backSegue = segues.getDietToWheels()
                 diet.backWithSwipeSegue = segues.getDietToWheelsWithSwipe()
+                diet.background = view.snapshotView(afterScreenUpdates: true)!
             }
         default:
             fatalError("Unrecognized segue")

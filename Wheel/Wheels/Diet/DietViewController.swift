@@ -15,6 +15,8 @@ class DietViewController: SWTransitioningViewController {
     
     var assembler: SWDietAssembler!
     
+    var background: UIView!
+    
     // MARK: - Dependencies
     
     private var settings: SWDietSettingsRepository!
@@ -24,7 +26,8 @@ class DietViewController: SWTransitioningViewController {
     // MARK: - Subviews
     
     private var radius: CGFloat = 150
-    private var pieChart: SWPieViewController!
+    private var pieChart: SWNewPieViewController!
+    private var shroud: UIView!
     
     // MARK: - Initialization
     
@@ -47,18 +50,29 @@ class DietViewController: SWTransitioningViewController {
         
         do {
             self.swiper = SWDismissHistoryGestureRecognizer()
-            self.view.addGestureRecognizer(self.swiper)
+//            self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
             self.swiper.delegate = self
         }
         
         do {
-            self.pieChart = SWPieViewController()
+            self.view.addSubview(self.background)
+            self.background.frame = self.view.bounds
+            
+            self.shroud = UIView(frame: view.bounds)
+            self.shroud.backgroundColor = UIColor.limedSpruce
+            self.shroud.alpha = 0.8
+            self.view.addSubview(shroud)
+        }
+        
+        do {
+            self.pieChart = SWNewPieViewController()
             do {
                 self.pieChart.assembler = self.assembler.resolve()
                 let diet = self.settings.get()
                 self.pieChart.settings = diet
                 self.pieChart.settingsVm = self.settingsVm.get(by: diet.id)
+                self.pieChart.radius = self.radius
             }
             //            concreteSelectionController.delegate = self
             self.pieChart.view.frame = CGRect(origin: .zero, size: CGSize(side: self.radius * 2))
@@ -85,6 +99,16 @@ class DietViewController: SWTransitioningViewController {
         if let value = pieChart.settingsVm {
             settingsVm.upsert(value)
         }
+    }
+    
+    // MARK: - Animation
+    
+    func set() {
+        self.shroud.alpha = 0
+    }
+    
+    func open() {
+        self.shroud.alpha = 0.8
     }
 }
 

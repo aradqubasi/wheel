@@ -232,4 +232,10 @@ public extension UIColor {
             return UIColor(red: 236 / 255, green: 29 / 255, blue: 112 / 255, alpha: 1)
         }
     }
+    
+    class var cornflowerblue: UIColor {
+        get {
+            return UIColor(red: 97 / 255, green: 149 / 255, blue: 237 / 255, alpha: 1)
+        }
+    }
 }

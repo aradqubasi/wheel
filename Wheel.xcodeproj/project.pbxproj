@@ -270,6 +270,7 @@
 		15FC9D2021B289E2005A0BDA /* SWPieLegend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D1F21B289E2005A0BDA /* SWPieLegend.swift */; };
 		15FC9D2221B28B5C005A0BDA /* SWNewPieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D2121B28B5C005A0BDA /* SWNewPieViewController.swift */; };
 		15FC9D2421B3BCD1005A0BDA /* SWPieEdge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D2321B3BCD1005A0BDA /* SWPieEdge.swift */; };
+		15FC9D2621BA47D0005A0BDA /* SWSliderViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FC9D2521BA47D0005A0BDA /* SWSliderViewDelegate.swift */; };
 		15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */; };
 		15FDD3A220D9301B0077557B /* SWNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */; };
 		15FDD3A420D930B30077557B /* SWConcreteNavigationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */; };
@@ -564,6 +565,7 @@
 		15FC9D1F21B289E2005A0BDA /* SWPieLegend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPieLegend.swift; sourceTree = "<group>"; };
 		15FC9D2121B28B5C005A0BDA /* SWNewPieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNewPieViewController.swift; sourceTree = "<group>"; };
 		15FC9D2321B3BCD1005A0BDA /* SWPieEdge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPieEdge.swift; sourceTree = "<group>"; };
+		15FC9D2521BA47D0005A0BDA /* SWSliderViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSliderViewDelegate.swift; sourceTree = "<group>"; };
 		15FDD39F20D90D550077557B /* SWCompleteAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWCompleteAnimationController.swift; sourceTree = "<group>"; };
 		15FDD3A120D9301B0077557B /* SWNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationAssembler.swift; sourceTree = "<group>"; };
 		15FDD3A320D930B30077557B /* SWConcreteNavigationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNavigationAssembler.swift; sourceTree = "<group>"; };
@@ -1021,6 +1023,7 @@
 				15E5395521955FB60046EDF7 /* DietViewController.swift */,
 				15E53962219808DA0046EDF7 /* SWPieViewController.swift */,
 				15FC9D1721AE790A005A0BDA /* SWSliderViewController.swift */,
+				15FC9D2521BA47D0005A0BDA /* SWSliderViewDelegate.swift */,
 				15FC9D2121B28B5C005A0BDA /* SWNewPieViewController.swift */,
 			);
 			path = Diet;
@@ -1502,6 +1505,7 @@
 				15E5396A21980B370046EDF7 /* SWDietSettings.swift in Sources */,
 				15AAAE2B2116D71C0022996D /* SWPlaceholderFloatable.swift in Sources */,
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
+				15FC9D2621BA47D0005A0BDA /* SWSliderViewDelegate.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,

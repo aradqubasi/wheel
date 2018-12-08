@@ -490,4 +490,10 @@ extension NSAttributedString {
             return text
         }
     }
+    
+    func avenirHeavfy(_ size: CGFloat) -> NSAttributedString {
+        let unfy = self.unfy()
+        let font = UIFont(name: "Avenir-Heavy", size: size)
+        return fy((font: font, text: unfy.text, color: unfy.color))
+    }
 }

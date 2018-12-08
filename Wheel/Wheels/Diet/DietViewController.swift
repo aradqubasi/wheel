@@ -28,10 +28,23 @@ class DietViewController: SWTransitioningViewController {
     private var radius: CGFloat = 120
     private var pieChart: SWNewPieViewController!
     
-    private var size: CGSize = CGSize(width: 80, height: 200)
+    private let size = CGSize(width: 60, height: 200)
     private var slider: SWSliderViewController!
+    
+    private let buttonSize = CGSize(side: 60)
+    private var gluten: UIButton!
+    private var meat: UIButton!
+    private var fish: UIButton!
+    private var dairy: UIButton!
 
     private var shroud: UIView!
+    
+    private var calories: UILabel!
+    private var kkcals: UILabel!
+    private var heart: UIImageView!
+    
+    private var heartbeat: Timer!
+    private var ticks: Int = 1
     
     // MARK: - Constants
     
@@ -108,11 +121,87 @@ class DietViewController: SWTransitioningViewController {
             self.slider.alignSubviews()
         }
         
+        do {
+            self.calories = UILabel()
+            self.view.addSubview(self.calories)
+            self.kkcals = UILabel()
+            self.view.addSubview(self.kkcals)
+            self.printCalories(self.slider.progress)
+            self.alignCalories()
+        }
+        
+        do {
+            self.heart = UIImageView(image: #imageLiteral(resourceName: "diet/heart"))
+            self.view.addSubview(self.heart)
+            self.heart.center = CGPoint(x: self.slider.view.center.x, y: self.slider.view.center.y + self.slider.view.frame.height * 0.5 - self.heart.frame.height * 0.5 - self.slider.view.frame.width * 0.2)
+        }
+        
+        let period = 0.3
+        do {
+            self.heartbeat = Timer.scheduledTimer(withTimeInterval: period, repeats: true, block: {
+                _ in
+//                print(self.ticks)
+                var beat = false
+                if self.slider.progress < 0.333 && self.ticks >= 3 {
+                    beat = true
+                }
+                else if self.slider.progress >= 0.333 && self.slider.progress < 0.666 && self.ticks >= 2 {
+                    beat = true
+                }
+                else if self.slider.progress >= 0.666 && self.ticks >= 1 {
+                    beat = true
+                }
+                
+                if beat {
+                    self.ticks = 0
+                    UIView.animate(withDuration: period * 0.25, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: [], animations: {
+                        self.heart.transform = CGAffineTransform.identity.scaledBy(x: 1.1, y: 1.1)
+                    }, completion: {
+                        (success) in
+                        UIView.animate(withDuration: period * 0.75, animations: {
+                            self.heart.transform = CGAffineTransform.identity
+                        })
+                    })
+                }
+                
+                self.ticks += 1
+            })
+        }
+        
+        do {
+//            let groupCenter = CGPoint(x: self.view.center.x + 10 + self.buttonSize.width + 5, y: self.view.center.y + 10 + self.buttonSize.height + 5)
+            let groupCenter = CGPoint(x: self.view.center.x * 1.5, y: self.view.center.y * 1.5)
+            
+            self.gluten = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.gluten.backgroundColor = UIColor.limedSpruce
+            self.gluten.center = CGPoint(x: groupCenter.x - 5 - self.buttonSize.width * 0.5, y: groupCenter.y - 5 - self.buttonSize.height * 0.5)
+            self.view.addSubview(self.gluten)
+            
+            self.meat = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.meat.backgroundColor = UIColor.limedSpruce
+            self.meat.center = CGPoint(x: groupCenter.x - 5 - self.buttonSize.width * 0.5, y: groupCenter.y + 5 + self.buttonSize.height * 0.5)
+            self.view.addSubview(self.meat)
+            
+            self.fish = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.fish.backgroundColor = UIColor.limedSpruce
+            self.fish.center = CGPoint(x: groupCenter.x + 5 + self.buttonSize.width * 0.5, y: groupCenter.y - 5 - self.buttonSize.height * 0.5)
+            self.view.addSubview(self.fish)
+            
+            self.dairy = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.dairy.backgroundColor = UIColor.limedSpruce
+            self.dairy.center = CGPoint(x: groupCenter.x + 5 + self.buttonSize.width * 0.5, y: groupCenter.y + 5 + self.buttonSize.height * 0.5)
+            self.view.addSubview(self.dairy)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.pieChart.appear()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.heartbeat?.invalidate()
     }
     
     //MARK: - Navigation
@@ -173,12 +262,25 @@ extension DietViewController : UIGestureRecognizerDelegate {
         return false
     }
     
+    private func printCalories(_ value: Double) {
+        self.calories.attributedText = (NSAttributedString(string: String(describing: Int(value * self.maxDailyEnergyIntake)))).avenirHeavfy(24).whitify()
+        self.kkcals.attributedText = (NSAttributedString(string: "kkcal")).avenirLightify(14).whitify()
+    }
+    
+    private func alignCalories() {
+        self.calories.frame.size = self.calories.attributedText?.size() ?? .zero
+        self.calories.center = CGPoint(x: self.slider.view.center.x, y: self.slider.view.center.y + self.slider.view.frame.height * 0.5 + 5 + self.calories.frame.size.height * 0.5)
+        self.kkcals.frame.size = self.kkcals.attributedText?.size() ?? .zero
+        self.kkcals.center = CGPoint(x: self.calories.center.x, y: self.calories.center.y + self.calories.frame.height * 0.5 + self.kkcals.frame.height * 0.5)
+    }
+    
 }
 
 extension DietViewController : SWSliderViewDelegate {
     
     func onUpdate(of progress: Double) {
-        
+        self.printCalories(progress)
+        self.alignCalories()
     }
     
 

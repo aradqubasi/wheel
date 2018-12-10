@@ -238,4 +238,28 @@ public extension UIColor {
             return UIColor(red: 97 / 255, green: 149 / 255, blue: 237 / 255, alpha: 1)
         }
     }
+    
+    class var turkishrose: UIColor {
+        get {
+            return UIColor(red: 177 / 255, green: 123 / 255, blue: 123 / 255, alpha: 1)
+        }
+    }
+    
+    class var wildblueyonder: UIColor {
+        get {
+            return UIColor(red: 125 / 255, green: 123 / 255, blue: 177 / 255, alpha: 1)
+        }
+    }
+    
+    class var sandrift: UIColor {
+        get {
+            return UIColor(red: 177 / 255, green: 150 / 255, blue: 123 / 255, alpha: 1)
+        }
+    }
+    
+    class var lavenderpurple: UIColor {
+        get {
+            return UIColor(red: 173 / 255, green: 123 / 255, blue: 177 / 255, alpha: 1)
+        }
+    }
 }

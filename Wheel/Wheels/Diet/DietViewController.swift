@@ -28,10 +28,10 @@ class DietViewController: SWTransitioningViewController {
     private var radius: CGFloat = 120
     private var pieChart: SWNewPieViewController!
     
-    private let size = CGSize(width: 60, height: 200)
+    private let size = CGSize(width: 70, height: 200)
     private var slider: SWSliderViewController!
     
-    private let buttonSize = CGSize(side: 60)
+    private let buttonSize = CGSize(side: 70)
     private var gluten: UIButton!
     private var meat: UIButton!
     private var fish: UIButton!
@@ -41,10 +41,18 @@ class DietViewController: SWTransitioningViewController {
     
     private var calories: UILabel!
     private var kkcals: UILabel!
-    private var heart: UIImageView!
+    private var heart: UIView!
     
     private var heartbeat: Timer!
     private var ticks: Int = 1
+    
+    // MARK: - Private Variables
+    
+    private var allowGluten: Bool!
+    private var allowFish: Bool!
+    private var allowMeat: Bool!
+    private var allowDairy: Bool!
+    
     
     // MARK: - Constants
     
@@ -89,6 +97,27 @@ class DietViewController: SWTransitioningViewController {
             self.shroud.alpha = 0.8
             self.view.addSubview(shroud)
         }
+
+        let positions = (
+            piechart: CGPoint(
+                x: self.view.getBoundsCenter().x,
+                y: self.view.getBoundsCenter().y - 109),
+            slider: CGPoint(
+                x: self.view.getBoundsCenter().x - 96,
+                y: self.view.getBoundsCenter().y + 145),
+            gluten: CGPoint(
+                x: self.view.getBoundsCenter().x + 60 - 8 - 35,
+                y: self.view.getBoundsCenter().y + 142 - 8 - 35),
+            meat: CGPoint(
+                x: self.view.getBoundsCenter().x + 60 + 8 + 35,
+                y: self.view.getBoundsCenter().y + 142 - 8 - 35),
+            fish: CGPoint(
+                x: self.view.getBoundsCenter().x + 60 + 8 + 35,
+                y: self.view.getBoundsCenter().y + 142 + 8 + 35),
+            dairy: CGPoint(
+                x: self.view.getBoundsCenter().x + 60 - 8 - 35,
+                y: self.view.getBoundsCenter().y + 142 + 8 + 35)
+        )
         
         do {
             self.pieChart = SWNewPieViewController()
@@ -99,9 +128,9 @@ class DietViewController: SWTransitioningViewController {
                 self.pieChart.settingsVm = self.settingsVm.get(by: diet.id)
                 self.pieChart.radius = self.radius
             }
-            //            concreteSelectionController.delegate = self
             self.pieChart.view.frame = CGRect(origin: .zero, size: CGSize(side: self.radius * 2))
-            self.pieChart.view.center = CGPoint(x: self.view.getBoundsCenter().x, y: self.view.bounds.height * 0.333)
+            self.pieChart.view.center = positions.piechart
+            //            self.pieChart.view.center = CGPoint(x: self.view.getBoundsCenter().x, y: self.view.bounds.height * 0.333)
             view.addSubview(self.pieChart.view)
             self.addChildViewController(self.pieChart)
             self.pieChart.didMove(toParentViewController: self)
@@ -114,7 +143,8 @@ class DietViewController: SWTransitioningViewController {
             self.slider.delegate = self
             self.slider.progress = self.settings.get().dailyEnergyIntake / self.maxDailyEnergyIntake
             self.slider.view.frame = CGRect(origin: .zero, size: self.size)
-            self.slider.view.center = CGPoint(x: self.view.bounds.width * 0.333 * 0.5, y: self.view.bounds.height * 0.75)
+            self.slider.view.center = positions.slider
+//            self.slider.view.center = CGPoint(x: self.view.bounds.width * 0.333 * 0.5, y: self.view.bounds.height * 0.75)
             view.addSubview(self.slider.view)
             self.addChildViewController(self.slider)
             self.slider.didMove(toParentViewController: self)
@@ -131,9 +161,13 @@ class DietViewController: SWTransitioningViewController {
         }
         
         do {
-            self.heart = UIImageView(image: #imageLiteral(resourceName: "diet/heart"))
+            self.heart = UIView(frame: CGRect(origin: .zero, size: CGSize(width: 16, height: 14)))
             self.view.addSubview(self.heart)
             self.heart.center = CGPoint(x: self.slider.view.center.x, y: self.slider.view.center.y + self.slider.view.frame.height * 0.5 - self.heart.frame.height * 0.5 - self.slider.view.frame.width * 0.2)
+            let layer = CAShapeLayer()
+            self.heart.layer.addSublayer(layer)
+            layer.fillColor = UIColor.limedSpruce.cgColor
+            layer.path = self.drawHeart(at: self.heart.getBoundsCenter())
         }
         
         let period = 0.3
@@ -142,10 +176,10 @@ class DietViewController: SWTransitioningViewController {
                 _ in
 //                print(self.ticks)
                 var beat = false
-                if self.slider.progress < 0.333 && self.ticks >= 3 {
+                if self.slider.progress < 0.4 && self.ticks >= 3 {
                     beat = true
                 }
-                else if self.slider.progress >= 0.333 && self.slider.progress < 0.666 && self.ticks >= 2 {
+                else if self.slider.progress >= 0.4 && self.slider.progress < 0.666 && self.ticks >= 2 {
                     beat = true
                 }
                 else if self.slider.progress >= 0.666 && self.ticks >= 1 {
@@ -169,28 +203,50 @@ class DietViewController: SWTransitioningViewController {
         }
         
         do {
-//            let groupCenter = CGPoint(x: self.view.center.x + 10 + self.buttonSize.width + 5, y: self.view.center.y + 10 + self.buttonSize.height + 5)
-            let groupCenter = CGPoint(x: self.view.center.x * 1.5, y: self.view.center.y * 1.5)
+//            let groupCenter = CGPoint(x: self.view.center.x * 1.5, y: self.view.center.y * 1.5)
             
             self.gluten = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.gluten.setImage(#imageLiteral(resourceName: "diet/gluten"), for: .normal)
+            self.gluten.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+            self.gluten.addTarget(self, action: #selector(onGlutenClick(sender:)), for: .touchUpInside)
             self.gluten.backgroundColor = UIColor.limedSpruce
-            self.gluten.center = CGPoint(x: groupCenter.x - 5 - self.buttonSize.width * 0.5, y: groupCenter.y - 5 - self.buttonSize.height * 0.5)
+            self.gluten.center = positions.gluten
+            self.gluten.layer.cornerRadius = self.gluten.frame.width * 0.2
             self.view.addSubview(self.gluten)
             
             self.meat = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.meat.setImage(#imageLiteral(resourceName: "diet/meat"), for: .normal)
+            self.meat.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+            self.meat.addTarget(self, action: #selector(onMeatClick(sender:)), for: .touchUpInside)
             self.meat.backgroundColor = UIColor.limedSpruce
-            self.meat.center = CGPoint(x: groupCenter.x - 5 - self.buttonSize.width * 0.5, y: groupCenter.y + 5 + self.buttonSize.height * 0.5)
+            self.meat.center = positions.meat
+            self.meat.layer.cornerRadius = self.meat.frame.width * 0.2
             self.view.addSubview(self.meat)
             
             self.fish = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.fish.setImage(#imageLiteral(resourceName: "diet/fish"), for: .normal)
+            self.fish.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+            self.fish.addTarget(self, action: #selector(onFishClick(sender:)), for: .touchUpInside)
             self.fish.backgroundColor = UIColor.limedSpruce
-            self.fish.center = CGPoint(x: groupCenter.x + 5 + self.buttonSize.width * 0.5, y: groupCenter.y - 5 - self.buttonSize.height * 0.5)
+            self.fish.center = positions.fish
+            self.fish.layer.cornerRadius = self.fish.frame.width * 0.2
             self.view.addSubview(self.fish)
             
             self.dairy = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
+            self.dairy.setImage(#imageLiteral(resourceName: "diet/dairy"), for: .normal)
+            self.dairy.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
+            self.dairy.addTarget(self, action: #selector(onDairyClick(sender:)), for: .touchUpInside)
             self.dairy.backgroundColor = UIColor.limedSpruce
-            self.dairy.center = CGPoint(x: groupCenter.x + 5 + self.buttonSize.width * 0.5, y: groupCenter.y + 5 + self.buttonSize.height * 0.5)
+            self.dairy.center = positions.dairy
+            self.dairy.layer.cornerRadius = self.dairy.frame.width * 0.2
             self.view.addSubview(self.dairy)
+        }
+        
+        do {
+            self.allowGluten = false
+            self.allowFish = false
+            self.allowMeat = false
+            self.allowDairy = false
         }
     }
     
@@ -274,6 +330,105 @@ extension DietViewController : UIGestureRecognizerDelegate {
         self.kkcals.center = CGPoint(x: self.calories.center.x, y: self.calories.center.y + self.calories.frame.height * 0.5 + self.kkcals.frame.height * 0.5)
     }
     
+    private func drawHeart(at center: CGPoint) -> CGPath {
+        let path = UIBezierPath()
+        
+        path.move(to: CGPoint(x: 0, y: 7) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: -0.39, y: 6.84) + center,
+            controlPoint1: CGPoint(x: -0.14, y: 7) + center,
+            controlPoint2: CGPoint(x: -0.28, y: 6.95) + center)
+        
+        path.addLine(to: CGPoint(x: -6.63, y: 0.97) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: -6.63, y: -5.64) + center,
+            controlPoint1: CGPoint(x: -8.46, y: -0.85) + center,
+            controlPoint2: CGPoint(x: -8.46, y: -3.83) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: -3.32, y: -7) + center,
+            controlPoint1: CGPoint(x: -5.72, y: -6.55) + center,
+            controlPoint2: CGPoint(x: -4.52, y: -7) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: -0.03, y: -5.29) + center,
+            controlPoint1: CGPoint(x: -2.12, y: -7) + center,
+            controlPoint2: CGPoint(x: -0.94, y: -6.14) + center)
+        
+        path.addLine(to: CGPoint(x: 0.04, y: -5.29) + center) // \/
+        
+        path.addCurve(
+            to: CGPoint(x: 3.71, y: -6.82) + center,
+            controlPoint1: CGPoint(x: 1.04, y: -6.27) + center,
+            controlPoint2: CGPoint(x: 2.4, y: -6.82) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: 6.64, y: -5.64) + center,
+            controlPoint1: CGPoint(x: 4.78, y: -6.82) + center,
+            controlPoint2: CGPoint(x: 5.82, y: -6.46) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: 8, y: -2.33) + center,
+            controlPoint1: CGPoint(x: 7.55, y: -4.74) + center,
+            controlPoint2: CGPoint(x: 8.02, y: -3.54) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: 6.64, y: 0.97) + center,
+            controlPoint1: CGPoint(x: 8, y: -1.13) + center,
+            controlPoint2: CGPoint(x: 7.55, y: 0.06) + center)
+        
+        path.addLine(to: CGPoint(x: 0.4, y: 6.84) + center)
+        
+        path.addCurve(
+            to: CGPoint(x: 0, y: 7) + center,
+            controlPoint1: CGPoint(x: 0.29, y: 6.95) + center,
+            controlPoint2: CGPoint(x: 0.15, y: 7) + center)
+        
+        path.close()
+        return path.cgPath
+    }
+    
+    @IBAction private func onGlutenClick(sender: UIButton) {
+        self.allowGluten = !self.allowGluten
+        if (self.allowGluten) {
+            self.gluten.backgroundColor = .sandrift
+        }
+        else {
+            self.gluten.backgroundColor = .limedSpruce
+        }
+    }
+    
+    @IBAction private func onFishClick(sender: UIButton) {
+        self.allowFish = !self.allowFish
+        if (self.allowFish) {
+            self.fish.backgroundColor = .wildblueyonder
+        }
+        else {
+            self.fish.backgroundColor = .limedSpruce
+        }
+    }
+    
+    @IBAction private func onMeatClick(sender: UIButton) {
+        self.allowMeat = !self.allowMeat
+        if (self.allowMeat) {
+            self.meat.backgroundColor = .turkishrose
+        }
+        else {
+            self.meat.backgroundColor = .limedSpruce
+        }
+    }
+    
+    @IBAction private func onDairyClick(sender: UIButton) {
+        self.allowDairy = !self.allowDairy
+        if (self.allowDairy) {
+            self.dairy.backgroundColor = .lavenderpurple
+        }
+        else {
+            self.dairy.backgroundColor = .limedSpruce
+        }
+    }
 }
 
 extension DietViewController : SWSliderViewDelegate {

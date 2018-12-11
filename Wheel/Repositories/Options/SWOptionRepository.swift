@@ -13,6 +13,14 @@ protocol SWOptionRepository {
     
     func getAll(by type: SWOptionType) -> [SWOption]
     
+    func getNoGluten() -> SWOption
+    
+    func getNoFish() -> SWOption
+    
+    func getNoMeat() -> SWOption
+    
+    func getNoDairy() -> SWOption
+    
     func save(_ option: SWOption)
     
 }

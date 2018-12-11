@@ -17,7 +17,11 @@ class SWInmemoryOptionRepository : SWOptionRepository {
         SWOption(3, "Percetarian", of: .ingredient),
         SWOption(4, "Gluten intolerant", of: .allergy),
         SWOption(5, "Wheat intolerant", of: .allergy),
-        SWOption(6, "Lactose intolerant", of: .allergy)
+        SWOption(6, "Lactose intolerant", of: .allergy),
+        SWOption(7, "No fish", of: .block),
+        SWOption(8, "No meat", of: .block),
+        SWOption(9, "No gluten", of: .block),
+        SWOption(10, "No dairy", of: .block)
     ]
     
     func getAll(by type: SWOptionType) -> [SWOption] {
@@ -32,6 +36,22 @@ class SWInmemoryOptionRepository : SWOptionRepository {
         if let index = SWInmemoryOptionRepository._options.index(where: { $0.name == option.name }) {
             SWInmemoryOptionRepository._options[index] = option
         }
+    }
+    
+    func getNoGluten() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No fish" })!
+    }
+    
+    func getNoFish() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No meat" })!
+    }
+    
+    func getNoMeat() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No gluten" })!
+    }
+    
+    func getNoDairy() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No dairy" })!
     }
     
 }

@@ -30,12 +30,6 @@ class DietViewController: SWTransitioningViewController {
     
     private let size = CGSize(width: 70, height: 200)
     private var slider: SWSliderViewController!
-    
-    private let buttonSize = CGSize(side: 70)
-    private var gluten: UIButton!
-    private var meat: UIButton!
-    private var fish: UIButton!
-    private var dairy: UIButton!
 
     private var shroud: UIView!
     
@@ -48,10 +42,7 @@ class DietViewController: SWTransitioningViewController {
     
     // MARK: - Private Variables
     
-    private var allowGluten: Bool!
-    private var allowFish: Bool!
-    private var allowMeat: Bool!
-    private var allowDairy: Bool!
+    private var options: [SWDietOption] = []
     
     
     // MARK: - Constants
@@ -105,16 +96,16 @@ class DietViewController: SWTransitioningViewController {
             slider: CGPoint(
                 x: self.view.getBoundsCenter().x - 96,
                 y: self.view.getBoundsCenter().y + 145),
-            gluten: CGPoint(
+            topleftbutton: CGPoint(
                 x: self.view.getBoundsCenter().x + 60 - 8 - 35,
                 y: self.view.getBoundsCenter().y + 142 - 8 - 35),
-            meat: CGPoint(
+            bottomleftbutton: CGPoint(
                 x: self.view.getBoundsCenter().x + 60 + 8 + 35,
                 y: self.view.getBoundsCenter().y + 142 - 8 - 35),
-            fish: CGPoint(
+            bottomrightbutton: CGPoint(
                 x: self.view.getBoundsCenter().x + 60 + 8 + 35,
                 y: self.view.getBoundsCenter().y + 142 + 8 + 35),
-            dairy: CGPoint(
+            toprightbutton: CGPoint(
                 x: self.view.getBoundsCenter().x + 60 - 8 - 35,
                 y: self.view.getBoundsCenter().y + 142 + 8 + 35)
         )
@@ -204,49 +195,21 @@ class DietViewController: SWTransitioningViewController {
         
         do {
 //            let groupCenter = CGPoint(x: self.view.center.x * 1.5, y: self.view.center.y * 1.5)
+            self.options = self.assembler.resolve().getOptions()
+            self.options
+                .zip(
+                    with: [
+                        positions.topleftbutton,
+                        positions.toprightbutton,
+                        positions.bottomleftbutton,
+                        positions.bottomrightbutton
+                    ], as: {
+                        (option: SWDietOption, position: CGPoint) -> (option: SWDietOption, position: CGPoint) in
+                        (option, position)})
+                .forEach({
+                    $0.option.setCenter(to: $0.position, at: self.view)
+                })
             
-            self.gluten = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
-            self.gluten.setImage(#imageLiteral(resourceName: "diet/gluten"), for: .normal)
-            self.gluten.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-            self.gluten.addTarget(self, action: #selector(onGlutenClick(sender:)), for: .touchUpInside)
-            self.gluten.backgroundColor = UIColor.limedSpruce
-            self.gluten.center = positions.gluten
-            self.gluten.layer.cornerRadius = self.gluten.frame.width * 0.2
-            self.view.addSubview(self.gluten)
-            
-            self.meat = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
-            self.meat.setImage(#imageLiteral(resourceName: "diet/meat"), for: .normal)
-            self.meat.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-            self.meat.addTarget(self, action: #selector(onMeatClick(sender:)), for: .touchUpInside)
-            self.meat.backgroundColor = UIColor.limedSpruce
-            self.meat.center = positions.meat
-            self.meat.layer.cornerRadius = self.meat.frame.width * 0.2
-            self.view.addSubview(self.meat)
-            
-            self.fish = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
-            self.fish.setImage(#imageLiteral(resourceName: "diet/fish"), for: .normal)
-            self.fish.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-            self.fish.addTarget(self, action: #selector(onFishClick(sender:)), for: .touchUpInside)
-            self.fish.backgroundColor = UIColor.limedSpruce
-            self.fish.center = positions.fish
-            self.fish.layer.cornerRadius = self.fish.frame.width * 0.2
-            self.view.addSubview(self.fish)
-            
-            self.dairy = UIButton(frame: CGRect(origin: .zero, size: self.buttonSize))
-            self.dairy.setImage(#imageLiteral(resourceName: "diet/dairy"), for: .normal)
-            self.dairy.imageEdgeInsets = .init(top: 10, left: 10, bottom: 10, right: 10)
-            self.dairy.addTarget(self, action: #selector(onDairyClick(sender:)), for: .touchUpInside)
-            self.dairy.backgroundColor = UIColor.limedSpruce
-            self.dairy.center = positions.dairy
-            self.dairy.layer.cornerRadius = self.dairy.frame.width * 0.2
-            self.view.addSubview(self.dairy)
-        }
-        
-        do {
-            self.allowGluten = false
-            self.allowFish = false
-            self.allowMeat = false
-            self.allowDairy = false
         }
     }
     
@@ -388,46 +351,6 @@ extension DietViewController : UIGestureRecognizerDelegate {
         
         path.close()
         return path.cgPath
-    }
-    
-    @IBAction private func onGlutenClick(sender: UIButton) {
-        self.allowGluten = !self.allowGluten
-        if (self.allowGluten) {
-            self.gluten.backgroundColor = .sandrift
-        }
-        else {
-            self.gluten.backgroundColor = .limedSpruce
-        }
-    }
-    
-    @IBAction private func onFishClick(sender: UIButton) {
-        self.allowFish = !self.allowFish
-        if (self.allowFish) {
-            self.fish.backgroundColor = .wildblueyonder
-        }
-        else {
-            self.fish.backgroundColor = .limedSpruce
-        }
-    }
-    
-    @IBAction private func onMeatClick(sender: UIButton) {
-        self.allowMeat = !self.allowMeat
-        if (self.allowMeat) {
-            self.meat.backgroundColor = .turkishrose
-        }
-        else {
-            self.meat.backgroundColor = .limedSpruce
-        }
-    }
-    
-    @IBAction private func onDairyClick(sender: UIButton) {
-        self.allowDairy = !self.allowDairy
-        if (self.allowDairy) {
-            self.dairy.backgroundColor = .lavenderpurple
-        }
-        else {
-            self.dairy.backgroundColor = .limedSpruce
-        }
     }
 }
 

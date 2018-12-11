@@ -162,6 +162,9 @@
 		15C91AEC20B52A0C003AD754 /* SWNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */; };
 		15C91AEE20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */; };
 		15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */; };
+		15CEB36421BF84E4005EFCB3 /* SWDietOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CEB36321BF84E4005EFCB3 /* SWDietOption.swift */; };
+		15CEB36721BF8AD6005EFCB3 /* SWDietOptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CEB36621BF8AD6005EFCB3 /* SWDietOptionBuilder.swift */; };
+		15CEB36921BF8B0D005EFCB3 /* SWConcreteDietOptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CEB36821BF8B0D005EFCB3 /* SWConcreteDietOptionBuilder.swift */; };
 		15D13D2A204E79B400D44923 /* SWMeasuresment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D29204E79B400D44923 /* SWMeasuresment.swift */; };
 		15D13D2C204E7A9600D44923 /* SWMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */; };
 		15D13D2E204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */; };
@@ -450,6 +453,9 @@
 		15C91AEB20B52A0C003AD754 /* SWNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNavigationController.swift; sourceTree = "<group>"; };
 		15C91AED20B52EB1003AD754 /* SWSwipeInteractiveTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWSwipeInteractiveTransition.swift; sourceTree = "<group>"; };
 		15C91AF320C2697B003AD754 /* SWDismissableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDismissableViewController.swift; sourceTree = "<group>"; };
+		15CEB36321BF84E4005EFCB3 /* SWDietOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietOption.swift; sourceTree = "<group>"; };
+		15CEB36621BF8AD6005EFCB3 /* SWDietOptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietOptionBuilder.swift; sourceTree = "<group>"; };
+		15CEB36821BF8B0D005EFCB3 /* SWConcreteDietOptionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteDietOptionBuilder.swift; sourceTree = "<group>"; };
 		15D13D29204E79B400D44923 /* SWMeasuresment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresment.swift; sourceTree = "<group>"; };
 		15D13D2B204E7A9600D44923 /* SWMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWMeasuresmentRepository.swift; sourceTree = "<group>"; };
 		15D13D2D204E7B2400D44923 /* SWInmemoryMeasuresmentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryMeasuresmentRepository.swift; sourceTree = "<group>"; };
@@ -1007,6 +1013,16 @@
 			path = Transitions;
 			sourceTree = "<group>";
 		};
+		15CEB36521BF8AC2005EFCB3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				15CEB36621BF8AD6005EFCB3 /* SWDietOptionBuilder.swift */,
+				15CEB36821BF8B0D005EFCB3 /* SWConcreteDietOptionBuilder.swift */,
+				15CEB36321BF84E4005EFCB3 /* SWDietOption.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		15E5394D21942BA20046EDF7 /* Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -1019,6 +1035,7 @@
 		15E5395421955F990046EDF7 /* Diet */ = {
 			isa = PBXGroup;
 			children = (
+				15CEB36521BF8AC2005EFCB3 /* Utilities */,
 				15FC9D1421AD2078005A0BDA /* ViewModel */,
 				15E5395521955FB60046EDF7 /* DietViewController.swift */,
 				15E53962219808DA0046EDF7 /* SWPieViewController.swift */,
@@ -1560,6 +1577,7 @@
 				152F66D420E7A8740070BAA5 /* SWHideOverlayAnimationController.swift in Sources */,
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
+				15CEB36421BF84E4005EFCB3 /* SWDietOption.swift in Sources */,
 				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
 				15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */,
 				1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */,
@@ -1642,6 +1660,7 @@
 				159C87E520A98F0B004436FE /* SWSwipeDelegate.swift in Sources */,
 				155679A8216334A1005B019B /* SWStepsAligner.swift in Sources */,
 				15B00C3C200B3C2D002B93A8 /* OnboardingViewController.swift in Sources */,
+				15CEB36721BF8AD6005EFCB3 /* SWDietOptionBuilder.swift in Sources */,
 				15BA802B204144C200596CC8 /* SWRecipyAssembler.swift in Sources */,
 				156B0BCF20395E8000CFEEA4 /* SWInmemoryIngredientRepository.swift in Sources */,
 				15BA8031204147C700596CC8 /* SWComponent.swift in Sources */,
@@ -1733,6 +1752,7 @@
 				15F9107A219188EB00F1F1F0 /* SWHideAnimationController.swift in Sources */,
 				15925393217335C5004276BB /* SWRandomIngredientProvider.swift in Sources */,
 				152F66D620E8C0590070BAA5 /* SWPickingOverlayAnimationController.swift in Sources */,
+				15CEB36921BF8B0D005EFCB3 /* SWConcreteDietOptionBuilder.swift in Sources */,
 				152F66E320F084200070BAA5 /* SWSpot.swift in Sources */,
 				15F91075218CAF5B00F1F1F0 /* SWRecipyGenerator.swift in Sources */,
 				15D13D402052C7C300D44923 /* SWConcreteRecipyListGenerator.swift in Sources */,

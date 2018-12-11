@@ -15,4 +15,6 @@ enum SWOptionType: String, Codable {
     
     case allergy
     
+    case block
+    
 }

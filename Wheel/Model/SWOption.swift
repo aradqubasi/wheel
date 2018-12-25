@@ -17,7 +17,7 @@ struct SWOption: Codable, Hashable {
     
     var name: String
     
-    var checked: Bool
+//    var checked: Bool
     
     init(_ id: Int? = nil, _ name: String, of type: SWOptionType, is checked: Bool = false) {
         
@@ -27,7 +27,7 @@ struct SWOption: Codable, Hashable {
         
         self.type = type
         
-        self.checked = checked
+//        self.checked = checked
         
     }
     

@@ -852,38 +852,15 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //        SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
         var ingredients: [SWIngredientKinds:[SWIngredient]] = [
-            .base: [],
-            .fat: [],
-            .veggy: [],
-            .protein: [],
-            .fruits: [],
-            .unexpected: [],
-            .dressing: []
+            .base: self.filter.filterByOptionsAnd(by: .base),
+            .fat: self.filter.filterByOptionsAnd(by: .fat),
+            .veggy: self.filter.filterByOptionsAnd(by: .veggy),
+            .protein: self.filter.filterByOptionsAnd(by: .protein),
+            .fruits: self.filter.filterByOptionsAnd(by: .fruits),
+            .unexpected: self.filter.filterByOptionsAnd(by: .unexpected),
+            .dressing: self.filter.filterByOptionsAnd(by: .dressing)
         ]
-        _ingredients.getAll().forEach({ (ingredient) in
-            var match = true
-            _options.getAll().forEach({ (option) in
-                if !option.checked {
-                    return
-                }
-                _blockings.getAll().forEach({ (blocking) in
-                    if option.id != blocking.optionId {
-                        return
-                    }
-                    else if blocking.ingredientId != ingredient.id {
-                        return
-                    }
-                    else {
-                        match = false
-                    }
-                })
-            })
-            if match {
-                if ingredients[ingredient.kind] != nil {
-                    ingredients[ingredient.kind]!.append(ingredient)
-                }
-            }
-        })
+        
         bases.refill(with: ingredients[.base]!)
         bases.flush()
         fats.refill(with: ingredients[.fat]!)
@@ -897,10 +874,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         if filtered.count > 0 {
             selectionController.pop(filtered)
         }
-        
-//        if segue.identifier == segues.getHamburgerToWheelsForWalkthrough().identifier {
-//            perform(segue: segues.getWheelsToWalkthrough())
-//        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

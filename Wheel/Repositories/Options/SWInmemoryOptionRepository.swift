@@ -21,7 +21,9 @@ class SWInmemoryOptionRepository : SWOptionRepository {
         SWOption(7, "No fish", of: .block),
         SWOption(8, "No meat", of: .block),
         SWOption(9, "No gluten", of: .block),
-        SWOption(10, "No dairy", of: .block)
+        SWOption(10, "No dairy", of: .block),
+        SWOption(11, "No shellfish", of: .block),
+        SWOption(12, "No eggs", of: .block)
     ]
     
     func getAll(by type: SWOptionType) -> [SWOption] {
@@ -52,6 +54,14 @@ class SWInmemoryOptionRepository : SWOptionRepository {
     
     func getNoDairy() -> SWOption {
         return SWInmemoryOptionRepository._options.first(where: { $0.name == "No dairy" })!
+    }
+    
+    func getNoShellfish() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No shellfish" })!
+    }
+    
+    func getNoEggs() -> SWOption {
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No eggs" })!
     }
     
 }

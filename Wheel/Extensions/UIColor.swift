@@ -262,4 +262,46 @@ public extension UIColor {
             return UIColor(red: 173 / 255, green: 123 / 255, blue: 177 / 255, alpha: 1)
         }
     }
+    
+    /**purple strong*/
+    class var siren: UIColor {
+        get {
+            return UIColor(red: 139 / 255, green: 0 / 255, blue: 63 / 255, alpha: 1)
+        }
+    }
+    
+    /**purple easy*/
+    class var hibiscus: UIColor {
+        get {
+            return UIColor(red: 161 / 255, green: 40 / 255, blue: 95 / 255, alpha: 1)
+        }
+    }
+    
+    /**violet strong*/
+    class var pigmentindigo: UIColor {
+        get {
+            return UIColor(red: 84 / 255, green: 2 / 255, blue: 110 / 255, alpha: 1)
+        }
+    }
+    
+    /**purple easy*/
+    class var honeyflower: UIColor {
+        get {
+            return UIColor(red: 104 / 255, green: 35 / 255, blue: 127 / 255, alpha: 1)
+        }
+    }
+    
+    /**blue strong*/
+    class var parism: UIColor {
+        get {
+            return UIColor(red: 40 / 255, green: 6 / 255, blue: 113 / 255, alpha: 1)
+        }
+    }
+    
+    /**blue easy*/
+    class var minsk: UIColor {
+        get {
+            return UIColor(red: 71 / 255, green: 43 / 255, blue: 131 / 255, alpha: 1)
+        }
+    }
 }

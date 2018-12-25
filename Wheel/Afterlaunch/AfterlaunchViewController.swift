@@ -30,6 +30,29 @@ class AfterlaunchViewController: SWViewController {
             appStateRepository.setInitializeDefaults(false)
         }
         
+        do {
+            let optionRepository: SWOptionRepository = self.assembler.resolve()
+            let userOptionRepository: SWUserOptionRepository = self.assembler.resolve()
+            userOptionRepository.setEntities(
+                optionRepository
+                    .getAll()
+                    .leftjoin(
+                        with: userOptionRepository.getEntities(),
+                        on: {
+                            (option: SWOption, userOption: SWUserOption) -> Bool in
+                            option.id == userOption.optionId
+                        },
+                        as: {
+                            (option: SWOption, userOption: SWUserOption?) -> SWUserOption in
+                            if let userOption = userOption {
+                                return userOption
+                            }
+                            else {
+                                return SWUserOption(option.id ?? 0, false)
+                            }
+                        }))
+        }
+        
         if appState.showOnboarding {
             appStateRepository.setShowOnboarding(false)
             perform(segue: segues.getAfterlaunchToOnboarding())

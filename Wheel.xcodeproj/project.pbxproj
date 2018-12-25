@@ -43,6 +43,9 @@
 		15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D741FD692C10018A1CD /* UIScrollView.swift */; };
 		15456D791FD7E0880018A1CD /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15456D781FD7E0880018A1CD /* CGPoint.swift */; };
 		1547C2A91FB968CD009C8320 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1547C2A81FB968CD009C8320 /* UIColor.swift */; };
+		154B2E1F21CB6C7400481E35 /* SWPersistantRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E1E21CB6C7400481E35 /* SWPersistantRepository.swift */; };
+		154B2E2321CF953600481E35 /* SWUserOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E2221CF953600481E35 /* SWUserOption.swift */; };
+		154B2E2521CF962100481E35 /* SWUserOptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E2421CF962100481E35 /* SWUserOptionRepository.swift */; };
 		154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */; };
 		154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */; };
 		154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */; };
@@ -199,7 +202,6 @@
 		15E5395D219561250046EDF7 /* SWConcreteDietAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5395C219561250046EDF7 /* SWConcreteDietAssembler.swift */; };
 		15E5395F219568340046EDF7 /* SWHideDietAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5395E219568340046EDF7 /* SWHideDietAnimationController.swift */; };
 		15E539612195685A0046EDF7 /* SWHidingDietAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E539602195685A0046EDF7 /* SWHidingDietAnimationController.swift */; };
-		15E53963219808DA0046EDF7 /* SWPieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E53962219808DA0046EDF7 /* SWPieViewController.swift */; };
 		15E53966219809250046EDF7 /* SWPieAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E53965219809250046EDF7 /* SWPieAssembler.swift */; };
 		15E53968219809590046EDF7 /* SWConcretePieAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E53967219809590046EDF7 /* SWConcretePieAssembler.swift */; };
 		15E5396A21980B370046EDF7 /* SWDietSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E5396921980B370046EDF7 /* SWDietSettings.swift */; };
@@ -334,6 +336,9 @@
 		15456D741FD692C10018A1CD /* UIScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIScrollView.swift; sourceTree = "<group>"; };
 		15456D781FD7E0880018A1CD /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		1547C2A81FB968CD009C8320 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		154B2E1E21CB6C7400481E35 /* SWPersistantRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantRepository.swift; sourceTree = "<group>"; };
+		154B2E2221CF953600481E35 /* SWUserOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserOption.swift; sourceTree = "<group>"; };
+		154B2E2421CF962100481E35 /* SWUserOptionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserOptionRepository.swift; sourceTree = "<group>"; };
 		154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskDelegate.swift; sourceTree = "<group>"; };
 		154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelViewAbstracted.swift; sourceTree = "<group>"; };
 		154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDataAsset.swift; sourceTree = "<group>"; };
@@ -490,7 +495,6 @@
 		15E5395C219561250046EDF7 /* SWConcreteDietAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteDietAssembler.swift; sourceTree = "<group>"; };
 		15E5395E219568340046EDF7 /* SWHideDietAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHideDietAnimationController.swift; sourceTree = "<group>"; };
 		15E539602195685A0046EDF7 /* SWHidingDietAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWHidingDietAnimationController.swift; sourceTree = "<group>"; };
-		15E53962219808DA0046EDF7 /* SWPieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPieViewController.swift; sourceTree = "<group>"; };
 		15E53965219809250046EDF7 /* SWPieAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPieAssembler.swift; sourceTree = "<group>"; };
 		15E53967219809590046EDF7 /* SWConcretePieAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcretePieAssembler.swift; sourceTree = "<group>"; };
 		15E5396921980B370046EDF7 /* SWDietSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWDietSettings.swift; sourceTree = "<group>"; };
@@ -699,6 +703,15 @@
 			path = Selection;
 			sourceTree = "<group>";
 		};
+		154B2E2621D21C2A00481E35 /* Afterlaunch */ = {
+			isa = PBXGroup;
+			children = (
+				156B0BD62039632900CFEEA4 /* SWAfterlaunchAssembler.swift */,
+				156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */,
+			);
+			path = Afterlaunch;
+			sourceTree = "<group>";
+		};
 		155BEC2D1FEFC8FD00E749B5 /* Options */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,6 +763,7 @@
 				15E5395021942C1F0046EDF7 /* SWImage.swift */,
 				15E5396921980B370046EDF7 /* SWDietSettings.swift */,
 				15FC9D0C21AA8EA8005A0BDA /* SWDietSettingsViewModel.swift */,
+				154B2E2221CF953600481E35 /* SWUserOption.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -757,6 +771,7 @@
 		158387A020340321001E4008 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				154B2E1E21CB6C7400481E35 /* SWPersistantRepository.swift */,
 				15E5396B21980D9B0046EDF7 /* DietSettings */,
 				15F9104F218037B100F1F1F0 /* AppState */,
 				15F91051218037DE00F1F1F0 /* Blockings */,
@@ -776,6 +791,7 @@
 		158387A5203408A2001E4008 /* Assemblers */ = {
 			isa = PBXGroup;
 			children = (
+				154B2E2621D21C2A00481E35 /* Afterlaunch */,
 				15E53959219560630046EDF7 /* Diet */,
 				15F91073218C2C1F00F1F1F0 /* Recipy */,
 				15F91072218C2C0B00F1F1F0 /* History */,
@@ -783,8 +799,6 @@
 				158387A6203409B9001E4008 /* SWRootAssembler.swift */,
 				158387A820340DBC001E4008 /* SWContext.swift */,
 				158387AA20340F2A001E4008 /* SWConcreteRootAssembler.swift */,
-				156B0BD62039632900CFEEA4 /* SWAfterlaunchAssembler.swift */,
-				156B0BD8203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift */,
 				156B0BDD20396CF700CFEEA4 /* SWOnboardingAssembler.swift */,
 				156B0BE92039799F00CFEEA4 /* SWConcreteOnboardingAssembler.swift */,
 				15119299207C748400D93751 /* SWStepsAssembler.swift */,
@@ -1038,7 +1052,6 @@
 				15CEB36521BF8AC2005EFCB3 /* Utilities */,
 				15FC9D1421AD2078005A0BDA /* ViewModel */,
 				15E5395521955FB60046EDF7 /* DietViewController.swift */,
-				15E53962219808DA0046EDF7 /* SWPieViewController.swift */,
 				15FC9D1721AE790A005A0BDA /* SWSliderViewController.swift */,
 				15FC9D2521BA47D0005A0BDA /* SWSliderViewDelegate.swift */,
 				15FC9D2121B28B5C005A0BDA /* SWNewPieViewController.swift */,
@@ -1165,6 +1178,7 @@
 			children = (
 				158387A120340371001E4008 /* SWOptionRepository.swift */,
 				158387A3203403F9001E4008 /* SWInmemoryOptionRepository.swift */,
+				154B2E2421CF962100481E35 /* SWUserOptionRepository.swift */,
 			);
 			path = Options;
 			sourceTree = "<group>";
@@ -1526,7 +1540,6 @@
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
 				1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
-				15E53963219808DA0046EDF7 /* SWPieViewController.swift in Sources */,
 				15FC9D2021B289E2005A0BDA /* SWPieLegend.swift in Sources */,
 				15A2581F208CAD3400F738B5 /* SWConcreteFilterAssembler.swift in Sources */,
 				1568A673216889CA00CDC2B0 /* SWConcreteWheelsAnimationHelper.swift in Sources */,
@@ -1630,6 +1643,7 @@
 				15D13D422052CF4500D44923 /* SWRecipyListView.swift in Sources */,
 				158387A920340DBC001E4008 /* SWContext.swift in Sources */,
 				15456D751FD692C10018A1CD /* UIScrollView.swift in Sources */,
+				154B2E1F21CB6C7400481E35 /* SWPersistantRepository.swift in Sources */,
 				156B0BE420396E7E00CFEEA4 /* SWInmemorySegueRepository.swift in Sources */,
 				15FC9D1321AA936D005A0BDA /* SWPersistantDietSettingsRepository.swift in Sources */,
 				1592539F2175A723004276BB /* SWHamburgerAssembler.swift in Sources */,
@@ -1732,10 +1746,12 @@
 				15FC9D1C21B28535005A0BDA /* SWPieSection.swift in Sources */,
 				15F910592182DA3900F1F1F0 /* HistoryViewController.swift in Sources */,
 				15D13D38204EEC0100D44923 /* SWServingsGenerator.swift in Sources */,
+				154B2E2521CF962100481E35 /* SWUserOptionRepository.swift in Sources */,
 				15FBE5CA2068F184008F37B4 /* SWBowlActOffsetAnchor.swift in Sources */,
 				154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */,
 				1583879F2033FEE8001E4008 /* SWOption.swift in Sources */,
 				155679AA21633523005B019B /* SWConcreteStepsAligner.swift in Sources */,
+				154B2E2321CF953600481E35 /* SWUserOption.swift in Sources */,
 				156B0BD9203963A100CFEEA4 /* SWConcreteAfterlaunchAssembler.swift in Sources */,
 				15FDD3A020D90D550077557B /* SWCompleteAnimationController.swift in Sources */,
 				155679AC21633561005B019B /* SWXPhoneStepsAligner.swift in Sources */,

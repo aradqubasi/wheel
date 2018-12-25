@@ -91,7 +91,7 @@ class FilterViewController: SWViewController, SWDismissableViewController {
             var result = result
             let view = SWAllergiesOptionView(frame: lineRectangle)
             view.title = next.name.toFilterOptionCaption
-            view.checked = next.checked
+            view.checked = true//next.checked
             view.order = next.id!
             view.onCheck(self, selector: #selector(onAllergiesOptionClick(_:)))
             result[view] = next
@@ -153,7 +153,9 @@ class FilterViewController: SWViewController, SWDismissableViewController {
 //        view.constraints.filter({ $0.firstAttribute == .bottom && $0.firstItem === _scroll }).first!.isActive = false
 //        _scroll.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -_ok.frame.height).isActive = true
         
-        _ingredients.forEach({ $0.key.checked = $0.value.checked })
+        _ingredients.forEach({
+            $0.key.checked = true//$0.value.checked
+        })
         noPreferences.checked = _ingredients.first(where: { $0.key.checked }) == nil
         
         do {
@@ -220,13 +222,13 @@ class FilterViewController: SWViewController, SWDismissableViewController {
         _ingredients.forEach({
             let view = $0.key
             var model = $0.value
-            model.checked = view.checked
+            //model.checked = view.checked
             _options.save(model)
         })
         _allergies.forEach({
             let view = $0.key
             var model = $0.value
-            model.checked = view.checked
+            //model.checked = view.checked
             _options.save(model)
         })
         perform(segue: segues.getFilterToWheelsWithConfirm())

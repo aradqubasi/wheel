@@ -19,16 +19,19 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
     
     private let options: SWOptionRepository
     
+    private let checked: SWUserOptionRepository
+    
     private let biases: SWIngredientBiasRepository
     
     private let state: SWAppStateRepository
     
-    init(ingredients: SWIngredientRepository, measuresments: SWMeasuresmentRepository, stats: SWIngredientStatsRepository, blockings: SWBlockingRepository, options: SWOptionRepository, biases: SWIngredientBiasRepository, state: SWAppStateRepository) {
+    init(ingredients: SWIngredientRepository, measuresments: SWMeasuresmentRepository, stats: SWIngredientStatsRepository, blockings: SWBlockingRepository, options: SWOptionRepository, checked: SWUserOptionRepository, biases: SWIngredientBiasRepository, state: SWAppStateRepository) {
         self.ingredients = ingredients
         self.measuresments = measuresments
         self.stats = stats
         self.blockings = blockings
         self.options = options
+        self.checked = checked
         self.biases = biases
         self.state = state
     }
@@ -71,12 +74,13 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
                 (tuple: (SWIngredient, SWMeasuresment, SWIngredientStats, SWIngredientBias?)) -> SWFullIngredient in
                 let isBlocked = self.blockings.getAll(by: tuple.0).contains(where: {
                     block in
-                    self.options.getAll().contains(where: {
-                        option in
-                        return option.checked
-                            && block.optionId == option.id
-                            && block.ingredientId == tuple.0.id
-                    })
+//                    self.options.getAll().contains(where: {
+//                        option in
+//                        return option.checked
+//                            && block.optionId == option.id
+//                            && block.ingredientId == tuple.0.id
+//                    })
+                    return self.checked.getEntities().contains(where: { $0.optionId == block.optionId && $0.checked }) && block.ingredientId == tuple.0.id
                 })
                 let bias = tuple.3?.value ?? 1
                 return SWFullIngredient(ingredient: tuple.0, measure: tuple.1, stats: tuple.2, isBlocked: isBlocked, bias: bias)

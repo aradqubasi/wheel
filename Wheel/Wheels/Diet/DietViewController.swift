@@ -23,6 +23,8 @@ class DietViewController: SWTransitioningViewController {
     
     private var settingsVm: SWDietSettingsViewModelRepository!
     
+    private var userOptions: SWUserOptionRepository!
+    
     // MARK: - Subviews
     
     private var radius: CGFloat = 120
@@ -64,6 +66,8 @@ class DietViewController: SWTransitioningViewController {
         
         self.settingsVm = self.assembler.resolve()
         
+        self.userOptions = self.assembler.resolve()
+        
         do {
             navigationItem.titleView = UILabel.dietTitle
             let back = UIBarButtonItem.back
@@ -89,6 +93,9 @@ class DietViewController: SWTransitioningViewController {
             self.view.addSubview(shroud)
         }
 
+        let buttonscenter = CGPoint(
+            x: self.view.getBoundsCenter().x + 60,
+            y: self.view.getBoundsCenter().y + 142)
         let positions = (
             piechart: CGPoint(
                 x: self.view.getBoundsCenter().x,
@@ -96,18 +103,13 @@ class DietViewController: SWTransitioningViewController {
             slider: CGPoint(
                 x: self.view.getBoundsCenter().x - 96,
                 y: self.view.getBoundsCenter().y + 145),
-            topleftbutton: CGPoint(
-                x: self.view.getBoundsCenter().x + 60 - 8 - 35,
-                y: self.view.getBoundsCenter().y + 142 - 8 - 35),
-            bottomleftbutton: CGPoint(
-                x: self.view.getBoundsCenter().x + 60 + 8 + 35,
-                y: self.view.getBoundsCenter().y + 142 - 8 - 35),
-            bottomrightbutton: CGPoint(
-                x: self.view.getBoundsCenter().x + 60 + 8 + 35,
-                y: self.view.getBoundsCenter().y + 142 + 8 + 35),
-            toprightbutton: CGPoint(
-                x: self.view.getBoundsCenter().x + 60 - 8 - 35,
-                y: self.view.getBoundsCenter().y + 142 + 8 + 35)
+            topleftbutton: buttonscenter + CGPoint(x: -8, y: -16) + CGPoint(x: -25, y: -50),
+            middleleftbutton: buttonscenter + CGPoint(x: -8, y: 0) + CGPoint(x: -25, y: 0),
+            bottomleftbutton: buttonscenter + CGPoint(x: -8, y: 16) + CGPoint(x: -25, y: 50),
+            
+            bottomrightbutton: buttonscenter + CGPoint(x: 8, y: -16) + CGPoint(x: 25, y: -50),
+            middlerightbutton: buttonscenter + CGPoint(x: 8, y: 0) + CGPoint(x: 25, y: 0),
+            toprightbutton: buttonscenter + CGPoint(x: 8, y: 16) + CGPoint(x: 25, y: 50)
         )
         
         do {
@@ -201,6 +203,8 @@ class DietViewController: SWTransitioningViewController {
                     with: [
                         positions.topleftbutton,
                         positions.toprightbutton,
+                        positions.middleleftbutton,
+                        positions.middlerightbutton,
                         positions.bottomleftbutton,
                         positions.bottomrightbutton
                     ], as: {
@@ -241,6 +245,7 @@ class DietViewController: SWTransitioningViewController {
             midday: prev.midday,
             evening: prev.evening)
         settings.upsert(next)
+        self.userOptions.setEntities(self.options.map({ $0.UserOption }))
         if let value = pieChart.settingsVm {
             settingsVm.upsert(value)
         }

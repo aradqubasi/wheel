@@ -21,6 +21,10 @@ protocol SWOptionRepository {
     
     func getNoDairy() -> SWOption
     
+    func getNoShellfish() -> SWOption
+    
+    func getNoEggs() -> SWOption
+    
     func save(_ option: SWOption)
     
 }

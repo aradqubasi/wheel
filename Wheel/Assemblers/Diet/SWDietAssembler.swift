@@ -21,4 +21,6 @@ protocol SWDietAssembler {
     
     func resolve() -> SWDietOptionBuilder
     
+    func resolve() -> SWUserOptionRepository
+    
 }

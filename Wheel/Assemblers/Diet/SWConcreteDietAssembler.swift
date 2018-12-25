@@ -28,7 +28,11 @@ class SWConcreteDietAssembler: SWDietAssembler {
     }
     
     func resolve() -> SWDietOptionBuilder {
-        return SWConcreteDietOptionBuilder(options: SWInmemoryOptionRepository())
+        return SWConcreteDietOptionBuilder(options: SWInmemoryOptionRepository(), userOptions: SWUserOptionRepository())
+    }
+    
+    func resolve() -> SWUserOptionRepository {
+        return SWUserOptionRepository()
     }
     
 }

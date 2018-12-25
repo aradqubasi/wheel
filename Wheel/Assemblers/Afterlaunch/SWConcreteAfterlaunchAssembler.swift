@@ -33,4 +33,12 @@ class SWConcreteAfterlaunchAssembler: SWAfterlaunchAssembler {
     func resolve() -> SWDietSettingsRepository {
         return SWPersistantDietSettingsRepository()
     }
+    
+    func resolve() -> SWUserOptionRepository {
+        return SWUserOptionRepository()
+    }
+    
+    func resolve() -> SWOptionRepository {
+        return SWInmemoryOptionRepository()
+    }
 }

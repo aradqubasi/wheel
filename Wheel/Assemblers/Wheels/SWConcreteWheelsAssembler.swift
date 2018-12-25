@@ -62,7 +62,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWIngredientsFilter {
-        return SWConcreteIngredientsFilter(ingredients: resolve(), options: resolve(), blockings: resolve())
+        return SWConcreteIngredientsFilter(ingredients: resolve(), options: resolve(), checked: SWUserOptionRepository(), blockings: resolve())
     }
     
     func resolve(using background: UIView) -> SWSubwheelAssembler {
@@ -83,7 +83,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWCheifCook {
-        return SWBalancedCheifCook(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository(), biases: SWPersistantIngredientBiasRepository(), state: SWUserDefaultsAppStateRepository()), randomizer: SWBiasedRandomIngredientProvider())
+        return SWBalancedCheifCook(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), biases: SWPersistantIngredientBiasRepository(), state: SWUserDefaultsAppStateRepository()), randomizer: SWBiasedRandomIngredientProvider())
     }
     
     func resolve(bases: SWAbstractWheelController, fats: SWAbstractWheelController, veggies: SWAbstractWheelController, proteins: SWAbstractWheelController, unexpected: UIButton, fruits: UIButton, dressings: UIButton, scene: UIView) -> SWWheelsAnimationHelper {

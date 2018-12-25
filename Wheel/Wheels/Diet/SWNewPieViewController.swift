@@ -54,9 +54,9 @@ class SWNewPieViewController: UIViewController {
             sections: [
                 SWPieSection(
                    innerLayer: CAShapeLayer(),
-                   innerColor: UIColor.yellowgreen,
+                   innerColor: UIColor.parism,
                    outerLayer: CAShapeLayer(),
-                   outerColor: UIColor.atlantis,
+                   outerColor: UIColor.minsk,
                    range: SWAngularRange(start: 0, end: CGFloat.pi * 2),
                    legend: SWPieLegend(code: 1, name: "fats"),
                    markWrapper: UIView(),
@@ -68,9 +68,9 @@ class SWNewPieViewController: UIViewController {
                 ),
                 SWPieSection(
                     innerLayer: CAShapeLayer(),
-                    innerColor: UIColor.kournikova,
+                    innerColor: UIColor.pigmentindigo,
                     outerLayer: CAShapeLayer(),
-                    outerColor: UIColor.buttercup,
+                    outerColor: UIColor.honeyflower,
                     range: SWAngularRange(start: 0, end: CGFloat.pi * 2),
                     legend: SWPieLegend(code: 2, name: "proteins"),
                     markWrapper: UIView(),
@@ -82,9 +82,9 @@ class SWNewPieViewController: UIViewController {
                 ),
                 SWPieSection(
                     innerLayer: CAShapeLayer(),
-                    innerColor: UIColor.froly,
+                    innerColor: UIColor.siren,
                     outerLayer: CAShapeLayer(),
-                    outerColor: UIColor.burntSienna,
+                    outerColor: UIColor.hibiscus,
                     range: SWAngularRange(start: 0, end: CGFloat.pi * 2),
                     legend: SWPieLegend(code: 3, name: "carbohydrates"),
                     markWrapper: UIView(),

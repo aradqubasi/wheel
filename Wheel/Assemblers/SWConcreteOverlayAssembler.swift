@@ -15,7 +15,7 @@ class SWConcreteOverlayAssembler: SWOverlayAssembler {
     }
     
     func resolve() -> SWIngredientsFilter {
-        return SWConcreteIngredientsFilter(ingredients: SWInmemoryIngredientRepository(), options: SWInmemoryOptionRepository(), blockings: SWInmemoryBlockingRepoitory())
+        return SWConcreteIngredientsFilter(ingredients: SWInmemoryIngredientRepository(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), blockings: SWInmemoryBlockingRepoitory())
     }
     
     func resolve() -> SWWheelsAligner {

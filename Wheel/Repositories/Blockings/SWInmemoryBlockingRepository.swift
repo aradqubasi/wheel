@@ -38,6 +38,36 @@ class SWInmemoryBlockingRepoitory: SWBlockingRepository {
             SWBlocking(id: 24, ingredientId: 54, optionId: 1),
             SWBlocking(id: 25, ingredientId: 54, optionId: 2),
             SWBlocking(id: 26, ingredientId: 54, optionId: 3),
+            
+//            SWOption(7, "No fish", of: .block),
+            
+            SWBlocking(id: 27, ingredientId: 23, optionId: 7), //tuna
+            SWBlocking(id: 28, ingredientId: 52, optionId: 7), //salmon
+            
+//            SWOption(8, "No meat", of: .block),
+            
+            SWBlocking(id: 29, ingredientId: 51, optionId: 8), //meat
+            SWBlocking(id: 30, ingredientId: 54, optionId: 8), //bacon
+            
+//            SWOption(9, "No gluten", of: .block),
+            
+            SWBlocking(id: 31, ingredientId: 30, optionId: 9),
+            SWBlocking(id: 32, ingredientId: 31, optionId: 9),
+            SWBlocking(id: 33, ingredientId: 36, optionId: 9),
+            
+//            SWOption(10, "No dairy", of: .block),
+            
+            SWBlocking(id: 34, ingredientId: 32, optionId: 10),
+            SWBlocking(id: 35, ingredientId: 37, optionId: 10),
+            
+//            SWOption(11, "No shellfish", of: .block),
+            
+            SWBlocking(id: 36, ingredientId: 29, optionId: 11),
+            
+//            SWOption(12, "No eggs", of: .block)
+            
+            SWBlocking(id: 37, ingredientId: 24, optionId: 12),
+            SWBlocking(id: 38, ingredientId: 26, optionId: 12)
         ]
     }
     

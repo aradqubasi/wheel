@@ -15,7 +15,7 @@ class SWConcreteOverlayAssembler: SWOverlayAssembler {
     }
     
     func resolve() -> SWIngredientsFilter {
-        return SWConcreteIngredientsFilter(ingredients: SWInmemoryIngredientRepository(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), blockings: SWInmemoryBlockingRepoitory())
+        return SWConcreteIngredientsFilter(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), biases: SWPersistantIngredientBiasRepository(), state: SWUserDefaultsAppStateRepository()))
     }
     
     func resolve() -> SWWheelsAligner {

@@ -62,7 +62,7 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWIngredientsFilter {
-        return SWConcreteIngredientsFilter(ingredients: resolve(), options: resolve(), checked: SWUserOptionRepository(), blockings: resolve())
+        return SWConcreteIngredientsFilter(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), biases: SWPersistantIngredientBiasRepository(), state: SWUserDefaultsAppStateRepository()))
     }
     
     func resolve(using background: UIView) -> SWSubwheelAssembler {

@@ -80,7 +80,7 @@ class SWConcreteFullIngredientRepository: SWFullIngredientRepository {
 //                            && block.optionId == option.id
 //                            && block.ingredientId == tuple.0.id
 //                    })
-                    return self.checked.getEntities().contains(where: { $0.optionId == block.optionId && $0.checked }) && block.ingredientId == tuple.0.id
+                    return self.checked.getEntities().contains(where: { $0.optionId == block.optionId && !$0.checked }) && block.ingredientId == tuple.0.id
                 })
                 let bias = tuple.3?.value ?? 1
                 return SWFullIngredient(ingredient: tuple.0, measure: tuple.1, stats: tuple.2, isBlocked: isBlocked, bias: bias)

@@ -41,15 +41,15 @@ class SWInmemoryOptionRepository : SWOptionRepository {
     }
     
     func getNoGluten() -> SWOption {
-        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No fish" })!
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No gluten" })!
     }
     
     func getNoFish() -> SWOption {
-        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No meat" })!
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No fish" })!
     }
     
     func getNoMeat() -> SWOption {
-        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No gluten" })!
+        return SWInmemoryOptionRepository._options.first(where: { $0.name == "No meat" })!
     }
     
     func getNoDairy() -> SWOption {

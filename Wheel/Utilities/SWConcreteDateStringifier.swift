@@ -34,18 +34,18 @@ class SWConcreteDateStringifier: SWDateStringifier {
 //            return "Yesterday, \(hour):\(minute):\(second)"
             return "Yesterday, \(self.stringify(date, format: "HH:mm:ss"))"
         }
-        else if date > Calendar.current.date(byAdding: .day, value: -7, to: date)! {
+        else if date > Calendar.current.date(byAdding: .day, value: -7, to: Date())! {
 //            let dayName = Calendar.current.weekdaySymbols[weekDay]
 //            return "\(dayName), \(hour):\(minute):\(second)"
             return self.stringify(date, format: "EEEE, HH:mm:ss")
         }
-        else if date > Calendar.current.date(byAdding: .year, value: -1, to: date)! {
+        else if date > Calendar.current.date(byAdding: .year, value: -1, to: Date())! {
 //            return "\(day) of \(monthName), \(hour):\(minute):\(second)"
-            return self.stringify(date, format: "d of MMMM, HH:mm:ss")
+            return "\(self.stringify(date, format: "d")) of \(self.stringify(date, format: "MMMM, HH:mm:ss"))"
         }
         else {
 //            return "\(day) of \(monthName) \(year), \(hour):\(minute):\(second)"
-            return self.stringify(date, format: "d of MMMM y, HH:mm:ss")
+            return "\(self.stringify(date, format: "d")) of \(self.stringify(date, format: "MMMM y, HH:mm:ss"))"
         }
     }
     

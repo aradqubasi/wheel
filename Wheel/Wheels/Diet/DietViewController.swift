@@ -78,7 +78,6 @@ class DietViewController: SWTransitioningViewController {
         
         do {
             self.swiper = SWDismissHistoryGestureRecognizer()
-//            self.view.addGestureRecognizer(self.swiper)
             self.swiper.addTarget(self, action: #selector(onSwipe(sender:)))
             self.swiper.delegate = self
         }
@@ -107,9 +106,9 @@ class DietViewController: SWTransitioningViewController {
             middleleftbutton: buttonscenter + CGPoint(x: -8, y: 0) + CGPoint(x: -25, y: 0),
             bottomleftbutton: buttonscenter + CGPoint(x: -8, y: 16) + CGPoint(x: -25, y: 50),
             
-            bottomrightbutton: buttonscenter + CGPoint(x: 8, y: -16) + CGPoint(x: 25, y: -50),
+            bottomrightbutton: buttonscenter + CGPoint(x: 8, y: 16) + CGPoint(x: 25, y: 50),
             middlerightbutton: buttonscenter + CGPoint(x: 8, y: 0) + CGPoint(x: 25, y: 0),
-            toprightbutton: buttonscenter + CGPoint(x: 8, y: 16) + CGPoint(x: 25, y: 50)
+            toprightbutton: buttonscenter + CGPoint(x: 8, y: -16) + CGPoint(x: 25, y: -50)
         )
         
         do {

@@ -490,15 +490,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             hamburger.action = #selector(onHamburgerButtonClick(_:))
             navigationItem.leftBarButtonItem = hamburger
             
-//            let question = UIBarButtonItem.question
-//            question.target = self
-//            question.action = #selector(onQuestionButtonClick(_:))
-//            navigationItem.leftBarButtonItem = question
-            
-            let filter = UIBarButtonItem.filter
-            filter.target = self
-            filter.action = #selector(onFilterButtonClick(_:))
-            navigationItem.rightBarButtonItem = filter
+//            let filter = UIBarButtonItem.filter
+//            filter.target = self
+//            filter.action = #selector(onFilterButtonClick(_:))
+//            navigationItem.rightBarButtonItem = filter
         }
         
         do {

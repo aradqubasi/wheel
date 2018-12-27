@@ -10,6 +10,8 @@ import UIKit
 
 class SWSliderViewController: UIViewController {
     
+    var range: (min: Double, max: Double) = (0.2, 1)
+    
     var slider: UIPanGestureRecognizer!
     
     var progress: Double = 0
@@ -140,7 +142,7 @@ class SWSliderViewController: UIViewController {
             if let prev = self.prev {
                 let delta = prev.y - next.y
                 self.progress += Double(delta / self.column.bounds.height)
-                self.progress = min(max(self.progress, 0), 1)
+                self.progress = min(max(self.progress, self.range.min), self.range.max)
                 print("progress \(self.progress)")
                 self.delegate?.onUpdate(of: self.progress)
                 self.drawFiller()

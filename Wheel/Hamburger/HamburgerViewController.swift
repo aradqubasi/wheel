@@ -22,6 +22,8 @@ class HamburgerViewController: SWViewController {
     
     private var background: UIView!
     
+    private var shroud: UIButton!
+    
     private var swiper: SWDismissHamburgerGestureRecognizer!
     
     private var transitioning: UIPercentDrivenInteractiveTransition!
@@ -44,6 +46,12 @@ class HamburgerViewController: SWViewController {
         do {
             self.background = assembler.resolve()
             self.view.addSubview(self.background)
+        }
+        
+        do {
+            self.shroud = UIButton(frame: self.view.bounds)
+            self.shroud.addTarget(self, action: #selector(onShroudClick(sender:)), for: .touchUpInside)
+            self.view.addSubview(self.shroud)
         }
         
         do {
@@ -194,13 +202,19 @@ class HamburgerViewController: SWViewController {
         }
     }
 
+    @IBAction func onShroudClick(sender: UIButton) {
+        perform(segue: self.segues.getHamburgerToWheels())
+    }
+    
     //MARK: - Animation Methods
     
     func hide() -> Void {
+        self.shroud.backgroundColor = .clear
         self.menu.transform = CGAffineTransform.identity.translatedBy(x: -self.menu.frame.width, y: 0)
     }
     
     func popup() -> Void {
+        self.shroud.backgroundColor = .limedSpruceTransparent
         self.menu.transform = CGAffineTransform.identity
     }
 

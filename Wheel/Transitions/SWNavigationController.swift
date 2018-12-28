@@ -92,13 +92,12 @@ class SWNavigationController: UINavigationController, UINavigationControllerDele
             return SWHidingDietAnimationController(fromVC as! DietViewController)
         case segues.getWheelsToDiet:
             return SWShowDietAnimationController(toVC as! DietViewController)
+        case segues.getHamburgerToWheels:
+            return SWHideHamburgerAnimationController()
         default:
             if fromVC is StepsViewController && toVC is RecipyViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
             }
-//            else if fromVC is RecipyViewController && toVC is WheelsViewController {
-//                return SWDismissAnimationContorller(from: fromVC, to: toVC)
-//            }
             else if fromVC is FilterViewController && toVC is WheelsViewController {
                 return SWDismissAnimationContorller(from: fromVC, to: toVC)
             }

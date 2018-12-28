@@ -16,16 +16,6 @@ class SWConcreteDateStringifier: SWDateStringifier {
     }
     
     func stringify(_ date: Date) -> String {
-//        let second = Calendar.current.component(.second, from: date)
-//        let minute = Calendar.current.component(.minute, from: date)
-//        let hour = Calendar.current.component(.hour, from: date)
-//        let day = Calendar.current.component(.day, from: date)
-//        let month = Calendar.current.component(.month, from: date)
-//        let year = Calendar.current.component(.year, from: date)
-//        let weekDay = Calendar.current.component(.weekdayOrdinal, from: date)
-//        let monthName = Calendar.current.monthSymbols[month]
-        
-        
         if Calendar.current.isDateInToday(date) {
 //            return "Today, \(hour):\(minute):\(second)"
             return "Today, \(self.stringify(date, format: "HH:mm:ss"))"

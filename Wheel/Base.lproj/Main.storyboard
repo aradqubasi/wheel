@@ -134,6 +134,7 @@
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForWalkthrough" unwindAction="unwindToWheelsWithSegue:" id="O3W-Ad-HUQ"/>
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForHistory" unwindAction="unwindToWheelsWithSegue:" id="Rbv-2P-Pjk"/>
                         <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheelsForDiet" unwindAction="unwindToWheelsWithSegue:" id="0RU-7Z-WPs"/>
+                        <segue destination="C39-fp-2fu" kind="unwind" identifier="HamburgerToWheels" unwindAction="unwindToWheelsWithSegue:" id="70H-pw-qLX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mMt-Ei-ul6" userLabel="First Responder" sceneMemberID="firstResponder"/>

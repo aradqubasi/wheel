@@ -126,6 +126,7 @@ class HistoryViewController: SWTransitioningViewController {
                 recipyViewController.backSegue = self.segues.getRecipyToHistory()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToHistoryWithSwipe()
             }
+            self.history.deselectRow(at: self.history.indexPathForSelectedRow!, animated: true)
         case segues.getHistoryToWheels().identifier?, segues.getHistoryToWheelsWithSwipe().identifier?:
             print("back to wheels")
         default:
@@ -181,6 +182,7 @@ extension HistoryViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
         perform(segue: self.segues.getHistoryToRecipy())
     }
     

@@ -55,4 +55,6 @@ protocol SWWheelsAssembler {
     
     func resolve() -> SWDietAssembler
     
+    func resolve() -> SWRecipyRepository
+    
 }

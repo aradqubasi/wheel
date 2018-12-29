@@ -37,4 +37,11 @@ extension UIBarButtonItem {
             return button
         }
     }
+    
+    class var bookmark: UIBarButtonItem {
+        get {
+            let button = UIBarButtonItem(image: #imageLiteral(resourceName: "wheelgui/bookmark"), style: .plain, target: nil, action: nil)
+            return button
+        }
+    }
 }

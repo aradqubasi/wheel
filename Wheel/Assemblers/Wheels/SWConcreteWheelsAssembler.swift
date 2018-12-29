@@ -115,4 +115,8 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
         return SWConcreteDietAssembler()
     }
     
+    func resolve() -> SWRecipyRepository {
+        return SWPersistantRecipyRepository()
+    }
+    
 }

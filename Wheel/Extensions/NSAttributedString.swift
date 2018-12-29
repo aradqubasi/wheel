@@ -496,4 +496,11 @@ extension NSAttributedString {
         let font = UIFont(name: "Avenir-Heavy", size: size)
         return fy((font: font, text: unfy.text, color: unfy.color))
     }
+    
+    class var saveRecipy: NSAttributedString {
+        get {
+            let text = NSAttributedString(string: "SAVE RECIPY", attributes: [.foregroundColor: UIColor.white, .font: UIFont(name: "Avenir-Heavy", size: 12) as Any])
+            return text
+        }
+    }
 }

@@ -249,15 +249,15 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                     line3.topAnchor.constraint(equalTo: _list.bottomAnchor, constant: 24).isActive = true
                 }
                 
-                var showSteps: UIButton!
+                var saveRecipy: UIButton!
                 do {
-                    showSteps = UIButton.showSteps
-                    _recipyHeaderContainer.addSubview(showSteps)
-                    showSteps.translatesAutoresizingMaskIntoConstraints = false
-                    showSteps.addSizeConstraints()
-                    showSteps.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
-                    showSteps.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-                    showSteps.addTarget(self, action: #selector(onShowStepsClick(_:)), for: .touchUpInside)
+                    saveRecipy = UIButton.saveRecipy
+                    _recipyHeaderContainer.addSubview(saveRecipy)
+                    saveRecipy.translatesAutoresizingMaskIntoConstraints = false
+                    saveRecipy.addSizeConstraints()
+                    saveRecipy.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
+                    saveRecipy.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
+                    saveRecipy.addTarget(self, action: #selector(onSaveRecipyClick(_:)), for: .touchUpInside)
                 }
                 
                 var happyCooking: UILabel!
@@ -267,7 +267,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                     happyCooking.translatesAutoresizingMaskIntoConstraints = false
                     happyCooking.addSizeConstraints()
                     happyCooking.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-                    happyCooking.topAnchor.constraint(equalTo: showSteps.bottomAnchor, constant: 32).isActive = true
+                    happyCooking.topAnchor.constraint(equalTo: saveRecipy.bottomAnchor, constant: 32).isActive = true
                 }
                 
                 do {
@@ -280,7 +280,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                 }
                 
                 _recipyHeaderContainer.backgroundColor = .white
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + /*recipy header*/ recipyHeader.frame.height /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + showSteps.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 18 + 64))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + /*recipy header*/ recipyHeader.frame.height /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + saveRecipy.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 18 + 64))
             }
             
             view.addSubview(_scroller)
@@ -351,11 +351,12 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
 //        perform(segue: segues.getRecipyToWheels())
 //    }
 //
-    @IBAction func onShowStepsClick(_ sender: Any) {
+    @IBAction func onSaveRecipyClick(_ sender: Any) {
         do {
             var recipy = self.selection!
             recipy.servings = self.selection.servings
             self.recipies.save(recipy)
+            perform(segue: self.segues.getRecipyToWheels())
         }
 //        transit()
     }
@@ -376,7 +377,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
     }
     
     @IBAction func onLess(_ sender: Any) {
-        self.selection.servings = self.selection.servings + 1
+        self.selection.servings = max(self.selection.servings - 1, 1)
         _subheader.set(
             energy: self.selection.calories,
             carbohydrates: self.selection.carbohydrates,

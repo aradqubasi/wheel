@@ -19,6 +19,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     // MARK: - Private Properties
     
+    private var recipies: SWRecipyRepository!
+    
     private var generator: SWRecipyGenerator!
     
     private var filter: SWIngredientsFilter!
@@ -311,6 +313,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.recipies = assembler.resolve()
         _tipster = assembler.resolve()
         _ingredients = assembler.resolve()
         _blockings = assembler.resolve()
@@ -494,6 +497,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            filter.target = self
 //            filter.action = #selector(onFilterButtonClick(_:))
 //            navigationItem.rightBarButtonItem = filter
+            
+            let bookmark = UIBarButtonItem.bookmark
+            bookmark.target = self
+            bookmark.action = #selector(onBookmarkButtonClick(_:))
+            navigationItem.rightBarButtonItem = bookmark
         }
         
         do {
@@ -559,6 +567,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction func onQuestionButtonClick(_ sender: UIBarButtonItem) {
         perform(segue: segues.getWheelsToWalkthrough())
+    }
+    
+    @IBAction private func onBookmarkButtonClick(_ sender: UIBarButtonItem) {
+        perform(segue: segues.getWheelsToRecipyByBookmark())
     }
     
     @IBAction func onDebug(_ sender: UIButton) {
@@ -884,12 +896,24 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 recipyViewController.selection = self.generator.generate(selected, servings: 2)
                 recipyViewController.backSegue = self.segues.getRecipyToWheels()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
-//                recipyViewController.selection = []
-//                selected.forEach({
-//                    if let ingredient = _ingredients.get(by: $0.name) {
-//                        recipyViewController.selection.append(ingredient)
-//                    }
-//                })
+            }
+        case segues.getWheelsToRecipyByBookmark().identifier:
+            if let recipyViewController = (segue.destination as? RecipyViewController) {
+                recipyViewController.assembler = assembler.resolve()
+                guard let last = self.recipies.getAll().reduce(nil as SWRecipy?, {
+                    (prev: SWRecipy?, next: SWRecipy) -> SWRecipy? in
+                    if (prev?.timestamp ?? Date.distantPast) < next.timestamp {
+                        return next
+                    }
+                    else {
+                        return prev
+                    }
+                }) else {
+                    fatalError("Recipies are empty")
+                }
+                recipyViewController.selection = last
+                recipyViewController.backSegue = self.segues.getRecipyToWheels()
+                recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
             }
         case segues.getWheelsToOverlay().identifier:
             print("to \(String(describing: overlayTransitionContext))")

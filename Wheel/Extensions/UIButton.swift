@@ -158,4 +158,16 @@ extension UIButton {
         setAttributedTitle(self.attributedTitle(for: .highlighted)?.invert(), for: .highlighted)
     }
     
+    class var saveRecipy: UIButton {
+        get {
+            let button = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 176, height: 56)))
+            button.backgroundColor = UIColor.shamrock
+            button.layer.cornerRadius = 28
+            button.clipsToBounds = false
+            button.setAttributedTitle(.saveRecipy, for: .normal)
+            button.setAttributedTitle(NSAttributedString.saveRecipy.invert(), for: .highlighted)
+            return button
+        }
+    }
+    
 }

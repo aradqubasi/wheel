@@ -69,6 +69,7 @@
                         <segue destination="IhP-sc-3Nb" kind="show" identifier="WheelsToHamburger" id="ex4-oy-JMu"/>
                         <segue destination="yJc-6s-X2P" kind="show" identifier="WheelsToHistory" id="lhU-wC-rYB"/>
                         <segue destination="M8O-3b-TED" kind="show" identifier="WheelsToDiet" id="1dE-mz-cPx"/>
+                        <segue destination="zk1-cU-Buj" kind="show" identifier="WheelsToRecipyByBookmark" id="XBS-Q1-413"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -400,6 +401,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="JsK-hI-aH2"/>
-        <segue reference="tTt-hq-gRy"/>
+        <segue reference="XBS-Q1-413"/>
     </inferredMetricsTieBreakers>
 </document>

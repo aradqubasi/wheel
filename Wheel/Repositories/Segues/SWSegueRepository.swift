@@ -81,4 +81,6 @@ protocol SWSegueRepository {
     func getDietToWheelsWithSwipe() -> SWSegue
     
     func getHamburgerToWheels() -> SWSegue
+    
+    func getWheelsToRecipyByBookmark() -> SWSegue
 }

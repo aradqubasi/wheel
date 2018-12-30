@@ -34,9 +34,11 @@ class OverlayViewController: SWViewController {
     
     private var _aligner: SWWheelsAligner!
     
-    private var _background: UIView!
+    private var _background: UIButton!
     
     private var _wheel: UIView!
+    
+    private var backWheel: UIButton!
     
     private var _close: UIButton!
     
@@ -64,7 +66,8 @@ class OverlayViewController: SWViewController {
             _scene.addSubview(background!)
         }
         
-        _background = UIView(frame: view.bounds)
+        _background = UIButton(frame: view.bounds)
+        _background.addTarget(self, action: #selector(onCloseClick(_:)), for: .touchUpInside)
         _background.backgroundColor = UIColor.limedSpruce
         _scene.addSubview(_background)
         
@@ -72,6 +75,12 @@ class OverlayViewController: SWViewController {
             let radius = ((_scene?.bounds.width) ?? 0) * 0.5 - aligner.getOverlayMargin()
             _wheel = UIView(frame: CGRect(origin: .zero, size: CGSize(width: radius * 2, height: radius * 2)))
             _scene.addSubview(_wheel)
+        }
+        
+        do {
+            self.backWheel = UIButton()
+            backWheel.addTarget(self, action: #selector(onCloseClick(_:)), for: .touchUpInside)
+            _wheel.addSubview(backWheel)
         }
         
         _pins = []
@@ -170,6 +179,7 @@ class OverlayViewController: SWViewController {
             _aligner.alignCircle(views: visible, center: _wheel.getBoundsCenter(), radius: _wheel.bounds.width * 0.5 - visible[0].frame.width * 0.5, rotation: 0)
             visible.forEach({ $0.addTarget(self, action: #selector(onIngridientClick(_:)), for: .touchUpInside) })
         }
+        self.backWheel.frame = _wheel.bounds
     }
 }
 

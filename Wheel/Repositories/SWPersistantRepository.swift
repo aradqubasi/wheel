@@ -37,7 +37,8 @@ extension SWPersistantRepository {
             return entities
         }
         catch {
-            fatalError("\(error)")
+            print("\(error)")
+            return []
         }
     }
     
@@ -47,7 +48,7 @@ extension SWPersistantRepository {
             self.setRaw(json)
         }
         catch {
-            fatalError("\(error)")
+            print("\(error)")
         }
     }
 }

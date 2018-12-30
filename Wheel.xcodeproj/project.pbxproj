@@ -46,6 +46,7 @@
 		154B2E1F21CB6C7400481E35 /* SWPersistantRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E1E21CB6C7400481E35 /* SWPersistantRepository.swift */; };
 		154B2E2321CF953600481E35 /* SWUserOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E2221CF953600481E35 /* SWUserOption.swift */; };
 		154B2E2521CF962100481E35 /* SWUserOptionRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E2421CF962100481E35 /* SWUserOptionRepository.swift */; };
+		154B2E2821D89F1B00481E35 /* SWRecipies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B2E2721D89F1B00481E35 /* SWRecipies.swift */; };
 		154B44842000B33400E80DAF /* SWRingMaskDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */; };
 		154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */; };
 		154DF0B1201AFCDB00B8391A /* NSDataAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */; };
@@ -150,7 +151,6 @@
 		15BA802F204146A900596CC8 /* SWRecipy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA802E204146A900596CC8 /* SWRecipy.swift */; };
 		15BA8031204147C700596CC8 /* SWComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA8030204147C700596CC8 /* SWComponent.swift */; };
 		15BA803320414B5000596CC8 /* SWRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803220414B5000596CC8 /* SWRecipyRepository.swift */; };
-		15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */; };
 		15BA803C2041F23800596CC8 /* SWNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803B2041F23800596CC8 /* SWNameGenerator.swift */; };
 		15BA803E2041F28B00596CC8 /* SWConcreteNameGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */; };
 		15BA80402041F5B200596CC8 /* Int.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BA803F2041F5B200596CC8 /* Int.swift */; };
@@ -339,6 +339,7 @@
 		154B2E1E21CB6C7400481E35 /* SWPersistantRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWPersistantRepository.swift; sourceTree = "<group>"; };
 		154B2E2221CF953600481E35 /* SWUserOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserOption.swift; sourceTree = "<group>"; };
 		154B2E2421CF962100481E35 /* SWUserOptionRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWUserOptionRepository.swift; sourceTree = "<group>"; };
+		154B2E2721D89F1B00481E35 /* SWRecipies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipies.swift; sourceTree = "<group>"; };
 		154B44832000B33400E80DAF /* SWRingMaskDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRingMaskDelegate.swift; sourceTree = "<group>"; };
 		154B44852000B5B100E80DAF /* SWWheelViewAbstracted.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWWheelViewAbstracted.swift; sourceTree = "<group>"; };
 		154DF0B0201AFCDB00B8391A /* NSDataAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDataAsset.swift; sourceTree = "<group>"; };
@@ -443,7 +444,6 @@
 		15BA802E204146A900596CC8 /* SWRecipy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipy.swift; sourceTree = "<group>"; };
 		15BA8030204147C700596CC8 /* SWComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWComponent.swift; sourceTree = "<group>"; };
 		15BA803220414B5000596CC8 /* SWRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWRecipyRepository.swift; sourceTree = "<group>"; };
-		15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWInmemoryRecipyRepository.swift; sourceTree = "<group>"; };
 		15BA803B2041F23800596CC8 /* SWNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWNameGenerator.swift; sourceTree = "<group>"; };
 		15BA803D2041F28B00596CC8 /* SWConcreteNameGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SWConcreteNameGenerator.swift; sourceTree = "<group>"; };
 		15BA803F2041F5B200596CC8 /* Int.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Int.swift; sourceTree = "<group>"; };
@@ -1223,7 +1223,7 @@
 			isa = PBXGroup;
 			children = (
 				15BA803220414B5000596CC8 /* SWRecipyRepository.swift */,
-				15BA803420414BB200596CC8 /* SWInmemoryRecipyRepository.swift */,
+				154B2E2721D89F1B00481E35 /* SWRecipies.swift */,
 				15F910612185D0A600F1F1F0 /* SWPersistantRecipyRepository.swift */,
 			);
 			path = Recipies;
@@ -1538,6 +1538,7 @@
 				15D13D442053EF4200D44923 /* SWRecipyBroccoliView.swift in Sources */,
 				15FC9D2621BA47D0005A0BDA /* SWSliderViewDelegate.swift in Sources */,
 				154B44862000B5B100E80DAF /* SWWheelViewAbstracted.swift in Sources */,
+				154B2E2821D89F1B00481E35 /* SWRecipies.swift in Sources */,
 				1559A4F2211A0487006C093A /* SWAnimationSemaphor.swift in Sources */,
 				15C91AF420C2697B003AD754 /* SWDismissableViewController.swift in Sources */,
 				15FC9D2021B289E2005A0BDA /* SWPieLegend.swift in Sources */,
@@ -1591,7 +1592,6 @@
 				15D13D30204E7BA100D44923 /* SWIngredientStats.swift in Sources */,
 				156B0BDE20396CF700CFEEA4 /* SWOnboardingAssembler.swift in Sources */,
 				15CEB36421BF84E4005EFCB3 /* SWDietOption.swift in Sources */,
-				15BA803520414BB200596CC8 /* SWInmemoryRecipyRepository.swift in Sources */,
 				15C91AE820AFF06F003AD754 /* SWDismissAnimationController.swift in Sources */,
 				1568A66B2165DC1200CDC2B0 /* SWFullIngredient.swift in Sources */,
 				15F43C431FA99D4E00732CED /* PVDelegate.swift in Sources */,

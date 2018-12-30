@@ -132,6 +132,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     var adding: Bool!
     
+    var bookmark: UIBarButtonItem!
+    
     // MARK: - Debug
     
     var input: UITextField!
@@ -373,7 +375,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 800))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(_ingredients.getAll(by: .protein), with: 20, as: .proteins, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .protein), with: 20, as: .proteins, in: container, facing: .leftward)
             wheel.delegate = self
             proteins = wheel
             
@@ -388,7 +390,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(_ingredients.getAll(by: .veggy), with: 20, as: .veggies, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .veggy), with: 20, as: .veggies, in: container, facing: .leftward)
             wheel.delegate = self
             veggies = wheel
             
@@ -403,7 +405,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(_ingredients.getAll(by: .fat), with: 20, as: .fats, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .fat), with: 20, as: .fats, in: container, facing: .leftward)
             wheel.delegate = self
             fats = wheel
             
@@ -418,7 +420,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 400))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(_ingredients.getAll(by: .base), with: 20, as: .bases, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .base), with: 20, as: .bases, in: container, facing: .leftward)
             wheel.delegate = self
             bases = wheel
             
@@ -498,10 +500,11 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
 //            filter.action = #selector(onFilterButtonClick(_:))
 //            navigationItem.rightBarButtonItem = filter
             
-            let bookmark = UIBarButtonItem.bookmark
-            bookmark.target = self
-            bookmark.action = #selector(onBookmarkButtonClick(_:))
-            navigationItem.rightBarButtonItem = bookmark
+            self.bookmark = UIBarButtonItem.bookmark
+            self.bookmark.isEnabled = self.recipies.getBookmark() != nil
+            self.bookmark.target = self
+            self.bookmark.action = #selector(onBookmarkButtonClick(_:))
+            navigationItem.rightBarButtonItem = self.bookmark
         }
         
         do {
@@ -856,7 +859,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     // MARK: - Navigation
     
     @IBAction func unwindToWheels(segue: UIStoryboardSegue) {
-//        SWContext.root.resolve().getAll().forEach({ print("\($0.name) is \($0.checked)") })
         
         var ingredients: [SWIngredientKinds:[SWIngredient]] = [
             .base: self.filter.filterByOptionsAnd(by: .base),
@@ -881,6 +883,9 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         if filtered.count > 0 {
             selectionController.pop(filtered)
         }
+        
+        //
+        self.bookmark.isEnabled = self.recipies.getBookmark() != nil
 
     }
     
@@ -900,18 +905,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         case segues.getWheelsToRecipyByBookmark().identifier:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
                 recipyViewController.assembler = assembler.resolve()
-                guard let last = self.recipies.getAll().reduce(nil as SWRecipy?, {
-                    (prev: SWRecipy?, next: SWRecipy) -> SWRecipy? in
-                    if (prev?.timestamp ?? Date.distantPast) < next.timestamp {
-                        return next
-                    }
-                    else {
-                        return prev
-                    }
-                }) else {
+                guard let bookmark = self.recipies.getBookmark() else {
                     fatalError("Recipies are empty")
                 }
-                recipyViewController.selection = last
+                recipyViewController.selection = bookmark
                 recipyViewController.backSegue = self.segues.getRecipyToWheels()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
             }

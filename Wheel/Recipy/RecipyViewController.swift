@@ -356,6 +356,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
             var recipy = self.selection!
             recipy.servings = self.selection.servings
             self.recipies.save(recipy)
+            self.recipies.setBookmark(recipy)
             perform(segue: self.segues.getRecipyToWheels())
         }
 //        transit()

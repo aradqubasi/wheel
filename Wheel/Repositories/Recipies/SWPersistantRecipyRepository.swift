@@ -8,68 +8,132 @@
 
 import Foundation
 
-class SWPersistantRecipyRepository: SWRecipyRepository {
+class SWPersistantRecipyRepository: SWPersistantRepository, SWRecipyRepository {
+
+    typealias Repository = SWPersistantRecipyRepository
     
-    private static var DocumentsDirectory = FileManager().urls(for: .documentDirectory, in: .userDomainMask).first!
+    typealias Entity = SWRecipies
     
-    private static let ArchiveUrl = DocumentsDirectory.appendingPathComponent(String(describing: SWPersistantRecipyRepository.self))
+    private static var entity: SWRecipies?
     
-    private func getRaw() -> String {
-        let jsons = (NSKeyedUnarchiver.unarchiveObject(withFile: SWPersistantRecipyRepository.ArchiveUrl.path) as? String) ?? "[]"
-        return jsons
-    }
-    
-    private func setRaw(_ json: String) -> Void {
-        NSKeyedArchiver.archiveRootObject(json, toFile: SWPersistantRecipyRepository.ArchiveUrl.path)
-    }
-    
-    private func getEntities() -> [SWRecipy] {
-        do {
-            let recipies = try JSONDecoder().decode([SWRecipy].self, from: getRaw().data(using: .utf8)!)
-            return recipies
+    private func getEntity() -> SWRecipies {
+        if let entity = SWPersistantRecipyRepository.entity {
+            return entity
         }
-        catch {
-            fatalError("\(error)")
+        else {
+            guard let entity = self.getEntities().first else {
+                let entity = SWRecipies()
+                SWPersistantRecipyRepository.entity = entity
+                return entity
+            }
+            SWPersistantRecipyRepository.entity = entity
+            return entity
         }
     }
     
-    private func setEntities(_ recipies: [SWRecipy]) {
-        do {
-            let json = String(data: try JSONEncoder().encode(recipies), encoding: .utf8)!
-            self.setRaw(json)
+    private func setRecipy(_ recipy: SWRecipy) {
+        let entity = self.getEntity()
+        if let id = recipy.id {
+            entity.recipies[id] = recipy
         }
-        catch {
-            fatalError("\(error)")
+        else if recipy.id == nil {
+            let maxId = self.getEntity().recipies.reduce(Int.min, {
+                prev, next in
+                if let id = next.value.id {
+                    if prev < id {
+                        return id
+                    }
+                    else {
+                        return prev
+                    }
+                }
+                else {
+                    return prev
+                }
+            })
+            entity.recipies[maxId] = SWRecipy(
+                id: maxId,
+                name: recipy.name,
+                servings: recipy.servings,
+                ingredients: recipy.ingredients,
+                calories: recipy.calories,
+                fats: recipy.fats,
+                carbohydrates: recipy.carbohydrates,
+                proteins: recipy.proteins,
+                timestamp: recipy.timestamp,
+                liked: recipy.liked
+            )
+        }
+        SWPersistantRecipyRepository.entity = entity
+        DispatchQueue.global(qos: .background).async {
+            self.setEntities([self.getEntity()])
         }
     }
     
+    private func setBookmarkId(_ bookmarkId: Int) {
+        let entity = self.getEntity()
+        entity.bookmarkRecipyId = bookmarkId
+        SWPersistantRecipyRepository.entity = entity
+    }
+    
+    func getBookmark() -> SWRecipy? {
+        let entity = self.getEntity()
+        if let bookmarkRecipyId = entity.bookmarkRecipyId {
+            if let bookmark = entity.recipies[bookmarkRecipyId] {
+                return bookmark
+            }
+            else {
+                return nil
+            }
+        }
+        else {
+            return nil
+        }
+    }
+
     func getAll() -> [SWRecipy] {
-        return getEntities()
+        return self.getEntity().recipies.map({ $0.value })
     }
     
     func get(by id: Int) -> SWRecipy? {
-        return getEntities().first(where: { $0.id == id })
+        return self.getEntity().recipies[id]
     }
     
     func save(_ recipy: SWRecipy) -> Void {
-        var entities = self.getEntities()
-        if let id = recipy.id {
-            if let position: Int = entities.index(where: { $0.id == id }) {
-                entities.remove(at: position)
-            }
-        }
-        entities.append(recipy)
-        self.setEntities(entities)
+        self.setRecipy(recipy)
     }
     
     func create() -> SWRecipy {
-        let next = (self.getEntities().map({ $0.id! }).max() ?? 0) + 1
-        let new = SWRecipy(id: next, name: "", servings: 0, ingredients: [], calories: 0, fats: 0, carbohydrates: 0, proteins: 0, timestamp: Date(), liked: false/*, photo: nil*/)
+        let maxId = self.getEntity().recipies.reduce(Int.min, {
+            prev, next in
+            if let id = next.value.id {
+                if prev < id {
+                    return id
+                }
+                else {
+                    return prev
+                }
+            }
+            else {
+                return prev
+            }
+            
+        })
+        let new = SWRecipy(id: maxId + 1, name: "", servings: 0, ingredients: [], calories: 0, fats: 0, carbohydrates: 0, proteins: 0, timestamp: Date(), liked: false/*, photo: nil*/)
         return new
     }
     
     func removeBy(id: Int) -> Void {
-        self.setEntities(self.getEntities().filter({ $0.id != id }))
+        let entity = self.getEntity()
+        entity.recipies[id] = nil
+        SWPersistantRecipyRepository.entity = entity
+        self.setEntities([entity])
     }
     
+    func setBookmark(_ recipy: SWRecipy) -> Void {
+        if let id = recipy.id {
+            self.setBookmarkId(id)
+        }
+    }
+
 }

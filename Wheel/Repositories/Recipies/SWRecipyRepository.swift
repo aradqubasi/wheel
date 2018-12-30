@@ -17,6 +17,10 @@ protocol SWRecipyRepository {
     
     func create() -> SWRecipy
     
-    func removeBy(id: Int) -> Void 
+    func removeBy(id: Int) -> Void
+    
+    func getBookmark() -> SWRecipy?
+    
+    func setBookmark(_ recipy: SWRecipy) -> Void
     
 }

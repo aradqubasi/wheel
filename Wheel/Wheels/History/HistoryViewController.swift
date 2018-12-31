@@ -111,7 +111,13 @@ class HistoryViewController: SWTransitioningViewController {
     
     // MARK: - Navigation
     @IBAction func unwindToHistory(segue: UIStoryboardSegue) {
-        
+        self.tableIndex = recipies.getAll().sorted(by: {
+            (prev, next) -> Bool in
+            return prev.timestamp > next.timestamp
+        }).map({
+            $0.id!
+        })
+        self.history.reloadData()
     }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -125,6 +131,8 @@ class HistoryViewController: SWTransitioningViewController {
                     .get(by: self.tableIndex[self.history.indexPathForSelectedRow!.row])!
                 recipyViewController.backSegue = self.segues.getRecipyToHistory()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToHistoryWithSwipe()
+                recipyViewController.showLikeButton = true
+                recipyViewController.showDeleteButton = true
             }
             self.history.deselectRow(at: self.history.indexPathForSelectedRow!, animated: true)
         case segues.getHistoryToWheels().identifier?, segues.getHistoryToWheelsWithSwipe().identifier?:

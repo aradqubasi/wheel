@@ -14,15 +14,15 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
     
     var assembler: SWRecipyAssembler!
     
-//    var selection: [SWIngredient]!
-    
     var selection: SWRecipy!
     
+    var showLikeButton: Bool = false
+    
+    var showDeleteButton: Bool = false
+    
+    var showSaveButton: Bool = false
+    
     // MARK: - Private Properties
-    
-//    private var swiper: UIGestureRecognizer!
-    
-//    private var _swiper: SWSwipeGestureRecognizer!
     
     private var _selectionViews: [SWRecipyIngridientView]!
     
@@ -44,8 +44,8 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
     
     private var _broccoli: SWRecipyBroccoliView!
     
-//    private var _dismisser: SWSwipeInteractiveTransition?
-    
+    private var like: UIButton!
+
     // MARK - Repositories
     
     private var measuresments: SWMeasuresmentRepository!
@@ -153,6 +153,49 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                 _subheader.topAnchor.constraint(equalTo: recipyHeader.bottomAnchor, constant: 8).isActive = true
                 _subheader.heightAnchor.constraint(equalToConstant: 17).isActive = true
                 
+                var preLine1: UIView = _subheader
+                
+                if self.showLikeButton || self.showDeleteButton {
+                    if self.showLikeButton {
+                        do {
+                            like = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 56)))
+                            _recipyHeaderContainer.addSubview(like)
+                            like.translatesAutoresizingMaskIntoConstraints = false
+                            like.backgroundColor = .shamrock
+                            like.layer.cornerRadius = 28
+                            like.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -24).isActive = true
+                            like.topAnchor.constraint(equalTo: _subheader.bottomAnchor, constant: 24).isActive = true
+                            like.addSizeConstraints()
+                            like.addTarget(self, action: #selector(onLikeRecipyClick(_:)), for: .touchUpInside)
+                            self.setSaveRecipyButtonState()
+                            
+                            preLine1 = like
+                        }
+                    }
+                    
+                    if self.showDeleteButton {
+                        var delete: UIButton!
+                        do {
+                            delete = UIButton(frame: CGRect(origin: .zero, size: CGSize(side: 56)))
+                            _recipyHeaderContainer.addSubview(delete)
+                            delete.translatesAutoresizingMaskIntoConstraints = false
+//                            delete.backgroundColor = .blue
+                            delete.setImage(#imageLiteral(resourceName: "recipy/delete"), for: .normal)
+                            if showLikeButton {
+                                delete.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -24 + -56 + -24).isActive = true
+                            }
+                            else {
+                                delete.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -24).isActive = true
+                            }
+                            delete.topAnchor.constraint(equalTo: _subheader.bottomAnchor, constant: 24).isActive = true
+                            delete.addSizeConstraints()
+                            delete.addTarget(self, action: #selector(onDeleteRecipyClick(_:)), for: .touchUpInside)
+                            
+                            preLine1 = delete
+                        }
+                    }
+                }
+
                 var line1: UIView!
                 do {
                     line1 = UIView().getRecipySeparatorLine(for: view.bounds.width - 16 * 2)
@@ -161,7 +204,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                     line1.addSizeConstraints()
                     line1.leadingAnchor.constraint(equalTo: _recipyHeaderContainer.leadingAnchor, constant: 16).isActive = true
                     line1.trailingAnchor.constraint(equalTo: _recipyHeaderContainer.trailingAnchor, constant: -16).isActive = true
-                    line1.topAnchor.constraint(equalTo: _subheader.bottomAnchor, constant: 24).isActive = true
+                    line1.topAnchor.constraint(equalTo: preLine1.bottomAnchor, constant: 24).isActive = true
                 }
                 
                 do {
@@ -249,15 +292,21 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                     line3.topAnchor.constraint(equalTo: _list.bottomAnchor, constant: 24).isActive = true
                 }
                 
-                var saveRecipy: UIButton!
-                do {
-                    saveRecipy = UIButton.saveRecipy
-                    _recipyHeaderContainer.addSubview(saveRecipy)
-                    saveRecipy.translatesAutoresizingMaskIntoConstraints = false
-                    saveRecipy.addSizeConstraints()
-                    saveRecipy.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
-                    saveRecipy.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-                    saveRecipy.addTarget(self, action: #selector(onSaveRecipyClick(_:)), for: .touchUpInside)
+                var preHappyCooking: UIView = line3
+                
+                if self.showSaveButton {
+                    var saveRecipy: UIButton!
+                    do {
+                        saveRecipy = UIButton.saveRecipy
+                        _recipyHeaderContainer.addSubview(saveRecipy)
+                        saveRecipy.translatesAutoresizingMaskIntoConstraints = false
+                        saveRecipy.addSizeConstraints()
+                        saveRecipy.topAnchor.constraint(equalTo: line3.bottomAnchor, constant: 24).isActive = true
+                        saveRecipy.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
+                        saveRecipy.addTarget(self, action: #selector(onSaveRecipyClick(_:)), for: .touchUpInside)
+                        
+                        preHappyCooking = saveRecipy
+                    }
                 }
                 
                 var happyCooking: UILabel!
@@ -267,7 +316,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                     happyCooking.translatesAutoresizingMaskIntoConstraints = false
                     happyCooking.addSizeConstraints()
                     happyCooking.centerXAnchor.constraint(equalTo: _recipyHeaderContainer.centerXAnchor).isActive = true
-                    happyCooking.topAnchor.constraint(equalTo: saveRecipy.bottomAnchor, constant: 32).isActive = true
+                    happyCooking.topAnchor.constraint(equalTo: preHappyCooking.bottomAnchor, constant: 32).isActive = true
                 }
                 
                 do {
@@ -280,7 +329,7 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
                 }
                 
                 _recipyHeaderContainer.backgroundColor = .white
-                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + /*recipy header*/ recipyHeader.frame.height /*subheader:*/ + 8 + 17 /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*show steps*/ + 24 + saveRecipy.frame.height /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 18 + 64))
+                _recipyHeaderContainer.frame = CGRect(origin: .zero, size: CGSize(width: view.bounds.width, height: 24 + /*recipy header*/ recipyHeader.frame.height /*subheader:*/ + 8 + 17 /*like & delete*/ + (self.showLikeButton || self.showDeleteButton ? (24 + 56) : 0) /*line1:*/ + 24 + 2 /*counter:*/ + 24 + 32 /*line2:*/ + 24 + 2 /*listTitle:*/ + 24 + 19 /*list:*/ + 8 + _list.frame.height /*line3:*/ + 24 + 2 /*save recipy*/ + (self.showSaveButton ? (24 + 56) : 0) /*happy cooking:*/ + 32 + 22 /*broccoli pop-up*/ + 18 + 64))
             }
             
             view.addSubview(_scroller)
@@ -312,13 +361,6 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
         }
 
         do {
-//            _dismisser = SWSwipeInteractiveTransition({() -> Void in
-//                self.perform(segue: self.segues.getRecipyToWheelsWithSwipe())
-//            })
-//            _swiper = SWSwipeGestureRecognizer()
-//            _swiper.Delegate = _dismisser
-//            _scroller.gestureRecognizers?.forEach({ $0.require(toFail: _swiper) })
-//            _scroller.addGestureRecognizer(_swiper)
             self.swiper = SWDismissRecipyGestureRecognizer(target: self, action: #selector(onSwipe(sender:)))
             self._scroller.gestureRecognizers?.forEach({ $0.require(toFail: self.swiper) })
             self._scroller.addGestureRecognizer(self.swiper)
@@ -345,27 +387,47 @@ class RecipyViewController: SWTransitioningViewController, UIScrollViewDelegate 
         }
     }
     
+    // MARK: - Private Methods
+    
+    private func setSaveRecipyButtonState() {
+        if let recipy = self.selection, let like = self.like {
+            if recipy.liked {
+                like.setImage(#imageLiteral(resourceName: "recipy/heart_full"), for: .normal)
+            }
+            else {
+                like.setImage(#imageLiteral(resourceName: "recipy/heart_empty"), for: .normal)
+            }
+        }
+    }
+    
     // MARK: - Actions
-//
-//    @IBAction func onBackButtonClick(_ sender: Any) {
-//        perform(segue: segues.getRecipyToWheels())
-//    }
-//
-    @IBAction func onSaveRecipyClick(_ sender: Any) {
+
+    @IBAction private func onSaveRecipyClick(_ sender: Any) {
         do {
             var recipy = self.selection!
             recipy.servings = self.selection.servings
             self.recipies.save(recipy)
             self.recipies.setBookmark(recipy)
-            perform(segue: self.segues.getRecipyToWheels())
+            //perform(segue: self.segues.getRecipyToWheels())
+            self.perform(segue: self.backSegue)
         }
-//        transit()
     }
     
-//    @IBAction func transit() {
-//        perform(segue: segues.getRecipyToSteps())
-//    }
+    @IBAction private func onLikeRecipyClick(_ sender: Any) {
+        self.selection.liked = !self.selection.liked
+        self.setSaveRecipyButtonState()
+        if !showSaveButton {
+            self.recipies.save(self.selection)
+        }
+    }
     
+    @IBAction private func onDeleteRecipyClick(_ sender: Any) {
+        if let id = self.selection.id {
+            self.recipies.removeBy(id: id)
+        }
+        self.perform(segue: self.backSegue)
+    }
+
     @IBAction func onMore(_ sender: Any) {
         self.selection.servings = self.selection.servings + 1
         _subheader.set(

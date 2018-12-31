@@ -901,6 +901,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 recipyViewController.selection = self.generator.generate(selected, servings: 2)
                 recipyViewController.backSegue = self.segues.getRecipyToWheels()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
+                recipyViewController.showLikeButton = true
+                recipyViewController.showSaveButton = true
             }
         case segues.getWheelsToRecipyByBookmark().identifier:
             if let recipyViewController = (segue.destination as? RecipyViewController) {
@@ -911,6 +913,8 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                 recipyViewController.selection = bookmark
                 recipyViewController.backSegue = self.segues.getRecipyToWheels()
                 recipyViewController.backWithSwipeSegue = self.segues.getRecipyToWheelsWithSwipe()
+                recipyViewController.showLikeButton = true
+                recipyViewController.showDeleteButton = true
             }
         case segues.getWheelsToOverlay().identifier:
             print("to \(String(describing: overlayTransitionContext))")

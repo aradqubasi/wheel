@@ -220,15 +220,15 @@ class FilterViewController: SWViewController, SWDismissableViewController {
     @IBAction private func onOkButtonClick(_ sender: UIButton) {
         
         _ingredients.forEach({
-            let view = $0.key
-            var model = $0.value
+//            let view = $0.key
+            let model = $0.value
             //model.checked = view.checked
             _options.save(model)
         })
         _allergies.forEach({
-            let view = $0.key
-            var model = $0.value
-            //model.checked = view.checked
+//            let view = $0.key
+            let model = $0.value
+//            model.checked = view.checked
             _options.save(model)
         })
         perform(segue: segues.getFilterToWheelsWithConfirm())

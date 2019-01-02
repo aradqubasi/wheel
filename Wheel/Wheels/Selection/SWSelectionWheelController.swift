@@ -61,7 +61,14 @@ class SWSelectionWheelController: UIViewController {
     
     private var radius: SWRadiuses {
         get {
-            return SWRadiuses(wheel: view.bounds.width * 0.5, pin: 42 * 0.5, spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10, pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 * 0.5, label: view.bounds.width * 0.5 - 10 - 42 - 10 - 14 - 10 - 14 * 0.5, button: view.bounds.width * 0.5 + 48 * 0.5 - 15)
+            return SWRadiuses(
+                wheel: view.bounds.width * 0.5,
+                pin: 42 * 0.5,
+                spoke: view.bounds.width * 0.5 - 42 * 0.5 - 10,
+                pointer: view.bounds.width * 0.5 - 10 - 42 - 10 - CGFloat(14 * 0.5),
+                label: view.bounds.width * 0.5 - CGFloat(10) - CGFloat(42) - CGFloat(10) - CGFloat(14) - CGFloat(10) - CGFloat(14 * 0.5),
+                button: view.bounds.width * 0.5 + CGFloat(48 * 0.5) - CGFloat(15)
+            )
         }
     }
     

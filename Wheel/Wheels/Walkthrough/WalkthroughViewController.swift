@@ -235,14 +235,14 @@ class WalkthroughViewController: SWViewController {
         }
         
         //filter button
-        do {
-            let state = SWWalkthroughState(parent: self, index: 8, text: .tipForFilterbutton, area: areas.filtersButton, layout: CGFloat.bottom)
-            state.align()
-            let prev = states.last!
-            state.prev = prev
-            prev.next = state
-            states.append(state)
-        }
+//        do {
+//            let state = SWWalkthroughState(parent: self, index: 8, text: .tipForFilterbutton, area: areas.filtersButton, layout: CGFloat.bottom)
+//            state.align()
+//            let prev = states.last!
+//            state.prev = prev
+//            prev.next = state
+//            states.append(state)
+//        }
         
         //outro
         do {

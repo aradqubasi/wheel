@@ -30,9 +30,12 @@ class SWShowOverlayAnimationController: NSObject, UIViewControllerAnimatedTransi
         let duration = transitionDuration(using: transitionContext)
         
         var real: UIButton!
-        switch toVC.kind {
+        guard let viewkind = toVC.kind else {
+            fatalError("toVC.kind is null")
+        }
+        switch viewkind {
         case .unexpected:
-            real = fromVC.toUnexpected!
+            real = fromVC.toUnexpected
         case .fruits:
             real = fromVC.toFruits
         case .dressing:

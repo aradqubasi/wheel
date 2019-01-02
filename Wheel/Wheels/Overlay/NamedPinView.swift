@@ -38,13 +38,14 @@ class NamedPinView: UIView, Floatable {
         }
         set (new) {
             _state = new
-            switch _state {
+            guard let state = self._state else {
+                fatalError("namedbuttonviewstate could not be null")
+            }
+            switch state {
             case .regular:
                 _button.layer.borderWidth = 0
             case .highlight:
                 _button.layer.borderWidth = 2
-            default:
-                fatalError("\(new) state in NamedPinState is unhandled")
             }
             
         }

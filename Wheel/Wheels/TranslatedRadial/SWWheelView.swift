@@ -274,7 +274,10 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             let old = parent.convert(label.center, to: _container)
             
             var new = _view.center
-            new.x += -settings.radius + _pin * settings.scale + height * 0.5 + _inset
+            new.x += -settings.radius
+            new.x += _pin * settings.scale
+            new.x += height * 0.5
+            new.x += _inset
             new.x -= old.x
             new.y -= old.y
             label.transform = CGAffineTransform.identity.translatedBy(x: new.x, y: new.y).rotated(by: -CGFloat.pi * 0.5)
@@ -324,8 +327,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     
     var radius: CGFloat {
         get {
-            guard let radius = _settings[_state]?.radius else {
-                fatalError("Could not find settings for state \(_state)")
+            guard let state = self._state else {
+                fatalError("SWWheelView._state is null")
+            }
+            guard let radius = _settings[state]?.radius else {
+                fatalError("Could not find settings for state \(state)")
             }
             return radius
         }
@@ -445,8 +451,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                     
                     //focus pin
                     do {
-                        guard let image = spoke.pin.images[_state]?.first(where: { return $0.key == .focused })?.value else {
-                            fatalError("no images for state \(_state):\(SVState.focused) in \(spoke.pin.name)")
+                        guard let state = self._state else {
+                            fatalError("namedbuttonviewstate could not be null")
+                        }
+                        guard let image = spoke.pin.images[state]?.first(where: { return $0.key == .focused })?.value else {
+                            fatalError("no images for state \(state):\(SVState.focused) in \(spoke.pin.name)")
                         }
                         spoke.pin.setImage(image, for: .normal)
                     }
@@ -456,8 +465,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                     
                     //unfocus pin
                     do {
-                        guard let image = spoke.pin.images[_state]?.first(where: { return $0.key == .visible })?.value else {
-                            fatalError("no images for state \(_state):\(SVState.visible) in \(spoke.pin.name)")
+                        guard let state = self._state else {
+                            fatalError("namedbuttonviewstate could not be null")
+                        }
+                        guard let image = spoke.pin.images[state]?.first(where: { return $0.key == .visible })?.value else {
+                            fatalError("no images for state \(state):\(SVState.visible) in \(spoke.pin.name)")
                         }
                         spoke.pin.setImage(image, for: .normal)
                     }
@@ -471,8 +483,11 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
     func flush() {
         resize(to: _state)
         move(by: 0)
-        guard let settings = _settings[_state] else {
-            fatalError("no settings for state \(_state)")
+        guard let state = self._state else {
+            fatalError("namedbuttonviewstate could not be null")
+        }
+        guard let settings = _settings[state] else {
+            fatalError("no settings for state \(state)")
         }
         let radius = settings.radius
         _background.frame.size = CGSize(width: radius * 2, height: radius * 2)

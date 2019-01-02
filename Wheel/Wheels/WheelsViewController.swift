@@ -268,7 +268,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
                     let unlocking = pin.state == .locked
                     var wheel: SWAbstractWheelController!
                     
-                    switch pin.kind {
+                    guard let kind = pin.kind else {
+                        fatalError("pin.kind is null")
+                    }
+                    switch kind {
                     case .base:
                         wheel = self.bases
                     case .fat:
@@ -350,7 +353,10 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         topleftDecoration.layer.borderWidth = 38
         view.addSubview(topleftDecoration)
         
-        leftDecoration = UIView(frame: CGRect(x: 0, y: view.bounds.height - 125 - (12 * 3 + 11 * 2), width: 12 * 5 + 11.5 + 4, height: 12 * 3 + 11 * 2))
+        let leftDecorationY: CGFloat = view.bounds.height - CGFloat(125) - CGFloat((12 * 3) + (11 * 2))
+        let leftDecorationWidth: CGFloat = 12 * 5 + 11.5 + 4
+        let leftDecorationHeight: CGFloat = 12 * 3 + 11 * 2
+        leftDecoration = UIView(frame: CGRect(x: 0, y: leftDecorationY, width: leftDecorationWidth, height: leftDecorationHeight))
         var offset: CGPoint = .zero
         for _ in 0..<3 {
             offset.x = 0

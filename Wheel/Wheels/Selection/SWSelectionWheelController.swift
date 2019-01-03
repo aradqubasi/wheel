@@ -123,6 +123,8 @@ class SWSelectionWheelController: UIViewController {
     private var semaphor: SWAnimationSemaphor!
     
     private var modeler: SWModelHelper!
+    
+    private var floatables: [SWIngredient:UIImageView] = [:]
 
     // MARK: - Initialization
 
@@ -719,10 +721,10 @@ class SWSelectionWheelController: UIViewController {
         
         UIView.animate(withDuration: 0.8 + timeCorrection, delay: 0, options: [.curveEaseInOut], animations: {
             floatable.transform = CGAffineTransform.identity.translatedBy(x: three.x, y: three.y)
+            self.floatables[ingredient] = floatable
         }, completion: {
             (success) -> Void in
-            floatable.removeFromSuperview()
-            //            print("veggy circle end #\(sorted.count) \(Date().timeIntervalSince(self.start))")
+//            floatable.removeFromSuperview()
         })
         
         
@@ -791,6 +793,9 @@ class SWSelectionWheelController: UIViewController {
                 (success) -> Void in
                 unseen.removeFromSuperview()
                 self.insert(ingredient)
+                if let floatable = self.floatables[ingredient] {
+                    floatable.removeFromSuperview()
+                }
                 let remainings = sorted.filter({ $0 != ingredient })
                 do {
                     UIView.animate(withDuration: 0.225) {
@@ -801,6 +806,7 @@ class SWSelectionWheelController: UIViewController {
                     self.pushTheWheel(remainings, rollTime: self.rollTimeOfFollowingOfManyIngredients, shouldSkipOpening: shouldSkipOpening)
                 }
                 else {
+                    self.floatables.removeAll()
                     self.semaphor.onAnimationEnd(.fetchingIngredientsIntoSelectionWheel, sender: self)
                 }
             })

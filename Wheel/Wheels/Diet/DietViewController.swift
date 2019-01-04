@@ -28,7 +28,7 @@ class DietViewController: SWTransitioningViewController {
     // MARK: - Subviews
     
     private var radius: CGFloat = 120
-    private var pieChart: SWNewPieViewController!
+    private var pieChart: SWPieViewController!
     
     private let size = CGSize(width: 70, height: 200)
     private var slider: SWSliderViewController!
@@ -112,7 +112,7 @@ class DietViewController: SWTransitioningViewController {
         )
         
         do {
-            self.pieChart = SWNewPieViewController()
+            self.pieChart = SWPieViewController()
             do {
                 self.pieChart.assembler = self.assembler.resolve()
                 let diet = self.settings.get()

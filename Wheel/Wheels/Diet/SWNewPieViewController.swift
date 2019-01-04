@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SWNewPieViewController: UIViewController {
+class SWPieViewController: UIViewController {
     
     // MARK: - Injection
     
@@ -542,10 +542,10 @@ class SWNewPieViewController: UIViewController {
                 let positions = self.getCircularPositions(of: section.captionChars.map({ $0.bounds.size }), at: base)
                 let width = (positions.max() ?? 0) - (positions.min() ?? 0)
                 if self.chart.sections[prev].share <= criticals[prev] {
-                    adjusted = self.getMiddleOf(SWAngularRange(start: section.range.end - width, end: section.range.end))
+                    adjusted = self.getMiddleOf(SWAngularRange(start: section.range.start, end: section.range.start + width))
                 }
                 else if self.chart.sections[next].share <= criticals[next] {
-                    adjusted = self.getMiddleOf(SWAngularRange(start: section.range.start, end: section.range.start + width))
+                    adjusted = self.getMiddleOf(SWAngularRange(start: section.range.end - width, end: section.range.end))
                 }
                 else {
                     adjusted = section.markAngle

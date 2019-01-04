@@ -441,7 +441,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         
         wheels.addSubview(UIView(frame: CGRect(center: leftMiddle, side: 156)).toLayerView)
         
-        rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toRollButton
+        rollButton = UIButton(frame: CGRect(center: leftMiddle, side: 120)).toTextRollButton
         rollButton.addTarget(self, action: #selector(self.onNextMenu(_:)), for: .touchUpInside)
         wheels.addSubview(rollButton)
         

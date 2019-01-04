@@ -22,6 +22,18 @@ extension UIButton {
         }
     }
     
+    var toTextRollButton: UIButton {
+        get {
+            self.backgroundColor = UIColor.casablanca
+            self.layer.cornerRadius = self.frame.size.width / 2
+            self.setAttributedTitle(NSAttributedString(string: "ROLL").avenirLightify(16).whitify(), for: .normal)
+            self.titleEdgeInsets.top = -72
+            self.imageEdgeInsets.bottom = 72
+            self.transform = CGAffineTransform.identity.rotated(by: -CGFloat.pi * 0.5)
+            return self
+        }
+    }
+    
     var asToUnexpected: UIButton {
         get {
             self.setImage(UIImage.unexpected, for: .normal)

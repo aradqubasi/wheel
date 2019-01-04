@@ -25,6 +25,8 @@ class SWDietOption {
     
     private let button: UIButton
     
+    private let label: UILabel
+    
     var UserOption: SWUserOption {
         get {
             return self.userOption
@@ -38,9 +40,16 @@ class SWDietOption {
         self.color = color
         self.background = background
         self.userOption = userOption
+        
         self.button = UIButton()
         self.button.frame.size = CGSize(side: 50)
         self.button.layer.cornerRadius = 25
+        
+        self.label = UILabel()
+        let text = NSAttributedString(string: self.guiname).avenirLightify(12).whitify()
+        self.label.frame.size = text.size()
+        self.label.attributedText = text
+        
         self.button.addTarget(self, action: #selector(onClick), for: .touchUpInside)
         self.display()
     }
@@ -48,6 +57,9 @@ class SWDietOption {
     func setCenter(to point: CGPoint, at view: UIView) {
         view.addSubview(self.button)
         self.button.center = point
+        
+        view.addSubview(self.label)
+        self.label.center = point + CGPoint(x: 0, y: self.button.frame.height * 0.5 + self.label.frame.height * 0.5)
     }
     
     @IBAction private func onClick() {

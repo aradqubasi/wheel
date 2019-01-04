@@ -95,6 +95,16 @@ class DietViewController: SWTransitioningViewController {
         let buttonscenter = CGPoint(
             x: self.view.getBoundsCenter().x + 60,
             y: self.view.getBoundsCenter().y + 142)
+        let margins = (
+            x: (
+                half: CGFloat(12),
+                one: CGFloat(24)
+            ),
+            y: (
+                half: CGFloat(12),
+                one: CGFloat(24)
+            )
+        )
         let positions = (
             piechart: CGPoint(
                 x: self.view.getBoundsCenter().x,
@@ -102,13 +112,13 @@ class DietViewController: SWTransitioningViewController {
             slider: CGPoint(
                 x: self.view.getBoundsCenter().x - 96,
                 y: self.view.getBoundsCenter().y + 145),
-            topleftbutton: buttonscenter + CGPoint(x: -8, y: -16) + CGPoint(x: -25, y: -50),
-            middleleftbutton: buttonscenter + CGPoint(x: -8, y: 0) + CGPoint(x: -25, y: 0),
-            bottomleftbutton: buttonscenter + CGPoint(x: -8, y: 16) + CGPoint(x: -25, y: 50),
+            topleftbutton: buttonscenter + CGPoint(x: -margins.x.half, y: -margins.y.one) + CGPoint(x: -25, y: -50),
+            middleleftbutton: buttonscenter + CGPoint(x: -margins.x.half, y: 0) + CGPoint(x: -25, y: 0),
+            bottomleftbutton: buttonscenter + CGPoint(x: -margins.x.half, y: margins.y.one) + CGPoint(x: -25, y: 50),
             
-            bottomrightbutton: buttonscenter + CGPoint(x: 8, y: 16) + CGPoint(x: 25, y: 50),
-            middlerightbutton: buttonscenter + CGPoint(x: 8, y: 0) + CGPoint(x: 25, y: 0),
-            toprightbutton: buttonscenter + CGPoint(x: 8, y: -16) + CGPoint(x: 25, y: -50)
+            bottomrightbutton: buttonscenter + CGPoint(x: margins.x.half, y: margins.y.one) + CGPoint(x: 25, y: 50),
+            middlerightbutton: buttonscenter + CGPoint(x: margins.x.half, y: 0) + CGPoint(x: 25, y: 0),
+            toprightbutton: buttonscenter + CGPoint(x: margins.x.half, y: -margins.y.one) + CGPoint(x: 25, y: -50)
         )
         
         do {

@@ -117,7 +117,7 @@ class WalkthroughViewController: SWViewController {
         // pagination
         do {
             pagerCenterOrigin = CGPoint(x: view.bounds.width * 0.5, y: view.bounds.height * 0.75)
-            let dotCount = 10
+            let dotCount = 9
             pager = UIView()
             for i in 0..<dotCount {
                 let dot = UIView(frame: CGRect(origin: CGPoint(x: i * 24, y: 0), size: CGSize(width: 8, height: 8)))
@@ -246,7 +246,7 @@ class WalkthroughViewController: SWViewController {
         
         //outro
         do {
-            let state = SWOutroWheelState(parent: self, index: 9, text: .tipForOutro, area: SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero), layout: .bottom)
+            let state = SWOutroWheelState(parent: self, index: 8, text: .tipForOutro, area: SWAreaOfInterest(center: CGPoint(x: -100, y: -100), size: .zero), layout: .bottom)
             state.align()
             let prev = states.last!
             state.prev = prev
@@ -342,6 +342,7 @@ extension WalkthroughViewController {
         let highlightView: UIView
         let tipView: UILabel
         let invertTipView: UILabel
+        let blackfont: UILabel
         let areaOfInterest: SWAreaOfInterest
         let tipText: NSAttributedString
         let tipLayout: CGFloat
@@ -360,6 +361,7 @@ extension WalkthroughViewController {
             tipText = text
             tipLayout = layout
             controller = parent
+            self.blackfont = UILabel()
         }
         
         func align() {
@@ -376,10 +378,11 @@ extension WalkthroughViewController {
             do {
                 scene.addSubview(tipView)
                 tipView.asWalkthrough(text: tipText, width: 240)
-                tipView.center = controller.view.getBoundsCenter()
+                tipView.center = scene.getBoundsCenter()
                 pagerCenterPoint = pagerCenterOrigin
                 tipView.alpha = 0
                 tipView.transform = CGAffineTransform.identity.scaledBy(x: 0.1, y: 0.1).rotated(by: -CGFloat.pi * 0.15)
+                
             }
             
             //highlight
@@ -399,11 +402,9 @@ extension WalkthroughViewController {
             
             //invert tip
             do {
-                let blackfont = UILabel()
-                blackfont.asWalkthrough(text: tipText, width: 240)
-                blackfont.attributedText = tipText.blackify()
+                blackfont.asWalkthrough(text: tipText.blackify(), width: 240)
                 highlightView.addSubview(blackfont)
-                blackfont.center = controller.view.convert(controller.view.getBoundsCenter(), to: highlightView)
+                blackfont.center = scene.convert(tipView.center, to: highlightView)
             }
             
         }

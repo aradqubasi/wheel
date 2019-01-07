@@ -445,21 +445,25 @@ extension NSAttributedString {
         }
     }
     
-    private func unfy() -> (font: Any?, text: String, color: Any?) {
+    private func unfy() -> (font: Any?, text: String, color: Any?, kern: Any?) {
         return (
             self.attribute(.font, at: 0, effectiveRange: nil),
             self.string,
-            self.attribute(.foregroundColor, at: 0, effectiveRange: nil)
+            self.attribute(.foregroundColor, at: 0, effectiveRange: nil),
+            self.attribute(.kern, at: 0, effectiveRange: nil)
         )
     }
     
-    private func fy(_ fyAttibutes: (font: Any?, text: String, color: Any?)) -> NSAttributedString {
+    private func fy(_ fyAttibutes: (font: Any?, text: String, color: Any?, kern: Any?)) -> NSAttributedString {
         var attributes: [NSAttributedStringKey: Any] = [:]
         if fyAttibutes.font != nil {
             attributes[NSAttributedStringKey.font] = fyAttibutes.font
         }
         if fyAttibutes.color != nil {
             attributes[NSAttributedStringKey.foregroundColor] = fyAttibutes.color
+        }
+        if let kern = fyAttibutes.kern as? Double {
+            attributes[NSAttributedStringKey.kern] = kern
         }
         return NSMutableAttributedString(string: fyAttibutes.text, attributes: attributes)
     }
@@ -481,7 +485,7 @@ extension NSAttributedString {
     func avenirLightify(_ size: CGFloat) -> NSAttributedString {
         let unfy = self.unfy()
         let font = UIFont(name: "Avenir-Light", size: size)
-        return fy((font: font, text: unfy.text, color: unfy.color))
+        return fy((font: font, text: unfy.text, color: unfy.color, unfy.kern))
     }
     
     class var dietTitle: NSAttributedString {
@@ -494,7 +498,12 @@ extension NSAttributedString {
     func avenirHeavfy(_ size: CGFloat) -> NSAttributedString {
         let unfy = self.unfy()
         let font = UIFont(name: "Avenir-Heavy", size: size)
-        return fy((font: font, text: unfy.text, color: unfy.color))
+        return fy((font: font, text: unfy.text, color: unfy.color, unfy.kern))
+    }
+    
+    func kernify(_ kern: Double) -> NSAttributedString {
+        let unfy = self.unfy()
+        return fy((font: unfy.font, text: unfy.text, color: unfy.color, kern))
     }
     
     class var saveRecipy: NSAttributedString {

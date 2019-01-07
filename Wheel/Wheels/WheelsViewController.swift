@@ -381,7 +381,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 800))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .protein), with: 20, as: .proteins, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .protein), with: 54, as: .proteins, in: container, facing: .leftward)
             wheel.delegate = self
             proteins = wheel
             
@@ -389,6 +389,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             proteinsMark.textAlignment = .center
             wheels.addSubview(proteinsMark)
             proteinsMark.text = "veggies".uppercased()
+            proteinsMark.textColor = .nevada
             proteins.label = proteinsMark
         }
         
@@ -396,7 +397,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 600))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .veggy), with: 20, as: .veggies, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .veggy), with: 48, as: .veggies, in: container, facing: .leftward)
             wheel.delegate = self
             veggies = wheel
             
@@ -404,6 +405,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             veggiesMark.textAlignment = .center
             wheels.addSubview(veggiesMark)
             veggiesMark.text = "veggies".uppercased()
+            veggiesMark.textColor = .nevada
             veggies.label = veggiesMark
         }
         
@@ -411,7 +413,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         do {
             let container = TransparentView.init(frame: CGRect(center: leftMiddle, side: 430))
             wheels.addSubview(container)
-            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .fat), with: 20, as: .fats, in: container, facing: .leftward)
+            let wheel = SWWheelView.init(self.filter.filterByOptionsAnd(by: .fat), with: 36, as: .fats, in: container, facing: .leftward)
             wheel.delegate = self
             fats = wheel
             
@@ -419,6 +421,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             fatsMark.textAlignment = .center
             wheels.addSubview(fatsMark)
             fatsMark.text = "fats".uppercased()
+            fatsMark.textColor = .nevada
             fats.label = fatsMark
         }
         
@@ -434,6 +437,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             basesMark.textAlignment = .center
             wheels.addSubview(basesMark)
             basesMark.text = "bases".uppercased()
+            basesMark.textColor = .nevada
             bases.label = basesMark
         }
         
@@ -474,7 +478,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             concreteSelectionController.delegate = self
             let rectangle = CGRect(x: 0, y: 0, width: view.frame.width * 1.7, height: view.frame.width * 1.7)
             concreteSelectionController.view.frame = rectangle
-//            concreteSelectionController.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.width * 1.77 * 1.3)
             concreteSelectionController.view.center = CGPoint(x: view.frame.width * 0.5, y: view.frame.height + view.frame.width * (1.7 * 0.5 - 0.36))
             view.addSubview(concreteSelectionController.view)
             self.addChildViewController(concreteSelectionController)
@@ -527,14 +530,14 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         }
         
         do {
-            let ingredients = SWInmemoryIngredientRepository()
-            let measures = SWInmemoryMeasuresmentRepository()
-            let stats = SWInmemoryIngredientStatsRepository()
-            let recipy = SWConcreteRecipyListGenerator(measuresment: measures)
-            let servings = SWConcreteServingsGenerator(measuresment: measures, stats: stats)
-            for ingredient in ingredients.getAll() {
-                print("\(recipy.getName(for: ingredient));\(recipy.getKind(for: ingredient));\(recipy.getQuantity(for: ingredient, per: 1));\(servings.getEnergy(for: [ingredient], per: 1));\(servings.getCarbs(for: [ingredient], per: 1));\(servings.getFats(for: [ingredient], per: 1));\(servings.getProteins(for: [ingredient], per: 1))")
-            }
+//            let ingredients = SWInmemoryIngredientRepository()
+//            let measures = SWInmemoryMeasuresmentRepository()
+//            let stats = SWInmemoryIngredientStatsRepository()
+//            let recipy = SWConcreteRecipyListGenerator(measuresment: measures)
+//            let servings = SWConcreteServingsGenerator(measuresment: measures, stats: stats)
+//            for ingredient in ingredients.getAll() {
+//                print("\(recipy.getName(for: ingredient));\(recipy.getKind(for: ingredient));\(recipy.getQuantity(for: ingredient, per: 1));\(servings.getEnergy(for: [ingredient], per: 1));\(servings.getCarbs(for: [ingredient], per: 1));\(servings.getFats(for: [ingredient], per: 1));\(servings.getProteins(for: [ingredient], per: 1))")
+//            }
         }
         
         _helper = assembler.resolve(bases: self.bases, fats: self.fats, veggies: self.veggies, proteins: self.proteins, unexpected: self.toUnexpected, fruits: self.toFruits, dressings: self.toDressing, scene: self.view)

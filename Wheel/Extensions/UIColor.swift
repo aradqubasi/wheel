@@ -304,4 +304,10 @@ public extension UIColor {
             return UIColor(red: 71 / 255, green: 43 / 255, blue: 131 / 255, alpha: 1)
         }
     }
+    
+    class var nevada: UIColor {
+        get {
+            return UIColor(red: 94 / 255, green: 110 / 255, blue: 121 / 255, alpha: 1)
+        }
+    }
 }

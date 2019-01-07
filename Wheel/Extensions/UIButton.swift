@@ -26,7 +26,7 @@ extension UIButton {
         get {
             self.backgroundColor = UIColor.casablanca
             self.layer.cornerRadius = self.frame.size.width / 2
-            self.setAttributedTitle(NSAttributedString(string: "ROLL").avenirLightify(16).whitify(), for: .normal)
+            self.setAttributedTitle(NSAttributedString(string: "ROLL").avenirHeavfy(12).whitify().kernify(0.6), for: .normal)
             self.titleEdgeInsets.top = -72
             self.imageEdgeInsets.bottom = 72
             self.transform = CGAffineTransform.identity.rotated(by: -CGFloat.pi * 0.5)

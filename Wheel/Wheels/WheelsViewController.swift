@@ -390,6 +390,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             wheels.addSubview(proteinsMark)
             proteinsMark.text = "veggies".uppercased()
             proteinsMark.textColor = .nevada
+            proteinsMark.font = UIFont(name: "Avenir-Medium", size: 10)
             proteins.label = proteinsMark
         }
         
@@ -406,6 +407,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             wheels.addSubview(veggiesMark)
             veggiesMark.text = "veggies".uppercased()
             veggiesMark.textColor = .nevada
+            veggiesMark.font = UIFont(name: "Avenir-Medium", size: 10)
             veggies.label = veggiesMark
         }
         
@@ -422,6 +424,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             wheels.addSubview(fatsMark)
             fatsMark.text = "fats".uppercased()
             fatsMark.textColor = .nevada
+            fatsMark.font = UIFont(name: "Avenir-Medium", size: 10)
             fats.label = fatsMark
         }
         
@@ -438,6 +441,7 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
             wheels.addSubview(basesMark)
             basesMark.text = "bases".uppercased()
             basesMark.textColor = .nevada
+            basesMark.font = UIFont(name: "Avenir-Medium", size: 10)
             bases.label = basesMark
         }
         

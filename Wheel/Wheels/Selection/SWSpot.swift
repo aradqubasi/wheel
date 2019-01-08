@@ -100,7 +100,7 @@ class SWHiddenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     func alignView(to center: CGPoint, moveLabelUpBy labelRadius: CGFloat) {
         icon.alpha = 0
         icon.frame.size = size
-        _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
+        _icon.setImage(.add_thin, for: .normal)
         icon.layer.cornerRadius = icon.bounds.width * 0.5
         icon.layer.borderWidth = 1
         icon.layer.borderColor = UIColor.tiara.cgColor

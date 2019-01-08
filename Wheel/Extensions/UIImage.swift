@@ -793,6 +793,12 @@ public extension UIImage {
         }
     }
     
+    class var add_thin: UIImage {
+        get {
+            return UIImage(named: "wheelgui/add_thin")!
+        }
+    }
+    
     // MARK: - Custom Initializer
     
     public convenience init?(color: UIColor, size: CGSize = CGSize(width: 1, height: 1)) {

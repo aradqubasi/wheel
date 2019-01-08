@@ -24,7 +24,9 @@ class AfterlaunchViewController: SWViewController {
         
         segues = assembler.resolve()
         
-        if appState.initializeDefaults {
+        let initialize = appState.initializeDefaults
+        
+        if initialize {
             let diet: SWDietSettingsRepository = self.assembler.resolve()
             diet.upsert(SWDietSettings(id: 1, fatsDailyShare: 0.225, proteinsDailyShare: 0.275, carbohydratesDailyShare: 0.5, morningEnergyIntakeShare: 0.267, middayEnergyIntakeShare: 0.466, eveningEnergyIntakeShare: 0.267, dailyEnergyIntake: 1000, morning: 5, midday: 15, evening: 22))
             appStateRepository.setInitializeDefaults(false)
@@ -46,6 +48,9 @@ class AfterlaunchViewController: SWViewController {
                             (option: SWOption, userOption: SWUserOption?) -> SWUserOption in
                             if let userOption = userOption {
                                 return userOption
+                            }
+                            else if initialize {
+                                return SWUserOption(option.id ?? 0, true)
                             }
                             else {
                                 return SWUserOption(option.id ?? 0, false)

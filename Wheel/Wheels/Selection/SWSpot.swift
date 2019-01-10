@@ -241,7 +241,7 @@ class SWFilledSpot: SWSelectionSpot, SWLabeledSelectionSpot {
         let openned = SWOpenSpot(icon: _icon, label: _label, kinds: self.kinds)
 
         _icon.alpha = 1
-        _icon.setImage(#imageLiteral(resourceName: "wheelgui/add"), for: .normal)
+        _icon.setImage(.add_thin, for: .normal)
         _icon.layer.cornerRadius = icon.bounds.width * 0.5
         _icon.layer.borderWidth = 1
         _icon.layer.borderColor = UIColor.tiara.cgColor

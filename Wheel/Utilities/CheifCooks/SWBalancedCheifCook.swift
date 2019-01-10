@@ -9,25 +9,45 @@
 import Foundation
 class SWBalancedCheifCook: SWCheifCook {
     
-    private let attempts = 10
+    private let attempts = 100
     
-    private let dailyCalories: Double = 1800
+    private var dailyCalories: Double {
+        get {
+            return diet.get().dailyEnergyIntake
+        }
+    }
     
-    private let energyByServingByDayHour: [(start: Int, end: Int, min: Double, max: Double)] = [
-        (0, 10, 0.167, 0.222),
-        (11, 19, 0.278, 0.389),
-        (20, 24, 0.167, 0.222),
-    ]
+    private var energyByServingByDayHour: [(start: Int, end: Int, share: Double)] {
+        get {
+            let diet = self.diet.get()
+            return [
+                (0, 10, diet.morningEnergyIntakeShare),
+                (11, 19, diet.middayEnergyIntakeShare),
+                (20, 24, diet.eveningEnergyIntakeShare)
+            ]
+        }
+    }
     
-    private let energyByNutrient: (carbohydrates: (min: Double, max: Double), proteins: (min: Double, max: Double), fats: (min: Double, max: Double)) = ((0.45, 0.65), (0.1, 0.35), (0.2, 0.35))
+    private var energyByNutrient: (carbohydrates: Double, proteins: Double, fats: Double) {
+        get {
+            let diet = self.diet.get()
+            return (
+                diet.carbohydratesDailyShare,
+                diet.proteinsDailyShare,
+                diet.fatsDailyShare
+            )
+        }
+    }
     
     private var repository: SWFullIngredientRepository
     
     private var randomizer: SWRandomIngredientProvider
     
-    init(ingredients: SWFullIngredientRepository, randomizer: SWRandomIngredientProvider) {
+    private var diet: SWDietSettingsRepository
+    
+    init(ingredients: SWFullIngredientRepository, randomizer: SWRandomIngredientProvider, diet: SWDietSettingsRepository) {
         self.repository = ingredients
-        
+        self.diet = diet
         self.randomizer = randomizer
     }
     
@@ -63,38 +83,30 @@ class SWBalancedCheifCook: SWCheifCook {
             )
         })
         let hour = Calendar.current.component(.hour, from: Date())
-        guard let share = energyByServingByDayHour.first(where: { hour >= $0.start && hour <= $0.end }) else {
+        guard let shareByHours = energyByServingByDayHour.first(where: { hour >= $0.start && hour <= $0.end }) else {
             fatalError("hour \(hour) is out of bounds 0..<24")
         }
-        let mealEnergyShare = (share.max - share.min) * 0.5
+        let mealEnergyShare = shareByHours.share
         let expected = [
-            (energyByNutrient.fats.max + energyByNutrient.fats.min) * 0.5 * mealEnergyShare,
-            (energyByNutrient.proteins.max + energyByNutrient.proteins.min) * 0.5 * mealEnergyShare,
-            (energyByNutrient.carbohydrates.max + energyByNutrient.carbohydrates.min) * 0.5 * mealEnergyShare
+            energyByNutrient.fats * mealEnergyShare,
+            energyByNutrient.proteins * mealEnergyShare,
+            energyByNutrient.carbohydrates * mealEnergyShare
         ]
-        //print("expected = [\(expected[0]), \(expected[1]), \(expected[2])]")
         let actual = [
             stats.fats / dailyCalories,
             stats.proteins / dailyCalories,
             stats.carbohydrates / dailyCalories
         ]
-        //print("actual = [\(actual[0]), \(actual[1]), \(actual[2])]")
         let rank = getRaeIndex(actual: actual, expected: expected)
-        //print("rank = \(rank)")
         return rank
     }
     
-    private func random() -> [SWFullIngredient] {
+    private func random(from ingredients: [SWFullIngredient]) -> [SWFullIngredient] {
         var selection: [SWFullIngredient] = []
-        
-        let ingredients = repository.getAll()
-        
+
         selection.append(
             randomizer.random(ingredients: ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }))
-//            ingredients.filter({ $0.ingredient.kind == .base && $0.isBlocked == false }).random()!
         )
-        
-//        selection.append(ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false}).random()!)
         selection.append(randomizer.random(ingredients: ingredients.filter({ $0.ingredient.kind == .fat && $0.isBlocked == false})))
 
         do {
@@ -123,7 +135,7 @@ class SWBalancedCheifCook: SWCheifCook {
     private func suggest(_ random: () -> [SWFullIngredient]) -> [SWIngredient] {
         var selections: [(rank: Double, suggestion: [SWFullIngredient])] = []
         for _ in 0..<self.attempts {
-            let ingredients = self.random()
+            let ingredients = random()
             let rank = self.rate(ingredients: ingredients)
             selections.append((rank, ingredients))
             do {
@@ -143,7 +155,7 @@ class SWBalancedCheifCook: SWCheifCook {
     
     func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
         let presuggestion = suggest({
-            var random = self.random().map({
+            var random = self.random()().map({
                 return (fullIngredient: $0, replaced: false)
             })
             for existing in selection {
@@ -167,8 +179,16 @@ class SWBalancedCheifCook: SWCheifCook {
         return suggestion
     }
     
+    private func random() -> () -> [SWFullIngredient] {
+        let ingredients = self.repository.getAll()
+        return {
+            () -> [SWFullIngredient] in
+            return self.random(from: ingredients)
+        }
+    }
+    
     func suggest() -> [SWIngredient] {
-        return suggest({ return self.random() })
+        return suggest(self.random())
     }
 }
 

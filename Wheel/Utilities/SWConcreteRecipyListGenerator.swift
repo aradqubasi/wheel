@@ -23,7 +23,7 @@ class SWConcreteRecipyListGenerator: SWRecipyListGenerator {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "leaves")"
         }
         else if unit.id == 7 {
-            return "\((CGFloat(ingredient.quantity) * CGFloat(servings)).getFractionString()) \(CGFloat(ingredient.quantity) * CGFloat(servings) > 1 ? unit.short : unit.short + "s")"
+            return "\((CGFloat(ingredient.quantity) * CGFloat(servings)).getFractionString()) \(CGFloat(ingredient.quantity) * CGFloat(servings) == 1 ? unit.short : unit.short + "s")"
         }
         else if unit.id == 8 {
             return "\(Int(ingredient.quantity) * servings) \(servings == 1 ? unit.short : "pieces")"

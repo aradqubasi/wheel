@@ -101,6 +101,7 @@ class SWHiddenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
         icon.alpha = 0
         icon.frame.size = size
         _icon.setImage(.add_thin, for: .normal)
+        _icon.setImage(.add_thin, for: .highlighted)
         icon.layer.cornerRadius = icon.bounds.width * 0.5
         icon.layer.borderWidth = 1
         icon.layer.borderColor = UIColor.tiara.cgColor
@@ -154,6 +155,7 @@ class SWOpenSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     func fill(with ingredient: SWIngredient) -> SWFilledSpot {
         _icon.alpha = 1
         _icon.setImage(ingredient.image, for: .normal)
+        _icon.setImage(nil, for: .highlighted)
         _icon.layer.borderWidth = 0
         _icon.layer.borderColor = UIColor.clear.cgColor
         let filled = SWFilledSpot(icon: _icon, label: _label, ingredient: ingredient, kinds: self.kinds)
@@ -228,6 +230,7 @@ class SWFilledSpot: SWSelectionSpot, SWLabeledSelectionSpot {
     func replace(with ingredient: SWIngredient) -> SWFilledSpot {
         _icon.alpha = 1
         _icon.setImage(ingredient.image, for: .normal)
+        _icon.setImage(nil, for: .highlighted)
         _icon.layer.borderWidth = 0
         _icon.layer.borderColor = UIColor.clear.cgColor
         let replacement = SWFilledSpot(icon: _icon, label: _label, ingredient: ingredient, kinds: self.kinds)
@@ -242,6 +245,7 @@ class SWFilledSpot: SWSelectionSpot, SWLabeledSelectionSpot {
 
         _icon.alpha = 1
         _icon.setImage(.add_thin, for: .normal)
+        _icon.setImage(.add_thin, for: .highlighted)
         _icon.layer.cornerRadius = icon.bounds.width * 0.5
         _icon.layer.borderWidth = 1
         _icon.layer.borderColor = UIColor.tiara.cgColor

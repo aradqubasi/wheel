@@ -230,7 +230,7 @@ extension UILabel {
         let label = UILabel()
         let text = text.toRecipyListQuantity
         label.attributedText = text
-        label.frame.size = text.size().wider(by: 2)
+        label.frame.size = text.size().raise()
         label.textAlignment = .left
         return label
     }

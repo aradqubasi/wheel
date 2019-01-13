@@ -28,8 +28,9 @@ class SWRecipyListView: UIView {
             _servings = new
             _quantityPreIngredient.forEach({
                 $0.value.setRecipyListQuantity(_generator.getQuantity(for: $0.key, per: _servings))
-                $0.value.addSizeConstraints()
-                print("\($0.key.name) \($0.value.constraints.count)")
+//                $0.value.addSizeConstraints()
+//                $0.value.layoutIfNeeded()
+//                print("\($0.key.name) \($0.value.constraints.count)")
 //                $0.value.ali
             })
         }
@@ -48,6 +49,7 @@ class SWRecipyListView: UIView {
         do {
             for ingredient in ingredients {
                 let quantity = UILabel.newRecipyListQuantity(_generator.getQuantity(for: ingredient, per: _servings))
+                quantity.frame.size.width = 72
                 let name = UILabel.newRecipyListName(_generator.getName(for: ingredient))
                 let kind = UILabel.newRecipyListKind(_generator.getKind(for: ingredient))
                 

@@ -584,13 +584,13 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     @IBAction private func onBookmarkButtonClick(_ sender: UIBarButtonItem) {
         perform(segue: segues.getWheelsToRecipyByBookmark())
-        if selectionController.getSelected().count == 1 {
-            fatalError("error test")
-        }
-        else if selectionController.getSelected().count == 2 {
-            let array = [1, 2, 3]
-            print("\(array[32])")
-        }
+//        if selectionController.getSelected().count == 1 {
+//            fatalError("error test")
+//        }
+//        else if selectionController.getSelected().count == 2 {
+//            let array = [1, 2, 3]
+//            print("\(array[32])")
+//        }
     }
     
     @IBAction func onDebug(_ sender: UIButton) {

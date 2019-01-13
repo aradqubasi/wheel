@@ -12,12 +12,12 @@ import UIKit
 class SWInmemoryOptionRepository : SWOptionRepository {
     
     private static var _options: [SWOption] = [
-        SWOption(1, "Vegan", of: .ingredient),
-        SWOption(2, "Vegeterian", of: .ingredient),
-        SWOption(3, "Percetarian", of: .ingredient),
-        SWOption(4, "Gluten intolerant", of: .allergy),
-        SWOption(5, "Wheat intolerant", of: .allergy),
-        SWOption(6, "Lactose intolerant", of: .allergy),
+//        SWOption(1, "Vegan", of: .ingredient),
+//        SWOption(2, "Vegeterian", of: .ingredient),
+//        SWOption(3, "Percetarian", of: .ingredient),
+//        SWOption(4, "Gluten intolerant", of: .allergy),
+//        SWOption(5, "Wheat intolerant", of: .allergy),
+//        SWOption(6, "Lactose intolerant", of: .allergy),
         SWOption(7, "No fish", of: .block),
         SWOption(8, "No meat", of: .block),
         SWOption(9, "No gluten", of: .block),

@@ -61,7 +61,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
             for j in 0..<capacity {
                 
                 let ingredient = ingredients[i]
-                let pin = PinView.create.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: active).icon(selected: ingredient.image).kind(of: ingredient.kind)
+                let pin = PinView(ingredient: ingredient, active: active)
                 spokes.append(SWSpoke.init(UIView(), pin, j, j == 0, 0))
                 
                 i = i == ingredients.count - 1 ? 0 : i + 1
@@ -309,9 +309,7 @@ class SWWheelView: SWAbstractWheelController, SWRingMaskDelegate, PVDelegate {
                 
                 let ingredient = pool[i]
                 let pin = _spokes[j].pin
-//                let state = pin.state
-                _ = pin.name(ingredient.name).icon(default: ingredient.outline).icon(ingredient.image, for: _active).icon(selected: ingredient.image).kind(of: ingredient.kind)
-//                pin.
+                _ = pin.fill(ingredient)
                 i = i == pool.count - 1 ? 0 : i + 1
             }
         }

@@ -31,8 +31,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
     
     private var _ingredients: SWIngredientRepository!
     
-    private var _blockings: SWBlockingRepository!
-    
     private var _options: SWOptionRepository!
     
     private var _appState: SWAppStateRepository!
@@ -321,7 +319,6 @@ class WheelsViewController: SWViewController, SWAbstractWheelControllerDelegate,
         self.recipies = assembler.resolve()
         _tipster = assembler.resolve()
         _ingredients = assembler.resolve()
-        _blockings = assembler.resolve()
         _options = assembler.resolve()
         segues = assembler.resolve()
         _aligner = assembler.resolve()

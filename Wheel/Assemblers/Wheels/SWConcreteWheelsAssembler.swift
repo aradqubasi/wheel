@@ -62,6 +62,10 @@ class SWConcreteWheelsAssembler: SWWheelsAssembler {
     }
     
     func resolve() -> SWIngredientsFilter {
+//        let checked = SWUserOptionRepository()
+//        checked.getEntities().forEach({
+//            print("{ id: \($0.optionId), checked: \($0.checked) }")
+//        })
         return SWConcreteIngredientsFilter(ingredients: SWConcreteFullIngredientRepository(ingredients: SWInmemoryIngredientRepository(), measuresments: SWInmemoryMeasuresmentRepository(), stats: SWInmemoryIngredientStatsRepository(), blockings: SWInmemoryBlockingRepoitory(), options: SWInmemoryOptionRepository(), checked: SWUserOptionRepository(), biases: SWPersistantIngredientBiasRepository(), state: SWUserDefaultsAppStateRepository()))
     }
     

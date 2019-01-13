@@ -154,12 +154,14 @@ class SWBalancedCheifCook: SWCheifCook {
     }
     
     func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
+        let ingredients = repository.getAll()
+        let randomizer = self.random()
         let presuggestion = suggest({
-            var random = self.random()().map({
+            var random = randomizer().map({
                 return (fullIngredient: $0, replaced: false)
             })
             for existing in selection {
-                let existingFullIngredient = (repository.getAll().first(where: { $0.ingredient.id == existing.id }))!
+                let existingFullIngredient = (ingredients.first(where: { $0.ingredient.id == existing.id }))!
                 if let index = random.index(where: {
                     $0.fullIngredient.ingredient.kind == existing.kind && $0.replaced == false
                 }) {

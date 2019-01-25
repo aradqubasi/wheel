@@ -847,6 +847,25 @@ class SWSelectionWheelController: UIViewController {
         }
     }
     
+    private func getNumberOfOpenSpotsBefore(_ spot: SWSelectionSpot?) -> Int {
+        var numberOfSpotsBeforeSpot = 0
+        var isSpotFound = false
+        self.forEachSpot(do: {
+            (next, angle, index) -> Void in
+            if next is SWOpenSpot || next is SWFilledSpot {
+                if !isSpotFound {
+                    if let spot = spot, spot.icon === spot.icon {
+                        isSpotFound = true
+                    }
+                    else {
+                        numberOfSpotsBeforeSpot += 1
+                    }
+                }
+            }
+        })
+        return numberOfSpotsBeforeSpot
+    }
+    
     private func popVeggies(_ ingredients: [SWIngredient]) {
         semaphor.onAnimationStart(.popingIngredientsAtSelectionWheel, sender: self)
         let ingredient = ingredients.first!
@@ -865,7 +884,7 @@ class SWSelectionWheelController: UIViewController {
             }
         })
         let related = spots.filter({ (spot) -> Bool in return spot.kinds.first(where: { (kind) -> Bool in return kind == ingredient.kind }) != nil })
-        let firstOpenned = related.first(where: { $0 is SWOpenSpot })
+        
         if let popped = popped as? SWFilledSpot {
             if related.count == 1 {
                 replace(popped, with: popped.close())
@@ -883,6 +902,26 @@ class SWSelectionWheelController: UIViewController {
                 }
             }
             else if related.count >= 1 {
+                
+                var poppedSpotIndex: Int = 0
+                var focusSpotIndex: Int = 0
+                do {
+                    guard let focus = self.getSpotAtFront() else {
+                        fatalError("Focus spot at slection menu is absent")
+                    }
+                    self.forEachSpot(do: {
+                        (spot, angle, index) -> Void in
+                        if spot is SWOpenSpot || spot is SWFilledSpot {
+                            if spot.icon === popped.icon {
+                                poppedSpotIndex = index
+                            }
+                            if spot.icon === focus.icon {
+                                focusSpotIndex = index
+                            }
+                        }
+                    })
+                }
+                
                 var poppedPositionFound = false
                 for i in 0..<related.count {
                     if poppedPositionFound {
@@ -892,7 +931,23 @@ class SWSelectionWheelController: UIViewController {
                         poppedPositionFound = true
                     }
                 }
-                replace(popped, with: firstOpenned != nil ? popped.close().hide() : popped.close())
+                if related.contains(where: { $0 is SWOpenSpot }) {
+                    replace(popped, with: popped.close().hide())
+                    if poppedSpotIndex <= focusSpotIndex {
+                        self.forEachSpot(do: {
+                            (spot, angle, index) -> Void in
+                            if (spot is SWOpenSpot || spot is SWFilledSpot) && index <= focusSpotIndex {
+                                self.rotation = -angle + self.front
+                            }
+                        })
+                    }
+                    else {
+                        // rotation does not need adjustment
+                    }
+                }
+                else {
+                    replace(popped, with: popped.close())
+                }
                 do {
                     UIView.animate(withDuration: 0.225) {
                         self.setCookingButtonState()
@@ -917,6 +972,7 @@ class SWSelectionWheelController: UIViewController {
                     }, completion: {
                         (success: Bool) -> Void in
                         unseen.removeFromSuperview()
+                        
                         let remainings = ingredients.filter({ $0 != ingredient })
                         if remainings.count != 0 {
                             self.popVeggies(remainings)
@@ -1154,3 +1210,4 @@ extension SWSelectionWheelController: SWCookingButtonDelegate {
     }
     
 }
+

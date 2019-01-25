@@ -155,7 +155,7 @@ class SWBalancedCheifCook: SWCheifCook {
     
     func suggestOne(of kinds: [SWIngredientKinds], for selection: [SWIngredient]) -> SWIngredient {
         let ingredients = repository.getAll()
-        let randomizer = self.random()
+        let randomizer = self.random(excluding: selection)
         let presuggestion = suggest({
             var random = randomizer().map({
                 return (fullIngredient: $0, replaced: false)
@@ -181,8 +181,8 @@ class SWBalancedCheifCook: SWCheifCook {
         return suggestion
     }
     
-    private func random() -> () -> [SWFullIngredient] {
-        let ingredients = self.repository.getAll()
+    private func random(excluding exceptions: [SWIngredient]) -> () -> [SWFullIngredient] {
+        let ingredients = self.repository.getAll().filter({ return !exceptions.contains($0.ingredient) })
         return {
             () -> [SWFullIngredient] in
             return self.random(from: ingredients)
@@ -190,7 +190,7 @@ class SWBalancedCheifCook: SWCheifCook {
     }
     
     func suggest() -> [SWIngredient] {
-        return suggest(self.random())
+        return suggest(self.random(excluding: []))
     }
 }
 
